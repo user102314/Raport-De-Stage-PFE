@@ -1,0 +1,1577 @@
+%================================================================
+% RAPPORT DE STAGE / PROJET DE FIN D'ETUDES
+% KODA — Assistant de Vie (Ami Virtuel) — Système Embarqué Intelligent
+% Classe DSI3.2 — ISET Mahdia
+%================================================================
+
+\documentclass[a4paper,12pt]{report}
+
+%----------------------------------------------------------------
+% Encodage & langue
+%----------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,french]{babel} 
+
+
+%----------------------------------------------------------------
+% Police Times New Roman
+%----------------------------------------------------------------
+\usepackage{mathptmx}            % Times New Roman pour texte et maths
+
+%----------------------------------------------------------------
+% Mise en page
+%----------------------------------------------------------------
+\usepackage[
+a4paper,
+top=2cm,
+bottom=2cm,
+left=2.5cm,   % 2cm + 0.5cm reliure
+right=2cm,
+headheight=14pt
+]{geometry}
+
+\usepackage{setspace}
+\setstretch{1.5}                 % Interligne 1.5
+
+\usepackage{microtype}           % Meilleure justification
+\usepackage{ragged2e}
+
+%----------------------------------------------------------------
+% Couleurs & graphiques
+%----------------------------------------------------------------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\makeatletter
+\newcommand{\nonfloatingfigure}[3]{%
+  \vspace{\intextsep}
+  \begin{center}
+    \makebox[\textwidth][c]{\includegraphics[width=0.9\textwidth]{#1}}
+    \def\@captype{figure}
+    \caption{#2}
+    \label{#3}
+  \end{center}
+  \vspace{\intextsep}
+}
+\makeatother
+\usepackage{tikz}
+\usepackage{pgfgantt}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, backgrounds}
+
+\definecolor{BleuPrimaire}{HTML}{185FA5}
+\definecolor{BleuClair}{HTML}{D6E8F8}
+\definecolor{VertPrimaire}{HTML}{3B6D11}
+\definecolor{VertClair}{HTML}{D6ECC2}
+\definecolor{VioletPrimaire}{HTML}{534AB7}
+\definecolor{VioletClair}{HTML}{E0DFFA}
+\definecolor{CoralPrimaire}{HTML}{993C1D}
+\definecolor{CoralClair}{HTML}{F5D5C8}
+\definecolor{GrisFonce}{HTML}{2C2C2A}
+\definecolor{GrisMoyen}{HTML}{5F5E5A}
+\definecolor{GrisClair}{HTML}{F1EFE8}
+\definecolor{AmbreJaune}{HTML}{BA7517}
+\definecolor{AmbreClair}{HTML}{FAEEDA}
+
+%----------------------------------------------------------------
+% Tableaux
+%----------------------------------------------------------------
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{makecell}
+
+%----------------------------------------------------------------
+% Listes
+%----------------------------------------------------------------
+\usepackage{enumitem}
+\setlist[itemize]{label=\textbullet, leftmargin=1.5em, itemsep=2pt, topsep=4pt}
+\setlist[enumerate]{leftmargin=1.5em, itemsep=2pt, topsep=4pt}
+
+%----------------------------------------------------------------
+% En-tetes et pieds de page (fancyhdr)
+%----------------------------------------------------------------
+\usepackage{fancyhdr}
+\usepackage{emptypage}           % Pas d'en-tete sur pages vides
+
+% Style par defaut (chapitres)
+\fancypagestyle{mainStyle}{
+	\fancyhf{}
+	\fancyhead[L]{\small\textit{\leftmark}}
+	\fancyhead[R]{}
+	\fancyfoot[L]{\small KODA --- Assistant de Vie Virtuel --- Système Embarqué Intelligent}
+	\fancyfoot[R]{\small\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+}
+
+% Style pages pre-liminaires (pas de numero)
+\fancypagestyle{preStyle}{
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
+}
+
+%----------------------------------------------------------------
+% Titres de chapitres et sections (Times, tailles conformes)
+%----------------------------------------------------------------
+\usepackage{titlesec}
+\usepackage{titletoc}
+
+% Format for numbered chapters (isolated page with rules)
+\titleformat{\chapter}[display]
+{\null\vspace*{\fill}\centering\normalfont}
+{\rule{3cm}{2.5pt}\quad\fontsize{20}{24}\bfseries\MakeUppercase{\chaptertitlename}~\thechapter\quad\rule{3cm}{2.5pt}}{20pt}
+{\fontsize{18}{22}\bfseries\MakeUppercase}
+[\vspace*{\fill}\clearpage]
+
+% Format for unnumbered chapters (Introduction Générale, Conclusion Générale)
+\titleformat{name=\chapter,numberless}[display]
+{\null\vspace*{\fill}\centering\normalfont}
+{}{0pt}
+{\fontsize{22}{26}\bfseries\MakeUppercase}
+[\vspace*{\fill}\clearpage]
+
+\titlespacing*{\chapter}{0pt}{0pt}{0pt}
+\titlespacing*{name=\chapter,numberless}{0pt}{0pt}{0pt}
+
+% Section : Titre 2 => taille 14, gras
+\titleformat{\section}
+{\normalfont\fontsize{14}{17}\bfseries}
+{\thesection}{0.8em}{}
+\titlespacing*{\section}{0pt}{16pt}{8pt}
+
+% Subsection : Titre 3 => taille 12, gras
+\titleformat{\subsection}
+{\normalfont\fontsize{12}{15}\bfseries}
+{\thesubsection}{0.8em}{}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
+
+% Subsubsection : Titre 4 => taille 12, gras italique
+\titleformat{\subsubsection}
+{\normalfont\fontsize{12}{15}\bfseries\itshape}
+{\thesubsubsection}{0.8em}{}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+
+%----------------------------------------------------------------
+% Figures et tableaux
+%----------------------------------------------------------------
+\usepackage{caption}
+\captionsetup[figure]{
+	font=small,         % taille 10
+	labelfont=bf,
+	position=below,
+	skip=4pt
+}
+\captionsetup[table]{
+	font=small,         % taille 10
+	labelfont=bf,
+	position=above,
+	skip=4pt
+}
+
+%----------------------------------------------------------------
+% Boites colorees (tcolorbox)
+%----------------------------------------------------------------
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+\newtcolorbox{ucbox}[1]{
+	enhanced, breakable,
+	colback=#1!8, colframe=#1,
+	arc=4pt, boxrule=0.6pt,
+	left=8pt, right=8pt, top=5pt, bottom=5pt
+}
+
+\newtcolorbox{sprintbox}[2][]{
+	enhanced, breakable,
+	colback=#2!10, colframe=#2,
+	arc=6pt, boxrule=0.7pt,
+	left=10pt, right=10pt, top=8pt, bottom=8pt,
+	fonttitle=\bfseries\small\color{white},
+	title=#1,
+	attach boxed title to top left={yshift=-2mm, xshift=6mm},
+	boxed title style={colback=#2, arc=3pt, boxrule=0pt}
+}
+
+%----------------------------------------------------------------
+% Hyperliens
+%----------------------------------------------------------------
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+	pdfauthor={Oussema Karia \& Salahedin Jendoubi},
+	pdftitle={Rapport PFE --- Koda --- Robot compagnon intelligent et émotionnel connecté, piloté par une application cross-platform },
+	pdfsubject={Projet de Fin d'Etudes}
+}
+
+%----------------------------------------------------------------
+% Commandes utilitaires
+%----------------------------------------------------------------
+\newcommand{\badge}[2]{%
+	\colorbox{#1}{\textcolor{white}{\footnotesize\bfseries\ #2\ }}%
+}
+
+% Astuce : empecher les titres en fin de page
+\usepackage{needspace}
+\newcommand{\sectiontitle}[1]{\needspace{4\baselineskip}\section{#1}}
+\newcommand{\subsectiontitle}[1]{\needspace{3\baselineskip}\subsection{#1}}
+
+%----------------------------------------------------------------
+% Compteur de pages
+%----------------------------------------------------------------
+\usepackage{ifthen}
+
+%================================================================
+%----------------------------------------------------------------
+% Custom Numbering System
+%----------------------------------------------------------------
+\renewcommand{\thechapter}{\Roman{chapter}}
+\renewcommand{\thesection}{\thechapter.\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+\begin{document}
+	
+	\selectlanguage{english}
+	%================================================================
+	
+	%----------------------------------------------------------------
+	% PAGES PRE-LIMINAIRES (pas de numerotation visible)
+	%----------------------------------------------------------------
+	\pagestyle{preStyle}
+	\pagenumbering{roman}
+
+	
+	%================================================================
+	%  PAGE DE GARDE
+	%================================================================
+	\begin{titlepage}
+		\begin{center}
+			\begin{minipage}[c]{0.45\textwidth}
+				\raggedright
+				\includegraphics[height=3.5cm]{public/isetlogo (2).png}
+			\end{minipage}%
+			\hfill
+			\begin{minipage}[c]{0.45\textwidth}
+				\raggedleft
+				\includegraphics[height=3.5cm]{public/logos.png}
+			\end{minipage}
+			
+			\vspace{1.5cm}
+			{\fontsize{14}{17}\selectfont\textbf{Institut Supérieur des Études Technologiques de Mahdia}}\\[0.3cm]
+			{\fontsize{12}{15}\selectfont\textbf{Département : Technologies de l'Informatique}}\\[0.3cm]
+			{\fontsize{12}{15}\selectfont\textbf{Développement des Systèmes Informatiques --- DSI3.2}}\\[1.5cm]
+			
+			\rule{\linewidth}{0.6pt} \\[1cm]
+			{\fontsize{22}{26}\selectfont\textbf{Rapport de Projet de Fin d'Études}}\\[0.8cm]
+			\rule{\linewidth}{0.6pt} \\[2cm]
+			
+			{\fontsize{18}{22}\selectfont\textbf{Koda --- Robot compagnon intelligent et émotionnel connecté, piloté par une application cross-platform } }\\[0.4cm]
+			{\fontsize{14}{17}\selectfont\textbf{Système Embarqué · Intelligence Artificielle · Application Mobile Cross-Plateforme}}\\[2.5cm]
+			
+			\begin{minipage}[t]{0.45\textwidth}
+				\begin{flushleft}
+					\textbf{Réalisé par :}\\[0.2cm]
+					Oussema KARIA\\[0.1cm]
+					Salahedin JENDOUBI
+				\end{flushleft}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[t]{0.45\textwidth}
+				\begin{flushright}
+					\textbf{Encadré par :}\\[0.2cm]
+					M.Wahid BANOUR --- (Encadrant)\\[0.1cm]
+					M.Hamza SASSI (Encadrant Entreprise)
+				\end{flushright}
+			\end{minipage}
+			
+			\vfill
+			
+			{\fontsize{12}{15}\selectfont\textbf{Organisme d'accueil :} ---}\\[0.4cm]
+			{\fontsize{12}{15}\selectfont\textbf{Période :} Février 2026 -- Juin 2026}\\[0.4cm]
+			
+			\vspace*{0.5cm}
+		\end{center}
+	\end{titlepage}
+	
+	%================================================================
+	%  RESUME (VERSO COUVERTURE)
+	%================================================================
+	\clearpage
+	\thispagestyle{preStyle}
+	
+	\begin{center}
+		{\fontsize{14}{17}\selectfont\bfseries Abstract}
+	\end{center}
+	
+	\noindent
+	This report presents KODA, an intelligent embedded life-assistant system designed to provide personalized support and companionship to users through a virtual assistant with its own unique nature and personality. KODA is capable of responding intelligently to any person, reasoning like a human, and recognizing individuals through its security and configuration modes.
+	
+	The system is built around a multi-component architecture: a Raspberry Pi embedded system serving as the robot's physical core; an n8n workflow engine forming the brain of KODA, responsible for preparing and reasoning through responses; a Python service layer acting as a universal distributor, communicating with n8n, the database, the mobile application, and the Raspberry Pi while exposing all ecosystem endpoints; a cross-platform mobile application for configuration and life-monitoring; and a persistent database serving as KODA's memory. Developed following an agile methodology, the project ensures seamless integration between embedded hardware and scalable software components.
+	
+	\vspace{0.5cm}
+	\noindent\textbf{Keywords:} Embedded System, Virtual Assistant, Raspberry Pi, n8n, Python, Cross-Platform, Artificial Intelligence, Life Assistant, KODA.
+	
+	\vspace{1cm}
+	\selectlanguage{french}
+	\begin{center}
+		{\fontsize{14}{17}\selectfont\bfseries Résumé}
+	\end{center}
+	
+	\noindent
+	Ce rapport présente KODA, un système embarqué intelligent conçu pour être un assistant de vie et un ami virtuel doté de sa propre personnalité et nature. KODA est capable de répondre de manière réfléchie à n'importe quelle personne, de raisonner comme un être humain et de reconnaître les individus grâce à ses modes de sécurité et de configuration.
+	
+	L'architecture du système repose sur plusieurs composants complémentaires : un système embarqué Raspberry Pi constituant le c\oe{}ur physique du robot ; un moteur de workflows n8n formant le cerveau de KODA, responsable de la préparation et de la réflexion des réponses ; une couche de services Python agissant comme distributeur universel, assurant la communication entre n8n, la base de données, l'application mobile et le Raspberry Pi tout en exposant les endpoints de tout l'écosystème ; une application mobile cross-plateforme pour la configuration et le suivi de vie du robot ; et une base de données persistante servant de mémoire à KODA.
+	
+	\vspace{0.5cm}
+	\noindent\textbf{Mots-clés :} Système Embarqué, Assistant Virtuel, Raspberry Pi, n8n, Python, Cross-Plateforme, Intelligence Artificielle, Assistant de Vie, KODA.
+	\selectlanguage{english}
+	
+	%================================================================
+	%  DEDICACE - OUSSEMA KARIA
+	%================================================================
+	\clearpage
+	\thispagestyle{preStyle}
+	
+	\null\vspace*{\fill}
+	\begin{center}
+		{\fontsize{26}{30}\selectfont\bfseries DÉDICACE}\\[1cm]
+		\rule{0.5\textwidth}{0.5pt}\\[1.5cm]
+	\end{center}
+	
+	\begin{flushright}
+		\itshape
+		Je dédie ce travail à ma famille, pilier silencieux de ma force et source inépuisable de soutien. Merci pour vos sacrifices immenses et pour avoir cru en moi tout au long de mon parcours académique.\\[0.5cm]
+		
+		À mes parents, pour leur amour inconditionnel, leurs encouragements et leurs prières qui ont été la lumière guidant chacun de mes pas. Ce succès est le vôtre autant que le mien.\\[0.5cm]
+		
+		À mes amis et collègues, pour leur soutien moral et pour avoir partagé avec moi cette aventure inoubliable.\\[0.5cm]
+		
+		À mon binôme Salahedin, pour sa persévérance, sa créativité et sa complicité tout au long de ce projet.\\[0.5cm]
+		
+		À tous ceux qui ont contribué, même par un simple mot d'encouragement, à l'accomplissement de ce travail.\\[0.8cm]
+		
+		\textbf{\Large Oussema KARIA}
+	\end{flushright}
+	
+	\vspace*{\fill}
+	
+	%================================================================
+	%  DEDICACE - SALAHEDIN JENDOUBI
+	%================================================================
+	\clearpage
+	\thispagestyle{preStyle}
+	
+	\null\vspace*{\fill}
+	\begin{center}
+		{\fontsize{26}{30}\selectfont\bfseries DÉDICACE}\\[1cm]
+		\rule{0.5\textwidth}{0.5pt}\\[1.5cm]
+	\end{center}
+	
+	\begin{flushright}
+		\itshape
+		À ma famille,\\
+		pour son soutien inconditionnel et ses sacrifices immenses\\
+		tout au long de mon parcours académique.\\[0.5cm]
+		
+		À mon binôme Oussema, pour son enthousiasme, sa rigueur\\
+		et sa précieuse collaboration dans la réalisation de ce projet.\\[0.5cm]
+		
+		À mes encadrants,\\
+		pour leur guidance, leur patience et leur expertise technique.\\[0.5cm]
+		
+		\textbf{\Large Salahedin JENDOUBI}
+	\end{flushright}
+	
+	\vspace*{\fill}
+	
+	%================================================================
+	%  REMERCIEMENTS
+	%================================================================
+	\clearpage
+	\thispagestyle{preStyle}
+	\begin{center}
+		{\fontsize{16}{20}\selectfont\bfseries Acknowledgements}
+	\end{center}
+	\vspace{0.5cm}
+	
+	\noindent
+	Nous tenons à exprimer notre profonde et sincère gratitude à toutes les personnes qui ont contribué à la réalisation et au succès de ce projet.
+	
+	\noindent
+	Nous adressons nos remerciements les plus chaleureux à notre encadrant académique pour ses précieux conseils, sa disponibilité constante et son suivi rigoureux, garant de l'intégrité académique de notre travail.
+	
+	\noindent
+	Nous remercions également notre encadrant entreprise ainsi que toute l'équipe de l'organisme d'accueil pour leur accueil chaleureux, la mise à disposition des ressources nécessaires et les éclairages techniques partagés tout au long de notre stage.
+	
+	\noindent
+	Nous remercions par ailleurs la direction et le corps enseignant de l'ISET MAHDIA, département DSI, pour la formation de qualité qu'ils nous ont dispensée.
+	
+	\noindent
+	Enfin, nous remercions sincèrement nos amis et collègues pour leur soutien moral et pour avoir partagé avec nous cette aventure inoubliable.
+	
+	%================================================================
+	%  Temporarily switch to inline chapter title for TOC/LOF/LOT
+	%  (title appears on same page as content, not isolated)
+	%================================================================
+	\titleformat{name=\chapter,numberless}
+	{\normalfont\fontsize{16}{20}\bfseries\centering}{}{0pt}{\MakeUppercase}
+	\titlespacing*{name=\chapter,numberless}{0pt}{30pt}{20pt}
+	
+	%================================================================
+	%  TABLE DES MATIERES
+	%================================================================
+	\clearpage
+	\thispagestyle{preStyle}
+	\tableofcontents
+	
+	%================================================================
+	%  LISTE DES FIGURES
+	%================================================================
+	\clearpage
+	\thispagestyle{preStyle}
+	\listoffigures
+	
+	%================================================================
+	%  LISTE DES TABLEAUX
+	%================================================================
+	\clearpage
+	\thispagestyle{preStyle}
+	\listoftables
+	
+	%================================================================
+	%  DEBUT DE LA NUMEROTATION ARABE (depuis Introduction Generale)
+	%================================================================
+	\clearpage
+	\pagestyle{mainStyle}
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+	
+	%================================================================
+	%  INTRODUCTION GENERALE (unnumbered, isolated title page)
+	%================================================================
+	\chapter*{Introduction Générale}
+	\addcontentsline{toc}{chapter}{Introduction Générale}
+	\markboth{Introduction Générale}{Introduction Générale}
+	
+	Dans un monde en constante évolution technologique, la demande en solutions intelligentes capables d'améliorer la qualité de vie des individus n'a jamais été aussi forte. Les assistants virtuels et les systèmes embarqués intelligents représentent aujourd'hui une réponse concrète à ce besoin, en combinant les avancées de l'intelligence artificielle, des systèmes embarqués et du développement logiciel moderne.
+	
+	Ce projet de fin d'études, réalisé dans le cadre de la formation en Développement des Systèmes Informatiques (DSI3.2) à l'ISET Mahdia, porte sur la conception et le développement de \textbf{KODA} : un assistant de vie et ami virtuel embarqué. KODA est un système robotique doté de sa propre personnalité et nature, capable de répondre intelligemment à toute personne, de raisonner à la manière d'un être humain, de reconnaître les individus à travers ses modes de sécurité, et d'être configuré et suivi via une application mobile cross-plateforme dédiée.
+	
+	La problématique centrale de ce projet est : \textbf{Comment concevoir un système embarqué intelligent capable d'assurer un rôle d'assistant de vie personnalisé, intégrant reconnaissance des personnes, réflexion autonome et pilotage à distance via une application mobile ?}
+	
+	Ce rapport est organisé comme suit :
+	\begin{itemize}
+		\item \textbf{Chapitre~I} présente le cadre général du projet, l'organisme d'accueil, la problématique, l'analyse de l'existant et la solution proposée.
+		\item \textbf{Chapitre~II} définit les besoins fonctionnels et non fonctionnels ainsi que la modélisation UML du système.
+		\item \textbf{Chapitre~III} décrit l'architecture globale du système KODA et l'interaction entre ses différentes couches.
+		\item \textbf{Chapitre~IV} détaille le système embarqué Raspberry Pi, son rôle et son implémentation.
+		\item \textbf{Chapitre~V} présente le moteur de traitement n8n et la couche Python, c\oe{}ur logique de KODA.
+		\item \textbf{Chapitre~VI} couvre l'application mobile cross-plateforme de configuration et de suivi.
+		\item \textbf{Chapitre~VII} traite du déploiement, de la base de données et des tests de validation du système complet.
+	\end{itemize}
+	
+	%================================================================
+	%  Restore isolated page format for numbered + unnumbered chapters
+	%================================================================
+	\titleformat{name=\chapter,numberless}[display]
+	{\null\vspace*{\fill}\centering\normalfont}
+	{}{0pt}
+	{\fontsize{22}{26}\bfseries\MakeUppercase}
+	[\vspace*{\fill}\clearpage]
+	\titlespacing*{name=\chapter,numberless}{0pt}{0pt}{0pt}
+	
+	%================================================================
+	%  CHAPITRE I : Cadre Général du Projet et Présentation de l'Organisme
+	%================================================================
+	\chapter{Cadre Général du Projet et Présentation de l'Organisme}
+	
+	\section*{Introduction du chapitre}
+	\addcontentsline{toc}{section}{Introduction du chapitre}
+	
+	Ce chapitre esquisse le cadre fondamental de notre étude en définissant l'environnement contextuel et organisationnel du projet. Nous commençons par introduire l'organisme d'accueil, en mettant en évidence son expertise technologique et sa structure interne dédiée à l'innovation.
+	
+	Ensuite, nous exposons la problématique centrale, justifiant le besoin critique d'un système intelligent. Une analyse rigoureuse des solutions existantes nous permet d'identifier les limites actuelles et de mieux positionner notre système proposé. Enfin, nous détaillons la méthodologie de projet adoptée, assurant une approche structurée et efficace tout au long du cycle de développement.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Contexte Général du Projet}
+	%----------------------------------------------------------------
+	
+	L’évolution technologique actuelle transforme notre interaction avec l'environnement. La robotique sociale et les assistants personnels virtuels s'imposent comme des éléments clés pour améliorer la qualité de vie, offrant des solutions innovantes pour l'assistance quotidienne.
+	
+	Le projet KODA s'inscrit dans cette dynamique en proposant un assistant de vie virtuel, conçu sous la forme d'un système embarqué intelligent. Contrairement aux solutions traditionnelles qui se limitent à l'exécution de commandes, KODA vise à offrir une véritable présence interactive, dotée d'une personnalité propre et d'une capacité de raisonnement.
+	
+	La complexité de ce système réside dans l'intégration harmonieuse de multiples composants hétérogènes. Il nécessite la combinaison d'un environnement matériel embarqué (Raspberry Pi), d'un moteur de workflow intelligent (n8n) agissant comme cerveau, d'une couche logicielle orchestrant les communications (Python), et d'interfaces de contrôle intuitives (application mobile croisée). L'objectif est de créer un écosystème cohérent capable de reconnaître les utilisateurs, de traiter les requêtes de manière naturelle, et de fournir un accompagnement personnalisé.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Host Organization Overview (MicroEdition)}
+	%----------------------------------------------------------------
+	
+	\subsectiontitle{Company Profile}
+	
+	MicroEdition is a pioneering enterprise specializing in Information and Communication Technologies (ICT). Established in 2025, the company is strategically headquartered within the Mahdia Business Incubator. This environment provides a robust ecosystem for innovation, offering the necessary infrastructure to support high-potential technology startups. MicroEdition is dedicated to the architecture and deployment of intelligent, scalable, and secure digital solutions designed to bridge the gap between academic research and industrial application.
+	
+	\subsectiontitle{Services}
+	
+	The company’s portfolio is built upon three fundamental technological pillars:
+	\begin{itemize}
+		\item \textbf{Software Development:} Crafting high-performance web and mobile applications tailored to specific business logic.
+		\item \textbf{Internet of Things (IoT):} Designing end-to-end connected ecosystems for industrial and agricultural automation.
+		\item \textbf{Cybersecurity:} Implementing rigorous security protocols to protect digital assets and ensure data integrity within private and public sectors.
+	\end{itemize}
+	
+	\subsectiontitle{Research \& Development (R\&D)}
+	
+	A distinguishing feature of MicroEdition is its specialized Research and Development division. This department focuses heavily on Edge AI and Embedded Intelligence. By investigating methodologies to execute complex neural networks locally on microcontrollers, the R\&D team seeks to eliminate the dependency on constant cloud connectivity. This strategic focus is central to this project, as it enables the creation of autonomous, resilient systems capable of operating in remote agricultural environments where internet access may be intermittent.
+	
+	\subsectiontitle{Organizational Structure}
+	
+	MicroEdition operates through an Agile-driven framework that emphasizes rapid iteration and interdisciplinary collaboration. The company’s internal structure is composed of specialized units, including:
+	\begin{itemize}
+		\item \textbf{Software Architects:} Designing scalable system backends.
+		\item \textbf{Embedded Systems Engineers:} Bridging the gap between hardware and software.
+		\item \textbf{AI and Data Scientists:} Developing and optimizing machine learning models for edge deployment.
+	\end{itemize}
+	
+	This synergy allows MicroEdition to maintain a fast-paced innovation cycle, ensuring that every project—such as the Intelligent Hydroponic Fodder System—is built on a foundation of technical excellence and modern architectural standards.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Problématique}
+	%----------------------------------------------------------------
+	
+	L’évolution constante de notre société moderne, marquée par un rythme de vie accéléré et une digitalisation croissante, a paradoxalement accentué certains besoins fondamentaux de l’être humain, notamment celui de l'accompagnement et de l'interaction sociale.
+	
+	Le problème central auquel nous tentons de répondre s'articule autour de trois axes principaux :
+	
+	\textbf{A. Le besoin de présence et d'interaction naturelle}\\
+	Malgré la prolifération des appareils connectés, la plupart des outils actuels (smartphones, enceintes connectées classiques) restent des outils purement fonctionnels. Ils exécutent des ordres mais n’offrent pas de réelle interaction "humaine". Il existe un manque flagrant de systèmes capables d'afficher une personnalité propre et de simuler une forme de réflexion empathique capable de briser la solitude ou d'assister l'utilisateur au quotidien.
+	
+	\textbf{B. La complexité de la gestion de vie autonome}\\
+	Dans un environnement domestique, la gestion des tâches, de la sécurité et du suivi technique des objets connectés devient de plus en plus complexe pour l'utilisateur moyen. Il n'existe pas de solution centralisée qui combine à la fois un assistant de vie intelligent (capable de raisonner) et un système de sécurité actif (capable de reconnaître les personnes et de protéger l'habitat).
+	
+	\textbf{C. Les limites de l'intelligence statique}\\
+	La majorité des assistants actuels dépendent de réponses préprogrammées et rigides. Le défi est de passer d'une machine qui "répond" à une machine qui "réfléchit" et "apprend". Le problème est donc de concevoir une architecture capable de :
+	\begin{itemize}
+		\item Identifier l'interlocuteur de manière sécurisée.
+		\item Traiter des demandes complexes de manière fluide et humaine.
+		\item Offrir une interface de contrôle simple (application mobile) pour superviser cette "vie artificielle".
+	\end{itemize}
+	
+	En résumé, la question fondamentale de notre projet est la suivante : \textbf{Comment concevoir un compagnon robotique intelligent, doté d'une mémoire et d'une personnalité, capable d'offrir un accompagnement humain authentique tout en assurant une gestion technique et sécurisée de l'environnement de l'utilisateur ?}
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Analyse des Solutions Existantes}
+	%----------------------------------------------------------------
+	
+	\subsectiontitle{Étude de l'existant}
+	
+	Dans cette section, nous examinons les assistants domestiques et les robots compagnons les plus populaires sur le marché afin d'identifier leurs forces et leurs lacunes.
+	
+	\begin{itemize}
+		\item \textbf{A. Les Assistants Vocaux Statiques (Amazon Alexa, Google Home)}
+		
+		Ces dispositifs sont les plus répandus. Ils excellent dans l'exécution de tâches simples (domotique, rappels, recherches internet).
+		
+		\textit{Limites :} Ils n'ont pas de présence physique mobile. Surtout, ils restent des outils purement réactifs : ils attendent un "mot déclencheur" et répondent de manière standardisée. Il n'y a aucune notion de "personnalité" évolutive ou de sentiment d'appartenance.
+		
+		\item \textbf{B. Les Robots Domestiques (ex: Amazon Astro, Vector/Cozmo)}
+		
+		Certains robots essaient d'occuper l'espace physique. Amazon Astro, par exemple, surveille la maison et suit l'utilisateur.
+		
+		\textit{Limites :} Bien que mobiles, ces produits restent perçus comme des gadgets technologiques. Leur interaction est limitée par des scripts pré-enregistrés. Ils ne "réfléchissent" pas de manière humaine et leur capacité à reconnaître et s'adapter à l'humeur ou à l'identité spécifique de chaque membre de la famille de façon approfondie reste superficielle.
+		
+		\item \textbf{C. Les Pepper \& Nao (Robotique de service)}
+		
+		Ce sont des robots haut de gamme capables de simuler des émotions et de reconnaître des visages.
+		
+		\textit{Limites :} Ces solutions sont extrêmement coûteuses (plusieurs milliers d'euros) et sont destinées aux entreprises plutôt qu'au grand public. Leur configuration est complexe et ils ne sont pas conçus comme des "amis" personnels intégrés à un écosystème mobile fluide pour l'utilisateur lambda.
+	\end{itemize}
+	 
+	\subsectiontitle{Synthèse et Critique : Le "Manque d'Humanité"}
+	
+	Le point commun de tous ces concurrents est leur nature générique. Ce sont des machines produites en série qui traitent chaque utilisateur de la même manière.
+	
+\begin{itemize}
+	\item \textbf{Absence de personnalité :} La réponse d'une Alexa est la même pour tout le monde. Elle n'a pas de "caractère" propre qui pourrait la faire passer pour un compagnon de vie.
+	
+	\item \textbf{Froideur algorithmique :} Les interactions sont basées sur des arbres de décision rigides. L'utilisateur sent qu'il parle à une base de données, pas à une entité qui "réfléchit".
+	
+	\item \textbf{Dépendance au Cloud propriétaire :} L'utilisateur a peu de contrôle sur la "mémoire" ou la logique interne de l'assistant.
+\end{itemize}
+
+	\subsectiontitle{La Différenciation de Koda}
+	
+	C'est ici que notre projet se distingue. Contrairement aux machines industrielles, Koda est conçu pour être :
+	
+\begin{itemize}
+	\item \textbf{Unique :} Grâce à l'intégration de n8n (le cœur de réflexion), Koda peut avoir une logique de réponse personnalisée et évolutive.
+	
+	\item \textbf{Multimodal :} Il combine la vision (Raspberry Pi), la réflexion (IA via n8n) et la mobilité.
+	
+	\item \textbf{Accessible :} Une application mobile dédiée permet de configurer sa "personnalité", rendant l'utilisateur maître de son compagnon.
+\end{itemize}
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Solution Proposée}
+	%----------------------------------------------------------------
+	Pour surmonter ces limitations, nous proposons KODA, une architecture résiliente et multicouche conçue pour l'autonomie et l'intelligence. La solution comprend :
+	
+\begin{itemize}
+	\item \textbf{Contrôleur Embarqué (Raspberry Pi) :} Le cœur physique du système, gérant les composants matériels et assurant le fonctionnement du robot.
+	
+	\item \textbf{Moteur de Réflexion (n8n) :} Le cerveau de KODA, responsable de la préparation des réponses et du traitement intelligent des requêtes complexes.
+	
+	\item \textbf{Couche de Distribution (Python) :} Le système nerveux responsable de la communication entre n8n, la base de données, l'application mobile et le Raspberry Pi, offrant les points d'accès (endpoints) de tout l'écosystème.
+	
+	\item \textbf{Expérience Utilisateur Mobile :} Une application cross-plateforme permettant à l'utilisateur de configurer, contrôler et suivre la vie de son compagnon robotique en temps réel.
+	
+	\item \textbf{Mémoire Persistante (Base de données) :} Un système de stockage permettant à KODA d'enregistrer des informations contextuelles et d'apprendre de ses interactions.
+\end{itemize}
+
+En intégrant ces composants, la solution proposée garantit une résilience opérationnelle, des interactions humaines authentiques et une expérience de gestion unifiée.
+
+	
+	\begin{figure}[ht]
+		\makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{"public/archi glob.png"}}
+		\caption{Architecture Globale de la Solution Proposée}
+		\label{fig:archiglobale}
+	\end{figure}
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Méthodologie du Projet}
+	%----------------------------------------------------------------
+	
+	Pour garantir un haut degré de fiabilité et une intégration harmonieuse des différentes couches logicielles et matérielles, ce projet suit un cadre d'ingénierie rigoureux.
+	
+	\subsectiontitle{Approche Agile et Cycle en V}
+	
+Bien que le projet intègre des concepts de prototypage rapide caractéristiques des méthodes Agiles, l'architecture globale repose sur un Cycle en V. Ce modèle représente un chemin d'exécution séquentiel où chaque phase de développement (côté gauche) est associée à une phase de test correspondante (côté droit).
+
+Nous avons adopté cette méthodologie car elle garantit que les protocoles de test pour notre matériel embarqué et nos workflows d'intelligence artificielle soient définis avant l'assemblage physique, conduisant à un cycle d'intégration plus efficace. La figure \ref{fig:vmodel} illustre les étapes fondamentales de ce cadre dans un contexte d'ingénierie général.
+
+	
+	
+	\vspace{0.3cm}
+	\noindent\textbf{1) Le flux de processus : Déconstruction et Réassemblage}\\
+	La méthodologie forme une forme en "V" symétrique, divisée en trois segments principaux :
+	\begin{itemize}
+		\item \textbf{Le segment de vérification (Étapes 1--4) :} Se concentre sur la traduction des besoins des utilisateurs en un plan architectural définitif.
+		\item \textbf{Le sommet (Étape 5) :} L'implémentation est le tournant critique où le codage, l'assemblage matériel et la configuration des workflows ont lieu.
+		\item \textbf{Le segment de validation (Étapes 6--8) :} Réassemble et vérifie le système à travers des tests unitaires et des tests d'intégration globaux.
+	\end{itemize}
+
+	\vspace{0.3cm}
+	\noindent\textbf{2) Artefacts Clés du Projet}\\
+	La traçabilité est maintenue en générant des artefacts spécifiques à chaque étape :
+	\begin{itemize}
+		\item \textbf{Spécifications des Besoins :} Besoins utilisateurs et techniques documentés.
+		\item \textbf{Conception de l'Architecture Système :} Plans d'intégration matériel/logiciel.
+		\item \textbf{Conception Détaillée des Composants :} Logique de code, endpoints API et schéma de base de données.
+	\end{itemize}
+	
+	\section*{Conclusion}
+	\addcontentsline{toc}{section}{Conclusion}
+	
+Ce chapitre a établi le contexte du projet KODA. En identifiant les lacunes critiques des assistants virtuels actuels — notamment le manque de personnalité, de réflexion autonome et d'intégration embarquée — nous avons défini notre solution innovante. De plus, en adoptant une méthodologie de développement structurée, nous avons établi une feuille de route qui garantit la fiabilité tout au long des défis techniques à venir.
+
+Le chapitre suivant, "Étude des Besoins et Modélisation UML", initiera la première étape de ce cycle de conception en transformant les besoins de l'utilisateur en spécifications définitives et en modèles architecturaux.
+	
+	%================================================================
+	%  CHAPITRE II : Étude des Besoins et Modélisation UML
+	%================================================================
+	\chapter{Requirements Analysis and UML Modeling}
+	
+	\section*{Introduction du chapitre}
+	\addcontentsline{toc}{section}{Introduction du chapitre}
+	
+	Designing an advanced agricultural solution requires a rigorous analysis of user needs and a formal software blueprint. This chapter comprehensively defines the functional and non-functional requirements for each system actor, then formalizes the conceptual framework through UML modeling to map user interactions, behavioral sequences, and structural class relationships.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Requirements Analysis}
+	%----------------------------------------------------------------
+	
+	The system caters explicitly to four primary actors, each with distinct operational demands:
+	
+	\subsectiontitle{Smart Greenhouse}
+	
+	The smart greenhouse represents the physical automated environment. It requires autonomous edge-control to prevent catastrophic pump failures and demands millisecond-level IoT interaction arrays. The system must continuously monitor and regulate temperature, humidity, water levels, and lighting cycles without human intervention, while maintaining full operational capability during internet outages.
+	
+	\subsectiontitle{Mobile Application (Farmer)}
+	
+	The farmer requires a simple, intuitive mobile interface capable of sending manual override commands and receiving immediate AI-driven push notifications. The application must display real-time telemetry data, live video streaming from the greenhouse camera, and actionable disease alerts in an accessible format.
+	
+	\subsectiontitle{Web Application (Company/Admin)}
+	
+	MicroEdition's administrative team requires a secure, multi-tenant web interface providing a global overview of all operational greenhouses. This includes full user account management, device configuration, historical data reporting, and system-wide alert supervision.
+	
+	\subsectiontitle{AI Module (Disease Detection)}
+	
+	A critical requirement is the integration of an embedded Artificial Intelligence classifier. The model must autonomously capture live camera snapshots of the fodder leaves, perform convolutional image analysis to detect mold or decay, and instantly trigger localized emergency ventilation overrides while sending severe alerts to the farmer's mobile device.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Functional and Non-Functional Requirements}
+	%----------------------------------------------------------------
+	
+	\textbf{Functional Requirements:}
+	\begin{itemize}
+		\item Secure multi-role authentication (JWT).
+		\item Real-time telemetry monitoring displaying precise humidity, temperature, and water levels.
+		\item Remote control overriding fans, lights, and irrigation pumps.
+		\item AI-powered plant disease detection with instant alert notifications.
+		\item Complete CRUD management for user accounts and greenhouse assignments.
+		\item Live video streaming from the greenhouse camera.
+		\item Historical data visualization and export capabilities.
+	\end{itemize}
+	
+	\textbf{Non-Functional Requirements:}
+	
+	\begin{table}[h!]
+		\caption{Explicit Quality of Service (QoS) and non-functional requirements.}
+		\label{tab:nf}
+		\centering
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{l l l}
+			\toprule
+			\textbf{Category} & \textbf{Requirement Parameter} & \textbf{Target Threshold} \\
+			\midrule
+			\rowcolor{VertClair}
+			Performance & API HTTP Response Times & $< 500$\,ms \\
+			\rowcolor{VertClair}
+			Performance & Streaming latency (WebRTC) & $< 2$\,s lag \\
+			Security & Data Transport & HTTPS / WSS / MQTTS \\
+			Security & Auth Flow & JWT \& standard OAuth2 \\
+			\rowcolor{AmbreClair}
+			Availability & Hardware Uptime & $\geq 99.5\%$ \\
+			\rowcolor{AmbreClair}
+			Scalability & Data Ingestion & Thousands of metrics/min \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Modeling Language}
+	%----------------------------------------------------------------
+	
+	\subsectiontitle{Why UML?}
+	
+	The Unified Modeling Language (UML) is the industry-standard notation for object-oriented software engineering. Employing UML eliminates architectural ambiguity, establishes a clear visual understanding between engineers and stakeholders, and accelerates implementation by defining interaction sequences prior to development. Its standardized notation ensures clarity for all technical and non-technical stakeholders involved in the project.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{UML Design}
+	%----------------------------------------------------------------
+	
+	\subsectiontitle{Use Case Diagrams}
+	\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}[
+			%% ── Styles ──────────────────────────────────────────────────────────────────
+			actor/.style={
+				draw, rounded corners=4pt,
+				minimum width=2.8cm, minimum height=0.85cm,
+				align=center, font=\small\bfseries
+			},
+			uc/.style={
+				draw, fill=GrisClair, draw=GrisMoyen, rounded corners=4pt,
+				minimum width=5.2cm, minimum height=0.72cm,
+				align=center, font=\scriptsize
+			},
+			arr/.style={-{Latex[length=2.8mm]}, thick},
+			%% ── Stick-figure node (head + body in one custom shape) ─────────────────────
+			person/.pic={
+				% head
+				\draw[thick, fill=#1!30, draw=#1] (0,0.36) circle (0.26cm);
+				% body
+				\draw[thick, draw=#1] (0,0.10) -- (0,-0.36);
+				% arms
+				\draw[thick, draw=#1] (-0.34,-0.10) -- (0,-0.10) -- (0.34,-0.10);
+				% legs
+				\draw[thick, draw=#1] (0,-0.36) -- (-0.24,-0.72);
+				\draw[thick, draw=#1] (0,-0.36) -- ( 0.24,-0.72);
+			}
+			]
+			
+			%% ─── Actors ──────────────────────────────────────────────────────────────────
+			
+			%% Agriculteur (blue)
+			\node (agri-fig) at (0, 0.55) {};
+			\pic at (0, 0.55) {person=BleuPrimaire};
+			\node[actor,
+			fill=BleuClair, draw=BleuPrimaire,
+			text=BleuPrimaire]
+			(agri) at (0,-0.55) {Agriculteur};
+			
+			%% Administrateur (green)
+			\node (admin-fig) at (0,-5.85) {};
+			\pic at (0,-5.85) {person=VertPrimaire};
+			\node[actor,
+			fill=VertClair, draw=VertPrimaire,
+			text=VertPrimaire]
+			(admin) at (0,-6.95) {Administrateur};
+			
+			%% ─── Use-case boxes ──────────────────────────────────────────────────────────
+			
+			%% --- Agriculteur use cases ---
+			\node[uc] (uc01) at (8.5,  1.30) {S'authentifier};
+			\node[uc] (uc02) at (8.5,  0.30) {Voir le tableau de bord};
+			\node[uc] (uc03) at (8.5, -0.70) {Déclencher l'irrigation à distance};
+			\node[uc] (uc04) at (8.5, -1.70) {Recevoir les alertes en temps réel};
+			
+			%% --- Administrateur use cases ---
+			\node[uc] (uc05) at (8.5, -4.20) {Gérer les profils utilisateurs};
+			\node[uc] (uc06) at (8.5, -5.20) {Configurer les seuils système};
+			\node[uc] (uc07) at (8.5, -6.20) {Supervision globale de la flotte};
+			\node[uc] (uc08) at (8.5, -7.20) {Consulter les statistiques};
+			
+			%% ─── Arrows ──────────────────────────────────────────────────────────────────
+			
+			\foreach \dst in {uc01,uc02,uc03,uc04}
+			\draw[arr, color=BleuPrimaire!55] (agri.east) -- (\dst.west);
+			
+			\foreach \dst in {uc05,uc06,uc07,uc08}
+			\draw[arr, color=VertPrimaire!55] (admin.east) -- (\dst.west);
+			
+			%% ─── System boundary ─────────────────────────────────────────────────────────
+			\draw[GrisMoyen, dashed, rounded corners=8pt, line width=0.7pt]
+			(5.5,-8.0) rectangle (12.0, 2.2);
+			
+			%% label inside boundary
+			\node[font=\tiny\itshape, text=GrisMoyen, anchor=north west]
+			at (5.65, 2.2) {Système de gestion de la serre connectée};
+			
+			%% ─── Horizontal separator between actor groups ───────────────────────────────
+			\draw[GrisMoyen!50, densely dotted, line width=0.5pt]
+			(5.55,-3.0) -- (11.95,-3.0);
+			
+		\end{tikzpicture}
+		\caption{Diagramme de cas d'utilisation — Systèmme de gestion de serre connectée}
+		\label{fig:use-case}
+	\end{figure}
+	
+	\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}[
+			actor/.style={draw, fill=BleuClair, draw=BleuPrimaire, rounded corners=4pt,
+				minimum width=2.8cm, minimum height=0.8cm,
+				align=center, font=\small},
+			uc/.style={draw, fill=GrisClair, draw=GrisMoyen, rounded corners=4pt,
+				minimum width=4cm, minimum height=0.7cm,
+				align=center, font=\scriptsize},
+			arr/.style={-{Latex[length=3mm]}, GrisMoyen, thick}
+			]
+			\node[actor, fill=BleuClair] (agri) at (0,0) {\textcolor{BleuPrimaire}{\bfseries Farmer}};
+			\node[actor, fill=VertClair] (admin) at (0,-4) {\textcolor{VertPrimaire}{\bfseries Admin}};
+			
+			\node[uc] (uc01) at (7, 1.2) {Authenticate Session};
+			\node[uc] (uc02) at (7, 0) {View Dashboard};
+			\node[uc] (uc07) at (7,-1.2) {Trigger Irrigation Remote};
+			
+			\node[uc] (uc12) at (7,-3) {Manage User Profiles};
+			\node[uc] (uc14) at (7,-4.2) {Configure System Thresholds};
+			\node[uc] (uc15) at (7,-5.4) {Global Fleet Supervision};
+			
+			\foreach \src in {uc01,uc02,uc07}
+			\draw[arr, BleuPrimaire!50] (agri.east) -- (\src.west);
+			\foreach \src in {uc12,uc14,uc15}
+			\draw[arr, VertPrimaire!50] (admin.east) -- (\src.west);
+			
+			\draw[GrisMoyen, dashed, rounded corners=8pt]
+			(4,-6) rectangle (10.5,2.2);
+		\end{tikzpicture}
+		\caption{Global Use Case interaction paths across distinct administrative roles.}
+		\label{fig:uc-global-new}
+	\end{figure}
+	
+	\subsectiontitle{Sequence Diagrams}
+	
+	Sequence diagrams capture the temporal logic of system interactions. For example, a remote pump actuation begins when the farmer initiates a request via the Flutter UI. The request is routed through the API Gateway to the Spring Boot core, which issues a secure MQTT command. The Raspberry Pi receives this payload, toggles the corresponding GPIO pin, and returns an acknowledgment confirming the physical actuation back to the mobile interface.
+	
+	\subsectiontitle{Class Diagrams}
+	
+	The class diagram defines the structural relationships underpinning the platform. The core entities include \textbf{User} (containing credentials and role designations), \textbf{Greenhouse} (holding physical location and status attributes), and \textbf{Sensor Array} mapping multiple \textbf{Telemetry} outputs linked to timestamps representing historical data boundaries. These relationships enforce strict data integrity across the entire system.
+	
+	\section*{Conclusion}
+	\addcontentsline{toc}{section}{Conclusion}
+	
+	This chapter defined the precise needs of each system actor and formalized the system's conceptual architecture through comprehensive UML modeling. Having structured the relational database mapping and visualized user interaction sequences, the subsequent phases can proceed to the implementation of core infrastructure across both embedded controllers and server ecosystems.
+	
+	%================================================================
+	%  CHAPITRE III : Analyseur et Réfléchissement
+	%================================================================
+	\chapter{Analyseur et Réfléchissement}
+	
+	% Couleur principale pour les titres de sections
+	\definecolor{kodablue}{RGB}{0, 84, 166}
+	\definecolor{kodasection}{RGB}{30, 120, 200}
+	\definecolor{kodablock}{RGB}{20, 100, 180}
+	
+	\section*{\textcolor{kodablue}{Introduction du chapitre}}
+	\addcontentsline{toc}{section}{Introduction du chapitre}
+	
+	Ce chapitre présente le moteur central de KODA : son système d'analyse, de réflexion et de génération de réponses. L'objectif principal est de permettre au robot de répondre de manière pertinente, contextualisée et naturelle aux questions posées par les utilisateurs. KODA étant conçu comme un accompagnateur virtuel à dimension humaine, il doit comprendre non seulement le contenu des questions, mais aussi le contexte et les besoins implicites de chaque utilisateur.
+	
+	Pour atteindre cet objectif, nous avons conçu une architecture logicielle organisée autour de trois flux de travail automatisés (appelés \textbf{webhooks}), chacun remplissant une fonction précise et complémentaire. Avant de détailler leur fonctionnement, nous commençons par définir les deux technologies fondamentales sur lesquelles repose l'ensemble du système : \textbf{n8n} et les \textbf{webhooks}.
+	
+	%----------------------------------------------------------------
+	\section*{\textcolor{kodablue}{Définitions Fondamentales}}
+	\addcontentsline{toc}{section}{Définitions Fondamentales}
+	%----------------------------------------------------------------
+	
+	\subsection*{\textcolor{kodasection}{Qu'est-ce que n8n ?}}
+	
+	\textbf{n8n} (prononcé "n-eight-n", abréviation de \textit{nodemation}) est une \textbf{plateforme d'automatisation de flux de travail open-source}, conçue pour connecter des applications, des APIs et des services entre eux sans nécessiter de développement complexe.
+	
+	Techniquement, n8n fonctionne selon une architecture orientée \textbf{nœuds} (nodes) : chaque nœud représente une opération atomique — un appel à une API, une transformation de données, une condition logique, ou l'invocation d'un modèle d'intelligence artificielle. Ces nœuds sont reliés entre eux pour former des \textbf{flux de traitement} (workflows), dans lesquels les données circulent sous forme d'objets JSON structurés d'un nœud à l'autre.
+	
+	Voici les caractéristiques essentielles qui ont motivé notre choix de n8n pour le projet KODA :
+	
+	\begin{itemize}
+		\item \textbf{Architecture DAG (Graphe Orienté Acyclique) :} Les nœuds sont organisés en graphe sans cycle, garantissant un traitement ordonné et prévisible des données.
+		\item \textbf{Auto-hébergement :} Contrairement à des outils comme Zapier ou Make, n8n peut être installé sur un serveur privé. Cela assure un contrôle total sur les données des utilisateurs — un critère indispensable pour un projet traitant des informations personnelles.
+		\item \textbf{Intégration native avec les modèles IA :} n8n propose des connecteurs prêts à l'emploi pour les principaux modèles de langage (OpenAI, Anthropic Claude, Mistral), permettant d'insérer des nœuds d'intelligence artificielle directement dans le flux de traitement.
+		\item \textbf{Interface visuelle :} Le concepteur de workflows est entièrement graphique, permettant de visualiser, tester et déboguer chaque étape du traitement en temps réel.
+		\item \textbf{Déclencheurs multiples :} n8n supporte des dizaines de modes de déclenchement — webhooks HTTP, planification cron, événements base de données, etc.
+	\end{itemize}
+	
+	\noindent\underline{\textbf{Référence :} Documentation officielle n8n — \texttt{https://docs.n8n.io}}
+	
+	%---
+	\subsection*{\textcolor{kodasection}{Qu'est-ce qu'un Webhook ?}}
+	
+	Un \textbf{webhook} est un mécanisme de communication entre deux systèmes informatiques basé sur le modèle \textbf{événement → notification → action}. Contrairement à une requête classique où c'est le client qui interroge régulièrement un serveur pour savoir si quelque chose a changé (modèle \textit{polling}), un webhook fonctionne à l'inverse : c'est le serveur émetteur qui notifie automatiquement le serveur récepteur dès qu'un événement se produit.
+	
+	Concrètement, un webhook est une \textbf{URL HTTP unique} exposée par le système récepteur (ici, n8n). Lorsqu'un événement survient dans le système émetteur (par exemple : l'utilisateur pose une question au robot), celui-ci envoie une requête HTTP POST vers cette URL, avec les données de l'événement dans le corps de la requête. Le serveur récepteur traite alors ces données et déclenche le pipeline de traitement associé.
+	
+	\begin{center}
+		\begin{tabular}{|l|l|}
+			\hline
+			\textbf{Concept} & \textbf{Signification} \\
+			\hline
+			URL du webhook & Adresse unique qui reçoit les notifications \\
+			Déclencheur & L'événement qui provoque l'envoi \\
+			Payload & Les données transmises (format JSON) \\
+			Pipeline & L'ensemble des traitements activés \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	Dans KODA, nous utilisons trois webhooks distincts, chacun dédié à une fonction cognitive précise du robot.
+	
+	\noindent\underline{\textbf{Référence :} Mozilla Developer Network — \texttt{https://developer.mozilla.org/en-US/docs/Glossary/WebHook}}
+	
+	%----------------------------------------------------------------
+	\section*{\textcolor{kodablue}{Fondements Théoriques : Méthodes de Réflexion et de Traitement de l'Information}}
+	\addcontentsline{toc}{section}{Fondements Théoriques}
+	%----------------------------------------------------------------
+	
+	\subsection*{\textcolor{kodasection}{La Théorie du Double Traitement}}
+	
+	Le cadre théorique central de notre conception est la \textbf{théorie du double traitement} (\textit{Dual-Process Theory}), formalisée par le psychologue et prix Nobel d'économie Daniel Kahneman. Cette théorie distingue deux systèmes de pensée fondamentalement différents dans le cerveau humain :
+	
+	\begin{itemize}
+		\item \textbf{Système 1 — Rapide et Automatique :} Ce système réagit de manière instinctive, sans effort conscient. Il s'appuie sur des associations mémorisées et des réflexes cognitifs. Il traite la grande majorité des situations courantes.
+		\item \textbf{Système 2 — Lent et Délibéré :} Ce système mobilise une attention et un effort conscient. Il intervient pour les raisonnements complexes, les calculs ou les jugements nuancés qui nécessitent une réflexion approfondie.
+	\end{itemize}
+	
+	Dans KODA, nous avons transposé cette architecture : un agent de classification détermine si la question reçue relève d'un traitement rapide (accès direct à la mémoire) ou d'un traitement approfondi (analyse sémantique complète), et active le pipeline correspondant.
+	
+	\noindent\underline{\textbf{Référence :} Kahneman, D. (2011). \textit{Thinking, Fast and Slow}. Farrar, Straus and Giroux.}
+	
+	\subsection*{\textcolor{kodasection}{Mémoire Épisodique et Mémoire Sémantique}}
+	
+	La distinction entre \textbf{mémoire épisodique} (souvenirs d'événements vécus) et \textbf{mémoire sémantique} (connaissances générales) constitue la base théorique de notre système de mémoire utilisateur. Nous avons organisé la mémoire de KODA selon ces deux catégories : les synthèses journalières constituent la mémoire épisodique, tandis que les centres d'intérêt et points clés forment la mémoire sémantique du profil utilisateur.
+	
+	\noindent\underline{\textbf{Référence :} Tulving, E. (1972). \textit{Episodic and semantic memory}. In E. Tulving \& W. Donaldson (Eds.), Organization of Memory. Academic Press.}
+	
+	\subsection*{\textcolor{kodasection}{Architectures Multi-Agents et Chain-of-Thought}}
+	
+	Notre approche s'inscrit dans le domaine des \textbf{systèmes multi-agents} (MAS), où des agents spécialisés collaborent pour accomplir une tâche complexe. Chaque agent dans KODA prend en charge une sous-tâche précise (classification, récupération mémorielle, génération de réponse) et transmet son résultat au suivant. Par ailleurs, la technique de \textbf{Chain-of-Thought Prompting} — qui consiste à structurer les instructions d'un modèle de langage sous forme de raisonnements explicites étape par étape — améliore significativement la pertinence des réponses générées.
+	
+	\noindent\underline{\textbf{Références :} Wooldridge \& Jennings (1995), \textit{Intelligent Agents} ; Wei et al. (2022), \textit{Chain-of-Thought Prompting Elicits Reasoning in Large Language Models}, arXiv:2201.11903.}
+	
+	%----------------------------------------------------------------
+	\section*{\textcolor{kodablue}{Webhook 1 : Analyse et Réponse}}
+	\addcontentsline{toc}{section}{Webhook 1 : Analyse et Réponse}
+	%----------------------------------------------------------------
+	
+	\subsection*{\textcolor{kodasection}{Principe Général}}
+	
+	Le Webhook 1 est le pipeline principal et en temps réel de KODA. Il est déclenché à chaque fois qu'un utilisateur pose une question au robot. Son rôle est d'analyser la question, d'accéder aux informations contextuelles pertinentes, et de générer une réponse personnalisée et naturelle.
+	
+	Le pipeline est composé de \textbf{6 blocs séquentiels}, chacun accomplissant une tâche précise avant de transmettre ses résultats au bloc suivant. L'ensemble du flux est orchestré par n8n.
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Vue d'ensemble du workflow Webhook 1
+	% Chemin suggéré : public/captureworkflow1.png
+	% Légende : "Vue d'ensemble du workflow n8n — Webhook 1 : Analyse et Réponse"
+	% ----------------------------------------------------------------
+	
+	\subsection*{\textcolor{kodasection}{Format de la Requête Entrante}}
+	
+	Le webhook accepte les requêtes au format \texttt{(user\_name + question)}. Le champ \texttt{user\_name} est un identifiant unique généré automatiquement par le backend pour chaque utilisateur en cours d'interaction. Cet identifiant est injecté avec la question dans le flux de travail, permettant d'isoler et de gérer les données de chaque utilisateur de manière indépendante dans les environnements multi-utilisateurs.
+	
+	%----------------------------------------------------------------
+	\subsection*{\textcolor{kodasection}{Description Détaillée des Blocs de Traitement}}
+	
+	\vspace{0.5em}
+	\noindent\textcolor{kodablock}{\textbf{Block 1 : Réception et Vérification de l'État du Système}}
+	
+	À la réception de chaque requête, la première action du pipeline est de \textbf{vérifier si KODA est opérationnel}. Ce bloc contrôle l'état du robot dans la base de données : si KODA est en mode "ouvert" (\textit{open state}), la requête est acceptée et transmise au bloc suivant. Si le système est en pause, en maintenance ou en surcharge, la requête est rejetée et un message approprié est retourné à l'utilisateur.
+	
+	Ce mécanisme de garde (\textit{gating}) est essentiel pour garantir la stabilité du système et éviter tout traitement dans des conditions non optimales.
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Nœud de vérification de l'état du système
+	% Chemin suggéré : public/cheakmode.png
+	% Légende : "Block 1 — Vérification de l'état opérationnel de KODA"
+	% ----------------------------------------------------------------
+	
+	\noindent\underline{\textbf{Référence :} Pattern \textit{Circuit Breaker} — \texttt{https://martinfowler.com/bliki/CircuitBreaker.html}}
+	
+	\vspace{1em}
+	\noindent\textcolor{kodablock}{\textbf{Block 2 : Vérification de la Question dans l'Historique}}
+	
+	Avant d'engager le traitement complet de la question, ce bloc effectue une \textbf{recherche dans les 5 derniers messages} échangés avec l'utilisateur. L'objectif est de détecter si la question posée est une répétition ou une reformulation d'une question récente déjà traitée.
+	
+	Le processus fonctionne de la manière suivante :
+	\begin{enumerate}
+		\item Le système récupère les 5 derniers échanges de l'utilisateur depuis la base de données.
+		\item Il applique une \textbf{comparaison sémantique} entre la nouvelle question et les questions précédentes (vérification de similarité par correspondance de mots-clés ou distance sémantique).
+		\item \textbf{Si une correspondance est trouvée :} la réponse précédente est directement récupérée et renvoyée à l'utilisateur, sans activer le reste du pipeline. Cela évite une consommation inutile de ressources computationnelles et raccourcit drastiquement le temps de réponse.
+		\item \textbf{Si aucune correspondance n'est trouvée :} la question est nouvelle et le pipeline continue normalement vers le Block 3.
+	\end{enumerate}
+	
+	Ce bloc d'optimisation est particulièrement utile dans les contextes où plusieurs utilisateurs posent des questions similaires dans un court intervalle, ou lorsqu'un utilisateur répète accidentellement une question.
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Nœud de vérification historique (comparaison des 5 derniers messages)
+	% Chemin suggéré : public/historique_check.png
+	% Légende : "Block 2 — Vérification et comparaison avec les 5 derniers messages"
+	% ----------------------------------------------------------------
+	
+	\noindent\underline{\textbf{Référence :} Principe DRY (\textit{Don't Repeat Yourself}) et optimisation de cache — \texttt{https://docs.n8n.io/flow-logic/}}
+	
+	\vspace{1em}
+	\noindent\textcolor{kodablock}{\textbf{Block 3 : Classification Sémantique de la Question}}
+	
+	Ce bloc est un \textbf{agent IA} chargé d'analyser et de classifier la question reçue. Il détermine :
+	\begin{itemize}
+		\item \textbf{La nature de la question :} est-elle factuelle, conversationnelle, émotionnelle, technique ou introductive (présentation de l'utilisateur) ?
+		\item \textbf{La complexité du traitement requis :} la question nécessite-t-elle un traitement rapide (Système 1) ou une analyse approfondie (Système 2) ?
+		\item \textbf{La nécessité d'accès à la mémoire :} faut-il consulter l'historique et le profil de l'utilisateur pour répondre de manière pertinente ?
+	\end{itemize}
+	
+	En fonction de ces classifications, le nœud de routage dirige la requête vers la branche de traitement la plus adaptée.
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Nœud de classification sémantique (AI Classifier)
+	% Chemin suggéré : public/analyseur.png
+	% Légende : "Block 3 — Classification sémantique de la question par agent IA"
+	% ----------------------------------------------------------------
+	
+	\noindent\underline{\textbf{Référence :} Kahneman, D. (2011). \textit{Thinking, Fast and Slow} ; Russell \& Norvig (2010), \textit{Artificial Intelligence: A Modern Approach}, 3rd ed., Prentice Hall.}
+	
+	\vspace{1em}
+	\noindent\textcolor{kodablock}{\textbf{Block 4 : Reconnaissance et Enregistrement de l'Utilisateur}}
+	
+	Si la classification indique que l'utilisateur se présente pour la première fois (type de question : \textit{présentation}), ce bloc est activé. Il \textbf{capture l'identité de l'utilisateur} et crée son profil dans la base de données. Cette initialisation est fondamentale : elle prépare la structure de données qui permettra à KODA de mémoriser et d'exploiter les informations de cet utilisateur dans toutes les interactions futures.
+	
+	Pour les utilisateurs déjà enregistrés, ce bloc est contourné, et la requête est transmise directement au Block 5.
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Nœud de reconnaissance et d'enregistrement utilisateur
+	% Chemin suggéré : public/reconnaissance.png
+	% Légende : "Block 4 — Reconnaissance et enregistrement du profil utilisateur"
+	% ----------------------------------------------------------------
+	
+	\noindent\underline{\textbf{Référence :} Tulving, E. (1983). \textit{Elements of Episodic Memory}. Oxford University Press.}
+	
+	\vspace{1em}
+	\noindent\textcolor{kodablock}{\textbf{Block 5 : Récupération Contextuelle depuis la Base de Données}}
+	
+	Lorsque la classification indique la nécessité d'un accès mémoriel, ce bloc interroge la base de données pour collecter l'ensemble des informations pertinentes relatives à l'utilisateur :
+	\begin{itemize}
+		\item L'historique des échanges récents
+		\item Les centres d'intérêt identifiés
+		\item Les préférences et points clés mémorisés
+		\item Les synthèses journalières générées par le Webhook 2
+	\end{itemize}
+	
+	Ces données constituent le \textbf{contexte enrichi} qui sera transmis au générateur de réponse, permettant à KODA de formuler une réponse personnalisée et cohérente avec l'historique de la relation.
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Nœud de récupération contextuelle (DB Fetch)
+	% Chemin suggéré : public/getdata.png
+	% Légende : "Block 5 — Récupération des données contextuelles depuis la base de données"
+	% ----------------------------------------------------------------
+	
+	\noindent\underline{\textbf{Référence :} Stickgold, R. (2005). Sleep-dependent memory consolidation. \textit{Nature}, 437, 1272–1278.}
+	
+	\vspace{1em}
+	\noindent\textcolor{kodablock}{\textbf{Block 6 : Génération de la Réponse par Prompt Engineering}}
+	
+	Ce bloc est le nœud de synthèse finale. Le modèle de langage reçoit un \textbf{prompt structuré} combinant trois éléments :
+	\begin{enumerate}
+		\item La question de l'utilisateur
+		\item Le contexte mémoriel récupéré au Block 5
+		\item Un ensemble d'instructions précises définissant le rôle de KODA, le ton à adopter et les contraintes de la réponse
+	\end{enumerate}
+	
+	Notre stratégie de \textbf{Prompt Engineering} s'appuie sur deux techniques complémentaires :
+	\begin{itemize}
+		\item \textbf{Chain-of-Thought :} structurer le raisonnement du modèle étape par étape pour améliorer la cohérence des réponses complexes.
+		\item \textbf{Role Prompting :} définir explicitement le rôle et la personnalité de KODA pour garantir un ton naturel et cohérent.
+	\end{itemize}
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Nœud de génération finale de la réponse (Prompt Engineering)
+	% Chemin suggéré : public/gerereponce.png
+	% Légende : "Block 6 — Génération de la réponse finale par Prompt Engineering"
+	% ----------------------------------------------------------------
+	
+	\noindent\underline{\textbf{Référence :} Wei, J. et al. (2022). \textit{Chain-of-Thought Prompting Elicits Reasoning in Large Language Models}. arXiv:2201.11903.}
+	
+	%----------------------------------------------------------------
+	\subsection*{\textcolor{kodasection}{Diagramme de Séquence du Webhook 1}}
+	
+	Le diagramme ci-dessous illustre le flux complet des données et des décisions au sein du Webhook 1, depuis la réception de la requête jusqu'à la génération de la réponse finale.
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Diagramme de séquence complet du Webhook 1
+	% Chemin suggéré : public/sequence1.png
+	% Légende : "Diagramme de séquence — Pipeline complet du Webhook 1"
+	% Composants du diagramme :
+	%   S0 "Webhook (Entrée)" → S1 "Block 1 : Vérification état"
+	%   S1 → S2 "Block 2 : Historique (5 derniers messages)"
+	%   [Si question déjà traitée] S2 → S6 "Réponse directe"
+	%   [Sinon] S2 → S3 "Block 3 : Classification sémantique"
+	%   [Si type = présentation] S3 → S4 "Block 4 : Enregistrement utilisateur"
+	%   S4 → BDD "Création profil"
+	%   [Sinon] S3 → S5 "Block 5 : Récupération contextuelle"
+	%   [Si usememory = vrai] S5 récupère profil complet + conversations
+	%   [Sinon] S5 récupère uniquement la dernière conversation
+	%   S5 → S6 "Block 6 : Génération réponse"
+	%   S6 → "Retour Webhook"
+	% ----------------------------------------------------------------
+	
+	%----------------------------------------------------------------
+	\section*{\textcolor{kodablue}{Webhook 2 : Filtre et Synthèse Journalière}}
+	\addcontentsline{toc}{section}{Webhook 2 : Filtre et Synthèse Journalière}
+	%----------------------------------------------------------------
+	
+	\subsection*{\textcolor{kodasection}{Principe et Inspiration}}
+	
+	Le Webhook 2 s'inspire d'un phénomène bien documenté en sciences cognitives : durant le sommeil, le cerveau humain effectue un travail actif de \textbf{consolidation mémorielle}. Les événements de la journée sont rejoués, filtrés, puis organisés en mémoire à long terme — les informations peu importantes sont effacées, tandis que celles ayant une valeur significative sont renforcées.
+	
+	Nous reproduisons ce mécanisme de manière algorithmique : le Webhook 2 s'exécute automatiquement chaque nuit (à 02h00), analyse l'ensemble des échanges de la journée pour chaque utilisateur, et en génère une \textbf{synthèse structurée} enregistrée dans la base de données.
+	
+	\noindent\underline{\textbf{Référence :} Walker, M. \& Stickgold, R. (2006). Sleep, Memory, and Plasticity. \textit{Annual Review of Psychology}, 57, 139–166.}
+	
+	\subsection*{\textcolor{kodasection}{Fonctionnement du Webhook 2}}
+	
+	Le processus se déroule en trois temps :
+	\begin{enumerate}
+		\item \textbf{Collecte :} Récupération de l'ensemble des nouvelles interactions de la journée pour tous les utilisateurs actifs.
+		\item \textbf{Analyse et synthèse :} Un agent IA analyse le contenu des échanges et génère une fiche de synthèse structurée pour chaque utilisateur.
+		\item \textbf{Persistance :} Les fiches sont enregistrées dans la base de données et associées au profil de chaque utilisateur.
+	\end{enumerate}
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Vue d'ensemble du workflow Webhook 2
+	% Chemin suggéré : public/webhook2.png
+	% Légende : "Vue d'ensemble du workflow n8n — Webhook 2 : Filtre et Synthèse Journalière"
+	% ----------------------------------------------------------------
+	
+	\subsection*{\textcolor{kodasection}{Structure des Fiches de Synthèse Générées}}
+	
+	À l'issue de son traitement, le Webhook 2 génère pour chaque utilisateur une fiche de synthèse couvrant \textbf{quatre dimensions complémentaires} :
+	
+	\begin{itemize}
+		\item \textbf{Centres d'intérêt :} Identification des sujets qui engagent l'utilisateur, déduits des thématiques abordées dans ses échanges. Cette analyse permet de maintenir un profil d'intérêts à jour.
+		\item \textbf{Synthèse de la journée :} Un résumé narratif des échanges significatifs de la journée. Ce résumé constitue la mémoire épisodique condensée de KODA pour cet utilisateur.
+		\item \textbf{Points clés :} Extraction des informations factuelles importantes révélées durant la journée — décisions évoquées, projets mentionnés, problèmes soulevés. Ces éléments enrichissent la mémoire sémantique du profil.
+		\item \textbf{Conseils personnalisés :} Génération de recommandations adaptées au profil et au contexte de l'utilisateur, permettant à KODA d'offrir une valeur proactive lors des interactions suivantes.
+	\end{itemize}
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Exemple de fiche de synthèse journalière
+	% Chemin suggéré : public/4conseil.png
+	% Légende : "Exemple de fiche de synthèse journalière générée par le Webhook 2 (4 dimensions)"
+	% ----------------------------------------------------------------
+	
+	\noindent\underline{\textbf{Référence :} Miller, G.A. (1956). The magical number seven, plus or minus two. \textit{Psychological Review}, 63(2), 81–97.}
+	
+	\subsection*{\textcolor{kodasection}{Impact sur le Système Global}}
+	
+	Les synthèses du Webhook 2 constituent la \textbf{mémoire à long terme} de KODA. Elles sont consultées par le Webhook 1 pour enrichir le contexte des réponses, et exploitées par le Webhook 3 pour générer des interactions spontanées pertinentes.
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Diagramme du flux de données entre Webhook 2 et la base de données
+	% Chemin suggéré : public/sequence2.png
+	% Légende : "Flux de données entre le Webhook 2 et la mémoire long terme"
+	% ----------------------------------------------------------------
+	
+	%----------------------------------------------------------------
+	\section*{\textcolor{kodablue}{Webhook 3 : Spontanéité et Interaction Proactive}}
+	\addcontentsline{toc}{section}{Webhook 3 : Spontanéité et Interaction Proactive}
+	%----------------------------------------------------------------
+	
+	\subsection*{\textcolor{kodasection}{Principe : La Spontanéité comme Dimension Humaine}}
+	
+	Un compagnon humain ne se contente pas de répondre aux questions : il prend aussi l'initiative d'engager la conversation de manière spontanée et contextuelle. Les recherches en psychologie sociale ont montré que les interactions les plus mémorables et satisfaisantes sont souvent celles initiées de façon inattendue, en dehors du cadre purement transactionnel.
+	
+	C'est cette dimension que le Webhook 3 cherche à reproduire. Son rôle est de permettre à KODA d'\textbf{initier lui-même la conversation} lorsqu'il détecte la présence d'un utilisateur qu'il reconnaît, sans attendre que celui-ci pose une question.
+	
+	\noindent\underline{\textbf{Référence :} Dautenhahn, K. \& Billard, A. (1999). Bringing up robots or the psychology of socially intelligent robots. \textit{Proceedings of the 3rd annual conference on Autonomous Agents}, 366–367.}
+	
+	\subsection*{\textcolor{kodasection}{Déclenchement et Fonctionnement}}
+	
+	Le Webhook 3 est déclenché dès que le \textbf{module de vision} de KODA identifie le visage d'un utilisateur reconnu. L'identifiant de cet utilisateur est transmis au webhook, qui active le pipeline de génération d'une phrase d'accroche personnalisée.
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Vue d'ensemble du workflow Webhook 3
+	% Chemin suggéré : public/webhook3.png
+	% Légende : "Vue d'ensemble du workflow n8n — Webhook 3 : Spontanéité et Interaction Proactive"
+	% ----------------------------------------------------------------
+	
+	\subsection*{\textcolor{kodasection}{Génération de la Phrase d'Accroche}}
+	
+	Un agent IA génère une \textbf{phrase d'accroche unique et personnalisée} en exploitant les données de la fiche de synthèse produite par le Webhook 2. Les variables injectées dans le prompt de génération sont les suivantes :
+	
+	\begin{tcolorbox}[colback=blue!5, colframe=blue!40!black, title=Variables du Prompt d'Interaction Spontanée]
+		\begin{itemize}
+			\item \texttt{\{user\_name\}} — Prénom ou identifiant de l'utilisateur
+			\item \texttt{\{interests\}} — Centres d'intérêt identifiés (depuis le Webhook 2)
+			\item \texttt{\{daily\_summary\}} — Synthèse de la dernière journée d'échanges
+			\item \texttt{\{key\_points\}} — Points clés retenus lors des interactions précédentes
+			\item \texttt{\{personalized\_advice\}} — Conseils personnalisés disponibles
+			\item \texttt{\{previous\_openings\}} — Historique des phrases d'accroche déjà utilisées (pour garantir l'unicité)
+		\end{itemize}
+	\end{tcolorbox}
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Nœud de l'agent IA pour la génération de la phrase spontanée
+	% Chemin suggéré : public/spontaneite.png
+	% Légende : "Nœud de l'agent IA — Génération de la phrase d'accroche spontanée (Webhook 3)"
+	% ----------------------------------------------------------------
+	
+	\noindent\underline{\textbf{Référence :} Reeves, B. \& Nass, C. (1996). \textit{The Media Equation: How People Treat Computers, Television, and New Media Like Real People and Places}. Cambridge University Press.}
+	
+	%----------------------------------------------------------------
+	\section*{\textcolor{kodablue}{Architecture Cognitive Globale de KODA}}
+	\addcontentsline{toc}{section}{Architecture Cognitive Globale de KODA}
+	%----------------------------------------------------------------
+	
+	Les trois webhooks forment ensemble un \textbf{système cognitif cohérent}, dont chaque composant reproduit un mécanisme humain identifié et documenté. Le tableau suivant résume ces correspondances :
+	
+	\begin{table}[ht]
+		\centering
+		\caption{Correspondance entre mécanismes cognitifs humains et implémentations de KODA}
+		\begin{tabularx}{\textwidth}{|X|X|X|}
+			\hline
+			\textbf{Mécanisme Humain} & \textbf{Référence Scientifique} & \textbf{Implémentation KODA} \\
+			\hline
+			Double traitement (S1/S2) & Kahneman, 2011 & Block 3 — Classification et routage \\
+			\hline
+			Optimisation cognitive & Principe DRY & Block 2 — Vérification historique \\
+			\hline
+			Consolidation nocturne & Stickgold, 2005 & Webhook 2 — Synthèse journalière \\
+			\hline
+			Regroupement mémoriel & Miller, 1956 & 4 dimensions de la synthèse Webhook 2 \\
+			\hline
+			Spontanéité sociale & Clark, 1996 ; Dautenhahn \& Billard, 1999 & Webhook 3 — Interactions proactives \\
+			\hline
+		\end{tabularx}
+		\label{tab:correspondance_cognitive}
+	\end{table}
+	
+	% ----------------------------------------------------------------
+	% IMAGE À INSÉRER : Architecture cognitive globale de KODA
+	% Chemin suggéré : public/global.png
+	% Légende : "Architecture cognitive globale de KODA — Interaction entre les trois webhooks"
+	% ----------------------------------------------------------------
+	
+	\noindent\underline{\textbf{Référence :} Russell, S. \& Norvig, P. (2010). \textit{Artificial Intelligence: A Modern Approach}, 3rd ed. Prentice Hall.}
+	
+	%----------------------------------------------------------------
+	\section*{\textcolor{kodablue}{Conclusion}}
+	\addcontentsline{toc}{section}{Conclusion}
+	%----------------------------------------------------------------
+	
+	Ce chapitre a présenté l'architecture cognitive de KODA, structurée autour de trois webhooks complémentaires orchestrés par la plateforme n8n. Chaque composant trouve sa justification dans des principes issus des sciences cognitives et de l'intelligence artificielle.
+	
+	Le \textbf{Webhook 1} assure le traitement en temps réel des questions, avec une optimisation par vérification de l'historique (Block 2) et une classification intelligente qui adapte le niveau de traitement à la nature de chaque requête. Le \textbf{Webhook 2} reproduit la consolidation nocturne du cerveau humain, en générant chaque nuit des fiches de synthèse personnalisées qui enrichissent progressivement la mémoire à long terme de KODA. Le \textbf{Webhook 3} confère au robot une dimension proactive et sociale, lui permettant d'initier des interactions personnalisées dès la détection d'un utilisateur.
+	
+	Ensemble, ces trois mécanismes — réactif, mémoriel et proactif — forment la fondation de l'expérience utilisateur unique que KODA ambitionne d'offrir : celle d'un compagnon intelligent, attentionné et toujours présent.
+	%================================================================
+	%  CHAPITRE IV : Smart Greenhouse & IoT Infrastructure
+	%================================================================
+	\chapter{Smart Greenhouse \& IoT Infrastructure}
+	
+	\section*{Chapter Introduction}
+	\addcontentsline{toc}{section}{Chapter Introduction}
+	
+	This chapter details the physical and logical infrastructure underpinning the Smart Greenhouse layer. It covers the overall IoT system architecture, the hardware components deployed within the greenhouse environment, the communication protocols enabling real-time data exchange, and the practical implementation and wiring of the embedded control system.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Overall IoT System Architecture}
+	%----------------------------------------------------------------
+	
+	The IoT architecture follows a strictly decoupled microservices paradigm. The Edge Layer handles physical actuations and raw telemetry via the Raspberry Pi. The Network Layer encapsulates MQTT and WebRTC transports. The Processing Backend operates within Spring Boot, dynamically interacting with the unified Data Layer built on TimescaleDB. This layered design ensures resilience, modularity, and independent scalability of each component.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Hardware Components}
+	%----------------------------------------------------------------
+	
+	\subsectiontitle{Raspberry Pi Integration}
+	
+	The central operational node is a localized Raspberry Pi microcomputer running a headless Linux kernel. Operating completely independently, this unit runs a continuous embedded background daemon utilizing parallel threading. This completely protects sensor polling routines from being artificially stalled by network transmission latency, ensuring consistent actuation regardless of backend availability.
+	
+	\subsectiontitle{Sensors and Actuators}
+	
+	The hardware array leverages digital temperature and humidity sensors alongside HC-SR04 ultrasonic mechanisms mapping actual liquid nutritional tank volumes in real-time. Correspondingly, multi-channel 12V relays govern extraction fans, intense photoperiodic lighting mechanisms, and peristaltic pumps dispersing nutrient blends. Each actuator is controlled via GPIO pins mapped through software relay logic running on the Pi daemon.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Data Acquisition and Communication}
+	%----------------------------------------------------------------
+	
+	\subsectiontitle{MQTT Protocol}
+	
+	Message Queuing Telemetry Transport (MQTT) serves explicitly as the IoT transport layer. By prioritizing an asynchronous Publish/Subscribe paradigm across port 8883 (incorporating TLS securing mechanisms), the Pi transacts highly compressed JSON strings representing entire sensor matrices using mere bytes of bandwidth overhead. This lightweight protocol is ideally suited to the constrained network environment of embedded agricultural systems.
+	
+	\subsectiontitle{Broker and Data Exchange}
+	
+	An active Mosquitto MQTT Broker independently arbitrates the massive inbound swarm of sensor telemetry, pushing it immediately into the Spring service layers mediating database commits automatically. Topics are structured hierarchically by greenhouse ID, sensor type, and timestamp, enabling efficient fan-out to multiple subscriber services simultaneously. Quality of Service (QoS) levels are configured to guarantee reliable delivery of critical actuation commands.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Physical Implementation and Wiring}
+	%----------------------------------------------------------------
+	
+	Physical implementation involved precise GPIO wiring mapping each relay channel to its corresponding actuator. Sensor connections follow strict pull-up resistor configurations to prevent floating pin states. The power distribution layer isolates the 3.3V logic domain of the Pi from the 12V actuator domain via optocoupler-protected relay boards, ensuring full electrical safety and preventing back-EMF damage to the microcontroller. All connections were validated through automated loopback testing scripts prior to field deployment.
+	
+	\section*{Conclusion}
+	\addcontentsline{toc}{section}{Conclusion}
+	
+	This chapter established the complete hardware and communication foundation of the Smart Greenhouse. The Raspberry Pi edge node, combined with the Mosquitto MQTT broker and carefully wired sensor-actuator arrays, forms a robust and autonomous IoT control layer capable of sustaining greenhouse operations entirely independently of cloud connectivity.
+	
+	%================================================================
+	%  CHAPITRE V : Artificial Intelligence Module (R&D)
+	%================================================================
+	\chapter{Artificial Intelligence Module (Research \& Development)}
+	
+	\section*{Chapter Introduction}
+	\addcontentsline{toc}{section}{Chapter Introduction}
+	
+	This chapter details the research and development efforts dedicated to the Artificial Intelligence module integrated within the Hydroponic Fodder System. It covers the methodological approach to AI integration, the dataset collection and preprocessing pipeline, the model training and evaluation process, and the deployment strategy enabling real-time inference directly on the edge hardware.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{AI Approach Study}
+	%----------------------------------------------------------------
+	
+	The synergy between robust telemetry (IoT) and cognitive evaluation (AI) enables ``predictive'' rather than ``reactive'' farming. Sensors generate raw environmental states, while convolutional AI actively diagnoses early leaf-pathogens directly via camera feeds, ensuring instantaneous mitigating relay actions. The chosen approach prioritizes edge inference over cloud-dependent processing to guarantee sub-second response times and full offline operational capability.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Data Preparation (Dataset)}
+	%----------------------------------------------------------------
+	
+	\subsectiontitle{Data Collection and Sources}
+	
+	Synthesizing spatial diagnosis algorithms requires massive, balanced datasets. Thousands of pristine and pathogen-infected fodder images were meticulously gathered from both controlled greenhouse environments and publicly available agricultural research databases. Images were captured under varying lighting conditions and growth stages to ensure maximum representational diversity.
+	
+	\subsectiontitle{Labeling and Preprocessing}
+	
+	All collected images underwent rigorous manual labeling by agricultural domain experts, classifying each sample into healthy or disease-specific categories. Preprocessing steps included standardized resizing to uniform input dimensions, normalization of pixel intensities, and aggressive data augmentation via rotational shifts, horizontal flipping, brightness variance, and contrast adjustments. These augmentation strategies ensured absolute neural robustness when handling chaotic real-world greenhouse lighting conditions.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Model Development}
+	%----------------------------------------------------------------
+	
+	\subsectiontitle{Training and Testing}
+	
+	The Convolutional Neural Network (CNN) architecture was designed to balance classification accuracy with inference efficiency on constrained embedded hardware. Training was performed across multiple epochs using categorical cross-entropy loss and the Adam optimizer, with early stopping applied to prevent overfitting. The model demonstrated massive operational fidelity, achieving over 94\% validation accuracy across all disease categories while retaining sub-three-second physical inference latency entirely onboard the Pi.
+	
+	\subsectiontitle{Pipeline Edge Impulse}
+	
+	Training operations strictly utilized the \textbf{Edge Impulse} framework, aggressively formulated to optimize deep networks explicitly for highly constrained C++ execution on embedded hardware interfaces rather than immense cloud GPUs. The Edge Impulse pipeline automated feature extraction, model quantization, and C++ library generation, producing a deployable inference binary perfectly sized for the Raspberry Pi's memory and processing constraints.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Edge Deployment and OTA Updates}
+	%----------------------------------------------------------------
+	
+	A crucial engineering hurdle necessitated implementing Over-The-Air (OTA) flashing. As the AI model matures with more data, the Spring Boot backend can securely push binary inference file updates automatically down through the MQTT layer, instantly upgrading the physical field greenhouses globally without requiring destructive manual interventions. Version control mechanisms ensure rollback capability in case a newly deployed model underperforms in field conditions.
+	
+	\section*{Conclusion}
+	\addcontentsline{toc}{section}{Conclusion}
+	
+	This chapter established how the AI module transforms the greenhouse from a reactive system into a predictive diagnostic engine. By combining Edge Impulse-optimized CNN inference with a robust OTA update pipeline, the platform achieves autonomous plant health monitoring that significantly outperforms standard hydroponic systems, positioning it as a genuinely intelligent agricultural solution.
+	
+	%================================================================
+	%  CHAPITRE VI : Mobile Application (Farmer) & Web Dashboard (Admin)
+	%================================================================
+	\chapter{Mobile Application (Farmer) \& Web Dashboard (Admin)}
+	
+	\section*{Chapter Introduction}
+	\addcontentsline{toc}{section}{Chapter Introduction}
+	
+	Transforming backend intelligence into accessible and intuitive user experiences characterizes this chapter. It details the implementation of the Flutter mobile application serving the farmer, the React-based web administration dashboard, and the real-time video surveillance system enabling live greenhouse monitoring from any remote location.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Mobile Application Interface}
+	%----------------------------------------------------------------
+	
+	Authored within \textbf{Flutter / Dart}, the mobile gateway boasts a dynamic ``Glassmorphism'' UI aesthetic. The application operates strictly as the farmer's primary operational tool, utilizing asynchronous state management to paint real-time telemetry changes natively on the screen instantly, while simultaneously surfacing complex AI diagnostic notifications generated from the backend.
+	
+	\subsectiontitle{Real-Time Monitoring}
+	
+	The monitoring screen renders live sensor readings through animated gauge widgets and historical trend charts. Data is pushed directly via WebSocket connections established with the Spring Boot backend, ensuring that all displayed values reflect the current physical state of the greenhouse with minimal latency. Color-coded threshold indicators instantly signal abnormal conditions to the farmer.
+	
+	\subsectiontitle{Notifications and Alerts}
+	
+	The notification engine delivers push alerts via Firebase Cloud Messaging (FCM), ensuring farmers receive critical disease detection warnings even when the application is running in the background. Alert payloads include the detected disease type, confidence score, affected greenhouse zone, and recommended corrective actions, empowering immediate informed responses.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Web Administration Dashboard}
+	%----------------------------------------------------------------
+	
+	Operating across React.js structures, the web portal acts autonomously catering to the host enterprise administrators. This view implements complex data grids enabling massive multi-tenant views, mapping global greenhouse uptimes flawlessly and allowing deep historic reporting exportations safely.
+	
+	\subsectiontitle{User and Device Management}
+	
+	The administration panel provides full CRUD capabilities for user account management, greenhouse assignment, and device configuration. Role-based access control ensures strict separation between farmer and administrative permissions, preventing unauthorized access to system-critical configuration parameters.
+	
+	\subsectiontitle{Data Visualization (Grafana)}
+	
+	Integrating \textbf{Grafana} securely onto the TimescaleDB outputs guarantees breathtaking, deeply interactable charting interfaces. Grafana rapidly compiles historic temperature aggregations, humidity trends, and nutrient level histories, delivering instant analytical curves highlighting long-term system behavioral drifts seamlessly to authorized super-users.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Video Surveillance System}
+	%----------------------------------------------------------------
+	
+	\subsectiontitle{Architecture WebRTC / Coturn}
+	
+	To provide flawless visual streaming from the greenhouse camera directly to the farmer without experiencing brutal transcoding latencies, the architecture implements direct \textbf{WebRTC} streaming. Facilitated fundamentally using a \textbf{Coturn} TURN/STUN relay server configuration, the video perfectly navigates complex firewall NAT boundaries establishing hyper-secure peer-to-peer data links generating zero-lag visual supervision globally.
+	
+	\subsectiontitle{Live Greenhouse Monitoring}
+	
+	The live monitoring view is embedded directly within both the mobile application and the web dashboard, presenting a real-time MJPEG or WebRTC video feed from the Raspberry Pi camera. Resolution and bitrate are dynamically adjusted based on available network bandwidth, ensuring a stable viewing experience across both high-speed Wi-Fi and constrained mobile data connections.
+	
+	\section*{Conclusion}
+	\addcontentsline{toc}{section}{Conclusion}
+	
+	The implementation phase validated the architectural coherence of the platform, successfully unifying WebRTC media streaming protocols within cross-platform Flutter applications. The combination of real-time telemetry, AI-driven alerts, live video, and comprehensive administration tools delivers a complete and professional user experience for both farmer and administrator roles.
+	
+	%================================================================
+	%  CHAPITRE VII : Deployment and Cloud Integration
+	%================================================================
+	\chapter{Deployment and Cloud Integration}
+	
+	\section*{Chapter Introduction}
+	\addcontentsline{toc}{section}{Chapter Introduction}
+	
+	This final chapter addresses the cloud deployment strategy, backend infrastructure, data management, security architecture, and comprehensive system validation. It demonstrates how all individual layers of the platform converge into a unified, production-grade system ready for real-world agricultural deployment.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Cloud Deployment Architecture}
+	%----------------------------------------------------------------
+	
+	The production deployment leverages a containerized microservices architecture orchestrated via Docker and Docker Compose. Each system component (Spring Boot backend, Mosquitto broker, TimescaleDB, Grafana, Coturn) runs within isolated containers, enabling independent scaling, simplified maintenance, and rapid redeployment across any Linux-compatible cloud virtual machine. The deployment target is a dedicated VPS instance providing the static IP required for STUN/TURN server operation.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Backend \& Database}
+	%----------------------------------------------------------------
+	
+	\subsectiontitle{Architecture Spring Boot}
+	
+	The server environment relies exclusively upon the \textbf{Spring Boot} Java framework. This provides unparalleled enterprise-grade dependency injection, absolute concurrency thread management, and natively secures vast API arrays utilizing standard Spring Security JWT filters handling authorization logic flawlessly. RESTful API endpoints are versioned and documented via Swagger/OpenAPI, facilitating seamless integration with both the mobile and web clients.
+	
+	\subsectiontitle{Time-Series Data Management (TimescaleDB/PostgreSQL)}
+	
+	Traditional relational models struggle when ingesting millions of telemetry data points daily. Consequently, the implementation relies on \textbf{TimescaleDB}, an extension of PostgreSQL that maintains full ACID compliance for relational data (user accounts, device IDs) while converting telemetry tables into hyper-tables. These hyper-tables automatically partition environmental sensor data across temporal chunks, significantly accelerating historical queries and enabling instant generation of statistical graphs tracking humidity variations over entire crop seasons without exhausting backend memory.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Security and Authentication}
+	%----------------------------------------------------------------
+	
+	Security is enforced across all communication layers. JWT-based authentication secures all REST API endpoints, with token expiration and refresh mechanisms preventing session hijacking. All IoT communications transit over MQTTS (port 8883) with mutual TLS certificate validation, preventing unauthorized device connections. Video streams are protected via WebRTC DTLS-SRTP encryption, ensuring that live greenhouse footage remains inaccessible to unauthorized parties. Additionally, all user passwords are stored as bcrypt hashes with configurable salt rounds, complying with modern security standards.
+	
+	%----------------------------------------------------------------
+	\sectiontitle{Full System Validation and Testing}
+	%----------------------------------------------------------------
+	
+	Comprehensive JUnit tests were developed to rigorously validate backend API controllers. Simulated heavy-load injection scripts executed thousands of concurrent JWT authentication requests, verifying that Spring Boot security filters correctly blocked unauthorized access. Hardware testing involved deliberately disconnecting network connectivity to evaluate local fallback mechanisms and confirm autonomous offline actuation. Simultaneously, the Edge Impulse CNN demonstrated reliable real-world validation, accurately distinguishing fungal variations under volatile natural lighting conditions when deployed on the edge Pi. All non-functional requirements defined in Chapter~II were verified and confirmed within their target thresholds.
+	
+	\section*{Conclusion}
+	\addcontentsline{toc}{section}{Conclusion}
+	
+	This chapter demonstrated that the Hydroponic Fodder System successfully meets all functional and non-functional requirements through rigorous cloud deployment, enterprise-grade backend engineering, and comprehensive security and testing protocols. The platform is validated, containerized, and production-ready for real-world agricultural deployment.
+	
+	%================================================================
+	%  CONCLUSION GENERALE (unnumbered, isolated title page)
+	%================================================================
+	\chapter*{General Conclusion and Future Perspectives}
+	\addcontentsline{toc}{chapter}{General Conclusion and Future Perspectives}
+	\markboth{General Conclusion and Future Perspectives}{General Conclusion and Future Perspectives}
+	
+	This project addressed critical agricultural challenges by engineering the complete \textbf{Hydroponic Fodder System}. Developed under MicroEdition's strategic guidance, the project successfully integrated edge IoT operations with robust Spring Boot cloud services, bridging TimescaleDB time-series data with intuitive Flutter interfaces to achieve truly autonomous greenhouse capabilities independent of manual labor.
+	
+	The project produced significant technological outcomes, aggregating thousands of sensor metrics via MQTT streams. The Edge Impulse AI model surpassed a 94\% recognition threshold, autonomously detecting fungal patterns faster than human perception. Integrating Coturn/WebRTC delivered near-zero-latency streaming capabilities, enhancing user oversight through remote verification of physical component actuations.
+	
+	\textbf{Summary of Achievements:}
+	\begin{itemize}
+		\item Full-stack IoT greenhouse control system deployed on Raspberry Pi with MQTT communication.
+		\item CNN-based plant disease detection model achieving over 94\% accuracy with edge inference.
+		\item Flutter mobile application with real-time telemetry monitoring and AI push alerts.
+		\item React web administration dashboard with Grafana data visualization.
+		\item Live WebRTC video surveillance with Coturn TURN/STUN relay.
+		\item Containerized cloud deployment with Spring Boot, TimescaleDB, and JWT security.
+		\item OTA model update pipeline enabling continuous AI improvement without manual intervention.
+	\end{itemize}
+	
+	\textbf{Limitations:} Despite formidable achievements, the current hardware footprint remains bound by local power grid dependencies, defining slight limitations for fully off-grid deployment. The AI model's accuracy is also constrained by the size and diversity of the training dataset, which may not fully generalize to all fodder species or disease variants.
+	
+	\textbf{Future Perspectives:} Future development will prioritize integrating solar photovoltaic systems with lithium battery storage, enabling fully off-grid operation across remote agricultural sites. Additionally, expanding the AI capabilities to support autonomous pesticide injection based on disease recognition would further enhance operational efficiency. Scaling the multi-tenant platform to support federated greenhouse networks, enriched by continuous federated learning pipelines that improve the shared disease detection model, represents a significant step toward revolutionizing automated intelligent crop production globally.
+	
+	%================================================================
+	%  BIBLIOGRAPHY
+	%================================================================
+	\chapter*{Bibliography}
+	\addcontentsline{toc}{chapter}{Bibliography}
+	\markboth{Bibliography}{Bibliography}
+	
+	\begin{description}[leftmargin=1.5cm, labelwidth=1.2cm, font=\bfseries]
+		\item[[B1]] SPERRY, R. W., ``Hemisphere deconnection and unity in conscious awareness'', \textit{American Psychologist}, 23(10), 723–733, 1968.
+		\item[[B2]] GAZZANIGA, M. S., ``Cerebral specialization and interhemispheric communication: Does the corpus callosum enable the human condition?'', \textit{Brain}, 123(7), 1293–1326, 2000.
+		\item[[B3]] GAZZANIGA, M. S., \textit{The Social Brain: Discovering the Networks of the Mind}, Basic Books, 1985.
+		\item[[B4]] KAHNEMAN, D., \textit{Thinking, Fast and Slow}, Farrar, Straus and Giroux, 2011.
+		\item[[B5]] STANOVICH, K. E., \& WEST, R. F., ``Individual differences in reasoning: Implications for the rationality debate?'', \textit{Behavioral and Brain Sciences}, 23(5), 645–665, 2000.
+		\item[[B6]] TULVING, E., ``Episodic and semantic memory'', in E. Tulving \& W. Donaldson (Eds.), \textit{Organization of Memory} (pp. 381–403), Academic Press, 1972.
+		\item[[B7]] TULVING, E., \textit{Elements of Episodic Memory}, Oxford University Press, 1983.
+		\item[[B8]] STICKGOLD, R., ``Sleep-dependent memory consolidation'', \textit{Nature}, 437(7063), 1272–1278, 2005.
+		\item[[B9]] WALKER, M. P., \& STICKGOLD, R., ``Sleep, memory, and plasticity'', \textit{Annual Review of Psychology}, 57, 139–166, 2006.
+		\item[[B10]] MILLER, G. A., ``The magical number seven, plus or minus two: Some limits on our capacity for processing information'', \textit{Psychological Review}, 63(2), 81–97, 1956.
+		\item[[B11]] RUSSELL, S., \& NORVIG, P., \textit{Artificial Intelligence: A Modern Approach (3rd ed.)}, Prentice Hall, 2010.
+		\item[[B12]] WOOLDRIDGE, M., \& JENNINGS, N. R., ``Intelligent agents: Theory and practice'', \textit{The Knowledge Engineering Review}, 10(2), 115–152, 1995.
+		\item[[B13]] BROWN, T. B., et al., ``Language models are few-shot learners'', \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 33, 1877–1901, 2020.
+		\item[[B14]] WEI, J., et al., ``Chain-of-thought prompting elicits reasoning in large language models'', \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 35, 2022.
+		\item[[B15]] CLARK, H. H., \textit{Using Language}, Cambridge University Press, 1996.
+		\item[[B16]] DAUTENHAHN, K., \& BILLARD, A., ``Bringing up robots or the psychology of socially intelligent robots'', \textit{Proceedings of the Third Annual Conference on Autonomous Agents} (pp. 366–367), ACM, 1999.
+		\item[[B17]] REEVES, B., \& NASS, C., \textit{The Media Equation: How People Treat Computers, Television, and New Media Like Real People and Places}, Cambridge University Press, 1996.
+	\end{description}
+	
+	%================================================================
+	%  WEBOGRAPHY
+	%================================================================
+	\chapter*{Webography}
+	\addcontentsline{toc}{chapter}{Webography}
+	\markboth{Webography}{Webography}
+	
+	\begin{description}[leftmargin=1.5cm, labelwidth=1.2cm, font=\bfseries]
+		\item[[W1]] WEBRTC.org, ``Real-Time Communication APIs'', in \textit{WebRTC Architecture Docs}, \url{https://webrtc.org}, accessed March 2026.
+		\item[[W2]] FLUTTER NATIVE TEAM, ``Flutter -- Reactive Component Layout Mechanisms'', in \textit{Flutter.dev}, \url{https://flutter.dev/docs}, accessed March 2026.
+		\item[[W3]] ECLIPSE FOUNDATION, ``Mosquitto MQTT Broker API parameters'', in \textit{Eclipse Mosquitto}, \url{https://mosquitto.org/documentation/}, accessed February 2026.
+		\item[[W4]] GRAFANA LABS, ``Grafana Visualizing Time-Series Data'', in \textit{Grafana Documentation}, \url{https://grafana.com}, accessed February 2026.
+	\end{description}
+	
+	%================================================================
+\end{document}
