@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.4.26)  3 MAY 2026 01:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.4.26)  5 MAY 2026 14:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -986,11 +986,11 @@ Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 )
 Package french3.ldf Info: Setting StandardItemizeEnv=true for
 (french3.ldf)             compatibility with enumitem package,
-(french3.ldf)             reported on input line 235.
+(french3.ldf)             reported on input line 245.
 Package french3.ldf Info: Setting StandardEnumerateEnv=true for
 (french3.ldf)             compatibility with enumitem package,
-(french3.ldf)             reported on input line 235.
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 23
+(french3.ldf)             reported on input line 245.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 24
 5.
 
 (C:\Users\l\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
@@ -1006,25 +1006,25 @@ Package babel Info: 'french' activates 'french' shorthands.
 )
 \openout1 = `finalyearrapport.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 235.
-LaTeX Font Info:    ... okay on input line 235.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 235.
-LaTeX Font Info:    ... okay on input line 235.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 235.
-LaTeX Font Info:    ... okay on input line 235.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 235.
-LaTeX Font Info:    ... okay on input line 235.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 235.
-LaTeX Font Info:    ... okay on input line 235.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 235.
-LaTeX Font Info:    ... okay on input line 235.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 235.
-LaTeX Font Info:    ... okay on input line 235.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 235.
-LaTeX Font Info:    ... okay on input line 235.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 235.
-LaTeX Font Info:    ... okay on input line 235.
-LaTeX Info: Redefining \degres on input line 235.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 245.
+LaTeX Font Info:    ... okay on input line 245.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 245.
+LaTeX Font Info:    ... okay on input line 245.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 245.
+LaTeX Font Info:    ... okay on input line 245.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 245.
+LaTeX Font Info:    ... okay on input line 245.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 245.
+LaTeX Font Info:    ... okay on input line 245.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 245.
+LaTeX Font Info:    ... okay on input line 245.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 245.
+LaTeX Font Info:    ... okay on input line 245.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 245.
+LaTeX Font Info:    ... okay on input line 245.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 245.
+LaTeX Font Info:    ... okay on input line 245.
+LaTeX Info: Redefining \degres on input line 245.
 \big@size=\dimen326
 
 *geometry* driver: auto-detecting
@@ -1061,13 +1061,13 @@ LaTeX Info: Redefining \degres on input line 235.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \microtypecontext on input line 235.
-Package microtype Info: Applying patch `item' on input line 235.
-Package microtype Info: Applying patch `toc' on input line 235.
-Package microtype Info: Applying patch `eqnum' on input line 235.
-Package microtype Info: Applying patch `footnote' on input line 235.
-Package microtype Info: Applying patch `verbatim' on input line 235.
-LaTeX Info: Redefining \microtypesetup on input line 235.
+LaTeX Info: Redefining \microtypecontext on input line 245.
+Package microtype Info: Applying patch `item' on input line 245.
+Package microtype Info: Applying patch `toc' on input line 245.
+Package microtype Info: Applying patch `eqnum' on input line 245.
+Package microtype Info: Applying patch `footnote' on input line 245.
+Package microtype Info: Applying patch `verbatim' on input line 245.
+LaTeX Info: Redefining \microtypesetup on input line 245.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1107,18 +1107,18 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 235.
+Package hyperref Info: Link coloring OFF on input line 245.
 (finalyearrapport.out) (finalyearrapport.out)
 \@outlinefile=\write4
 \openout4 = `finalyearrapport.out'.
 
-<public/isetlogo (2).png, id=348, 207.77625pt x 244.915pt>
+<public/isetlogo (2).png, id=229, 207.77625pt x 244.915pt>
 File: public/isetlogo (2).png Graphic file (type png)
 <use public/isetlogo (2).png>
-Package pdftex.def Info: public/isetlogo (2).png  used on input line 254.
+Package pdftex.def Info: public/isetlogo (2).png  used on input line 264.
 (pdftex.def)             Requested size: 84.4818pt x 99.58464pt.
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 255.
+ 265.
 
 (C:\Users\l\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
@@ -1128,42 +1128,42 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 255.
+ 265.
 
 (C:\Users\l\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 255.
+ 265.
 
 (C:\Users\l\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 255.
+ 265.
 
 (C:\Users\l\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 2
-55.
+65.
 
 (C:\Users\l\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 255.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 265.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 255.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 265.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 255.
-<public/logos.png, id=349, 1027.84pt x 1027.84pt>
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 265.
+<public/logos.png, id=230, 1027.84pt x 1027.84pt>
 File: public/logos.png Graphic file (type png)
 <use public/logos.png>
-Package pdftex.def Info: public/logos.png  used on input line 259.
+Package pdftex.def Info: public/logos.png  used on input line 269.
 (pdftex.def)             Requested size: 99.57489pt x 99.58464pt.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-72.
+82.
 
 (C:\Users\l\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
@@ -1176,7 +1176,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.335 	\clearpage
+l.345 	\clearpage
                   [1
 
 ]
@@ -1184,7 +1184,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.ii}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.364 	\clearpage
+l.374 	\clearpage
                   [2
 
 ] [3
@@ -1194,23 +1194,32 @@ l.364 	\clearpage
 ] (finalyearrapport.toc [5
 
 
-] [6])
+]
+Overfull \hbox (6.23137pt too wide) in paragraph at lines 43--43
+ [][] [][]\T1/ptm/m/n/12 (-20) Block 4 : Re-con-nais-sance et En-reg-istrement 
+de l'Utilisateur[] [][]  
+ []
+
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+)
 \tf@toc=\write5
 \openout5 = `finalyearrapport.toc'.
 
- [7]
-(finalyearrapport.lof)
+ [6] (finalyearrapport.lof)
 \tf@lof=\write6
 \openout6 = `finalyearrapport.lof'.
 
- [8
+ [7
 
 
 ] (finalyearrapport.lot)
 \tf@lot=\write7
 \openout7 = `finalyearrapport.lot'.
 
- [9
+ [8
 
 
 ] [1
@@ -1220,200 +1229,404 @@ l.364 	\clearpage
 Chapter I.
 [2
 
-]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 492.
-
-[3
+] [3
 
 ] [4] [5] [6]
-<public/archi glob.png, id=523, 1409.265pt x 834.11626pt>
+<public/archi glob.png, id=405, 1409.265pt x 834.11626pt>
 File: public/archi glob.png Graphic file (type png)
 <use public/archi glob.png>
-Package pdftex.def Info: public/archi glob.png  used on input line 637.
+Package pdftex.def Info: public/archi glob.png  used on input line 647.
 (pdftex.def)             Requested size: 610.31306pt x 361.23396pt.
  [7]
 
-LaTeX Warning: Reference `fig:vmodel' on page 8 undefined on input line 652.
+LaTeX Warning: Reference `fig:vmodel' on page 8 undefined on input line 662.
 
 [8 <./public/archi glob.png>] [9]
 Chapter II.
 [10
 
+] [11
+
 ]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 687.
-
-[11
-
-] [12] [13] [14]
 Chapter III.
-[15
+[12
+
+] [13
 
 ]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 910.
-
-[16
-
-]
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
-            Default family used instead on input line 942.
- (C:\Users\l\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
+            Default family used instead on input line 740.
+
+(C:\Users\l\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
-            Default family used instead on input line 942.
+            Default family used instead on input line 740.
 
-Overfull \hbox (96.9167pt too wide) in paragraph at lines 961--962
+Overfull \hbox (96.9167pt too wide) in paragraph at lines 759--760
 $[]$ 
  []
 
+[14]
+<public/archic.png, id=440, 1222.5675pt x 867.24pt>
+File: public/archic.png Graphic file (type png)
+<use public/archic.png>
+Package pdftex.def Info: public/archic.png  used on input line 799.
+(pdftex.def)             Requested size: 399.05278pt x 283.0671pt.
+ [15 <./public/archic.png>]
+<public/cheakmode.png, id=448, 960.58875pt x 304.13625pt>
+File: public/cheakmode.png Graphic file (type png)
+<use public/cheakmode.png>
+Package pdftex.def Info: public/cheakmode.png  used on input line 850.
+(pdftex.def)             Requested size: 445.99553pt x 141.2084pt.
 
-Overfull \hbox (9.36745pt too wide) in paragraph at lines 964--964
-|[]\T1/ptm/b/n/14 (-20) Fondements ThÈoriques : MÈth-odes de RÈflex-ion et de T
-raite-ment de l'Information[]| 
- []
 
-[17]
-Overfull \hbox (235.82431pt too wide) in paragraph at lines 985--986
-$[]$ 
- []
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 851.
+See the caption package documentation for explanation.
+
+[16]
+<public/dsb1.png, id=453, 643.6547pt x 263.48438pt>
+File: public/dsb1.png Graphic file (type png)
+<use public/dsb1.png>
+Package pdftex.def Info: public/dsb1.png  used on input line 855.
+(pdftex.def)             Requested size: 445.99553pt x 182.57632pt.
 
 
-Overfull \hbox (389.54251pt too wide) in paragraph at lines 991--992
-$[]$ 
- []
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 856.
+See the caption package documentation for explanation.
 
-[18]
-Overfull \hbox (30.74597pt too wide) in paragraph at lines 1030--1031
-$[]$ 
- []
+[17 <./public/cheakmode.png> <./public/dsb1.png>]
+<public/historique.png, id=464, 261.97874pt x 136.25906pt>
+File: public/historique.png Graphic file (type png)
+<use public/historique.png>
+Package pdftex.def Info: public/historique.png  used on input line 879.
+(pdftex.def)             Requested size: 445.99553pt x 231.97621pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 880.
+See the caption package documentation for explanation.
+
+<public/dsb2.png, id=465, 979.40906pt x 301.125pt>
+File: public/dsb2.png Graphic file (type png)
+<use public/dsb2.png>
+Package pdftex.def Info: public/dsb2.png  used on input line 884.
+(pdftex.def)             Requested size: 445.99553pt x 137.12236pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 885.
+See the caption package documentation for explanation.
+
+[18 <./public/historique.png> <./public/dsb2.png>]
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 921.
+<public/dsb3.png, id=473, 776.14969pt x 186.6975pt>
+File: public/dsb3.png Graphic file (type png)
+<use public/dsb3.png>
+Package pdftex.def Info: public/dsb3.png  used on input line 961.
+(pdftex.def)             Requested size: 445.99553pt x 107.28185pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 962.
+See the caption package documentation for explanation.
 
 [19]
-Overfull \hbox (107.05598pt too wide) in paragraph at lines 1053--1054
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1018.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1018.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1026.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1027.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1044.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1048.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1051.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1056.
+
+
+! LaTeX Error: Unicode character ‚ö† (U+26A0)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1068 			hors des lignes d√©finies.}
+                                     
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! LaTeX Error: Unicode character Ô∏è (U+FE0F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1068 			hors des lignes d√©finies.}
+                                     
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+[20 <./public/dsb3.png>] [21]
+<public/clasifer.png, id=493, 226.59656pt x 98.61844pt>
+File: public/clasifer.png Graphic file (type png)
+<use public/clasifer.png>
+Package pdftex.def Info: public/clasifer.png  used on input line 1107.
+(pdftex.def)             Requested size: 445.99553pt x 194.10487pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1108.
+See the caption package documentation for explanation.
+
+
+Overfull \hbox (274.17532pt too wide) in paragraph at lines 1113--1117
+$[]$ 
+ []
+
+[22 <./public/clasifer.png>]
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1155.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1157.
+ [23]
+<public/reconaisence.png, id=509, 300.3722pt x 115.93312pt>
+File: public/reconaisence.png Graphic file (type png)
+<use public/reconaisence.png>
+Package pdftex.def Info: public/reconaisence.png  used on input line 1206.
+(pdftex.def)             Requested size: 445.99553pt x 172.15324pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1207.
+See the caption package documentation for explanation.
+
+<public/dsb4.png, id=510, 750.55406pt x 230.36063pt>
+File: public/dsb4.png Graphic file (type png)
+<use public/dsb4.png>
+Package pdftex.def Info: public/dsb4.png  used on input line 1211.
+(pdftex.def)             Requested size: 445.99553pt x 136.88875pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1212.
+See the caption package documentation for explanation.
+
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 1232.
+[24 <./public/reconaisence.png> <./public/dsb4.png>]
+Overfull \hbox (16.88446pt too wide) in paragraph at lines 1249--1251
+[]\T1/ptm/m/n/12 (-20) Les \T1/ptm/b/n/12 (-20) in-for-ma-tions per-son-nelles 
+\T1/ptm/m/n/12 (-20) mÈ-morisÈes (go˚ts, habi-tudes, re-la-tions, don-nÈes bi-o
+graphiques) 
+ []
+
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1310.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1311.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1311.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1316.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1317.
+[25]
+<public/demigauche.png, id=524, 320.69812pt x 107.65219pt>
+File: public/demigauche.png Graphic file (type png)
+<use public/demigauche.png>
+Package pdftex.def Info: public/demigauche.png  used on input line 1329.
+(pdftex.def)             Requested size: 445.99553pt x 149.71658pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1330.
+See the caption package documentation for explanation.
+
+[26 <./public/demigauche.png>] [27]
+
+LaTeX Warning: File `public/demidroite.png' not found on input line 1419.
+
+
+! Package pdftex.def Error: File `public/demidroite.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1419 ...h=0.95\textwidth]{public/demidroite.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1420.
+See the caption package documentation for explanation.
+
+[28]
+<public/demigauchedroit.png, id=542, 468.24937pt x 194.97844pt>
+File: public/demigauchedroit.png Graphic file (type png)
+<use public/demigauchedroit.png>
+Package pdftex.def Info: public/demigauchedroit.png  used on input line 1439.
+(pdftex.def)             Requested size: 445.99553pt x 185.72232pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1440.
+See the caption package documentation for explanation.
+
+[29]
+<public/dsb5.png, id=547, 1029.09468pt x 398.99063pt>
+File: public/dsb5.png Graphic file (type png)
+<use public/dsb5.png>
+Package pdftex.def Info: public/dsb5.png  used on input line 1444.
+(pdftex.def)             Requested size: 445.99553pt x 172.92027pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1445.
+See the caption package documentation for explanation.
+
+<public/dcb5.png, id=548, 398.99063pt x 481.8pt>
+File: public/dcb5.png Graphic file (type png)
+<use public/dcb5.png>
+Package pdftex.def Info: public/dcb5.png  used on input line 1449.
+(pdftex.def)             Requested size: 445.99553pt x 538.58308pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1450.
+See the caption package documentation for explanation.
+
+[30 <./public/demigauchedroit.png> <./public/dsb5.png>] [31 <./public/dcb5.png>
+]
+<public/captureworkflowb6.png, id=560, 371.13657pt x 581.92406pt>
+File: public/captureworkflowb6.png Graphic file (type png)
+<use public/captureworkflowb6.png>
+Package pdftex.def Info: public/captureworkflowb6.png  used on input line 1492.
+
+(pdftex.def)             Requested size: 445.99553pt x 699.31764pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1493.
+See the caption package documentation for explanation.
+
+[32]
+<public/dcb6.png, id=570, 621.82312pt x 440.39531pt>
+File: public/dcb6.png Graphic file (type png)
+<use public/dcb6.png>
+Package pdftex.def Info: public/dcb6.png  used on input line 1498.
+(pdftex.def)             Requested size: 445.99553pt x 315.86807pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1499.
+See the caption package documentation for explanation.
+
+[33 <./public/captureworkflowb6.png>]
+Overfull \hbox (127.28534pt too wide) in paragraph at lines 1536--1538
+$[]$
+ []
+
+<public/flux2.png, id=577, 758.835pt x 149.05687pt>
+File: public/flux2.png Graphic file (type png)
+<use public/flux2.png>
+Package pdftex.def Info: public/flux2.png  used on input line 1539.
+(pdftex.def)             Requested size: 445.99553pt x 87.60844pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1540.
+See the caption package documentation for explanation.
+
+[34 <./public/dcb6.png>]
+<public/4conseil.png, id=583, 405.76593pt x 544.28343pt>
+File: public/4conseil.png Graphic file (type png)
+<use public/4conseil.png>
+Package pdftex.def Info: public/4conseil.png  used on input line 1569.
+(pdftex.def)             Requested size: 445.99553pt x 598.26515pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1570.
+See the caption package documentation for explanation.
+
+[35 <./public/flux2.png>]
+Overfull \hbox (96.96138pt too wide) in paragraph at lines 1578--1579
+$[]$ 
+ []
+
+[36 <./public/4conseil.png>]
+<public/wf3.png, id=597, 651.18282pt x 297.36093pt>
+File: public/wf3.png Graphic file (type png)
+<use public/wf3.png>
+Package pdftex.def Info: public/wf3.png  used on input line 1601.
+(pdftex.def)             Requested size: 445.99553pt x 203.66832pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1602.
+See the caption package documentation for explanation.
+
+
+Overfull \hbox (464.91418pt too wide) in paragraph at lines 1604--1605
+$[]$ 
+ []
+
+[37 <./public/wf3.png>]
+Overfull \hbox (409.06615pt too wide) in paragraph at lines 1637--1638
 $[]$ 
  []
 
 
-Overfull \hbox (274.17532pt too wide) in paragraph at lines 1073--1074
-$[]$ 
- []
-
-[20]
-Overfull \hbox (14.30586pt too wide) in paragraph at lines 1109--1110
-$[]$ 
- []
-
-
-Overfull \hbox (151.2007pt too wide) in paragraph at lines 1133--1134
-$[]$ 
- []
-
-
-Overfull \hbox (127.28534pt too wide) in paragraph at lines 1169--1170
-$[]$ 
- []
-
-[21]
-Overfull \hbox (96.96138pt too wide) in paragraph at lines 1203--1204
-$[]$ 
- []
-
-[22]
-Overfull \hbox (464.91418pt too wide) in paragraph at lines 1226--1227
-$[]$ 
- []
-
-
-Overfull \hbox (409.06615pt too wide) in paragraph at lines 1259--1260
-$[]$ 
- []
-
-[23]
-Underfull \hbox (badness 1147) in paragraph at lines 1285--1285
+Underfull \hbox (badness 1147) in paragraph at lines 1663--1663
 []|\T1/ptm/m/n/12 (+20) Webhook 3 ^^V In-ter-ac-tions
  []
 
+<public/ducc1.png, id=603, 374.90062pt x 211.54031pt>
+File: public/ducc1.png Graphic file (type png)
+<use public/ducc1.png>
+Package pdftex.def Info: public/ducc1.png  used on input line 1668.
+(pdftex.def)             Requested size: 445.99553pt x 251.67152pt.
 
-Overfull \hbox (65.60464pt too wide) in paragraph at lines 1295--1296
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1669.
+See the caption package documentation for explanation.
+
+[38]
+Overfull \hbox (65.60464pt too wide) in paragraph at lines 1678--1679
 $[]$ 
  []
 
-[24]
-Chapter IV.
-[25
-
-]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1313.
-
-[26
-
-] [27]
-Chapter V.
-[28
-
-]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1364.
-
-[29
-
-] [30]
-Chapter VI.
-[31
-
-]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1415.
-
-[32
-
-] [33]
-Chapter VII.
-[34
-
-]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 1470.
-
-[35
-
-] [36] [37
-
-] [38
-
-] [39
-
-]
-Overfull \hbox (12.36473pt too wide) in paragraph at lines 1550--1551
-[]\T1/ptm/m/n/12 (-20) ] STICK-GOLD, R., ``Sleep-dependent mem-ory con-sol-i-da
--tion'', \T1/ptm/m/it/12 (-20) Na-ture\T1/ptm/m/n/12 (-20) , 437(7063), 1272^^U
-1278,
- []
-
-[40
-
-] [41
-
-] [42
-
-] (finalyearrapport.aux)
+[39 <./public/ducc1.png>] (finalyearrapport.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1423,28 +1636,28 @@ L3 programming layer <2026-01-19>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `finalyearrapport.out' has not changed.
-(rerunfilecheck)             Checksum: 696952F997F5C55E2B3E5C8F91A0CEED;16677.
+(rerunfilecheck)             Checksum: A3F64556624A4D132EEBC9A720319B06;13422.
  ) 
 Here is how much of TeX's memory you used:
- 33743 strings out of 467867
- 676699 string characters out of 5420270
- 1141748 words of memory out of 5000000
- 61534 multiletter control sequences out of 15000+600000
- 711442 words of font info for 351 fonts, out of 8000000 for 9000
+ 33714 strings out of 467867
+ 677426 string characters out of 5420270
+ 1137500 words of memory out of 5000000
+ 61473 multiletter control sequences out of 15000+600000
+ 706940 words of font info for 366 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 88i,13n,103p,1015b,887s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrb1200
-.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt12
-00.pk><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmmi10.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
-s/cm/cmsy10.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times
-/utmb8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utm
-bi8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a
-.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pf
-b>
-Output written on finalyearrapport.pdf (53 pages, 411587 bytes).
+ 88i,13n,103p,1015b,726s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200
+.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt10
+95.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
+1095.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tc
+rb1200.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
+ectt1200.pk><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utm
+b8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a
+.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb
+><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on finalyearrapport.pdf (49 pages, 2229454 bytes).
 PDF statistics:
- 802 PDF objects out of 1000 (max. 8388607)
- 145 named destinations out of 1000 (max. 500000)
- 95964 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 783 PDF objects out of 1000 (max. 8388607)
+ 155 named destinations out of 1000 (max. 500000)
+ 90171 words of extra memory for PDF output out of 106986 (max. 10000000)
 

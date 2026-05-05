@@ -3,13 +3,27 @@
 \babel@toc {french}{}\relax 
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {I.1}{\ignorespaces Architecture Globale de la Solution Proposée}}{8}{figure.caption.6}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {II.1}{\ignorespaces Diagramme de cas d'utilisation — Systèmme de gestion de serre connectée}}{13}{figure.caption.9}%
-\contentsline {figure}{\numberline {II.2}{\ignorespaces Global Use Case interaction paths across distinct administrative roles.}}{13}{figure.caption.10}%
+\contentsline {figure}{\numberline {I.1}{\ignorespaces Architecture Globale de la Solution Proposée}}{8}{figure.caption.5}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {III.1}{\ignorespaces Architecture cognitive de KODA inspirée de la théorie du double traitement}}{15}{figure.caption.6}%
+\contentsline {figure}{\numberline {III.2}{\ignorespaces Block 1 — Vérification de l'état opérationnel et contrôle d'accès de KODA}}{17}{figure.3.2}%
+\contentsline {figure}{\numberline {III.3}{\ignorespaces Block 1 — Diagramme de séquence du premier bloc}}{17}{figure.3.3}%
+\contentsline {figure}{\numberline {III.4}{\ignorespaces Block 2 — Vérification et comparaison avec les 5 derniers messages}}{18}{figure.3.4}%
+\contentsline {figure}{\numberline {III.5}{\ignorespaces Block 2 — Diagramme de séquence du deuxième bloc}}{18}{figure.3.5}%
+\contentsline {figure}{\numberline {III.6}{\ignorespaces Block 3 — Diagramme de séquence du troisième bloc}}{20}{figure.3.6}%
+\contentsline {figure}{\numberline {III.7}{\ignorespaces Block 3 — Classification sémantique de la question par agent IA}}{22}{figure.3.7}%
+\contentsline {figure}{\numberline {III.8}{\ignorespaces Block 4 — Reconnaissance et enregistrement du profil utilisateur}}{24}{figure.3.8}%
+\contentsline {figure}{\numberline {III.9}{\ignorespaces Block 4 — Diagramme de séquence du quatrième bloc}}{24}{figure.3.9}%
+\contentsline {figure}{\numberline {III.10}{\ignorespaces Block 5.1 — Branche mémorielle : récupération et génération contextuelle}}{26}{figure.3.10}%
+\contentsline {figure}{\numberline {III.11}{\ignorespaces Block 5.2 — Branche générale : contexte conversationnel et génération de réponse}}{29}{figure.3.11}%
+\contentsline {figure}{\numberline {III.12}{\ignorespaces Block 5 — Vue complète des deux branches de traitement contextuel}}{30}{figure.3.12}%
+\contentsline {figure}{\numberline {III.13}{\ignorespaces Block 5 — Diagramme de séquence du cinquième bloc}}{30}{figure.3.13}%
+\contentsline {figure}{\numberline {III.14}{\ignorespaces Block 5 — Diagramme de classes du cinquième bloc}}{31}{figure.3.14}%
+\contentsline {figure}{\numberline {III.15}{\ignorespaces Block 6 — Pipeline de mise à jour de la mémoire et persistance des données}}{33}{figure.3.15}%
+\contentsline {figure}{\numberline {III.16}{\ignorespaces Block 6 — Diagramme de classes du sixième bloc}}{34}{figure.3.16}%
+\contentsline {figure}{\numberline {III.17}{\ignorespaces Vue complète du deuxième workflow}}{35}{figure.3.17}%
+\contentsline {figure}{\numberline {III.18}{\ignorespaces Vue des outputs du 2éme workflow}}{36}{figure.3.18}%
+\contentsline {figure}{\numberline {III.19}{\ignorespaces Vue complète du troisiéme workflow}}{37}{figure.3.19}%
+\contentsline {figure}{\numberline {III.20}{\ignorespaces Diagramme de use case du 1er cycle}}{39}{figure.3.20}%
 \contentsfinish 
