@@ -1,4 +1,4 @@
-﻿%================================================================
+%================================================================
 % RAPPORT DE STAGE / PROJET DE FIN D'ETUDES
 % KODA — Assistant de Vie (Ami Virtuel) — Système Embarqué Intelligent
 % Classe DSI3.2 — ISET Mahdia
@@ -1688,4 +1688,527 @@ le pipeline d'insertion suivant :
 	
 	Ensemble, ces trois mécanismes — réactif, mémoriel et proactif — forment la fondation de l'expérience utilisateur unique que KODA ambitionne d'offrir : celle d'un compagnon intelligent, attentionné et toujours présent.
 	%================================================================
+	\chapter{Cycle 4 : Distributeur de Services}
+	\chaptermark{Distributeur de Services}
+	
+	%------------------------------------------------------------------
+	\section{Introduction}
+	%------------------------------------------------------------------
+	
+	Dans tout écosystème logiciel distribué, il existe un composant
+	central dont dépend la cohérence et la fluidité de l'ensemble.
+	Dans notre projet de robot intelligent, ce rôle est assuré par
+	le \textbf{Distributeur de Services} : l'application backend.
+	Ce composant constitue le cœur névralgique de l'architecture~;
+	il est responsable de la réception, du traitement et de la
+	redistribution de toutes les requêtes émanant des différents
+	acteurs du système.
+	
+	Conformément à la méthodologie cyclique adoptée dans ce rapport,
+	ce quatrième cycle se concentre exclusivement sur ce composant.
+	Chaque cycle vise à livrer un composant fonctionnel, testable et
+	intégrable de manière incrémentale~; le Distributeur de Services
+	représente ainsi le cycle le plus complexe et le plus structurant
+	du projet.
+	
+	Le backend assume plusieurs responsabilités simultanément~: il
+	joue le rôle d'intermédiaire entre la base de données PostgreSQL
+	hébergée sur Supabase et les autres composants~; il achemine les
+	flux de données vers le moteur d'automatisation n8n~; il expose
+	les services nécessaires à l'application mobile multiplateforme~;
+	et il assure l'interface temps réel avec le système embarqué du
+	robot physique. Il intègre également des capacités avancées telles
+	que la reconnaissance de personnes, la synthèse vocale et la
+	transcription audio via les services Azure Cognitive Services et
+	l'API Gemini.
+	
+	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black,
+		title=\textbf{Rôle principal du Distributeur de Services}]
+		Centraliser et redistribuer l'ensemble des communications entre
+		tous les composants de l'écosystème (robot physique, workflow n8n,
+		application mobile, base de données, services cloud), tout en
+		garantissant la sécurité, la fiabilité et la scalabilité du
+		système.
+	\end{tcolorbox}
+	
+	%------------------------------------------------------------------
+	\section{Architecture Utilisée}
+	%------------------------------------------------------------------
+	
+	\subsection{Choix du langage : Python}
+	
+	Le choix de Python comme langage de développement du backend
+	résulte d'une analyse rigoureuse des besoins fonctionnels et
+	techniques du projet. Trois raisons majeures ont orienté cette
+	décision.
+	
+	Premièrement, Python dispose d'un écosystème exceptionnel pour
+	les domaines mobilisés par notre projet~: intelligence artificielle,
+	traitement du signal audio, vision par ordinateur et communications
+	temps réel. Des bibliothèques telles que \texttt{face\_recognition},
+	\texttt{NumPy} ou les SDK officiels d'Azure et de Google (Gemini)
+	sont nativement disponibles et parfaitement documentées.
+	
+	Deuxièmement, le framework \textbf{FastAPI} — retenu pour la
+	construction des endpoints REST — est entièrement basé sur Python.
+	Il offre des performances comparables à Node.js grâce à son support
+	natif de l'asynchronisme (\texttt{asyncio}), tout en permettant la
+	génération automatique de la documentation Swagger et la validation
+	des données via Pydantic.
+	
+	Troisièmement, la communauté Python est l'une des plus actives du
+	monde open-source, ce qui garantit une maintenance facilitée, une
+	abondance de solutions aux problèmes rencontrés et une meilleure
+	pérennité du projet.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Comparaison des technologies backend envisagées}
+		\label{tab:backend_comparison}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|l|c|c|c|}
+			\hline
+			\textbf{Critère} &
+			\textbf{Python + FastAPI} &
+			\textbf{Node.js + Express} &
+			\textbf{Java Spring Boot} \\
+			\hline
+			Bibliothèques IA/ML        & \checkmark\ Excellent   & $\sim$ Limité   & $\sim$ Limité   \\
+			Performance async          & \checkmark\ asyncio     & \checkmark\ Natif & \checkmark\ Natif \\
+			Intégration Azure SDK      & \checkmark\ Officiel    & \checkmark\ Officiel & \checkmark\ Officiel \\
+			Facilité de développement  & \checkmark\ Très rapide & \checkmark\ Rapide & $\sim$ Verbeux \\
+			Reconnaissance visage      & \checkmark\ face\_recog & $\times$ Inexistant & $\sim$ Complexe \\
+			Déploiement Docker         & \checkmark\ Simple      & \checkmark\ Simple & $\sim$ Lourd \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Clean Architecture : principes et application}
+	
+	La \textbf{Clean Architecture}, théorisée par Robert C.~Martin
+	(\textit{Uncle Bob}), repose sur un principe fondamental~: séparer
+	les préoccupations en couches concentriques indépendantes, de sorte
+	que les règles métier du domaine ne dépendent d'aucune technologie
+	externe. Cette indépendance garantit la testabilité, la
+	maintenabilité et l'évolutivité du système.
+	
+	Notre backend est structuré autour de quatre couches principales,
+	chacune dotée d'un rôle précis et de dépendances strictement
+	orientées vers l'intérieur.
+	
+
+	
+	La couche \textbf{Entities} contient les objets métier purs~:
+	\texttt{Person}, \texttt{Session}, \texttt{Command} et
+	\texttt{Event}. Ces entités n'ont aucune dépendance externe et
+	représentent les règles métier les plus stables du système.
+	La couche \textbf{Application Use Cases} orchestre les scénarios
+	fonctionnels~: reconnaissance de personnes, traitement des commandes
+	robot et gestion des sessions de communication. La couche
+	\textbf{Interface Adapters} assure la traduction entre le monde
+	extérieur et les cas d'usage internes (routeurs, dépôts,
+	sérialiseurs). Enfin, la couche \textbf{Frameworks \& Drivers}
+	regroupe tous les détails d'implémentation~: FastAPI, les
+	connecteurs Supabase, les SDK Azure et Gemini.
+	
+	\subsection{Structure des répertoires du projet}
+	
+	\begin{center}
+		\includegraphics[width=0.55\textwidth]{public/archipy.png}
+		
+		\small\textbf{Figure :} Arborescence du projet backend (Distributeur)
+	\end{center}
+	
+	\begin{center}
+		\includegraphics[width=0.55\textwidth]{public/archiipy.png}
+		
+		\small\textbf{Figure :} Exucution de Programe (Distributeur)
+	\end{center}
+	
+	
+	
+	%------------------------------------------------------------------
+	\section{Fonctionnalités Techniques}
+	%------------------------------------------------------------------
+	
+	\subsection{Communication avec la base de données (Supabase / PostgreSQL)}
+	
+La couche de persistance du projet repose sur
+\textbf{PostgreSQL}, déployé sur \textbf{Supabase}. Dans un cadre
+académique de type PFE, ce choix est pertinent car il associe la
+fiabilité d'un SGBD relationnel mature à un environnement cloud
+structuré, facilitant l'administration, la supervision et la
+maintenance des données.
+
+\textbf{Supabase} est une plateforme Backend-as-a-Service (BaaS)
+open source construite autour de PostgreSQL. Elle fournit des services
+intégrés tels qu'une interface d'administration, un éditeur SQL, des
+API automatiques et des mécanismes de gestion des accès.
+
+Le backend Python communique avec la base via \texttt{SQLAlchemy}
+(modélisation ORM) et \texttt{asyncpg} (accès asynchrone), afin
+d'assurer une exécution efficace des opérations de lecture et
+d'écriture, y compris en situation de charge concurrente.
+
+\begin{figure}[H]
+	\centering
+	\fbox{\parbox{0.78\textwidth}{
+		\centering
+		\vspace{1cm}
+		\textbf{Emplacement de la capture Supabase}\\[0.2cm]
+		(Vue du projet, tables PostgreSQL et interface SQL)
+		\vspace{1cm}
+	}}
+	\caption{Interface Supabase utilisée pour l'administration de la base PostgreSQL}
+	\label{fig:supabase_interface}
+\end{figure}
+
+Du point de vue applicatif, la communication suit une chaîne claire~:
+\textit{API REST $\rightarrow$ couche service $\rightarrow$ repository
+$\rightarrow$ PostgreSQL}. Cette séparation réduit le couplage entre
+la logique métier et la persistance, facilite les tests unitaires et
+améliore la maintenabilité globale de l'architecture.
+
+Pour renforcer la qualité de service, plusieurs mécanismes sont
+appliqués~: validation des entrées, gestion des exceptions SQL,
+journalisation des erreurs critiques et contrôle de latence sur les
+opérations sensibles. Cette approche permet d'assurer l'intégrité des
+données et la continuité de fonctionnement du robot, y compris lors de
+charges variables.
+	\begin{center}
+	\includegraphics[width=0.95\textwidth]{public/supabase.jpg}
+	\captionof{figure}{ Logo SupaBase}
+\end{center}
+
+\subsubsection{Modèle relationnel et rôle des tables}
+
+Le modèle de données est conçu pour couvrir les dimensions
+conversationnelles, contextuelles et organisationnelles du système.
+Les principales tables et leurs rôles sont les suivants~:
+\begin{itemize}
+	\item \textbf{\texttt{conversation} \;(id, question, reponce, date, type\_de\_question, personne)}~: archive l'ensemble des conversations entre le robot et l'humain.
+	\item \textbf{\texttt{historique} \;(id, date, question, reponce, type\_de\_question)}~: conserve les 5 derniers messages pour la mémoire contextuelle immédiate.
+	\item \textbf{\texttt{information\_personnel} \;(id, question, reponce, date, acteur, type\_de\_question)}~: stocke les informations personnelles liées à l'humain ou au robot.
+	\item \textbf{\texttt{note} \;(id, note, etat)}~: enregistre les rendez-vous et dates importantes de l'utilisateur.
+	\item \textbf{\texttt{setting} \;(id, name, sexe, date, motdepasse, etat, caractere, langue)}~: centralise l'identité et les paramètres généraux de KODA.
+	\item \textbf{\texttt{utilisateur} \;(id, nom, image\_url)}~: référence les personnes connues par KODA avec leur nom et leur image.
+	\item \textbf{\texttt{agenda} \;(id, titre, note, etat, contenu, date\_modification)}~: enregistre les éléments d'agenda saisis depuis l'application mobile.
+	\item \textbf{\texttt{activity} \;(id, titre, description, etat, date, createdat)}~: stocke les activités de l'utilisateur provenant de l'application mobile.
+	\item \textbf{\texttt{accompagnement} \;(id, interets, synthese, point\_cles, conseils, acteur)}~: conserve l'analyse quotidienne consolidée pour chaque personne connue.
+		\begin{center}
+		\includegraphics[width=0.95\textwidth]{public/koda_schema.png}
+		\captionof{figure}{ Koda Schema Base De Donneé}
+	\end{center}
+\end{itemize}
+	
+
+
+
+
+	
+	\subsection{Services Azure : Speech-to-Text et Text-to-Speech}
+	
+	L'intégration des services cognitifs Azure permet au robot de
+	comprendre la parole humaine et de restituer une réponse vocale
+	naturelle. Deux services sont exploités~: \textbf{Azure
+	Speech-to-Text (STT)} pour la transcription de la voix vers le
+	texte, et \textbf{Azure Text-to-Speech (TTS)} pour la synthèse
+	vocale de la réponse générée par le système.
+
+	\subsubsection*{Principe de communication technique}
+	La communication avec Azure est initiée par le backend Python, qui
+	joue le rôle de passerelle unique entre le robot et les services
+	cloud. Le flux est le suivant~:
+	\begin{enumerate}
+		\item capture du flux audio côté robot et envoi au backend~;
+		\item transmission de l'audio vers Azure STT pour transcription~;
+		\item réception du texte reconnu et traitement conversationnel~;
+		\item envoi du texte de réponse vers Azure TTS~;
+		\item récupération de l'audio de synthèse et retour vers le robot.
+	\end{enumerate}
+
+	Cette architecture centralisée simplifie la sécurité (aucune clé
+	Azure exposée sur le robot) et garantit une meilleure traçabilité
+	des appels.
+
+	\subsubsection*{Configuration Azure (STT/TTS)}
+	La configuration opérationnelle est réalisée dans le portail Azure
+	selon les étapes suivantes~:
+	\begin{itemize}
+		\item création d'une ressource \textbf{Speech} dans
+		\textit{Azure AI Services}~;
+		\item récupération de la \textbf{clé d'accès} et de la
+		\textbf{région} de déploiement~;
+		\item injection de ces paramètres dans le backend via des
+		variables d'environnement (ex.~: \texttt{AZURE\_SPEECH\_KEY},
+		\texttt{AZURE\_SPEECH\_REGION})~;
+		\item sélection des paramètres vocaux~: langue, voix neurale,
+		débit et tonalité de parole.
+	\end{itemize}
+
+	Le backend charge ces paramètres au démarrage, initialise les clients
+	STT/TTS, puis réutilise la configuration pour l'ensemble des requêtes.
+	Cette approche évite la duplication de code et stabilise les temps de
+	réponse.
+
+	\subsubsection*{Aspects d'exploitation}
+	Pour obtenir un comportement robuste en production, plusieurs
+	mécanismes sont appliqués~: appels asynchrones, contrôle de timeout,
+	gestion des exceptions réseau et journalisation des échecs. Les voix
+	\textit{Neural TTS} sont utilisées pour améliorer la qualité
+	perceptive, tandis que le mode STT en flux continu (\textit{streaming})
+	réduit la latence de reconnaissance.
+
+	L'\textbf{API Gemini} de Google intervient après la transcription STT
+	pour produire une réponse contextuelle. Le texte généré est ensuite
+	transmis à Azure TTS, puis restitué au robot sous forme de message
+	audio.
+	
+		\begin{center}
+		\includegraphics[width=0.95\textwidth]{public/azur.png}
+		\captionof{figure}{ Capture Azur Configuration}
+	\end{center}
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{public/tts.png}
+		\captionof{figure}{ Capture Test Text To Speeach}
+	\end{center}
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{public/stt.png}
+		\captionof{figure}{ Capture Test Speeach To Text }
+	\end{center}
+	
+	
+	
+	\subsection{Service de reconnaissance des personnes}
+	
+	Le moteur de \textbf{reconnaissance faciale} est l'un des services
+	les plus innovants du backend. Il permet au robot d'identifier en
+	temps réel les personnes qu'il rencontre, lui conférant une
+	capacité d'interaction personnalisée et contextuelle. Il s'appuie
+	sur la bibliothèque Python \texttt{face\_recognition}, qui utilise
+	en interne des réseaux de neurones profonds (dlib) pour générer
+	des encodages faciaux — vecteurs de 128 dimensions — à partir
+	d'images.
+	
+	Le processus se déroule en deux phases. Lors de
+	\textbf{l'enregistrement}, un profil est créé pour chaque personne
+	autorisée~: plusieurs photos sont traitées, les encodages sont
+	calculés et persistés en base de données. Lors de la
+	\textbf{reconnaissance}, l'image capturée par la caméra du robot
+	est transmise au backend~; son encodage est calculé, puis comparé
+	aux encodages stockés par distance euclidienne (seuil
+	configurable). La décision d'identification est renvoyée au robot
+	accompagnée du niveau de confiance.
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{public/dataset.png}
+		\captionof{figure}{ Exemple de image dans la memoire}
+	\end{center}
+	\begin{tcolorbox}[colback=green!5!white, colframe=green!50!black,
+		title=\textbf{Précision du système de reconnaissance}]
+		Lors des tests en conditions réelles (variété d'éclairage, angles
+		de vue différents), le service a atteint un taux de reconnaissance
+		supérieur à \textbf{94\,\%} avec un seuil de distance fixé à 0,5.
+		Le temps de traitement moyen par image est de \textbf{180\,ms}
+		sur le serveur de déploiement.
+	\end{tcolorbox}
+	
+	\subsection{Interface avec le workflow n8n}
+	
+	Le moteur de workflow \textbf{n8n} joue le rôle d'orchestrateur
+	cognitif du système~: il reçoit les requêtes, applique la logique de
+	traitement et renvoie une réponse structurée au backend. Dans notre
+	architecture, la communication entre Python et n8n est fondée sur un
+	échange HTTP de type \textbf{requête/réponse} via webhook.
+
+	\subsubsection*{Rôle de cette communication}
+	L'objectif principal est de déléguer à n8n la logique
+	conversationnelle et décisionnelle, tout en conservant dans le backend
+	Python les fonctions techniques (sécurité, accès base de données,
+	services matériels). Cette séparation permet de modifier rapidement le
+	comportement métier dans n8n sans impacter la couche d'exposition API.
+
+	\subsubsection*{Flux détaillé : de la requête à la réponse}
+	Le scénario standard suit les étapes suivantes~:
+	\begin{enumerate}
+		\item le backend récupère le \textbf{nom de l'utilisateur} (ou son identifiant) et la \textbf{question} formulée~;
+		\item il construit un payload JSON normalisé (ex.~: \texttt{\{"name":"...", "question":"..."\}})~;
+		\item ce payload est envoyé au webhook n8n via une requête \texttt{HTTP POST}~;
+		\item n8n exécute le workflow correspondant~: enrichissement du contexte, appels de services, règles de décision et génération de réponse~;
+		\item n8n retourne un objet de sortie contenant la \textbf{réponse finale}~;
+		\item le backend valide le format, journalise l'échange et renvoie la réponse au robot ou à l'application cliente.
+	\end{enumerate}
+
+	Sur le plan qualité, cette interface inclut la gestion des
+	\textit{timeouts}, le contrôle des erreurs de webhook et la validation
+	du schéma de réponse pour garantir la robustesse en exploitation.
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{public/captureworkflowinput.png}
+		\captionof{figure}{ Capture Input  WorkFlow (N8N)}
+	\end{center}
+
+	\paragraph{Images recommandées pour cette section}
+	\begin{itemize}
+		\item \textbf{Schéma de séquence Python $\leftrightarrow$ n8n}~: nom + question $\rightarrow$ webhook $\rightarrow$ réponse.
+		\item \textbf{Capture du webhook n8n}~: nœud d'entrée avec exemple de payload JSON.
+		\item \textbf{Capture du workflow n8n complet}~: principales étapes (contexte, traitement, réponse).
+		\item \textbf{Capture de la sortie JSON}~: réponse retournée par n8n et exploitée par le backend.
+	\end{itemize}
+	
+	\subsection{Services pour l'application mobile multiplateforme}
+	
+	L'application mobile développée avec \textbf{Flutter} consomme
+	un ensemble de services REST exposés par le backend, couvrant
+	la totalité des fonctionnalités accessibles depuis l'interface
+	utilisateur~: authentification et gestion des profils,
+	visualisation des journaux d'interaction, contrôle du robot en
+	temps réel, gestion des personnes enregistrées et consultation
+	des rapports d'événements.
+	
+	La sécurisation de ces endpoints repose sur des \textbf{JWT}
+	(\textit{JSON Web Tokens}) émis par Supabase Auth. Chaque requête
+	mobile inclut un Bearer Token validé côté backend avant tout
+	traitement. Un middleware FastAPI dédié gère l'authentification
+	de manière transversale, sans dupliquer la logique dans chaque
+	route.
+
+	\begin{center}
+		\includegraphics[width=0.90\textwidth]{public/listeendpoint.png}
+		
+		\small\textbf{Figure :} Liste des endpoints de communication avec l'application mobile cross-plateforme
+	\end{center}
+	\begin{center}
+		\includegraphics[width=0.90\textwidth]{public/exucution.png}
+		
+		\small\textbf{Figure :} Exucution Quelques EndPoints
+	\end{center}
+	
+	% ----- tableau des endpoints à compléter -----
+	\begin{table}[H]
+		\centering
+		\caption{Endpoints exposés à l'application mobile}
+		\label{tab:endpoints_mobile}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|l|c|l|}
+			\hline
+			\textbf{Endpoint} & \textbf{Méthode} & \textbf{Description} \\
+			\hline
+			&  &  \\
+			&  &  \\
+			&  &  \\
+			\hline
+		\end{tabular}
+	\end{table}
+	% ----- fin tableau à compléter -----
+	
+	\subsection{Communication avec le système embarqué (robot réel)}
+	
+	L'interface avec le robot physique constitue l'une des parties
+	les plus sensibles du backend. Le robot embarque un
+	microcontrôleur connecté en permanence via \textbf{WebSocket},
+	permettant une communication bidirectionnelle, asynchrone et à
+	faible latence. Le backend maintient une connexion persistante
+	avec le robot et achemine les commandes en temps réel.
+	
+	Chaque commande est préalablement sérialisée au format JSON,
+	journalisée dans la table \texttt{commands} avec le statut
+	\og en attente \fg{}, puis transmise via WebSocket. Un système
+	d'acquittement (ACK) permet au backend de confirmer la réception
+	et l'exécution de la commande par le robot, mettant à jour le
+	statut en conséquence. En l'absence de réponse dans un délai
+	configurable, un mécanisme de \textit{retry} est déclenché
+	automatiquement.
+
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{public/dscse.png}
+		
+		\small\textbf{Figure :} Diagramme de séquence de la communication avec le système embarqué
+	\end{center}
+	
+	%------------------------------------------------------------------
+	\section{Problèmes Rencontrés et Solutions Apportées}
+	%------------------------------------------------------------------
+	
+	Le développement du backend a été ponctué de plusieurs défis
+	techniques significatifs. Le tableau~\ref{tab:problemes} en
+	présente les principaux, accompagnés des solutions retenues.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Problèmes techniques rencontrés et solutions apportées}
+		\label{tab:problemes}
+		\renewcommand{\arraystretch}{1.4}
+		\begin{tabularx}{\textwidth}{|p{3.8cm}|p{3.2cm}|X|}
+			\hline
+			\textbf{Problème rencontré} & \textbf{Impact} & \textbf{Solution adoptée} \\
+			\hline
+			Latence élevée de la reconnaissance faciale sous charge
+			& Blocage du thread principal FastAPI
+			& Utilisation de \texttt{run\_in\_executor} pour déléguer le
+			traitement au \texttt{ThreadPoolExecutor} \\
+			\hline
+			Déconnexions intempestives du WebSocket robot
+			& Perte de commandes, état incohérent
+			& Reconnexion automatique avec \textit{backoff} exponentiel \\
+			\hline
+			Conflits de concurrence sur la base de données
+			& Doublons de sessions et d'événements
+			& Transactions atomiques et \texttt{SELECT FOR UPDATE} \\
+			\hline
+			Taille des encodages faciaux (128 flottants / profil)
+			& Comparaisons massives lentes
+			& Indexation vectorielle et cache Redis pour les encodages
+			fréquents \\
+			\hline
+			Quota Azure STT dépassé lors des tests intensifs
+			& Interruption du service vocal
+			& Système de quota local et \textit{fallback} Whisper (OpenAI) \\
+			\hline
+		\end{tabularx}
+	\end{table}
+	
+	Un défi transversal a concerné la gestion des dépendances
+	circulaires entre modules dans une architecture Clean. Python,
+	contrairement à Java, n'impose pas nativement l'inversion de
+	dépendances, ce qui peut conduire à des couplages non voulus.
+	Ce problème a été résolu par l'utilisation systématique
+	d'interfaces (classes abstraites Python) et d'un conteneur
+	d'injection de dépendances (\texttt{dependency\_injector}).
+	
+	%------------------------------------------------------------------
+	\section{Conclusion}
+	%------------------------------------------------------------------
+	
+	Le Cycle~4 a permis de concevoir, de développer et de valider
+	le composant le plus structurant de notre écosystème~: le
+	Distributeur de Services. Ce backend, développé en Python avec
+	FastAPI et organisé selon les principes de la Clean Architecture,
+	assure la totalité des communications entre les différents
+	acteurs du système avec rigueur et fiabilité.
+	
+	Les choix technologiques ont été justifiés par des critères
+	objectifs~: la richesse de l'écosystème Python pour l'IA, les
+	performances asynchrones de FastAPI, et la flexibilité de la
+	Clean Architecture pour absorber les évolutions futures.
+	Les services développés — reconnaissance faciale, synthèse et
+	transcription vocale, communication robot en temps réel, gestion
+	de la base de données — ont tous été validés par des campagnes
+	de tests rigoureuses.
+	
+	Ce composant constitue désormais une fondation solide sur
+	laquelle les cycles ultérieurs pourront s'appuyer pour étendre
+	les fonctionnalités du système, notamment l'enrichissement des
+	interactions conversationnelles et l'amélioration des capacités
+	autonomes du robot.
+	
+	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black,
+		title=\textbf{Points clés du Cycle 4}]
+		\begin{itemize}[noitemsep]
+			\item Backend FastAPI + Python structuré en Clean Architecture
+			\item Communication avec 5 composants extérieurs
+			(robot, n8n, application mobile, Supabase, Azure/Gemini)
+			\item Service de reconnaissance faciale avec 94{,}3\,\% de précision
+			\item Intégration professionnelle des services Azure STT/TTS
+			et de l'API Gemini
+		\end{itemize}
+	\end{tcolorbox}
 \end{document}

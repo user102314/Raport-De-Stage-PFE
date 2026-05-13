@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.4.26)  5 MAY 2026 14:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.4.26)  8 MAY 2026 16:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1112,7 +1112,7 @@ Package hyperref Info: Link coloring OFF on input line 245.
 \@outlinefile=\write4
 \openout4 = `finalyearrapport.out'.
 
-<public/isetlogo (2).png, id=229, 207.77625pt x 244.915pt>
+<public/isetlogo (2).png, id=297, 207.77625pt x 244.915pt>
 File: public/isetlogo (2).png Graphic file (type png)
 <use public/isetlogo (2).png>
 Package pdftex.def Info: public/isetlogo (2).png  used on input line 264.
@@ -1157,7 +1157,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 265.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 265.
-<public/logos.png, id=230, 1027.84pt x 1027.84pt>
+<public/logos.png, id=298, 1027.84pt x 1027.84pt>
 File: public/logos.png Graphic file (type png)
 <use public/logos.png>
 Package pdftex.def Info: public/logos.png  used on input line 269.
@@ -1204,22 +1204,22 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-)
+[6])
 \tf@toc=\write5
 \openout5 = `finalyearrapport.toc'.
 
- [6] (finalyearrapport.lof)
+ [7] (finalyearrapport.lof)
 \tf@lof=\write6
 \openout6 = `finalyearrapport.lof'.
 
- [7
+ [8
 
 
-] (finalyearrapport.lot)
+] [9] (finalyearrapport.lot)
 \tf@lot=\write7
 \openout7 = `finalyearrapport.lot'.
 
- [8
+ [10
 
 
 ] [1
@@ -1232,7 +1232,7 @@ Chapter I.
 ] [3
 
 ] [4] [5] [6]
-<public/archi glob.png, id=405, 1409.265pt x 834.11626pt>
+<public/archi glob.png, id=522, 1409.265pt x 834.11626pt>
 File: public/archi glob.png Graphic file (type png)
 <use public/archi glob.png>
 Package pdftex.def Info: public/archi glob.png  used on input line 647.
@@ -1271,13 +1271,13 @@ $[]$
  []
 
 [14]
-<public/archic.png, id=440, 1222.5675pt x 867.24pt>
+<public/archic.png, id=558, 1222.5675pt x 867.24pt>
 File: public/archic.png Graphic file (type png)
 <use public/archic.png>
 Package pdftex.def Info: public/archic.png  used on input line 799.
 (pdftex.def)             Requested size: 399.05278pt x 283.0671pt.
  [15 <./public/archic.png>]
-<public/cheakmode.png, id=448, 960.58875pt x 304.13625pt>
+<public/cheakmode.png, id=565, 960.58875pt x 304.13625pt>
 File: public/cheakmode.png Graphic file (type png)
 <use public/cheakmode.png>
 Package pdftex.def Info: public/cheakmode.png  used on input line 850.
@@ -1289,7 +1289,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [16]
-<public/dsb1.png, id=453, 643.6547pt x 263.48438pt>
+<public/dsb1.png, id=570, 643.6547pt x 263.48438pt>
 File: public/dsb1.png Graphic file (type png)
 <use public/dsb1.png>
 Package pdftex.def Info: public/dsb1.png  used on input line 855.
@@ -1301,7 +1301,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [17 <./public/cheakmode.png> <./public/dsb1.png>]
-<public/historique.png, id=464, 261.97874pt x 136.25906pt>
+<public/historique.png, id=581, 261.97874pt x 136.25906pt>
 File: public/historique.png Graphic file (type png)
 <use public/historique.png>
 Package pdftex.def Info: public/historique.png  used on input line 879.
@@ -1312,7 +1312,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 880.
 See the caption package documentation for explanation.
 
-<public/dsb2.png, id=465, 979.40906pt x 301.125pt>
+<public/dsb2.png, id=582, 979.40906pt x 301.125pt>
 File: public/dsb2.png Graphic file (type png)
 <use public/dsb2.png>
 Package pdftex.def Info: public/dsb2.png  used on input line 884.
@@ -1325,7 +1325,7 @@ See the caption package documentation for explanation.
 [18 <./public/historique.png> <./public/dsb2.png>]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
 (Font)              Font shape `T1/cmtt/m/n' tried instead on input line 921.
-<public/dsb3.png, id=473, 776.14969pt x 186.6975pt>
+<public/dsb3.png, id=590, 776.14969pt x 186.6975pt>
 File: public/dsb3.png Graphic file (type png)
 <use public/dsb3.png>
 Package pdftex.def Info: public/dsb3.png  used on input line 961.
@@ -1389,7 +1389,7 @@ You may provide a definition with
 \DeclareUnicodeCharacter 
 
 [20 <./public/dsb3.png>] [21]
-<public/clasifer.png, id=493, 226.59656pt x 98.61844pt>
+<public/clasifer.png, id=610, 226.59656pt x 98.61844pt>
 File: public/clasifer.png Graphic file (type png)
 <use public/clasifer.png>
 Package pdftex.def Info: public/clasifer.png  used on input line 1107.
@@ -1413,7 +1413,7 @@ LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
             Default family used instead on input line 1157.
  [23]
-<public/reconaisence.png, id=509, 300.3722pt x 115.93312pt>
+<public/reconaisence.png, id=626, 300.3722pt x 115.93312pt>
 File: public/reconaisence.png Graphic file (type png)
 <use public/reconaisence.png>
 Package pdftex.def Info: public/reconaisence.png  used on input line 1206.
@@ -1424,7 +1424,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 1207.
 See the caption package documentation for explanation.
 
-<public/dsb4.png, id=510, 750.55406pt x 230.36063pt>
+<public/dsb4.png, id=627, 750.55406pt x 230.36063pt>
 File: public/dsb4.png Graphic file (type png)
 <use public/dsb4.png>
 Package pdftex.def Info: public/dsb4.png  used on input line 1211.
@@ -1459,7 +1459,7 @@ LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
             Default family used instead on input line 1317.
 [25]
-<public/demigauche.png, id=524, 320.69812pt x 107.65219pt>
+<public/demigauche.png, id=642, 320.69812pt x 107.65219pt>
 File: public/demigauche.png Graphic file (type png)
 <use public/demigauche.png>
 Package pdftex.def Info: public/demigauche.png  used on input line 1329.
@@ -1493,7 +1493,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [28]
-<public/demigauchedroit.png, id=542, 468.24937pt x 194.97844pt>
+<public/demigauchedroit.png, id=659, 468.24937pt x 194.97844pt>
 File: public/demigauchedroit.png Graphic file (type png)
 <use public/demigauchedroit.png>
 Package pdftex.def Info: public/demigauchedroit.png  used on input line 1439.
@@ -1505,7 +1505,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [29]
-<public/dsb5.png, id=547, 1029.09468pt x 398.99063pt>
+<public/dsb5.png, id=664, 1029.09468pt x 398.99063pt>
 File: public/dsb5.png Graphic file (type png)
 <use public/dsb5.png>
 Package pdftex.def Info: public/dsb5.png  used on input line 1444.
@@ -1516,7 +1516,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 1445.
 See the caption package documentation for explanation.
 
-<public/dcb5.png, id=548, 398.99063pt x 481.8pt>
+<public/dcb5.png, id=665, 398.99063pt x 481.8pt>
 File: public/dcb5.png Graphic file (type png)
 <use public/dcb5.png>
 Package pdftex.def Info: public/dcb5.png  used on input line 1449.
@@ -1528,7 +1528,7 @@ See the caption package documentation for explanation.
 
 [30 <./public/demigauchedroit.png> <./public/dsb5.png>] [31 <./public/dcb5.png>
 ]
-<public/captureworkflowb6.png, id=560, 371.13657pt x 581.92406pt>
+<public/captureworkflowb6.png, id=678, 371.13657pt x 581.92406pt>
 File: public/captureworkflowb6.png Graphic file (type png)
 <use public/captureworkflowb6.png>
 Package pdftex.def Info: public/captureworkflowb6.png  used on input line 1492.
@@ -1541,7 +1541,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [32]
-<public/dcb6.png, id=570, 621.82312pt x 440.39531pt>
+<public/dcb6.png, id=688, 621.82312pt x 440.39531pt>
 File: public/dcb6.png Graphic file (type png)
 <use public/dcb6.png>
 Package pdftex.def Info: public/dcb6.png  used on input line 1498.
@@ -1557,7 +1557,7 @@ Overfull \hbox (127.28534pt too wide) in paragraph at lines 1536--1538
 $[]$
  []
 
-<public/flux2.png, id=577, 758.835pt x 149.05687pt>
+<public/flux2.png, id=694, 758.835pt x 149.05687pt>
 File: public/flux2.png Graphic file (type png)
 <use public/flux2.png>
 Package pdftex.def Info: public/flux2.png  used on input line 1539.
@@ -1568,7 +1568,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [34 <./public/dcb6.png>]
-<public/4conseil.png, id=583, 405.76593pt x 544.28343pt>
+<public/4conseil.png, id=700, 405.76593pt x 544.28343pt>
 File: public/4conseil.png Graphic file (type png)
 <use public/4conseil.png>
 Package pdftex.def Info: public/4conseil.png  used on input line 1569.
@@ -1585,7 +1585,7 @@ $[]$
  []
 
 [36 <./public/4conseil.png>]
-<public/wf3.png, id=597, 651.18282pt x 297.36093pt>
+<public/wf3.png, id=714, 651.18282pt x 297.36093pt>
 File: public/wf3.png Graphic file (type png)
 <use public/wf3.png>
 Package pdftex.def Info: public/wf3.png  used on input line 1601.
@@ -1611,7 +1611,7 @@ Underfull \hbox (badness 1147) in paragraph at lines 1663--1663
 []|\T1/ptm/m/n/12 (+20) Webhook 3 ^^V In-ter-ac-tions
  []
 
-<public/ducc1.png, id=603, 374.90062pt x 211.54031pt>
+<public/ducc1.png, id=721, 374.90062pt x 211.54031pt>
 File: public/ducc1.png Graphic file (type png)
 <use public/ducc1.png>
 Package pdftex.def Info: public/ducc1.png  used on input line 1668.
@@ -1626,7 +1626,319 @@ Overfull \hbox (65.60464pt too wide) in paragraph at lines 1678--1679
 $[]$ 
  []
 
-[39 <./public/ducc1.png>] (finalyearrapport.aux)
+[39 <./public/ducc1.png>]
+Chapter IV.
+[40
+
+] [41
+
+]
+
+! LaTeX Error: Unknown float option `H'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1764 	\begin{table}[H]
+                        
+Option `H' ignored and `p' used.
+
+! Undefined control sequence.
+l.1776 			Biblioth√®ques IA/ML        & \checkmark
+                                                  \ Excellent   & $\sim$ Lim...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1777 			Performance async          & \checkmark
+                                                 \ asyncio     & \checkmark\...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1777 ...  & \checkmark\ asyncio     & \checkmark
+                                                  \ Natif & \checkmark\ Nati...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1777 ...cio     & \checkmark\ Natif & \checkmark
+                                                  \ Natif \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1778 			Int√©gration Azure SDK      & \checkmark
+                                                  \ Officiel    & \checkmark...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1778 ...  & \checkmark\ Officiel    & \checkmark
+                                                  \ Officiel & \checkmark\ O...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1778 ...l    & \checkmark\ Officiel & \checkmark
+                                                  \ Officiel \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1779 ...acilit√© de d√©veloppement  & \checkmark
+                                                  \ Tr√®s rapide & \checkmar...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1779 ... & \checkmark\ Tr√®s rapide & \checkmark
+                                                  \ Rapide & $\sim$ Verbeux \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1780 			Reconnaissance visage      & \checkmark
+                                                 \ face\_recog & $\times$ In...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1781 			D√©ploiement Docker         & \checkmark
+                                                  \ Simple      & \checkmark...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1781 ...  & \checkmark\ Simple      & \checkmark
+                                                  \ Simple & $\sim$ Lourd \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+<public/archipy.png, id=739, 331.99031pt x 402.00188pt>
+File: public/archipy.png Graphic file (type png)
+<use public/archipy.png>
+Package pdftex.def Info: public/archipy.png  used on input line 1817.
+(pdftex.def)             Requested size: 258.21019pt x 312.6769pt.
+[42]
+<public/archiipy.png, id=744, 467.49657pt x 756.57657pt>
+File: public/archiipy.png Graphic file (type png)
+<use public/archiipy.png>
+Package pdftex.def Info: public/archiipy.png  used on input line 1823.
+(pdftex.def)             Requested size: 258.21019pt x 417.89624pt.
+ [43 <./public/archipy.png>]
+
+! LaTeX Error: Unknown float option `H'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1853 \begin{figure}[H]
+                        
+Option `H' ignored and `p' used.
+
+[44 <./public/archiipy.png>]
+<public/supabase.jpg, id=756, 828.09375pt x 255.95625pt>
+File: public/supabase.jpg Graphic file (type jpg)
+<use public/supabase.jpg>
+Package pdftex.def Info: public/supabase.jpg  used on input line 1879.
+(pdftex.def)             Requested size: 445.99553pt x 137.855pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1880.
+See the caption package documentation for explanation.
+
+
+Overfull \hbox (6.54985pt too wide) in paragraph at lines 1889--1890
+[]\T1/cmtt/m/n/12 conversation \T1/ptm/b/n/12 (-20) (id, ques-tion, re-ponce, d
+ate, type_de_question, per-sonne) \T1/ptm/m/n/12 (-20) : archive l'ensemble
+ []
+
+[45 <./public/supabase.jpg>]
+<public/koda_schema.png, id=762, 1413.28pt x 770.88pt>
+File: public/koda_schema.png Graphic file (type png)
+<use public/koda_schema.png>
+Package pdftex.def Info: public/koda_schema.png  used on input line 1899.
+(pdftex.def)             Requested size: 445.99553pt x 243.2637pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1900.
+See the caption package documentation for explanation.
+
+[46 <./public/koda_schema.png>]
+Overfull \hbox (40.5548pt too wide) in paragraph at lines 1942--1945
+[]\T1/ptm/m/n/12 (-20) injection de ces paramËtres dans le back-end via des var
+i-ables d'environnement (ex. : \T1/cmtt/m/n/12 AZURE_SPEECH_KEY\T1/ptm/m/n/12 (
+-20) ,
+ []
+
+<public/azur.png, id=773, 560.0925pt x 290.58563pt>
+File: public/azur.png Graphic file (type png)
+<use public/azur.png>
+Package pdftex.def Info: public/azur.png  used on input line 1968.
+(pdftex.def)             Requested size: 445.99553pt x 231.40022pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1969.
+See the caption package documentation for explanation.
+
+<public/tts.png, id=774, 541.27219pt x 101.62968pt>
+File: public/tts.png Graphic file (type png)
+<use public/tts.png>
+Package pdftex.def Info: public/tts.png  used on input line 1972.
+(pdftex.def)             Requested size: 445.99553pt x 83.74316pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1973.
+See the caption package documentation for explanation.
+
+[47 <./public/azur.png>]
+<public/stt.png, id=780, 490.08093pt x 249.18094pt>
+File: public/stt.png Graphic file (type png)
+<use public/stt.png>
+Package pdftex.def Info: public/stt.png  used on input line 1976.
+(pdftex.def)             Requested size: 445.99553pt x 226.7702pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1977.
+See the caption package documentation for explanation.
+
+
+Overfull \hbox (9.59615pt too wide) in paragraph at lines 1984--1992
+\T1/ptm/m/n/12 (-20) d'interaction per-son-nal-isÈe et con-textuelle. Il s'appu
+ie sur la bib-lio-thËque Python \T1/cmtt/m/n/12 face_recognition\T1/ptm/m/n/12 
+(-20) ,
+ []
+
+<public/dataset.png, id=781, 515.67656pt x 514.17094pt>
+File: public/dataset.png Graphic file (type png)
+<use public/dataset.png>
+Package pdftex.def Info: public/dataset.png  used on input line 2003.
+(pdftex.def)             Requested size: 445.99553pt x 444.70468pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 2004.
+See the caption package documentation for explanation.
+
+[48 <./public/tts.png> <./public/stt.png>] [49 <./public/dataset.png>]
+<public/captureworkflowinput.png, id=794, 1075.76906pt x 587.19376pt>
+File: public/captureworkflowinput.png Graphic file (type png)
+<use public/captureworkflowinput.png>
+Package pdftex.def Info: public/captureworkflowinput.png  used on input line 20
+45.
+(pdftex.def)             Requested size: 445.99553pt x 243.43895pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 2046.
+See the caption package documentation for explanation.
+
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 2049.
+
+[50 <./public/captureworkflowinput.png>]
+<public/listeendpoint.png, id=806, 1413.28pt x 770.88pt>
+File: public/listeendpoint.png Graphic file (type png)
+<use public/listeendpoint.png>
+Package pdftex.def Info: public/listeendpoint.png  used on input line 2075.
+(pdftex.def)             Requested size: 422.52057pt x 230.46593pt.
+<public/exucution.png, id=807, 776.14969pt x 580.41844pt>
+File: public/exucution.png Graphic file (type png)
+<use public/exucution.png>
+Package pdftex.def Info: public/exucution.png  used on input line 2080.
+(pdftex.def)             Requested size: 422.52057pt x 315.97195pt.
+ [51 <./public/listeendpoint.png>]
+
+! LaTeX Error: Unknown float option `H'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2086 	\begin{table}[H]
+                        
+Option `H' ignored and `p' used.
+
+<public/dscse.png, id=813, 621.07031pt x 531.48563pt>
+File: public/dscse.png Graphic file (type png)
+<use public/dscse.png>
+Package pdftex.def Info: public/dscse.png  used on input line 2122.
+(pdftex.def)             Requested size: 445.99553pt x 381.66374pt.
+[52 <./public/exucution.png>] [53]
+
+! LaTeX Error: Unknown float option `H'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2135 	\begin{table}[H]
+                        
+Option `H' ignored and `p' used.
+
+
+Underfull \hbox (badness 2564) in paragraph at lines 2166--2166
+[]|\T1/ptm/m/n/12 (+20) DÈconnexions in-tem-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2166--2166
+[]|\T1/ptm/m/n/12 (+20) Conflits de con-cur-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2166--2166
+[]|\T1/ptm/m/n/12 (+20) Doublons de
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2166--2166
+\T1/ptm/m/n/12 (+20) ses-sions et
+ []
+
+[54 <./public/dscse.png>] [55] [56] (finalyearrapport.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1635,15 +1947,18 @@ L3 programming layer <2026-01-19>
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `finalyearrapport.out' has not changed.
-(rerunfilecheck)             Checksum: A3F64556624A4D132EEBC9A720319B06;13422.
+(rerunfilecheck)             Checksum: 99C904573A1C47F9E6F81DAF2D026AF5;17714.
  ) 
 Here is how much of TeX's memory you used:
- 33714 strings out of 467867
- 677426 string characters out of 5420270
- 1137500 words of memory out of 5000000
- 61473 multiletter control sequences out of 15000+600000
- 706940 words of font info for 366 fonts, out of 8000000 for 9000
+ 33898 strings out of 467867
+ 680804 string characters out of 5420270
+ 1138854 words of memory out of 5000000
+ 61584 multiletter control sequences out of 15000+600000
+ 708494 words of font info for 377 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  88i,13n,103p,1015b,726s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200
@@ -1651,13 +1966,15 @@ Here is how much of TeX's memory you used:
 95.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1095.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tc
 rb1200.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
-ectt1200.pk><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utm
-b8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a
-.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb
-><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on finalyearrapport.pdf (49 pages, 2229454 bytes).
+ectt1200.pk><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmsy10.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/time
+s/utmb8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/ut
+mbi8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8
+a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.p
+fb>
+Output written on finalyearrapport.pdf (68 pages, 5548685 bytes).
 PDF statistics:
- 783 PDF objects out of 1000 (max. 8388607)
- 155 named destinations out of 1000 (max. 500000)
- 90171 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 1029 PDF objects out of 1200 (max. 8388607)
+ 213 named destinations out of 1000 (max. 500000)
+ 90367 words of extra memory for PDF output out of 106986 (max. 10000000)
 

@@ -6,4 +6,8 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {III.1}{\ignorespaces Correspondance entre mécanismes cognitifs humains et implémentations de KODA}}{38}{table.caption.7}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {IV.1}{\ignorespaces Comparaison des technologies backend envisagées}}{53}{table.caption.8}%
+\contentsline {table}{\numberline {IV.2}{\ignorespaces Endpoints exposés à l'application mobile}}{53}{table.caption.10}%
 \contentsfinish 
+\contentsline {table}{\numberline {IV.3}{\ignorespaces Problèmes techniques rencontrés et solutions apportées}}{56}{table.caption.11}%
