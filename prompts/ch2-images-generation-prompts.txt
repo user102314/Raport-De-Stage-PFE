@@ -1,0 +1,37 @@
+================================================================================
+PROMPTS POUR GÉNÉRER LES IMAGES MANQUANTES DU CHAPITRE II (KODA)
+Utilisation : outil de génération d'image (DALL·E, Midjourney, Ideogram, etc.)
+Exporter le résultat sous le nom indiqué dans public/
+================================================================================
+
+--- Fichier cible : public/ch2-planification-cycles.png ---
+Thème : frise chronologique / diagramme de Gantt académique pour un PFE.
+
+Prompt (copier-coller) :
+
+"Diagramme de planification de projet informatique, style Gantt ou frise horizontale professionnelle, fond blanc, texte en français. Six bandes ou lignes nommées : (1) Workflow n8n, (2) Backend FastAPI, (3) Embarqué matériel, (4) Embarqué logiciel Raspberry Pi, (5) Application cross-plateforme, (6) Tests et validation. Flèches fines entre les bandes montrant les dépendances (1 et 2 en partie parallèle, 3 avant 4, 5 après 2, 6 en dernier couvrant tout). Jalons en losanges : démonstration de fin de cycle, rendu intermédiaire, soutenance. Palette bleu-gris, pas de logo commercial, aspect rapport de fin d'études ISET, haute lisibilité pour impression A4 paysage."
+
+Variante plus courte :
+
+"Gantt chart academic project, 6 horizontal swimlanes in French: n8n workflows, Python backend, embedded hardware, Raspberry Pi software, cross-platform app, testing. Dependency arrows, milestone diamonds, clean white background, blue-gray corporate style, A4 landscape readable."
+
+================================================================================
+
+--- Fichier cible : public/ch2-besoins-fonctionnels.png ---
+Thème : carte mentale ou tableau synthétique des besoins fonctionnels KODA.
+
+Prompt (copier-coller) :
+
+"Infographie ou mind map professionnelle en français pour un mémoire technique, fond clair. Au centre le titre « Besoins fonctionnels KODA ». Branches principales avec icônes simples : (1) Interaction conversationnelle / webhooks n8n, (2) Mémoire et personnalisation USE_MEMORY, (3) Distribution des services API REST, (4) Couche embarquée Raspberry Pi, (5) Pilotage mobile cross-plateforme, (6) Sécurité et modes ouvert-fermé. Sous-branches courtes (mots-clés seulement). Style plat, couleurs sobres bleu et vert, typographie sans-serif, haute lisibilité, format paysage A4."
+
+Variante tableau :
+
+"French functional requirements matrix for a robot companion project KODA: columns Requirement / Description courte / Priorité, rows for chat, memory, REST API, Raspberry Pi, mobile app, security modes. Clean academic table design, white background, blue header row, landscape A4."
+
+================================================================================
+Après génération : enregistrer les fichiers exactement sous :
+  public/ch2-planification-cycles.png
+  public/ch2-besoins-fonctionnels.png
+
+Pour les acteurs : exporter PlantUML depuis plantuml/ch2-diagramme-acteurs.puml
+vers public/ch2-diagramme-acteurs.png (java -jar plantuml.jar -tpng ...).

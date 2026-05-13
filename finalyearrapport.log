@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.4.26)  13 MAY 2026 11:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.4.26)  13 MAY 2026 12:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1112,7 +1112,7 @@ Package hyperref Info: Link coloring OFF on input line 245.
 \@outlinefile=\write4
 \openout4 = `finalyearrapport.out'.
 
-<public/isetlogo (2).png, id=305, 207.77625pt x 244.915pt>
+<public/isetlogo (2).png, id=377, 207.77625pt x 244.915pt>
 File: public/isetlogo (2).png Graphic file (type png)
 <use public/isetlogo (2).png>
 Package pdftex.def Info: public/isetlogo (2).png  used on input line 264.
@@ -1157,7 +1157,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 265.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 265.
-<public/logos.png, id=306, 1027.84pt x 1027.84pt>
+<public/logos.png, id=378, 1027.84pt x 1027.84pt>
 File: public/logos.png Graphic file (type png)
 <use public/logos.png>
 Package pdftex.def Info: public/logos.png  used on input line 269.
@@ -1195,12 +1195,12 @@ l.374 	\clearpage
 
 
 ]
-Overfull \hbox (6.69827pt too wide) in paragraph at lines 42--42
+Overfull \hbox (6.69827pt too wide) in paragraph at lines 60--60
  [][] [][]\T1/ptm/m/n/12 (-20) SerpAPI et Open-Router dans l'écosystème d'API 
  []
 
-
-Overfull \hbox (6.23137pt too wide) in paragraph at lines 45--45
+[6]
+Overfull \hbox (6.23137pt too wide) in paragraph at lines 63--63
  [][] [][]\T1/ptm/m/n/12 (-20) Block 4 : Re-con-nais-sance et En-reg-istrement 
 de l'Utilisateur[] [][]  
  []
@@ -1209,65 +1209,159 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-[6])
+[7])
 \tf@toc=\write5
 \openout5 = `finalyearrapport.toc'.
 
- [7] (finalyearrapport.lof
+ [8] (finalyearrapport.lof
 Overfull \hbox (18.27228pt too wide) in paragraph at lines 19--19
  [][] [][]\T1/ptm/m/n/12 (-20) Intégration Ser-pAPI ^^V recherche struc-turée (
 écosys-tème d'API aux côtés d'OpenRouter 
  []
 
-[8
+[9
 
 
 ])
 \tf@lof=\write6
 \openout6 = `finalyearrapport.lof'.
 
- [9] (finalyearrapport.lot)
+ [10] (finalyearrapport.lot)
 \tf@lot=\write7
 \openout7 = `finalyearrapport.lot'.
 
- [10
+ [11
 
 
 ] [1
 
 
 ]
-Chapter I.
+Chapitre I.
 [2
 
-] [3
+]
+Package babel Info: 'french' activates 'french' shorthands.
+(babel)             Reported on input line 528.
+ [3
 
 ] [4] [5] [6]
-<public/archi glob.png, id=545, 510.40688pt x 240.9pt>
-File: public/archi glob.png Graphic file (type png)
-<use public/archi glob.png>
-Package pdftex.def Info: public/archi glob.png  used on input line 645.
-(pdftex.def)             Requested size: 610.31306pt x 288.06769pt.
- [7]
 
-LaTeX Warning: Reference `fig:vmodel' on page 8 undefined on input line 660.
+LaTeX Warning: File `"public/archi glob.png"' not found on input line 649.
 
-[8 <./public/archi glob.png>] [9]
-Chapter II.
-[10
 
-] [11
+! Package pdftex.def Error: File `public/archi glob.png' not found: using draft
+ setting.
 
-] [12] [13] [14] [15] [16]
-Chapter III.
-[17
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.649 ...=1.3\textwidth]{"public/archi glob.png"}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-] [18
+[7]
+
+LaTeX Warning: Reference `fig:vmodel' on page 8 undefined on input line 664.
+
+[8] [9] [10]
+Chapitre II.
+[11
+
+] [12
+
+]
+<public/ch2-besoins-fonctionnels.png, id=667, 1041.1397pt x 526.21594pt>
+File: public/ch2-besoins-fonctionnels.png Graphic file (type png)
+<use public/ch2-besoins-fonctionnels.png>
+Package pdftex.def Info: public/ch2-besoins-fonctionnels.png  used on input lin
+e 762.
+(pdftex.def)             Requested size: 445.99553pt x 225.41733pt.
+ [13 <./public/ch2-besoins-fonctionnels.png>]
+<public/ch2-architecture-systeme.png, id=676, 510.40688pt x 240.9pt>
+File: public/ch2-architecture-systeme.png Graphic file (type png)
+<use public/ch2-architecture-systeme.png>
+Package pdftex.def Info: public/ch2-architecture-systeme.png  used on input lin
+e 799.
+(pdftex.def)             Requested size: 445.99553pt x 210.51128pt.
+<public/ch2-diagramme-acteurs.png, id=677, 807.7678pt x 428.35031pt>
+File: public/ch2-diagramme-acteurs.png Graphic file (type png)
+<use public/ch2-diagramme-acteurs.png>
+Package pdftex.def Info: public/ch2-diagramme-acteurs.png  used on input line 8
+33.
+(pdftex.def)             Requested size: 460.07907pt x 243.9792pt.
+ [14 <./public/ch2-architecture-systeme.png>] [15 <./public/ch2-diagramme-acteu
+rs.png>]
+<public/ch2-modele-spirale.png, id=694, 1284.8pt x 1071.00125pt>
+File: public/ch2-modele-spirale.png Graphic file (type png)
+<use public/ch2-modele-spirale.png>
+Package pdftex.def Info: public/ch2-modele-spirale.png  used on input line 907.
+
+(pdftex.def)             Requested size: 445.99553pt x 371.7674pt.
+<public/ch2-planification-cycles.png, id=695, 1093.83656pt x 388.45125pt>
+File: public/ch2-planification-cycles.png Graphic file (type png)
+<use public/ch2-planification-cycles.png>
+Package pdftex.def Info: public/ch2-planification-cycles.png  used on input lin
+e 941.
+(pdftex.def)             Requested size: 469.47049pt x 166.72255pt.
+ [16] [17 <./public/ch2-modele-spirale.png> <./public/ch2-planification-cycles.
+png>] [18]
+<public/ch2-environnement-logiciel.png, id=716, 1413.28pt x 770.88pt>
+File: public/ch2-environnement-logiciel.png Graphic file (type png)
+<use public/ch2-environnement-logiciel.png>
+Package pdftex.def Info: public/ch2-environnement-logiciel.png  used on input l
+ine 1037.
+(pdftex.def)             Requested size: 445.99553pt x 243.2637pt.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1058.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1058.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1058.
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 1060.
+
+Overfull \hbox (27.55154pt too wide) in paragraph at lines 1064--1064
+[]|\T1/cmtt/m/n/10.95 ch2-planification-cycles.png| 
+ []
+
+
+Overfull \hbox (27.55154pt too wide) in paragraph at lines 1066--1066
+[]|\T1/cmtt/m/n/10.95 ch2-architecture-systeme.png| 
+ []
+
+
+Overfull \hbox (10.57643pt too wide) in paragraph at lines 1070--1070
+[]|\T1/cmtt/m/n/10.95 ch2-diagramme-acteurs.png| 
+ []
+
+
+Overfull \hbox (38.86829pt too wide) in paragraph at lines 1072--1072
+[]|\T1/cmtt/m/n/10.95 ch2-environnement-materiel.png| 
+ []
+
+
+Overfull \hbox (38.86829pt too wide) in paragraph at lines 1074--1074
+[]|\T1/cmtt/m/n/10.95 ch2-environnement-logiciel.png| 
+ []
+
+
+Overfull \hbox (27.55154pt too wide) in paragraph at lines 1076--1076
+[]|\T1/cmtt/m/n/10.95 ch2-besoins-fonctionnels.png| 
+ []
+
+[19 <./public/ch2-environnement-logiciel.png>] [20] [21]
+Chapitre III.
+[22
+
+] [23
 
 ]
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
-            Default family used instead on input line 985.
+            Default family used instead on input line 1140.
 
 (C:\Users\l\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
@@ -1275,236 +1369,220 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 )
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
-            Default family used instead on input line 985.
+            Default family used instead on input line 1140.
 
-Overfull \hbox (96.9167pt too wide) in paragraph at lines 1004--1005
+Overfull \hbox (96.19673pt too wide) in paragraph at lines 1159--1160
 $[]$ 
  []
 
-[19]
-<public/archic.png, id=630, 1222.5675pt x 867.24pt>
+[24]
+<public/archic.png, id=749, 1222.5675pt x 867.24pt>
 File: public/archic.png Graphic file (type png)
 <use public/archic.png>
-Package pdftex.def Info: public/archic.png  used on input line 1044.
+Package pdftex.def Info: public/archic.png  used on input line 1199.
 (pdftex.def)             Requested size: 399.05278pt x 283.0671pt.
- [20 <./public/archic.png>]
+ [25 <./public/archic.png>]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 1084.
- [21]
-Overfull \hbox (54.4027pt too wide) in paragraph at lines 1091--1092
-[]\T1/ptm/m/n/12 (-20) Le n÷ud ren-voie un ob-jet JSON re-groupant les in-di-ca
--teurs booléens (\T1/cmtt/m/n/12 contientFerme\T1/ptm/m/n/12 (-20) , \T1/cmtt/m
-/n/12 motdepasseexiste\T1/ptm/m/n/12 (-20) ,
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 1239.
+ [26]
+Overfull \hbox (54.2587pt too wide) in paragraph at lines 1246--1247
+[]\T1/ptm/m/n/12 (-20) Le n÷ud ren-voie un ob-jet JSON re-grou-pant les in-di-c
+a-teurs boo-léens (\T1/cmtt/m/n/12 contientFerme\T1/ptm/m/n/12 (-20) , \T1/cmtt
+/m/n/12 motdepasseexiste\T1/ptm/m/n/12 (-20) ,
  []
 
-<public/block1.png, id=645, 790.45313pt x 484.05844pt>
+<public/block1.png, id=764, 790.45313pt x 484.05844pt>
 File: public/block1.png Graphic file (type png)
 <use public/block1.png>
-Package pdftex.def Info: public/block1.png  used on input line 1095.
+Package pdftex.def Info: public/block1.png  used on input line 1250.
 (pdftex.def)             Requested size: 445.99553pt x 273.11682pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1096.
+(caption)                particular \caption on input line 1251.
 See the caption package documentation for explanation.
 
-<public/dsb1.png, id=646, 725.71124pt x 575.14874pt>
+<public/dsb1.png, id=765, 725.71124pt x 575.14874pt>
 File: public/dsb1.png Graphic file (type png)
 <use public/dsb1.png>
-Package pdftex.def Info: public/dsb1.png  used on input line 1100.
+Package pdftex.def Info: public/dsb1.png  used on input line 1255.
 (pdftex.def)             Requested size: 445.99553pt x 353.47304pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1101.
+(caption)                particular \caption on input line 1256.
 See the caption package documentation for explanation.
 
-[22 <./public/block1.png>]
-<public/ducb1.png, id=653, 419.31656pt x 609.77812pt>
+[27 <./public/block1.png>]
+<public/ducb1.png, id=772, 419.31656pt x 609.77812pt>
 File: public/ducb1.png Graphic file (type png)
 <use public/ducb1.png>
-Package pdftex.def Info: public/ducb1.png  used on input line 1121.
+Package pdftex.def Info: public/ducb1.png  used on input line 1276.
 (pdftex.def)             Requested size: 445.99553pt x 648.57619pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1122.
+(caption)                particular \caption on input line 1277.
 See the caption package documentation for explanation.
 
-[23 <./public/dsb1.png>] [24 <./public/ducb1.png>]
-<public/historique.png, id=664, 261.97874pt x 136.25906pt>
+[28 <./public/dsb1.png>] [29 <./public/ducb1.png>]
+<public/historique.png, id=783, 261.97874pt x 136.25906pt>
 File: public/historique.png Graphic file (type png)
 <use public/historique.png>
-Package pdftex.def Info: public/historique.png  used on input line 1159.
+Package pdftex.def Info: public/historique.png  used on input line 1314.
 (pdftex.def)             Requested size: 445.99553pt x 231.97621pt.
 
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1160.
-See the caption package documentation for explanation.
-
-[25]
-<public/dsb2.png, id=674, 979.40906pt x 301.125pt>
-File: public/dsb2.png Graphic file (type png)
-<use public/dsb2.png>
-Package pdftex.def Info: public/dsb2.png  used on input line 1164.
-(pdftex.def)             Requested size: 445.99553pt x 137.12236pt.
-
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1165.
-See the caption package documentation for explanation.
-
-[26 <./public/historique.png> <./public/dsb2.png>]
-<public/clasifer.png, id=684, 386.94562pt x 154.32657pt>
-File: public/clasifer.png Graphic file (type png)
-<use public/clasifer.png>
-Package pdftex.def Info: public/clasifer.png  used on input line 1245.
-(pdftex.def)             Requested size: 445.99553pt x 177.87918pt.
-
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1246.
-See the caption package documentation for explanation.
-
-[27]
-<public/dsb3.png, id=692, 730.22812pt x 477.28313pt>
-File: public/dsb3.png Graphic file (type png)
-<use public/dsb3.png>
-Package pdftex.def Info: public/dsb3.png  used on input line 1251.
-(pdftex.def)             Requested size: 445.99553pt x 291.50641pt.
-
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1252.
-See the caption package documentation for explanation.
-
-<public/ducb3.png, id=693, 610.53094pt x 416.30531pt>
-File: public/ducb3.png Graphic file (type png)
-<use public/ducb3.png>
-Package pdftex.def Info: public/ducb3.png  used on input line 1257.
-(pdftex.def)             Requested size: 445.99553pt x 304.12268pt.
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1258.
-See the caption package documentation for explanation.
-
-[28 <./public/clasifer.png> <./public/dsb3.png>]
-Overfull \hbox (95.87279pt too wide) in paragraph at lines 1284--1292
-\T1/ptm/m/n/12 (-20) et cible un mod-èle léger et rapide du cat-a-logue Open-Ro
-uter, ici \T1/cmtt/m/n/12 google/gemini-2.5-flash-lite-preview-09-2025\T1/ptm/m
-/n/12 (-20) .
- []
-
-[29 <./public/ducb3.png>]
-<public/openrouter.png, id=706, 411.78844pt x 314.67563pt>
-File: public/openrouter.png Graphic file (type png)
-<use public/openrouter.png>
-Package pdftex.def Info: public/openrouter.png  used on input line 1295.
-(pdftex.def)             Requested size: 338.01932pt x 258.30457pt.
-
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1296.
-See the caption package documentation for explanation.
-
-<public/serpapi.png, id=708, 1317.42188pt x 263.48438pt>
-File: public/serpapi.png Graphic file (type png)
-<use public/serpapi.png>
-Package pdftex.def Info: public/serpapi.png  used on input line 1314.
-(pdftex.def)             Requested size: 445.99553pt x 89.19753pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 1315.
 See the caption package documentation for explanation.
 
+[30]
+<public/dsb2.png, id=793, 979.40906pt x 301.125pt>
+File: public/dsb2.png Graphic file (type png)
+<use public/dsb2.png>
+Package pdftex.def Info: public/dsb2.png  used on input line 1319.
+(pdftex.def)             Requested size: 445.99553pt x 137.12236pt.
 
-Overfull \hbox (62.05516pt too wide) in paragraph at lines 1328--1334
-[]\T1/ptm/m/n/12 (-20) Le mes-sage classé est in-jecté dans le prompt via l'exp
-ression n8n [][]\T1/cmtt/m/n/12 $('Code5').item.json.inputquestoin[]\T1/ptm/m/n
-/12 (-20) .
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1320.
+See the caption package documentation for explanation.
+
+[31 <./public/historique.png> <./public/dsb2.png>]
+<public/clasifer.png, id=803, 386.94562pt x 154.32657pt>
+File: public/clasifer.png Graphic file (type png)
+<use public/clasifer.png>
+Package pdftex.def Info: public/clasifer.png  used on input line 1400.
+(pdftex.def)             Requested size: 445.99553pt x 177.87918pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1401.
+See the caption package documentation for explanation.
+
+[32]
+<public/dsb3.png, id=810, 730.22812pt x 477.28313pt>
+File: public/dsb3.png Graphic file (type png)
+<use public/dsb3.png>
+Package pdftex.def Info: public/dsb3.png  used on input line 1406.
+(pdftex.def)             Requested size: 445.99553pt x 291.50641pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1407.
+See the caption package documentation for explanation.
+
+<public/ducb3.png, id=811, 610.53094pt x 416.30531pt>
+File: public/ducb3.png Graphic file (type png)
+<use public/ducb3.png>
+Package pdftex.def Info: public/ducb3.png  used on input line 1412.
+(pdftex.def)             Requested size: 445.99553pt x 304.12268pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1413.
+See the caption package documentation for explanation.
+
+[33 <./public/clasifer.png> <./public/dsb3.png>]
+Overfull \hbox (95.72879pt too wide) in paragraph at lines 1439--1447
+\T1/ptm/m/n/12 (-20) et cible un mo-dèle lé-ger et ra-pide du ca-ta-logue Open-
+Rou-ter, ici \T1/cmtt/m/n/12 google/gemini-2.5-flash-lite-preview-09-2025\T1/pt
+m/m/n/12 (-20) .
  []
 
-[30 <./public/openrouter.png> <./public/serpapi.png>]
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1355.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1355.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1355.
- [31] [32]
-Overfull \hbox (274.17532pt too wide) in paragraph at lines 1448--1452
+[34 <./public/ducb3.png>]
+<public/openrouter.png, id=824, 411.78844pt x 314.67563pt>
+File: public/openrouter.png Graphic file (type png)
+<use public/openrouter.png>
+Package pdftex.def Info: public/openrouter.png  used on input line 1450.
+(pdftex.def)             Requested size: 338.01932pt x 258.30457pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1451.
+See the caption package documentation for explanation.
+
+<public/serpapi.png, id=826, 1317.42188pt x 263.48438pt>
+File: public/serpapi.png Graphic file (type png)
+<use public/serpapi.png>
+Package pdftex.def Info: public/serpapi.png  used on input line 1469.
+(pdftex.def)             Requested size: 445.99553pt x 89.19753pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1470.
+See the caption package documentation for explanation.
+
+
+Overfull \hbox (62.05516pt too wide) in paragraph at lines 1483--1489
+[]\T1/ptm/m/n/12 (-20) Le mes-sage classé est in-jecté dans le prompt via l'ex-
+pres-sion n8n [][]\T1/cmtt/m/n/12 $('Code5').item.json.inputquestoin[]\T1/ptm/m
+/n/12 (-20) .
+ []
+
+[35 <./public/openrouter.png> <./public/serpapi.png>] [36] [37]
+Overfull \hbox (273.51541pt too wide) in paragraph at lines 1603--1607
 $[]$ 
  []
 
-[33]
-LaTeX Info: Symbol \textrightarrow not provided by
-            font family ptm in TS1 encoding.
-            Default family used instead on input line 1490.
-LaTeX Info: Symbol \textrightarrow not provided by
-            font family ptm in TS1 encoding.
-            Default family used instead on input line 1492.
-<public/reconaisence.png, id=730, 300.3722pt x 115.93312pt>
-File: public/reconaisence.png Graphic file (type png)
-<use public/reconaisence.png>
-Package pdftex.def Info: public/reconaisence.png  used on input line 1541.
-(pdftex.def)             Requested size: 445.99553pt x 172.15324pt.
-
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1542.
-See the caption package documentation for explanation.
-
-[34]
-<public/dsb4.png, id=742, 750.55406pt x 230.36063pt>
-File: public/dsb4.png Graphic file (type png)
-<use public/dsb4.png>
-Package pdftex.def Info: public/dsb4.png  used on input line 1546.
-(pdftex.def)             Requested size: 445.99553pt x 136.88875pt.
-
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1547.
-See the caption package documentation for explanation.
-
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 1567.
-
-Overfull \hbox (16.88446pt too wide) in paragraph at lines 1584--1586
-[]\T1/ptm/m/n/12 (-20) Les \T1/ptm/b/n/12 (-20) in-for-ma-tions per-son-nelles 
-\T1/ptm/m/n/12 (-20) mé-morisées (goûts, habi-tudes, re-la-tions, don-nées bi-o
-graphiques) 
- []
-
-[35 <./public/reconaisence.png> <./public/dsb4.png>]
+[38]
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
             Default family used instead on input line 1645.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
-            Default family used instead on input line 1646.
+            Default family used instead on input line 1647.
+<public/reconaisence.png, id=847, 300.3722pt x 115.93312pt>
+File: public/reconaisence.png Graphic file (type png)
+<use public/reconaisence.png>
+Package pdftex.def Info: public/reconaisence.png  used on input line 1696.
+(pdftex.def)             Requested size: 445.99553pt x 172.15324pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1697.
+See the caption package documentation for explanation.
+
+[39]
+<public/dsb4.png, id=859, 750.55406pt x 230.36063pt>
+File: public/dsb4.png Graphic file (type png)
+<use public/dsb4.png>
+Package pdftex.def Info: public/dsb4.png  used on input line 1701.
+(pdftex.def)             Requested size: 445.99553pt x 136.88875pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1702.
+See the caption package documentation for explanation.
+
+[40 <./public/reconaisence.png> <./public/dsb4.png>]
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
-            Default family used instead on input line 1646.
+            Default family used instead on input line 1800.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
-            Default family used instead on input line 1651.
+            Default family used instead on input line 1801.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
-            Default family used instead on input line 1652.
- [36]
-<public/demigauche.png, id=755, 320.69812pt x 107.65219pt>
+            Default family used instead on input line 1801.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1806.
+LaTeX Info: Symbol \textrightarrow not provided by
+            font family ptm in TS1 encoding.
+            Default family used instead on input line 1807.
+ [41]
+<public/demigauche.png, id=872, 320.69812pt x 107.65219pt>
 File: public/demigauche.png Graphic file (type png)
 <use public/demigauche.png>
-Package pdftex.def Info: public/demigauche.png  used on input line 1664.
+Package pdftex.def Info: public/demigauche.png  used on input line 1819.
 (pdftex.def)             Requested size: 445.99553pt x 149.71658pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1665.
+(caption)                particular \caption on input line 1820.
 See the caption package documentation for explanation.
 
-[37 <./public/demigauche.png>] [38]
+[42 <./public/demigauche.png>] [43]
 
-LaTeX Warning: File `public/demidroite.png' not found on input line 1754.
+LaTeX Warning: File `public/demidroite.png' not found on input line 1909.
 
 
 ! Package pdftex.def Error: File `public/demidroite.png' not found: using draft
@@ -1514,155 +1592,155 @@ See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1754 ...h=0.95\textwidth]{public/demidroite.png}
+l.1909 ...h=0.95\textwidth]{public/demidroite.png}
                                                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1755.
+(caption)                particular \caption on input line 1910.
 See the caption package documentation for explanation.
 
-[39]
-<public/demigauchedroit.png, id=774, 468.24937pt x 194.97844pt>
+[44]
+<public/demigauchedroit.png, id=891, 468.24937pt x 194.97844pt>
 File: public/demigauchedroit.png Graphic file (type png)
 <use public/demigauchedroit.png>
-Package pdftex.def Info: public/demigauchedroit.png  used on input line 1774.
+Package pdftex.def Info: public/demigauchedroit.png  used on input line 1929.
 (pdftex.def)             Requested size: 445.99553pt x 185.72232pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1775.
+(caption)                particular \caption on input line 1930.
 See the caption package documentation for explanation.
 
-[40]
-<public/dsb5.png, id=779, 1029.09468pt x 398.99063pt>
+[45]
+<public/dsb5.png, id=896, 1029.09468pt x 398.99063pt>
 File: public/dsb5.png Graphic file (type png)
 <use public/dsb5.png>
-Package pdftex.def Info: public/dsb5.png  used on input line 1779.
+Package pdftex.def Info: public/dsb5.png  used on input line 1934.
 (pdftex.def)             Requested size: 445.99553pt x 172.92027pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1780.
+(caption)                particular \caption on input line 1935.
 See the caption package documentation for explanation.
 
-<public/dcb5.png, id=780, 398.99063pt x 481.8pt>
+<public/dcb5.png, id=897, 398.99063pt x 481.8pt>
 File: public/dcb5.png Graphic file (type png)
 <use public/dcb5.png>
-Package pdftex.def Info: public/dcb5.png  used on input line 1784.
+Package pdftex.def Info: public/dcb5.png  used on input line 1939.
 (pdftex.def)             Requested size: 445.99553pt x 538.58308pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1785.
+(caption)                particular \caption on input line 1940.
 See the caption package documentation for explanation.
 
-[41 <./public/demigauchedroit.png> <./public/dsb5.png>] [42 <./public/dcb5.png>
+[46 <./public/demigauchedroit.png> <./public/dsb5.png>] [47 <./public/dcb5.png>
 ]
-<public/captureworkflowb6.png, id=792, 371.13657pt x 581.92406pt>
+<public/captureworkflowb6.png, id=909, 371.13657pt x 581.92406pt>
 File: public/captureworkflowb6.png Graphic file (type png)
 <use public/captureworkflowb6.png>
-Package pdftex.def Info: public/captureworkflowb6.png  used on input line 1827.
+Package pdftex.def Info: public/captureworkflowb6.png  used on input line 1982.
 
 (pdftex.def)             Requested size: 445.99553pt x 699.31764pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1828.
+(caption)                particular \caption on input line 1983.
 See the caption package documentation for explanation.
 
-[43]
-<public/dcb6.png, id=803, 621.82312pt x 440.39531pt>
+[48]
+<public/dcb6.png, id=920, 621.82312pt x 440.39531pt>
 File: public/dcb6.png Graphic file (type png)
 <use public/dcb6.png>
-Package pdftex.def Info: public/dcb6.png  used on input line 1833.
+Package pdftex.def Info: public/dcb6.png  used on input line 1988.
 (pdftex.def)             Requested size: 445.99553pt x 315.86807pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1834.
+(caption)                particular \caption on input line 1989.
 See the caption package documentation for explanation.
 
-[44 <./public/captureworkflowb6.png>]
-Overfull \hbox (127.28534pt too wide) in paragraph at lines 1871--1873
+[49 <./public/captureworkflowb6.png>]
+Overfull \hbox (125.12543pt too wide) in paragraph at lines 2026--2028
 $[]$
  []
 
-<public/flux2.png, id=809, 758.835pt x 149.05687pt>
+<public/flux2.png, id=926, 758.835pt x 149.05687pt>
 File: public/flux2.png Graphic file (type png)
 <use public/flux2.png>
-Package pdftex.def Info: public/flux2.png  used on input line 1874.
+Package pdftex.def Info: public/flux2.png  used on input line 2029.
 (pdftex.def)             Requested size: 445.99553pt x 87.60844pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1875.
+(caption)                particular \caption on input line 2030.
 See the caption package documentation for explanation.
 
-[45 <./public/dcb6.png>]
-<public/4conseil.png, id=815, 405.76593pt x 544.28343pt>
+[50 <./public/dcb6.png>]
+<public/4conseil.png, id=932, 405.76593pt x 544.28343pt>
 File: public/4conseil.png Graphic file (type png)
 <use public/4conseil.png>
-Package pdftex.def Info: public/4conseil.png  used on input line 1904.
+Package pdftex.def Info: public/4conseil.png  used on input line 2059.
 (pdftex.def)             Requested size: 445.99553pt x 598.26515pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1905.
+(caption)                particular \caption on input line 2060.
 See the caption package documentation for explanation.
 
-[46 <./public/flux2.png>]
-Overfull \hbox (96.96138pt too wide) in paragraph at lines 1913--1914
+[51 <./public/flux2.png>]
+Overfull \hbox (94.80147pt too wide) in paragraph at lines 2068--2069
 $[]$ 
  []
 
-[47 <./public/4conseil.png>]
-<public/wf3.png, id=829, 651.18282pt x 297.36093pt>
+[52 <./public/4conseil.png>]
+<public/wf3.png, id=946, 651.18282pt x 297.36093pt>
 File: public/wf3.png Graphic file (type png)
 <use public/wf3.png>
-Package pdftex.def Info: public/wf3.png  used on input line 1936.
+Package pdftex.def Info: public/wf3.png  used on input line 2091.
 (pdftex.def)             Requested size: 445.99553pt x 203.66832pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1937.
+(caption)                particular \caption on input line 2092.
 See the caption package documentation for explanation.
 
 
-Overfull \hbox (464.91418pt too wide) in paragraph at lines 1939--1940
+Overfull \hbox (462.75427pt too wide) in paragraph at lines 2094--2095
 $[]$ 
  []
 
-[48 <./public/wf3.png>]
-Overfull \hbox (409.06615pt too wide) in paragraph at lines 1972--1973
+[53 <./public/wf3.png>]
+Overfull \hbox (409.18626pt too wide) in paragraph at lines 2127--2128
 $[]$ 
  []
 
 
-Underfull \hbox (badness 1147) in paragraph at lines 1998--1998
+Underfull \hbox (badness 1147) in paragraph at lines 2153--2153
 []|\T1/ptm/m/n/12 (+20) Webhook 3 ^^V In-ter-ac-tions
  []
 
-<public/ducc1.png, id=835, 374.90062pt x 211.54031pt>
+<public/ducc1.png, id=952, 374.90062pt x 211.54031pt>
 File: public/ducc1.png Graphic file (type png)
 <use public/ducc1.png>
-Package pdftex.def Info: public/ducc1.png  used on input line 2003.
+Package pdftex.def Info: public/ducc1.png  used on input line 2158.
 (pdftex.def)             Requested size: 445.99553pt x 251.67152pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2004.
+(caption)                particular \caption on input line 2159.
 See the caption package documentation for explanation.
 
-[49]
-Overfull \hbox (65.60464pt too wide) in paragraph at lines 2013--2014
+[54]
+Overfull \hbox (65.72476pt too wide) in paragraph at lines 2168--2169
 $[]$ 
  []
 
-[50 <./public/ducc1.png>]
-Chapter IV.
-[51
+[55 <./public/ducc1.png>]
+Chapitre IV.
+[56
 
-] [52
+] [57
 
 ]
 
@@ -1672,12 +1750,12 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.2099 	\begin{table}[H]
+l.2254 	\begin{table}[H]
                         
 Option `H' ignored and `p' used.
 
 ! Undefined control sequence.
-l.2111 			BibliothÃ¨ques IA/ML        & \checkmark
+l.2266 			BibliothÃ¨ques IA/ML        & \checkmark
                                                   \ Excellent   & $\sim$ Lim...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1686,7 +1764,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.2112 			Performance async          & \checkmark
+l.2267 			Performance async          & \checkmark
                                                  \ asyncio     & \checkmark\...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1695,7 +1773,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.2112 ...  & \checkmark\ asyncio     & \checkmark
+l.2267 ...  & \checkmark\ asyncio     & \checkmark
                                                   \ Natif & \checkmark\ Nati...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1704,7 +1782,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.2112 ...cio     & \checkmark\ Natif & \checkmark
+l.2267 ...cio     & \checkmark\ Natif & \checkmark
                                                   \ Natif \\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1713,7 +1791,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.2113 			IntÃ©gration Azure SDK      & \checkmark
+l.2268 			IntÃ©gration Azure SDK      & \checkmark
                                                   \ Officiel    & \checkmark...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1722,7 +1800,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.2113 ...  & \checkmark\ Officiel    & \checkmark
+l.2268 ...  & \checkmark\ Officiel    & \checkmark
                                                   \ Officiel & \checkmark\ O...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1731,7 +1809,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.2113 ...l    & \checkmark\ Officiel & \checkmark
+l.2268 ...l    & \checkmark\ Officiel & \checkmark
                                                   \ Officiel \\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1740,7 +1818,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.2114 ...acilitÃ© de dÃ©veloppement  & \checkmark
+l.2269 ...acilitÃ© de dÃ©veloppement  & \checkmark
                                                   \ TrÃ¨s rapide & \checkmar...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1749,7 +1827,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.2114 ... & \checkmark\ TrÃ¨s rapide & \checkmark
+l.2269 ... & \checkmark\ TrÃ¨s rapide & \checkmark
                                                   \ Rapide & $\sim$ Verbeux \\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1758,7 +1836,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.2115 			Reconnaissance visage      & \checkmark
+l.2270 			Reconnaissance visage      & \checkmark
                                                  \ face\_recog & $\times$ In...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1767,7 +1845,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.2116 			DÃ©ploiement Docker         & \checkmark
+l.2271 			DÃ©ploiement Docker         & \checkmark
                                                   \ Simple      & \checkmark...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1776,7 +1854,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.2116 ...  & \checkmark\ Simple      & \checkmark
+l.2271 ...  & \checkmark\ Simple      & \checkmark
                                                   \ Simple & $\sim$ Lourd \\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1784,18 +1862,18 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-<public/archipy.png, id=854, 331.99031pt x 402.00188pt>
+<public/archipy.png, id=972, 331.99031pt x 402.00188pt>
 File: public/archipy.png Graphic file (type png)
 <use public/archipy.png>
-Package pdftex.def Info: public/archipy.png  used on input line 2152.
+Package pdftex.def Info: public/archipy.png  used on input line 2315.
 (pdftex.def)             Requested size: 258.21019pt x 312.6769pt.
-[53]
-<public/archiipy.png, id=859, 467.49657pt x 756.57657pt>
+[58]
+<public/archiipy.png, id=977, 467.49657pt x 756.57657pt>
 File: public/archiipy.png Graphic file (type png)
 <use public/archiipy.png>
-Package pdftex.def Info: public/archiipy.png  used on input line 2158.
+Package pdftex.def Info: public/archiipy.png  used on input line 2321.
 (pdftex.def)             Requested size: 258.21019pt x 417.89624pt.
- [54 <./public/archipy.png>]
+ [59 <./public/archipy.png>]
 
 ! LaTeX Error: Unknown float option `H'.
 
@@ -1803,125 +1881,112 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.2188 \begin{figure}[H]
+l.2351 \begin{figure}[H]
                         
 Option `H' ignored and `p' used.
 
-[55 <./public/archiipy.png>]
-<public/supabase.jpg, id=871, 828.09375pt x 255.95625pt>
+[60 <./public/archiipy.png>]
+<public/supabase.jpg, id=989, 828.09375pt x 255.95625pt>
 File: public/supabase.jpg Graphic file (type jpg)
 <use public/supabase.jpg>
-Package pdftex.def Info: public/supabase.jpg  used on input line 2214.
+Package pdftex.def Info: public/supabase.jpg  used on input line 2377.
 (pdftex.def)             Requested size: 445.99553pt x 137.855pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2215.
+(caption)                particular \caption on input line 2378.
 See the caption package documentation for explanation.
 
-
-Overfull \hbox (6.54985pt too wide) in paragraph at lines 2224--2225
-[]\T1/cmtt/m/n/12 conversation \T1/ptm/b/n/12 (-20) (id, ques-tion, re-ponce, d
-ate, type_de_question, per-sonne) \T1/ptm/m/n/12 (-20) : archive l'ensemble
- []
-
-[56 <./public/supabase.jpg>]
-<public/koda_schema.png, id=876, 1413.28pt x 770.88pt>
+[61 <./public/supabase.jpg>]
+<public/koda_schema.png, id=994, 1413.28pt x 770.88pt>
 File: public/koda_schema.png Graphic file (type png)
 <use public/koda_schema.png>
-Package pdftex.def Info: public/koda_schema.png  used on input line 2234.
+Package pdftex.def Info: public/koda_schema.png  used on input line 2397.
 (pdftex.def)             Requested size: 445.99553pt x 243.2637pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2235.
+(caption)                particular \caption on input line 2398.
 See the caption package documentation for explanation.
 
-[57 <./public/koda_schema.png>]
-Overfull \hbox (40.5548pt too wide) in paragraph at lines 2277--2280
-[]\T1/ptm/m/n/12 (-20) injection de ces paramètres dans le back-end via des var
-i-ables d'environnement (ex. : \T1/cmtt/m/n/12 AZURE_SPEECH_KEY\T1/ptm/m/n/12 (
--20) ,
+[62 <./public/koda_schema.png>]
+Overfull \hbox (39.47484pt too wide) in paragraph at lines 2440--2443
+[]\T1/ptm/m/n/12 (-20) injection de ces pa-ra-mètres dans le ba-ckend via des v
+a-riables d'en-vi-ron-ne-ment (ex. : \T1/cmtt/m/n/12 AZURE_SPEECH_KEY\T1/ptm/m/
+n/12 (-20) ,
  []
 
-<public/azur.png, id=887, 560.0925pt x 290.58563pt>
+<public/azur.png, id=1005, 560.0925pt x 290.58563pt>
 File: public/azur.png Graphic file (type png)
 <use public/azur.png>
-Package pdftex.def Info: public/azur.png  used on input line 2303.
+Package pdftex.def Info: public/azur.png  used on input line 2466.
 (pdftex.def)             Requested size: 445.99553pt x 231.40022pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2304.
+(caption)                particular \caption on input line 2467.
 See the caption package documentation for explanation.
 
-<public/tts.png, id=888, 541.27219pt x 101.62968pt>
+<public/tts.png, id=1006, 541.27219pt x 101.62968pt>
 File: public/tts.png Graphic file (type png)
 <use public/tts.png>
-Package pdftex.def Info: public/tts.png  used on input line 2307.
+Package pdftex.def Info: public/tts.png  used on input line 2470.
 (pdftex.def)             Requested size: 445.99553pt x 83.74316pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2308.
+(caption)                particular \caption on input line 2471.
 See the caption package documentation for explanation.
 
-[58 <./public/azur.png>]
-<public/stt.png, id=894, 490.08093pt x 249.18094pt>
+[63 <./public/azur.png>]
+<public/stt.png, id=1012, 490.08093pt x 249.18094pt>
 File: public/stt.png Graphic file (type png)
 <use public/stt.png>
-Package pdftex.def Info: public/stt.png  used on input line 2311.
+Package pdftex.def Info: public/stt.png  used on input line 2474.
 (pdftex.def)             Requested size: 445.99553pt x 226.7702pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2312.
+(caption)                particular \caption on input line 2475.
 See the caption package documentation for explanation.
 
-
-Overfull \hbox (9.59615pt too wide) in paragraph at lines 2319--2327
-\T1/ptm/m/n/12 (-20) d'interaction per-son-nal-isée et con-textuelle. Il s'appu
-ie sur la bib-lio-thèque Python \T1/cmtt/m/n/12 face_recognition\T1/ptm/m/n/12 
-(-20) ,
- []
-
-<public/dataset.png, id=895, 515.67656pt x 514.17094pt>
+<public/dataset.png, id=1013, 515.67656pt x 514.17094pt>
 File: public/dataset.png Graphic file (type png)
 <use public/dataset.png>
-Package pdftex.def Info: public/dataset.png  used on input line 2338.
+Package pdftex.def Info: public/dataset.png  used on input line 2501.
 (pdftex.def)             Requested size: 445.99553pt x 444.70468pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2339.
+(caption)                particular \caption on input line 2502.
 See the caption package documentation for explanation.
 
-[59 <./public/tts.png> <./public/stt.png>] [60 <./public/dataset.png>]
-<public/captureworkflowinput.png, id=907, 1075.76906pt x 587.19376pt>
+[64 <./public/tts.png> <./public/stt.png>] [65 <./public/dataset.png>]
+<public/captureworkflowinput.png, id=1025, 1075.76906pt x 587.19376pt>
 File: public/captureworkflowinput.png Graphic file (type png)
 <use public/captureworkflowinput.png>
-Package pdftex.def Info: public/captureworkflowinput.png  used on input line 23
-80.
+Package pdftex.def Info: public/captureworkflowinput.png  used on input line 25
+43.
 (pdftex.def)             Requested size: 445.99553pt x 243.43895pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2381.
+(caption)                particular \caption on input line 2544.
 See the caption package documentation for explanation.
 
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 2384.
+(hyperref)                than one, level fixed on input line 2547.
 
-[61 <./public/captureworkflowinput.png>]
-<public/listeendpoint.png, id=920, 1413.28pt x 770.88pt>
+[66 <./public/captureworkflowinput.png>]
+<public/listeendpoint.png, id=1038, 1413.28pt x 770.88pt>
 File: public/listeendpoint.png Graphic file (type png)
 <use public/listeendpoint.png>
-Package pdftex.def Info: public/listeendpoint.png  used on input line 2410.
+Package pdftex.def Info: public/listeendpoint.png  used on input line 2573.
 (pdftex.def)             Requested size: 422.52057pt x 230.46593pt.
-<public/exucution.png, id=921, 776.14969pt x 580.41844pt>
+<public/exucution.png, id=1039, 776.14969pt x 580.41844pt>
 File: public/exucution.png Graphic file (type png)
 <use public/exucution.png>
-Package pdftex.def Info: public/exucution.png  used on input line 2415.
+Package pdftex.def Info: public/exucution.png  used on input line 2578.
 (pdftex.def)             Requested size: 422.52057pt x 315.97195pt.
- [62 <./public/listeendpoint.png>]
+ [67 <./public/listeendpoint.png>]
 
 ! LaTeX Error: Unknown float option `H'.
 
@@ -1929,16 +1994,16 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.2421 	\begin{table}[H]
+l.2584 	\begin{table}[H]
                         
 Option `H' ignored and `p' used.
 
-<public/dscse.png, id=927, 621.07031pt x 531.48563pt>
+<public/dscse.png, id=1045, 621.07031pt x 531.48563pt>
 File: public/dscse.png Graphic file (type png)
 <use public/dscse.png>
-Package pdftex.def Info: public/dscse.png  used on input line 2457.
+Package pdftex.def Info: public/dscse.png  used on input line 2620.
 (pdftex.def)             Requested size: 445.99553pt x 381.66374pt.
-[63 <./public/exucution.png>] [64]
+[68 <./public/exucution.png>] [69]
 
 ! LaTeX Error: Unknown float option `H'.
 
@@ -1946,31 +2011,41 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.2470 	\begin{table}[H]
+l.2633 	\begin{table}[H]
                         
 Option `H' ignored and `p' used.
 
 
-Underfull \hbox (badness 2564) in paragraph at lines 2501--2501
+Underfull \hbox (badness 2564) in paragraph at lines 2664--2664
 []|\T1/ptm/m/n/12 (+20) Déconnexions in-tem-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2501--2501
-[]|\T1/ptm/m/n/12 (+20) Conflits de con-cur-
+Underfull \hbox (badness 10000) in paragraph at lines 2664--2664
+[]|\T1/ptm/m/n/12 (+20) Perte de com-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2501--2501
-[]|\T1/ptm/m/n/12 (+20) Doublons de
+Underfull \hbox (badness 10000) in paragraph at lines 2664--2664
+\T1/ptm/m/n/12 (+20) mandes, état
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2501--2501
-\T1/ptm/m/n/12 (+20) ses-sions et
+Underfull \hbox (badness 10000) in paragraph at lines 2664--2664
+[]|\T1/ptm/m/n/12 (+20) Conflits de concur-
  []
 
-[65 <./public/dscse.png>] [66] [67] (finalyearrapport.aux)
+
+Underfull \hbox (badness 1484) in paragraph at lines 2664--2664
+[]|\T1/ptm/m/n/12 (+20) Doublons de ses-
+ []
+
+
+Underfull \hbox (badness 2285) in paragraph at lines 2664--2664
+\T1/ptm/m/n/12 (+20) sions et d'évé-ne-
+ []
+
+[70 <./public/dscse.png>] [71] [72] (finalyearrapport.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1988,48 +2063,49 @@ Package rerunfilecheck Warning: File `finalyearrapport.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `finalyearrapport.out':
-(rerunfilecheck)             Before: 1EEAA73FEE48D40B9096DB92A984A1E9;18524
-(rerunfilecheck)             After:  107ECA7D64995C6C3B4D676EEAF13B0C;22143.
+(rerunfilecheck)             Before: 107ECA7D64995C6C3B4D676EEAF13B0C;22143
+(rerunfilecheck)             After:  DD141AFAA126A1E274F535CA40F1901E;22686.
  ) 
 Here is how much of TeX's memory you used:
- 34087 strings out of 467867
- 683545 string characters out of 5420270
- 1139381 words of memory out of 5000000
- 61655 multiletter control sequences out of 15000+600000
- 720738 words of font info for 437 fonts, out of 8000000 for 9000
+ 34311 strings out of 467867
+ 687844 string characters out of 5420270
+ 1140464 words of memory out of 5000000
+ 61763 multiletter control sequences out of 15000+600000
+ 737828 words of font info for 505 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  88i,13n,103p,1015b,764s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-pdfTeX warning (dest): name{table.caption.10} has been referenced but does not 
+pdfTeX warning (dest): name{table.caption.12} has been referenced but does not 
 exist, replaced by a fixed one
 
 
-pdfTeX warning (dest): name{table.caption.7} has been referenced but does not e
+pdfTeX warning (dest): name{table.caption.11} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.caption.8} has been referenced but does not e
 xist, replaced by a fixed one
 
 
-pdfTeX warning (dest): name{figure.caption.9} has been referenced but does not 
-exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{figure.caption.6} has been referenced but does not 
-exist, replaced by a fixed one
+pdfTeX warning (dest): name{table.caption.6} has been referenced but does not e
+xist, replaced by a fixed one
 
  <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.p
 k> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200
-.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt10
-95.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrb
-1200.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ec
-tt1200.pk><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmr10.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmsy10.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/ti
-mes/utmb8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/
-utmbi8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utm
-r8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a
-.pfb>
-Output written on finalyearrapport.pdf (79 pages, 5880521 bytes).
+.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrb12
+00.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt
+1095.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ec
+it1200.pk> <C:\Users\l\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
+ectt1200.pk><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmr10.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmsy10.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/
+times/utmb8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/time
+s/utmbi8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/u
+tmr8a.pfb><C:/Users/l/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri
+8a.pfb>
+Output written on finalyearrapport.pdf (85 pages, 8920444 bytes).
 PDF statistics:
- 1167 PDF objects out of 1200 (max. 8388607)
- 264 named destinations out of 1000 (max. 500000)
- 104227 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 1319 PDF objects out of 1440 (max. 8388607)
+ 279 named destinations out of 1000 (max. 500000)
+ 115148 words of extra memory for PDF output out of 128383 (max. 10000000)
 

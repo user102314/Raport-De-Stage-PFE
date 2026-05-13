@@ -1,0 +1,52 @@
+@startuml ch2_diagramme_acteurs
+title Chapitre II — Acteurs et contexte du système KODA
+
+skinparam shadowing false
+skinparam rectangle {
+  roundCorner 8
+  BorderColor #336699
+  BackgroundColor #F5F9FF
+}
+
+left to right direction
+
+actor "Utilisateur\nfinal" as U <<Human>>
+
+rectangle "Système KODA" as SYS #E8F4FF {
+  node "Robot\n(Raspberry Pi)" as R
+  node "Application mobile\n(cross-plateforme)" as APP
+  node "Moteur n8n\n(workflows / webhooks)" as N8
+  node "Distributeur\nde services\n(FastAPI)" as API
+  database "PostgreSQL\n(Supabase)" as DB
+}
+
+rectangle "Services externes" as EXT #FFFAF0 {
+  rectangle "OpenRouter\n(LLM)" as OR
+  rectangle "SerpAPI\n(recherche)" as SERP
+  rectangle "Azure\n(STT / TTS / vision)" as AZ
+}
+
+actor "Encadrants\n/ équipe projet" as ENC <<Human>>
+actor "Organisme\nd'accueil\n(MicroEdition)" as ORG <<Human>>
+
+' --- Interactions principales
+U --> R : dialogue,\ncompagnon
+U --> APP : configuration,\nsuivi
+APP <--> API : REST / HTTPS
+R <--> API : commandes,\ntélémesure
+API <--> N8 : webhooks,\nJSON
+API <--> DB : persistance\n(ORM / SQL)
+API ..> OR : inférence LLM
+API ..> SERP : recherche\nstructurée
+API ..> AZ : voix / visage
+
+ENC ..> SYS : suivi PFE
+ORG ..> SYS : ressources,\ncadre entreprise
+
+note bottom of SYS
+  Le backend centralise les échanges ;
+  n8n porte la logique cognitive ;
+  la base assure la mémoire long terme.
+end note
+
+@enduml

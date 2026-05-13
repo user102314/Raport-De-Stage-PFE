@@ -2,13 +2,15 @@
 \babel@toc {english}{}\relax 
 \babel@toc {french}{}\relax 
 \babel@toc {english}{}\relax 
+\babel@toc {french}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {II.1}{\ignorespaces Vue synthétique des cycles et livrables attendus}}{14}{table.caption.6}%
+\contentsline {table}{\numberline {II.1}{\ignorespaces Vue synthétique des cycles et livrables attendus}}{16}{table.caption.9}%
+\contentsline {table}{\numberline {II.2}{\ignorespaces Images et diagrammes associés au chapitre II (noms de fichiers cibles)}}{20}{table.caption.13}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {III.1}{\ignorespaces Correspondance entre mécanismes cognitifs humains et implémentations de KODA}}{49}{table.caption.8}%
+\contentsline {table}{\numberline {III.1}{\ignorespaces Correspondance entre mécanismes cognitifs humains et implémentations de KODA}}{54}{table.caption.15}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {IV.1}{\ignorespaces Comparaison des technologies backend envisagées}}{64}{table.caption.9}%
-\contentsline {table}{\numberline {IV.2}{\ignorespaces Endpoints exposés à l'application mobile}}{64}{table.caption.11}%
+\contentsline {table}{\numberline {IV.1}{\ignorespaces Comparaison des technologies backend envisagées}}{69}{table.caption.16}%
+\contentsline {table}{\numberline {IV.2}{\ignorespaces Endpoints exposés à l'application mobile}}{69}{table.caption.18}%
 \contentsfinish 
-\contentsline {table}{\numberline {IV.3}{\ignorespaces Problèmes techniques rencontrés et solutions apportées}}{67}{table.caption.12}%
+\contentsline {table}{\numberline {IV.3}{\ignorespaces Problèmes techniques rencontrés et solutions apportées}}{72}{table.caption.19}%

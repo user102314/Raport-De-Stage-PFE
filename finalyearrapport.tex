@@ -479,7 +479,7 @@ headheight=14pt
 	Ce rapport est organisé comme suit :
 	\begin{itemize}
 		\item \textbf{Chapitre~I} présente le cadre général du projet, l'organisme d'accueil, la problématique, l'analyse de l'existant et la solution proposée.
-		\item \textbf{Chapitre~II} expose la préparation du projet : spécification des besoins, identification des acteurs, méthodologie de pilotage \textit{cylindrique} par cycles, planification, architecture cible et environnements de travail.
+		\item \textbf{Chapitre~II} expose la préparation du projet : spécification des besoins, identification des acteurs, méthodologie de pilotage \textit{en spirale} par cycles, planification, architecture cible et environnements de travail.
 		\item \textbf{Chapitre~III} correspond au \textbf{Cycle~1} — workflows n8n et analyseur cognitif (webhooks, blocs de traitement, intégration LLM).
 		\item \textbf{Chapitre~IV} correspond au \textbf{Cycle~2} — backend \textit{Distributeur de Services} (FastAPI, persistance, services cloud).
 		\item Les autres cycles (matériel embarqué, logiciel Raspberry Pi, application cross-plateforme, tests et validation) sont présentés ou prolongés dans la suite du document selon le périmètre rédigé à ce jour.
@@ -688,7 +688,7 @@ Nous avons adopté cette méthodologie car elle garantit que les protocoles de t
 	
 Ce chapitre a établi le contexte du projet KODA. En identifiant les lacunes critiques des assistants virtuels actuels — notamment le manque de personnalité, de réflexion autonome et d'intégration embarquée — nous avons défini notre solution innovante. De plus, en adoptant une méthodologie de développement structurée, nous avons établi une feuille de route qui garantit la fiabilité tout au long des défis techniques à venir.
 
-Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les besoins, la méthodologie de développement par cycles successifs et les environnements techniques retenus pour mener à bien la réalisation de KODA.
+Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les besoins, la méthodologie de développement \textbf{en spirale} par cycles successifs et les environnements techniques retenus pour mener à bien la réalisation de KODA.
 	
 	
 	%================================================================
@@ -703,11 +703,12 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	le détail technique des cycles de réalisation. Nous y traduisons l'intention du
 	chapitre~I en \textbf{exigences traçables} (fonctionnelles et non fonctionnelles),
 	en \textbf{vision architecturale} et en \textbf{périmètre d'acteurs}. Nous y
-	présentons également la \textbf{méthodologie de pilotage} retenue : une approche
-	\textit{cylindrique} fondée sur des \textbf{cycles de développement successifs} —
-	et non sur une succession de sprints Scrum — chaque cycle livrant une couche ou un
-	sous-système intégrable dans l'ensemble. Enfin, nous documentons les environnements
-	matériel et logiciel qui ont encadré la production du prototype.
+	présentons également la \textbf{méthodologie de pilotage} retenue : le \textbf{modèle
+	en spirale}, fondé sur des \textbf{cycles de développement successifs} —
+	et non sur une succession de sprints Scrum — où chaque tour de spirale livre un
+	incrément (couche ou sous-système) intégrable et réévalue les risques avant le tour
+	suivant. Enfin, nous documentons les environnements matériel et logiciel qui ont
+	encadré la production du prototype.
 	
 	%----------------------------------------------------------------
 	\section{Spécification des besoins}
@@ -744,6 +745,22 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		flux n8n.
 	\end{itemize}
 	
+	\IfFileExists{public/ch2-besoins-fonctionnels.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.95\textwidth]{public/ch2-besoins-fonctionnels.png}
+			\caption{Synthèse visuelle des besoins fonctionnels KODA (chapitre~II)}
+			\label{fig:ch2-besoins-f}
+		\end{figure}
+	}{%
+		\begin{center}
+			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1.2em}
+				\textit{Figure optionnelle — générer \texttt{public/ch2-besoins-fonctionnels.png}\\
+				(voir \texttt{prompts/ch2-images-generation-prompts.txt}).}
+				\vspace{1.2em}\end{minipage}}
+		\end{center}
+	}
+	
 	\subsection{Spécification des besoins non fonctionnels}
 	
 	Les besoins non fonctionnels encadrent la \textbf{qualité} du système.
@@ -762,7 +779,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		\item \textbf{Interopérabilité :} formats JSON REST, connecteurs standards
 		(PostgreSQL, SDK officiels).
 		\item \textbf{Évolutivité :} possibilité d'ajouter des nœuds n8n, des endpoints ou
-		des écrans mobiles sans remettre en cause l'ensemble du cylindre logiciel.
+		des écrans mobiles sans remettre en cause l'ensemble de l'\textbf{architecture cible}.
 	\end{itemize}
 	
 	\subsection{Architecture du système}
@@ -776,6 +793,13 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	figure~\ref{fig:archiglobale} du chapitre~I illustre cette décomposition ; les cycles
 	de développement du présent rapport s'alignent sur ces blocs pour réduire le
 	rayon d'intégration à chaque itération.
+	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.95\textwidth]{public/ch2-architecture-systeme.png}
+		\caption{Architecture multicouche du système KODA (vue chapitre~II)}
+		\label{fig:ch2-architecture-systeme}
+	\end{figure}
 	
 	\subsection{Identification des acteurs}
 	
@@ -792,19 +816,34 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		et de validation).
 	\end{itemize}
 	
+	\IfFileExists{public/ch2-diagramme-acteurs.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/ch2-diagramme-acteurs.png}
+			\caption{Acteurs principaux et contexte d'intégration du système KODA}
+			\label{fig:ch2-acteurs}
+		\end{figure}
+	}{%
+		\begin{center}
+			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1.2em}
+				\textit{Diagramme des acteurs — exporter PlantUML vers \texttt{public/ch2-diagramme-acteurs.png}\\
+				(fichier source : \texttt{plantuml/ch2-diagramme-acteurs.puml}).}
+				\vspace{1.2em}\end{minipage}}
+		\end{center}
+	}
+	
 	%----------------------------------------------------------------
-	\section{Pilotage du projet — Méthodologie cylindrique par cycles}
+	\section{Pilotage du projet — Modèle en spirale et cycles de développement}
 	%----------------------------------------------------------------
 	
 	Contrairement à une approche \textbf{Agile Scrum} fondée sur des \textit{sprints}
 	de durée fixe avec cérémonies prescrites (daily, review, rétrospective), nous avons
-	retenu une approche \textbf{cylindrique} : le produit est vu comme un empilement de
-	couches cohérentes (interface, logique, persistance, embarqué, services externes) que
-	l'on enrichit par \textbf{cycles successifs}, chaque cycle produisant un incrément
-	\textbf{testable} et \textbf{branchable} sur les cycles précédents. La métaphore du
-	\textit{cylindre} souligne que chaque cycle «\,enrobe\,» ou complète le noyau
-	existant — workflow, puis services, puis matériel, puis logiciel embarqué, puis
-	client mobile, puis validation — jusqu'à former un système complet.
+	retenu le \textbf{modèle en spirale} : à chaque itération, une portion du produit
+	(cycle thématique : workflows n8n, backend, matériel, logiciel embarqué, mobile,
+	validation) est \textbf{spécifiée}, \textbf{réalisée} puis \textbf{intégrée} au
+	système global, avec une \textbf{réévaluation des risques} et des priorités avant le
+	tour suivant. Chaque cycle produit un incrément \textbf{testable} et raccordé aux
+	livrables des tours précédents, jusqu'à stabiliser l'écosystème KODA complet.
 	
 	\subsection{Équipe et rôles}
 	
@@ -863,6 +902,13 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		\end{tabular}
 	\end{table}
 	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.95\textwidth]{public/ch2-modele-spirale.png}
+		\caption{Modèle en spirale et enchaînement des six cycles de développement KODA}
+		\label{fig:ch2-modele-spirale}
+	\end{figure}
+	
 	%----------------------------------------------------------------
 	\section{Planification des cycles}
 	%----------------------------------------------------------------
@@ -874,9 +920,25 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	moteur n8n (cycle~1) et le backend (cycle~2) peuvent avancer en parallèle partiel,
 	mais la validation bout-en-bout (cycle~6) recouvre l'ensemble. Le calendrier
 	académique du PFE (nombre de semaines, séances de suivi, livrables intermédiaires)
-	structure la cadence réelle ; la méthodologie cylindrique en garantit la
+	structure la cadence réelle ; le \textbf{modèle en spirale} en garantit la
 	\textbf{cohérence} : aucun cycle ne clôt sans critères d'acceptation liés aux
 	chapitres techniques correspondants du rapport.
+	
+	\IfFileExists{public/ch2-planification-cycles.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=\textwidth]{public/ch2-planification-cycles.png}
+			\caption{Planification des cycles : jalons, chevauchements et dépendances}
+			\label{fig:ch2-planification-cycles}
+		\end{figure}
+	}{%
+		\begin{center}
+			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1.2em}
+				\textit{Figure à ajouter — \texttt{public/ch2-planification-cycles.png}\\
+				(prompt : voir \texttt{prompts/ch2-images-generation-prompts.txt}).}
+				\vspace{1.2em}\end{minipage}}
+		\end{center}
+	}
 	
 	%----------------------------------------------------------------
 	\section{Architecture}
@@ -893,6 +955,26 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	les besoins (temps réel, webhooks). Cette structuration facilite le parallélisme
 	des cycles tout en conservant des interfaces stables entre équipes.
 	
+	\subsubsection{Architecture en oignon (\textit{Onion Architecture}) du backend}
+	
+	Le \textbf{Distributeur de services} (backend Python, cycle~2) adopte une
+	\textbf{architecture en oignon} : les couches sont organisées en \textbf{anneaux
+	concentriques}, du plus stable au plus volatile. Au \textbf{c\oe{}ur} se trouvent le
+	\textbf{domaine métier} (entités, règles) ; autour, les \textbf{cas d'usage}
+	orchestrent les scénarios sans dépendre des frameworks ; puis viennent les
+	\textbf{adaptateurs} (API REST, sérialisation, accès données) ; en périphérie, la
+	\textbf{infrastructure} (FastAPI, Supabase, SDK Azure, clients HTTP vers n8n ou le
+	robot). Les dépendances pointent \textbf{toujours vers l'intérieur}, ce qui isole
+	la logique métier des technologies et facilite les tests unitaires sur le domaine.
+	
+	Ce modèle — popularisé notamment par Jeffrey Palermo sous le nom d'\textit{Onion
+	Architecture} — recoupe les principes de la \textbf{Clean Architecture} détaillés
+	au chapitre du cycle~2 : les deux visions décrivent des couches concentriques et la
+	règle d'inversion des dépendances ; l'«\,oignon\,» met l'accent sur la \textbf{testabilité}
+	du noyau et sur le fait que l'infrastructure soit interchangeable sans toucher au
+	c\oe{}ur du système. Ainsi, le backend KODA reste cohérent avec la vision multicouche
+	de la figure~\ref{fig:archiglobale} tout en précisant sa structure interne.
+	
 	%----------------------------------------------------------------
 	\section{Environnement de travail}
 	%----------------------------------------------------------------
@@ -905,6 +987,22 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	selon les besoins du robot, et un smartphone ou émulateur pour la couche mobile.
 	Un accès Internet stable est nécessaire pour Supabase, OpenRouter, SerpAPI et
 	Azure durant l'intégration.
+	
+	\IfFileExists{public/ch2-environnement-materiel.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.92\textwidth]{public/ch2-environnement-materiel.png}
+			\caption{Environnement matériel de développement et de test (poste, Raspberry Pi, robot)}
+			\label{fig:ch2-env-materiel}
+		\end{figure}
+	}{%
+		\begin{center}
+			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{2em}
+				\textit{Emplacement réservé — photographie à insérer sous le nom\\
+				\texttt{public/ch2-environnement-materiel.png} (PC, Raspberry Pi, périphériques du robot).}
+				\vspace{2em}\end{minipage}}
+		\end{center}
+	}
 	
 	%----------------------------------------------------------------
 	\section{Environnement logiciel}
@@ -934,13 +1032,65 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		\item \textbf{Bash} et utilitaires système sur Raspberry Pi OS.
 	\end{itemize}
 	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.95\textwidth]{public/ch2-environnement-logiciel.png}
+		\caption{Environnement logiciel : outils de développement et chaîne technique (chapitre~II)}
+		\label{fig:ch2-env-logiciel}
+	\end{figure}
+	
+	%----------------------------------------------------------------
+	\section{Figures et diagrammes prévus pour ce chapitre}
+	%----------------------------------------------------------------
+	
+	Pour illustrer le chapitre~II dans le PDF final, les captures et exports suivants
+	 sont recommandés. Les noms de fichiers sont normalisés \textbf{sans espace}
+	(dossier \texttt{public/}) afin d'éviter les erreurs de compilation \LaTeX{} ; il
+	suffit de créer chaque fichier sous ce nom puis d'insérer
+	\texttt{\textbackslash includegraphics} dans la section concernée.
+	
+	\begin{table}[htbp]
+		\centering
+		\caption{Images et diagrammes associés au chapitre II (noms de fichiers cibles)}
+		\label{tab:ch2_figures}
+		\small
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabular}{|p{4.6cm}|p{4.2cm}|p{5.6cm}|}
+			\hline
+			\textbf{Fichier (\texttt{public/...})} & \textbf{Section cible} & \textbf{Contenu attendu} \\
+			\hline
+			\texttt{ch2-modele-spirale.png} & Pilotage (modèle en spirale) & Schéma spirale : tours successifs avec les six cycles KODA (n8n $\rightarrow$ validation). \\
+			\hline
+			\texttt{ch2-planification-cycles.png} & Planification des cycles & Frise chronologique ou diagramme de Gantt (jalons PFE, dépendances entre cycles). \\
+			\hline
+			\texttt{ch2-architecture-systeme.png} & Architecture du système / Architecture de l'application & Vue multicouche (mobile, n8n, FastAPI, PostgreSQL, Pi) ; peut être une version retravaillée de l'architecture globale. \\
+			\hline
+			\texttt{ch2-onion-backend.png} & Architecture de l'application (oignon) & Schéma des anneaux : domaine, cas d'usage, adaptateurs, infrastructure (Distributeur). \\
+			\hline
+			\texttt{ch2-diagramme-acteurs.png} & Identification des acteurs & Diagramme de cas d'utilisation simplifié ou diagramme de contexte (acteurs externes). \\
+			\hline
+			\texttt{ch2-environnement-materiel.png} & Environnement matériel & Photo ou montage : PC de développement, Raspberry Pi, périphériques du robot. \\
+			\hline
+			\texttt{ch2-environnement-logiciel.png} & Environnement logiciel & Captures (IDE, n8n, Supabase, terminal Docker/Git) regroupées sur une planche. \\
+			\hline
+			\texttt{ch2-besoins-fonctionnels.png} & Spécification fonctionnelle (optionnel) & Tableau ou mind map des exigences F (lisible à l'impression). \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\noindent\textbf{Réutilisation possible :} la figure globale déjà présente au
+	chapitre~I (\texttt{public/archi glob.png}) peut servir de base pour
+	\texttt{ch2-architecture-systeme.png} après recadrage ou légende adaptée au
+	§\,2.2.3 / 2.5. Le \textbf{cycle en~V} évoqué au chapitre~I complète la spirale en
+	rappelant la symétrie analyse / tests tout au long du projet.
+	
 	%----------------------------------------------------------------
 	\section{Conclusion}
 	%----------------------------------------------------------------
 	
 	Ce chapitre a cadré la préparation de KODA : besoins fonctionnels et non
-	fonctionnels, acteurs, architecture de référence, environnements, et surtout une
-	\textbf{méthodologie cylindrique} articulée en six cycles — en rupture avec une
+	fonctionnels, acteurs, architecture de référence, environnements, et surtout un
+	\textbf{modèle en spirale} articulé en six cycles — en rupture avec une
 	gestion purement Scrum/sprint, tout en conservant l'esprit d'incrémentalité et de
 	revue de fin de cycle. Le chapitre suivant détaille le \textbf{Cycle~1} consacré au
 	moteur d'analyse et de réflexion n8n.
@@ -2044,7 +2194,7 @@ le pipeline d'insertion suivant :
 	redistribution de toutes les requêtes émanant des différents
 	acteurs du système.
 	
-	Conformément à la méthodologie cyclique adoptée dans ce rapport,
+	Conformément au \textbf{modèle en spirale} adopté dans ce rapport,
 	ce \textbf{deuxième} cycle se concentre exclusivement sur ce composant.
 	Chaque cycle vise à livrer un composant fonctionnel, testable et
 	intégrable de manière incrémentale~; le Distributeur de Services
@@ -2131,6 +2281,14 @@ le pipeline d'insertion suivant :
 	que les règles métier du domaine ne dépendent d'aucune technologie
 	externe. Cette indépendance garantit la testabilité, la
 	maintenabilité et l'évolutivité du système.
+	
+	Dans la pratique, le backend est aussi pensé selon l'\textbf{architecture en oignon}
+	(\textit{Onion Architecture}, Palermo)~: le \textbf{domaine} occupe le centre,
+	enveloppé par les \textbf{services applicatifs}, puis par les \textbf{interfaces}
+	vers l'extérieur, et enfin par l'\textbf{infrastructure} (web, persistance, SDK).
+	L'oignon et la Clean Architecture partagent la même règle d'or~: \textit{aucune couche
+	intérieure ne doit importer une couche extérieure}. Les noms de couches ci-dessous
+	s'alignent sur cette lecture «\,anneaux\,» du code du Distributeur.
 	
 	Notre backend est structuré autour de quatre couches principales,
 	chacune dotée d'un rôle précis et de dépendances strictement
