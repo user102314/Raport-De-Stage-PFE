@@ -435,6 +435,10 @@ headheight=14pt
 	%================================================================
 	\clearpage
 	\thispagestyle{preStyle}
+	\selectlanguage{french}
+	\renewcommand{\contentsname}{Sommaire}
+	\renewcommand{\listfigurename}{Liste des figures}
+	\renewcommand{\listtablename}{Liste des tableaux}
 	\tableofcontents
 	
 	%================================================================
@@ -475,12 +479,10 @@ headheight=14pt
 	Ce rapport est organisé comme suit :
 	\begin{itemize}
 		\item \textbf{Chapitre~I} présente le cadre général du projet, l'organisme d'accueil, la problématique, l'analyse de l'existant et la solution proposée.
-		\item \textbf{Chapitre~II} définit les besoins fonctionnels et non fonctionnels ainsi que la modélisation UML du système.
-		\item \textbf{Chapitre~III} décrit l'architecture globale du système KODA et l'interaction entre ses différentes couches.
-		\item \textbf{Chapitre~IV} détaille le système embarqué Raspberry Pi, son rôle et son implémentation.
-		\item \textbf{Chapitre~V} présente le moteur de traitement n8n et la couche Python, c\oe{}ur logique de KODA.
-		\item \textbf{Chapitre~VI} couvre l'application mobile cross-plateforme de configuration et de suivi.
-		\item \textbf{Chapitre~VII} traite du déploiement, de la base de données et des tests de validation du système complet.
+		\item \textbf{Chapitre~II} expose la préparation du projet : spécification des besoins, identification des acteurs, méthodologie de pilotage \textit{cylindrique} par cycles, planification, architecture cible et environnements de travail.
+		\item \textbf{Chapitre~III} correspond au \textbf{Cycle~1} — workflows n8n et analyseur cognitif (webhooks, blocs de traitement, intégration LLM).
+		\item \textbf{Chapitre~IV} correspond au \textbf{Cycle~2} — backend \textit{Distributeur de Services} (FastAPI, persistance, services cloud).
+		\item Les autres cycles (matériel embarqué, logiciel Raspberry Pi, application cross-plateforme, tests et validation) sont présentés ou prolongés dans la suite du document selon le périmètre rédigé à ce jour.
 	\end{itemize}
 	
 	%================================================================
@@ -497,9 +499,9 @@ headheight=14pt
 	%  CHAPITRE I : Cadre Général du Projet et Présentation de l'Organisme
 	%================================================================
 	\chapter{Cadre Général du Projet et Présentation de l'Organisme}
+	\chaptermark{Cadre général du projet}
 	
 	\section{Introduction du chapitre}
-	\addcontentsline{toc}{section}{Introduction du chapitre}
 	
 	Ce chapitre esquisse le cadre fondamental de notre étude en définissant l'environnement contextuel et organisationnel du projet. Nous commençons par introduire l'organisme d'accueil, en mettant en évidence son expertise technologique et sa structure interne dédiée à l'innovation.
 	
@@ -686,20 +688,268 @@ Nous avons adopté cette méthodologie car elle garantit que les protocoles de t
 	
 Ce chapitre a établi le contexte du projet KODA. En identifiant les lacunes critiques des assistants virtuels actuels — notamment le manque de personnalité, de réflexion autonome et d'intégration embarquée — nous avons défini notre solution innovante. De plus, en adoptant une méthodologie de développement structurée, nous avons établi une feuille de route qui garantit la fiabilité tout au long des défis techniques à venir.
 
-Le chapitre suivant, "Étude des Besoins et Modélisation UML", initiera la première étape de ce cycle de conception en transformant les besoins de l'utilisateur en spécifications définitives et en modèles architecturaux.
+Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les besoins, la méthodologie de développement par cycles successifs et les environnements techniques retenus pour mener à bien la réalisation de KODA.
 	
 	
 	%================================================================
-	%  CHAPITRE II : Étude des Besoins et Modélisation UML
+	%  CHAPITRE II : Préparation du Projet
 	%================================================================
-	\chapter{Étude des Besoins et Modélisation UML}
+	\chapter{Préparation du Projet}
+	\chaptermark{Préparation du Projet}
 	
-	\textit{Ce chapitre est actuellement vide.}
+	\section{Introduction du chapitre}
+	
+	Ce chapitre pose les fondations ingénierie du projet \textbf{KODA} avant d'entrer dans
+	le détail technique des cycles de réalisation. Nous y traduisons l'intention du
+	chapitre~I en \textbf{exigences traçables} (fonctionnelles et non fonctionnelles),
+	en \textbf{vision architecturale} et en \textbf{périmètre d'acteurs}. Nous y
+	présentons également la \textbf{méthodologie de pilotage} retenue : une approche
+	\textit{cylindrique} fondée sur des \textbf{cycles de développement successifs} —
+	et non sur une succession de sprints Scrum — chaque cycle livrant une couche ou un
+	sous-système intégrable dans l'ensemble. Enfin, nous documentons les environnements
+	matériel et logiciel qui ont encadré la production du prototype.
+	
+	%----------------------------------------------------------------
+	\section{Spécification des besoins}
+	%----------------------------------------------------------------
+	
+	\subsection{Spécifications des besoins fonctionnels}
+	
+	Les besoins fonctionnels décrivent \textit{ce que} le système doit faire du point de
+	vue des utilisateurs et des scénarios d'usage, en cohérence avec la solution
+	esquissée au chapitre~I (n8n, backend Python, Raspberry Pi, application mobile,
+	base PostgreSQL).
+	
+	\begin{itemize}
+		\item \textbf{Interaction conversationnelle :} réception d'un message utilisateur,
+		traitement par workflows n8n (webhooks), production d'une réponse contextualisée
+		et routage selon l'intention (fermeture, authentification, musique, direction,
+		classification mémoire, etc.).
+		\item \textbf{Mémoire et personnalisation :} distinction entre réponses nécessitant
+		une consultation de profil (\texttt{USE\_MEMORY}) et réponses autonomes
+		(\texttt{NO\_MEMORY}) ; enregistrement de présentations, notes et informations
+		personnelles ; consolidation périodique (webhook nocturne) telle que décrite au
+		cycle~1.
+		\item \textbf{Distribution des services :} API REST (FastAPI) reliant la base
+		de données (Supabase / PostgreSQL), n8n, le robot et l'application mobile ;
+		endpoints pour commandes, sessions, événements et services cognitifs (STT, TTS,
+		reconnaissance faciale, modèles de langage).
+		\item \textbf{Couche embarquée :} exécution sur Raspberry Pi des fonctions temps
+		réel attendues (captures, dialogue avec le backend, signaux vers actionneurs ou
+		périphériques selon le cahier des charges physique).
+		\item \textbf{Pilotage mobile :} application cross-plateforme de configuration, de
+		suivi et de supervision du compagnon.
+		\item \textbf{Sécurité et modes de fonctionnement :} gestion d'états (ouvert /
+		fermé), mot de passe, filtrage des intentions sensibles conformément au premier
+		flux n8n.
+	\end{itemize}
+	
+	\subsection{Spécification des besoins non fonctionnels}
+	
+	Les besoins non fonctionnels encadrent la \textbf{qualité} du système.
+	
+	\begin{itemize}
+		\item \textbf{Performance et latence :} réponses utilisateur acceptables malgré
+		les appels externes (OpenRouter, SerpAPI, Azure) ; optimisation par cache
+		conversationnel (bloc historique du Webhook~1).
+		\item \textbf{Disponibilité et résilience :} tolérance aux indisponibilités
+		partielles des services cloud ; persistance des données critiques en PostgreSQL.
+		\item \textbf{Sécurité :} authentification aux API, gestion des secrets (clés
+		OpenRouter, SerpAPI, Supabase), moindre exposition des surfaces d'attaque sur le
+		robot et le backend.
+		\item \textbf{Maintenabilité :} séparation des couches (Clean Architecture côté
+		backend), workflows n8n modulaires par blocs, documentation des webhooks.
+		\item \textbf{Interopérabilité :} formats JSON REST, connecteurs standards
+		(PostgreSQL, SDK officiels).
+		\item \textbf{Évolutivité :} possibilité d'ajouter des nœuds n8n, des endpoints ou
+		des écrans mobiles sans remettre en cause l'ensemble du cylindre logiciel.
+	\end{itemize}
+	
+	\subsection{Architecture du système}
+	
+	L'architecture cible est \textbf{multicouche} et \textbf{distribuée} : un moteur
+	d'automatisation (\textbf{n8n}) concentre la logique métier conversationnelle ; un
+	\textbf{backend Python (FastAPI)} centralise les accès données et les intégrations
+	cloud ; un \textbf{noyau embarqué (Raspberry Pi)} assure le lien avec le monde
+	physique ; une \textbf{application mobile} prolonge l'expérience utilisateur ; une
+	\textbf{base PostgreSQL} matérialise la mémoire long terme. La
+	figure~\ref{fig:archiglobale} du chapitre~I illustre cette décomposition ; les cycles
+	de développement du présent rapport s'alignent sur ces blocs pour réduire le
+	rayon d'intégration à chaque itération.
+	
+	\subsection{Identification des acteurs}
+	
+	On distingue notamment :
+	\begin{itemize}
+		\item l'\textbf{Utilisateur final} (personne qui dialogue avec KODA et configure
+		l'application) ;
+		\item le \textbf{système KODA} (ensemble logiciel/matériel) ;
+		\item le \textbf{Distributeur de services} (backend) en tant qu'intermédiaire
+		technique ;
+		\item les \textbf{services externes} (Supabase, fournisseurs LLM via OpenRouter,
+		SerpAPI pour la recherche structurée, Azure pour la voix et la vision) ;
+		\item l'\textbf{organisme d'accueil} et l'\textbf{équipe projet} (rôles de pilotage
+		et de validation).
+	\end{itemize}
+	
+	%----------------------------------------------------------------
+	\section{Pilotage du projet — Méthodologie cylindrique par cycles}
+	%----------------------------------------------------------------
+	
+	Contrairement à une approche \textbf{Agile Scrum} fondée sur des \textit{sprints}
+	de durée fixe avec cérémonies prescrites (daily, review, rétrospective), nous avons
+	retenu une approche \textbf{cylindrique} : le produit est vu comme un empilement de
+	couches cohérentes (interface, logique, persistance, embarqué, services externes) que
+	l'on enrichit par \textbf{cycles successifs}, chaque cycle produisant un incrément
+	\textbf{testable} et \textbf{branchable} sur les cycles précédents. La métaphore du
+	\textit{cylindre} souligne que chaque cycle «\,enrobe\,» ou complète le noyau
+	existant — workflow, puis services, puis matériel, puis logiciel embarqué, puis
+	client mobile, puis validation — jusqu'à former un système complet.
+	
+	\subsection{Équipe et rôles}
+	
+	Le projet est conduit par une \textbf{équipe de projet de fin d'études} (DSI3.2,
+	ISET Mahdia), en binôme, sous la responsabilité d'un \textbf{encadrant académique}
+	et en lien avec l'\textbf{organisme d'accueil} MicroEdition (cf. chapitre~I). Les
+	rôles se répartissent entre conception des workflows n8n, développement backend,
+	intégration embarquée, développement mobile et campagne de tests, avec des points
+	de synchronisation à la fin de chaque cycle pour valider l'intégration incrémentale.
+	
+	\subsection{Découpage du travail : six cycles}
+	
+	Le périmètre fonctionnel est découpé en six cycles \textbf{ordonnés logiquement} —
+	sans équivalence directe avec des sprints Scrum — comme suit :
+	
+	\begin{enumerate}
+		\item \textbf{Cycle~1 — Workflow et n8n :} conception des webhooks, blocs de
+		traitement (classification d'intention, analyseur de dépendance mémoire,
+		consolidation, proactivité), intégration des API LLM et recherche.
+		\item \textbf{Cycle~2 — Backend :} Distributeur de services (FastAPI), accès
+		PostgreSQL / Supabase, Clean Architecture, endpoints pour le robot et le mobile.
+		\item \textbf{Cycle~3 — Système embarqué, partie matérielle :} choix et câblage
+		des capteurs, actionneurs, alimentation, mécanique ou support physique associé au
+		Raspberry Pi selon le prototype.
+		\item \textbf{Cycle~4 — Système embarqué, partie logicielle (Raspberry Pi) :}
+		logiciel embarqué, communication avec le backend, gestion des flux audio/vidéo
+		locaux, robustesse sur carte ARM.
+		\item \textbf{Cycle~5 — Cross-plateforme :} application mobile (configuration,
+		suivi, notifications), parcours utilisateur unifiés Android/iOS.
+		\item \textbf{Cycle~6 — Tests et validation :} tests unitaires et d'intégration,
+		scénarios bout-en-bout, validation des besoins non fonctionnels (sécurité,
+		performance).
+	\end{enumerate}
+	
+	\begin{table}[htbp]
+		\centering
+		\caption{Vue synthétique des cycles et livrables attendus}
+		\label{tab:cycles_koda}
+		\renewcommand{\arraystretch}{1.25}
+		\begin{tabular}{|c|p{4.2cm}|p{7.5cm}|}
+			\hline
+			\textbf{Cycle} & \textbf{Thème} & \textbf{Livrable principal} \\
+			\hline
+			1 & Workflow n8n & Webhooks opérationnels, prompts et routages stabilisés \\
+			\hline
+			2 & Backend & API documentée, persistance, intégrations cloud \\
+			\hline
+			3 & Embarqué HW & Plateforme physique prête à accueillir le logiciel \\
+			\hline
+			4 & Embarqué SW (Pi) & Services locaux et dialogue avec le Distributeur \\
+			\hline
+			5 & Cross-plateforme & Application mobile utilisable sur les cibles \\
+			\hline
+			6 & Tests \& validation & Rapport de recette, correctifs de fin de projet \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	%----------------------------------------------------------------
+	\section{Planification des cycles}
+	%----------------------------------------------------------------
+	
+	La planification ne s'exprime pas en \textbf{sprints} de deux semaines mais en
+	\textbf{jalons de cycles} : chaque cycle se termine par une \textbf{démonstration
+	intégrée} (workflow branché sur le backend, backend branché sur la base, puis
+	ajout du Raspberry Pi, etc.). Les dépendances imposent un ordre raisonnable : le
+	moteur n8n (cycle~1) et le backend (cycle~2) peuvent avancer en parallèle partiel,
+	mais la validation bout-en-bout (cycle~6) recouvre l'ensemble. Le calendrier
+	académique du PFE (nombre de semaines, séances de suivi, livrables intermédiaires)
+	structure la cadence réelle ; la méthodologie cylindrique en garantit la
+	\textbf{cohérence} : aucun cycle ne clôt sans critères d'acceptation liés aux
+	chapitres techniques correspondants du rapport.
+	
+	%----------------------------------------------------------------
+	\section{Architecture}
+	%----------------------------------------------------------------
+	
+	\subsection{Architecture de l'application}
+	
+	Au-delà du schéma global (chapitre~I), l'architecture applicative distingue :
+	\textbf{(a)} la couche \textit{présentation} (mobile) ; \textbf{(b)} la couche
+	\textit{orchestration intelligente} (n8n) ; \textbf{(c)} la couche
+	\textit{services} (FastAPI) ; \textbf{(d)} la couche \textit{données} (PostgreSQL) ;
+	\textbf{(e)} la couche \textit{embarquée} (Raspberry Pi). Les communications
+	principales suivent le modèle requête-réponse REST et événements asynchrones selon
+	les besoins (temps réel, webhooks). Cette structuration facilite le parallélisme
+	des cycles tout en conservant des interfaces stables entre équipes.
+	
+	%----------------------------------------------------------------
+	\section{Environnement de travail}
+	%----------------------------------------------------------------
+	
+	\subsection{Environnement matériel}
+	
+	Le développement s'appuie sur des postes de travail type PC (processeur multi-c\oe{}urs,
+	au moins 8~Go de RAM recommandés pour les outils de conteneurisation et les IDE),
+	un \textbf{Raspberry Pi} cible pour les tests embarqués, périphériques audio/vidéo
+	selon les besoins du robot, et un smartphone ou émulateur pour la couche mobile.
+	Un accès Internet stable est nécessaire pour Supabase, OpenRouter, SerpAPI et
+	Azure durant l'intégration.
+	
+	%----------------------------------------------------------------
+	\section{Environnement logiciel}
+	%----------------------------------------------------------------
+	
+	\subsection{Outils de développement et modélisation}
+	
+	\begin{itemize}
+		\item \textbf{n8n} (self-hosted ou cloud) pour l'édition des workflows ;
+		\item \textbf{Visual Studio Code} ou équivalent pour Python, Dart et LaTeX ;
+		\item \textbf{Git} pour le versioning ;
+		\item \textbf{PlantUML} / captures d'écran pour les diagrammes de séquence et de
+		cas d'utilisation ;
+		\item \textbf{Supabase Studio} pour l'administration PostgreSQL ;
+		\item \textbf{Docker} (le cas échéant) pour le déploiement du backend et la
+		reproductibilité des environnements.
+	\end{itemize}
+	
+	\subsection{Langages et frameworks utilisés}
+	
+	\begin{itemize}
+		\item \textbf{JavaScript} (expressions n8n, nœuds Code) ;
+		\item \textbf{Python~3} avec \textbf{FastAPI}, SQLAlchemy, asyncpg, SDK Azure et
+		intégrations Gemini/OpenRouter côté Distributeur ;
+		\item \textbf{SQL} (PostgreSQL) ;
+		\item \textbf{Dart / Flutter} pour l'application cross-plateforme ;
+		\item \textbf{Bash} et utilitaires système sur Raspberry Pi OS.
+	\end{itemize}
+	
+	%----------------------------------------------------------------
+	\section{Conclusion}
+	%----------------------------------------------------------------
+	
+	Ce chapitre a cadré la préparation de KODA : besoins fonctionnels et non
+	fonctionnels, acteurs, architecture de référence, environnements, et surtout une
+	\textbf{méthodologie cylindrique} articulée en six cycles — en rupture avec une
+	gestion purement Scrum/sprint, tout en conservant l'esprit d'incrémentalité et de
+	revue de fin de cycle. Le chapitre suivant détaille le \textbf{Cycle~1} consacré au
+	moteur d'analyse et de réflexion n8n.
 	
 	%================================================================
 	%  CHAPITRE III : Analyseur et Réfléchissement
 	%================================================================
 	\chapter{Cycle 1 : ANALYSEUR ET RÉFLÉCHISSEMENT}
+	\chaptermark{Cycle 1 — Analyseur et réflexion}
 	
 	% Couleur principale pour les blocs internes
 	\definecolor{kodablue}{RGB}{0, 84, 166}
@@ -830,31 +1080,66 @@ Le chapitre suivant, "Étude des Besoins et Modélisation UML", initiera la prem
   \subsubsection{Description Détaillée des Blocs de Traitement}
   
   \vspace{0.5em}
-  \paragraph{Block 1 : Réception, Vérification de l'État et Contrôle d'Accès}
+  \paragraph{Block 1 : Analyse du message utilisateur et classification d'intention}
   
-  À la réception de chaque requête via le \textbf{webhook}, le pipeline déclenche immédiatement la récupération de l'état actuel du robot depuis la base de données.
+  Après l'appel au webhook et la lecture du message de chat (\texttt{chatInput}), le flux interroge la base (nœud PostgreSQL \textit{Identité}) pour récupérer au minimum le \textbf{mot de passe} attendu et l'\textbf{état} courant du robot (\texttt{etat}). Le nœud Code \textbf{Test} (Block~1) consolide ces données et le texte saisi par l'utilisateur afin de produire une \textbf{intention} unique consommée par le nœud \textit{Switch} en aval.
   
-  \textbf{Cas 1 — KODA est en état ouvert (\textit{open state})} : la requête est acceptée et transmise directement au bloc suivant pour traitement.
+  Le message est d'abord normalisé en \textbf{minuscules} pour les détections par sous-chaîne. La logique applique une \textbf{priorité fixe} entre les intentions reconnues :
+  \begin{enumerate}
+  	\item \textbf{Fermeture (\texttt{ferme})} : une liste étendue de formulations (\emph{ferme}, \emph{off}, \emph{mode off}, \emph{bye}, \emph{au revoir}, \emph{shutdown}, \emph{sleep}, etc.) est testée par \texttt{includes} sur le texte en minuscules.
+  	\item \textbf{Mot de passe (\texttt{motdepasse})} : comparaison \textbf{stricte} (\texttt{===}) entre le message original et la valeur \texttt{motdepasse} issue de la base ; utilisée pour valider l'ouverture lorsque le robot est en mode protégé.
+  	\item \textbf{Musique (\texttt{musique})} : détection des mots-clés \emph{chante} ou \emph{lire} ; si l'un est trouvé, le segment \textbf{après} ce mot-clé est extrait comme nom de chanson (\texttt{nomChanson}) lorsqu'il n'est pas vide.
+  	\item \textbf{Direction (\texttt{direction})} : recherche du premier terme parmi \emph{avant}, \emph{droite}, \emph{gauche}, \emph{derriere}, \emph{stope}, \emph{stop} présent dans le message (ordre de la liste).
+  	\item \textbf{Inconnu (\texttt{inconnu})} : valeur par défaut de \texttt{intention} si aucune des intentions précédentes n'est détectée ; en parallèle, le booléen \texttt{estInconnu} vaut \texttt{true} lorsque aucune fermeture, aucune correspondance mot de passe, aucune musique ni direction n'est reconnue \textbf{et} que \texttt{etat == 1} (permet au workflow de traiter le cas « message non classé » selon la branche prévue, par exemple arrêt ou message dédié).
+  \end{enumerate}
   
-  \textbf{Cas 2 — KODA est en état fermé (\textit{closed state})} : le système effectue un test conditionnel supplémentaire :
-  \begin{itemize}
-  	\item Il compare le \textbf{mot de passe} fourni en entrée (\textit{input}) avec le mot de passe attendu.
-  	\item Si la correspondance est confirmée, cela indique que l'utilisateur souhaite \textbf{ouvrir KODA} : la commande d'ouverture est alors exécutée.
-  	\item Si la correspondance échoue ou si aucune intention d'ouverture n'est détectée, le système \textbf{retourne un message indiquant que KODA est actuellement fermé} et aucune action n'est entreprise.
-  \end{itemize}
-  
-  Ce mécanisme de garde (\textit{gating}) combiné au contrôle d'accès par mot de passe garantit que KODA ne peut être activé que par une requête autorisée, assurant ainsi la stabilité et la sécurité du système.
+  Le nœud renvoie un objet JSON regroupant les indicateurs booléens (\texttt{contientFerme}, \texttt{motdepasseexiste}, \texttt{contientPlay}), les champs extraits (\texttt{nomChanson}, \texttt{direction}), \texttt{estInconnu}, l'\texttt{intention} finale, le \texttt{messageOriginal}, ainsi que \texttt{directionvaribale} (vrai si aucune direction) et \texttt{etat} pour les nœuds suivants. Ainsi, le Block~1 ne se limite plus à un simple garde-fou d'état : il \textbf{centralise la sémantique opérationnelle} du message (arrêt, authentification, média, déplacement) avant le routage n8n.
   
   \vspace{1em}
   \begin{center}
-  	\includegraphics[width=0.95\textwidth]{public/cheakmode.png}
-  	\captionof{figure}{Block 1 — Vérification de l'état opérationnel et contrôle d'accès de KODA}
+  	\includegraphics[width=0.95\textwidth]{public/block1.png}
+  	\captionof{figure}{Block 1 — Workflow n8n : réception du message, lecture identité PostgreSQL, nœud Code \textit{Test} et routage par \textit{Switch} selon l'intention}
   \end{center}
   \vspace{1em}
   \begin{center}
   	\includegraphics[width=0.95\textwidth]{public/dsb1.png}
   	\captionof{figure}{Block 1 — Diagramme de séquence du premier bloc}
   \end{center}
+  
+  \vspace{0.4em}
+  \noindent\textbf{Description du diagramme de séquence.}
+  Ce diagramme UML de \textbf{séquence} matérialise l'ordre \textbf{temporel} des
+  interactions entre les participants (acteur, interface, webhook n8n, déclencheur
+  de message, base PostgreSQL \textit{Identité}, nœud Code \textit{Test}, nœud
+  \textit{Switch} et branches métier). Chaque \textbf{flèche horizontale} correspond à
+  un message émis d'un lifeline vers un autre ; la \textbf{verticalité} indique la
+  chronologie du haut vers le bas : d'abord la capture du \texttt{chatInput}, puis la
+  requête d'identité, la consolidation dans le nœud \textit{Test}, et enfin le
+  routage vers la branche choisie selon l'\texttt{intention}. Les éventuels blocs
+  \textit{alt}/\textit{opt} (s'il en apparaît) traduisent des scénarios exclusifs
+  (par exemple une intention parmi plusieurs). Ce schéma complète la vue «\,câblage
+  n8n\,» de la figure précédente en insistant sur \textbf{qui échange quoi et
+  quand}.
+  
+  \vspace{1em}
+  \begin{center}
+  	\includegraphics[width=0.95\textwidth]{public/ducb1.png}
+  	\captionof{figure}{Block 1 — Diagramme de cas d'utilisation associé au premier bloc}
+  \end{center}
+  
+  \vspace{0.4em}
+  \noindent\textbf{Description du diagramme de cas d'utilisation.}
+  Ce diagramme UML de \textbf{cas d'utilisation} décrit le système du point de vue de
+  l'\textbf{acteur} (l'utilisateur final) sans imposer d'ordre d'exécution : il met en
+  avant les \textbf{fonctionnalités attendues} derrière un même message de chat
+  (fermeture, authentification par mot de passe, demande musicale, consigne de
+  direction, message non classé, envoi générique). La \textbf{frontière du système}
+  (rectangle) regroupe les cas portés par le Webhook~1 / Block~1 ; les traits
+  joignant l'acteur aux ovales expriment qu'il \textbf{initie} ou \textbf{bénéficie}
+  de ces services. Contrairement au diagramme de séquence, on ne voit pas ici les
+  appels techniques entre n8n et PostgreSQL, mais la \textbf{couverture fonctionnelle}
+  que le bloc de classification d'intention doit permettre en aval du \textit{Switch}.
+  
   \vspace{1em}
   %--- block2
 
@@ -944,53 +1229,113 @@ Le chapitre suivant, "Étude des Besoins et Modélisation UML", initiera la prem
 	\vspace{1em}
 	\paragraph{Block 3 : Classification Sémantique de la Question}
 	
-	Ce bloc est un \textbf{agent IA} chargé d'analyser et de classifier la question reçue. Il détermine :
-	\begin{itemize}
-		\item \textbf{La nature de la question :} est-elle factuelle, conversationnelle,
-		émotionnelle, technique ou introductive (présentation de l'utilisateur) ?
-		\item \textbf{La complexité du traitement requis :} la question nécessite-t-elle
-		un traitement rapide (Système 1) ou une analyse approfondie (Système 2) ?
-		\item \textbf{La nécessité d'accès à la mémoire :} faut-il consulter l'historique
-		et le profil de l'utilisateur pour répondre de manière pertinente ?
-	\end{itemize}
+	Ce bloc réalise l'\textbf{analyse de dépendance mémoire} : pour chaque message, il
+	décide si une consultation de la base (mémoire utilisateur / robot) est nécessaire
+	(\texttt{USE\_MEMORY} / \texttt{NO\_MEMORY}) et assigne une \textbf{catégorie}
+	parmi six types définis. Le pipeline n8n a été simplifié : l'ancien nœud
+	\textit{AI Agent} (raisonnement avec outils) a été remplacé par une
+	\textbf{Basic LLM Chain} — chaîne linéaire prompt $\rightarrow$ modèle $\rightarrow$
+	réponse — plus prévisible pour ce cas d'usage et moins coûteuse en orchestration.
 	
-	En fonction de ces classifications, le nœud de routage dirige la requête vers la
-	branche de traitement la plus adaptée.
-		\vspace{1em}
+	Le flux est le suivant : le nœud \textbf{Code5} prépare l'entrée textuelle
+	(\texttt{inputquestoin}) ; le nœud PostgreSQL \textbf{Identité1} exécute une
+	requête (\texttt{executeQuery}) pour enrichir le contexte identité si besoin ;
+	la \textbf{Basic LLM Chain} applique le prompt système «\,Analyseur de Dépendance
+	Mémoire\,» via un sous-nœud \textbf{OpenRouter Chat Model} ; enfin le nœud
+	\textbf{Code2} parse la sortie stricte (trois ou quatre lignes) pour alimenter le
+	routage aval. La figure~\ref{fig:block3workflow} donne une vue d'ensemble de
+	cette chaîne.
+	
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{public/clasifer.png}
+		\captionof{figure}{Block 3 — Chaîne n8n : Code5, Identité1 (PostgreSQL), Basic LLM Chain avec modèle OpenRouter, puis Code2 pour le format de sortie}
+		\label{fig:block3workflow}
+	\end{center}
+	\vspace{1em}
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{public/dsb3.png}
 		\captionof{figure}{Block 3 — Diagramme de séquence du troisième bloc}
 	\end{center}
-	% ----------------------------------------------------------------
-	% COMPOSANT PRINCIPAL : AI AGENT
-	% ----------------------------------------------------------------
+	
+	\vspace{1em}
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{public/ducb3.png}
+		\captionof{figure}{Block 3 — Diagramme de cas d'utilisation associé au troisième bloc}
+		\label{fig:block3usecases}
+	\end{center}
+	
+	\vspace{0.4em}
+	\noindent\textbf{Description du diagramme de cas d'utilisation.}
+	Ce diagramme situe l'acteur \textbf{Utilisateur} face aux capacités fonctionnelles
+	du Block~3 : analyse de dépendance mémoire, décision \texttt{USE\_MEMORY} /
+	\texttt{NO\_MEMORY}, attribution d'une catégorie parmi les six du prompt, production
+	d'une sortie structurée (trois ou quatre lignes) et validation pour le routage. Il
+	exprime la \textbf{couverture fonctionnelle} de la classification sans détailler
+	l'implémentation n8n ni les appels HTTP vers OpenRouter.
+	
+	\vspace{1em}
+	\subparagraph{Basic LLM Chain en lieu et place de l'AI Agent}
+	
+	Contrairement à un \textit{AI Agent} qui peut enchaîner des appels d'outils et des
+	boucles de raisonnement, la \textbf{Basic LLM Chain} se limite à une inférence
+	unique sur le message contextualisé. Cela convient au Block~3 : la politique de
+	classification est entièrement portée par le \textbf{prompt} (règles, pièges,
+	arbre de décision, format de sortie) ; le modèle n'a pas à «\,choisir\,» d'actions
+	externes, seulement à respecter le gabarit de réponse attendu par \textbf{Code2}.
 	
 	\vspace{0.5em}
-	\subparagraph{Composant Principal : AI Agent}
+	\subparagraph{Configuration OpenRouter (modèle Gemini)}
 	
-	\vspace{0.3em}
+	Le sous-nœud \textbf{OpenRouter Chat Model} s'authentifie avec des identifiants
+	\textit{OpenRouter account} et cible un modèle léger et rapide du catalogue
+	OpenRouter, ici \texttt{google/gemini-2.5-flash-lite-preview-09-2025}. Les options
+	avancées (température, \textit{top-p}, etc.) peuvent être ajoutées via le panneau
+	\textit{Options} ; dans la configuration actuelle elles restent par défaut
+	(\textit{No properties}), ce qui suffit pour une classification stable lorsque le
+	prompt fixe déjà le comportement. La figure~\ref{fig:block3openrouter} montre ce
+	réglage dans n8n.
 	
-	Le cœur de ce bloc repose sur un \textbf{AI Agent} — un composant autonome capable
-	de raisonner, de prendre des décisions et d'utiliser des outils externes pour
-	accomplir une tâche. Contrairement à un simple nœud de traitement, l'AI Agent
-	interprète le contexte de la requête, sélectionne dynamiquement les outils
-	nécessaires et produit une réponse structurée adaptée à la situation. Dans ce bloc,
-	il joue le rôle d'\textbf{analyseur sémantique} : il reçoit la question brute,
-	l'évalue selon une taxonomie définie et retourne une décision de routage précise.
+	\vspace{0.5em}
+	\begin{center}
+		\includegraphics[width=0.72\textwidth]{public/openrouter.png}
+		\captionof{figure}{Block 3 — Paramètres du nœud OpenRouter Chat Model (credential, modèle Gemini via OpenRouter)}
+		\label{fig:block3openrouter}
+	\end{center}
+	
+	\vspace{0.5em}
+	\subparagraph{SerpAPI et OpenRouter dans l'écosystème d'API du projet}
+	
+	\textbf{SerpAPI} est intégré à KODA pour des recherches structurées sur le Web
+	(notamment le bloc musique du premier flux, avec extraction de liens via un moteur
+	de résultats). Dans le cadre du projet, l'offre mobilisée autour de SerpAPI a
+	également permis d'obtenir un \textbf{accès à l'API OpenRouter} pour les essais sur
+	les modèles de langage, ce qui complète la couche recherche par une couche
+	d'inférence LLM sans infrastructure dédiée. Les deux services s'inscrivent dans un
+	même \textbf{écosystème d'API cloud} : SerpAPI pour les données web structurées,
+	OpenRouter pour l'agrégation de modèles (figure~\ref{fig:serpapi}).
+	
+	\vspace{0.5em}
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{public/serpapi.png}
+		\captionof{figure}{Intégration SerpAPI — recherche structurée (écosystème d'API aux côtés d'OpenRouter pour les LLM)}
+		\label{fig:serpapi}
+	\end{center}
 	
 	% ----------------------------------------------------------------
 	% PROMPT ENGINEERING
 	% ----------------------------------------------------------------
 	
 	\vspace{0.8em}
-	\subparagraph{Prompt Engineering — Instruction de Classification}
+	\subparagraph{Prompt Engineering — Analyseur de Dépendance Mémoire}
 	
 	\vspace{0.3em}
 	
-	La classification est pilotée par un \textbf{prompt d'ingénierie détaillé} injecté
-	dans l'agent. Ce prompt définit rigoureusement le comportement attendu, les
-	catégories de classification et le format de sortie obligatoire. Voici le prompt
-	utilisé :
+	Le message classé est injecté dans le prompt via l'expression n8n
+	\verb|$('Code5').item.json.inputquestoin|. La classification est pilotée par un
+	\textbf{prompt d'ingénierie} structuré en sections : rôle, règle fondamentale
+	(\texttt{USE\_MEMORY} vs \texttt{NO\_MEMORY}), six catégories, arbre de décision,
+	règles anti-erreur, format de sortie. Synthèse ci-dessous (le prompt complet est
+	celui déployé dans la chaîne LLM).
 	
 	\vspace{0.5em}
 	
@@ -998,7 +1343,7 @@ Le chapitre suivant, "Étude des Besoins et Modélisation UML", initiera la prem
 		colback=gray!6,
 		colframe=kodablock,
 		fonttitle=\bfseries\small,
-		title={Prompt — Analyseur de Dépendance Mémoire},
+		title={Prompt — Analyseur de Dépendance Mémoire (synthèse)},
 		arc=3mm,
 		boxrule=0.6pt,
 		left=6pt, right=6pt, top=6pt, bottom=6pt
@@ -1006,66 +1351,58 @@ Le chapitre suivant, "Étude des Besoins et Modélisation UML", initiera la prem
 		\small
 		
 		\textbf{RÔLE} \\
-		Tu es l'Analyseur de Dépendance Mémoire. Tu analyses chaque message utilisateur
-		et tu prends deux décisions simultanées : (1) faut-il consulter la base de données
-		pour répondre ? (2) quelle est la nature de ce message ?
+		Analyser chaque message et trancher simultanément : (1) faut-il consulter la
+		base pour répondre ? (2) quelle est la nature du message ?
 		
-		\vspace{0.4em}
+		\vspace{0.35em}
 		\textbf{RÈGLE FONDAMENTALE} \\
-		Avant de classifier, pose-toi cette unique question : \\
-		\textit{"Pour répondre à ce message, ai-je besoin d'une information stockée quelque
-			part sur cet utilisateur ou ce robot ?"} \\
-		\textbf{OUI} → \texttt{USE\_MEMORY} \quad \textbf{NON} → \texttt{NO\_MEMORY}
+		\textit{«\,Ai-je besoin d'une information stockée sur cet utilisateur ou ce
+			robot ?\,»} — \textbf{OUI} $\rightarrow$ \texttt{USE\_MEMORY} ; \textbf{NON}
+		$\rightarrow$ \texttt{NO\_MEMORY}.
 		
-		\vspace{0.4em}
-		\textbf{TYPES DE QUESTIONS PRIS EN CHARGE :}
+		\vspace{0.35em}
+		\textbf{SIX CATÉGORIES} (\texttt{[nom\_de\_categorie]} en sortie) \\
+		\texttt{presentation} — introduction d'une personne (signaux multilingues :
+		\textit{je m'appelle}, \textit{ana ismi}, \textit{my name is}, etc.) :
+		\textbf{toujours} \texttt{NO\_MEMORY}, extraction obligatoire du prénom/nom. \\
+		\texttt{information\_personnel} — vie privée / entourage : \texttt{USE\_MEMORY}
+		si \textit{demande} d'une info déjà connue, \texttt{NO\_MEMORY} si \textit{apport}
+		d'une nouvelle info. \\
+		\texttt{aboutme} — robot KODA : \texttt{USE\_MEMORY} si question sur le robot,
+		\texttt{NO\_MEMORY} si l'utilisateur définit quelque chose sur le robot. \\
+		\texttt{note} — rappels, tâches, mémos (\textit{rappelle-moi}, \textit{n'oublie
+			pas que}\ldots) : \textbf{toujours} \texttt{NO\_MEMORY}. \\
+		\texttt{technical} — code, informatique, maths : \textbf{toujours}
+		\texttt{NO\_MEMORY}. \\
+		\texttt{information\_generale} — culture, science, conversation sociale, etc. :
+		\textbf{souvent} \texttt{NO\_MEMORY}, avec exceptions (question sur une personne
+		tierce liée à l'utilisateur : \textit{pour moi}, \textit{mon ami}, nom entre
+		parenthèses\ldots) redirigées vers \texttt{USE\_MEMORY} /
+		\texttt{information\_personnel}.
 		
-		\vspace{0.2em}
-		\textbf{1. information\_personnel} — Toute question ou information relative à
-		l'utilisateur lui-même ou à une personne de son entourage (goûts, habitudes, âge,
-		nom, relations). Si l'utilisateur \textit{demande} une donnée personnelle →
-		\texttt{USE\_MEMORY}. S'il \textit{apporte} une nouvelle information →
-		\texttt{NO\_MEMORY}.
+		\vspace{0.35em}
+		\textbf{ARBRE DE DÉCISION} \\
+		Ordre strict : présentation $\rightarrow$ question/demande (personnel / robot /
+		monde) $\rightarrow$ affirmation nouvelle $\rightarrow$ note $\rightarrow$
+		technique $\rightarrow$ conversation générale.
 		
-		\vspace{0.2em}
-		\textbf{2. note} — L'utilisateur souhaite que KODA lui rappelle quelque chose
-		d'important ultérieurement (rendez-vous, tâche, mémo). KODA doit mémoriser
-		cette note pour la restituer au moment opportun. Toujours \texttt{NO\_MEMORY}
-		(la note est nouvelle, pas stockée).
+		\vspace{0.35em}
+		\textbf{PIÈGES (extraits)} \\
+		\textit{mon / ma / mes} oriente vers le personnel ; distinguer présentation
+		(\textit{Mon ami s'appelle Salah}) et rappel (\textit{C'est quoi le nom de mon
+			ami ?}) ; questions robot (\textit{Tu t'appelles comment ?}) $\neq$
+		conversation générique ; noms propres sans contexte $\rightarrow$
+		\texttt{information\_generale} ; notes déguisées (\textit{N'oublie pas que j'ai
+			école demain}) $\rightarrow$ \texttt{note} ; variantes multilingues et fautes
+		d'orthographe conservent la catégorie sémantique.
 		
-		\vspace{0.2em}
-		\textbf{3. presentation} — L'utilisateur introduit une nouvelle personne ou se
-		présente lui-même. Signaux détectés : \textit{"je m'appelle", "voici mon ami",
-			"salut moi c'est", "ana ismi", "my name is", "meet X"...}. Le prénom ou nom
-		est extrait obligatoirement. Toujours \texttt{NO\_MEMORY}.
-		
-		\vspace{0.2em}
-		\textbf{4. aboutme} — Question sur l'identité ou les instructions de KODA lui-même
-		(nom, créateur, rôle). → \texttt{USE\_MEMORY}.
-		
-		\vspace{0.2em}
-		\textbf{5. information\_generale} — Connaissance universelle, encyclopédique
-		(science, histoire, géographie). → Toujours \texttt{NO\_MEMORY}.
-		
-		\vspace{0.2em}
-		\textbf{6. technical} — Questions de code, informatique ou technologie. →
-		Toujours \texttt{NO\_MEMORY}.
-		
-		\vspace{0.2em}
-		\textbf{7. conversation} — Échanges sociaux, salutations, émotions, remerciements.
-		→ Toujours \texttt{NO\_MEMORY}.
-		
-		\vspace{0.4em}
-		\textbf{FORMAT DE SORTIE OBLIGATOIRE (3 lignes ou 4 pour presentation) :}
-		\begin{verbatim}
-			USE_MEMORY ou NO_MEMORY
-			[nom_de_categorie]
-			[input original tel quel]
-			[prenom extrait — seulement pour presentation]
-		\end{verbatim}
-		
-		\textit{⚠️ Aucun texte supplémentaire, aucune explication, aucune ponctuation
-			hors des lignes définies.}
+		\vspace{0.35em}
+		\textbf{FORMAT DE SORTIE (strict, sans texte additionnel)} \\
+		\textit{Sauf} \texttt{presentation} : exactement \textbf{3 lignes} — (1)
+		\texttt{USE\_MEMORY} ou \texttt{NO\_MEMORY}, (2) catégorie, (3) input original
+		tel quel. \\
+		\textit{Pour} \texttt{presentation} : \textbf{4 lignes} — les trois précédentes
+		avec \texttt{NO\_MEMORY} en ligne~1, plus (4) prénom/nom extrait seul.
 		
 	\end{tcolorbox}
 	
@@ -1076,39 +1413,42 @@ Le chapitre suivant, "Étude des Besoins et Modélisation UML", initiera la prem
 	
 	\begin{itemize}
 		
-		\item \textbf{information\_personnel :} regroupe toute donnée relative à
-		l'utilisateur ou à son entourage proche. Lorsque l'utilisateur \textit{demande}
-		une information personnelle (ex : \textit{"Quel est mon sport préféré ?"}),
-		l'agent déclenche une consultation mémoire (\texttt{USE\_MEMORY}). Lorsqu'il
-		\textit{apporte} une information (ex : \textit{"J'aime le tennis"}), elle est
-		enregistrée sans consultation préalable (\texttt{NO\_MEMORY}).
+		\item \textbf{information\_personnel :} données sur l'utilisateur ou son
+		entourage. Demande de rappel (\textit{Quel est mon âge ?}) $\rightarrow$
+		\texttt{USE\_MEMORY} ; nouvelle affirmation (\textit{J'habite à Paris})
+		$\rightarrow$ \texttt{NO\_MEMORY}.
 		
 		\vspace{0.3em}
 		
-		\item \textbf{note :} l'utilisateur demande à KODA de mémoriser un rappel ou
-		une tâche importante pour une utilisation future (ex : \textit{"Rappelle-moi
-			d'appeler le médecin demain"}). KODA enregistre la note et la restituera au
-		moment approprié. Catégorie toujours \texttt{NO\_MEMORY}.
+		\item \textbf{note :} intention de mémoriser un rappel ou une tâche
+		(\textit{Rappelle-moi d'appeler le médecin}). Toujours \texttt{NO\_MEMORY} pour
+		la classification (la note sera traitée en aval).
 		
 		\vspace{0.3em}
 		
-		\item \textbf{presentation :} l'utilisateur introduit une nouvelle personne
-		dans la conversation ou se présente lui-même. L'agent détecte des signaux
-		multilingues caractéristiques — en français (\textit{"je m'appelle", "voici
-			mon ami"}), en arabe (\textit{"ana ismi", "hada sahbi"}), en anglais
-		(\textit{"my name is", "meet X"}) — et extrait automatiquement le prénom ou
-		nom mentionné pour l'enregistrer dans le profil utilisateur. Catégorie
-		toujours \texttt{NO\_MEMORY}.
+		\item \textbf{presentation :} introduction d'une personne ou auto-présentation,
+		avec extraction du nom. Toujours \texttt{NO\_MEMORY}.
+		
+		\vspace{0.3em}
+		
+		\item \textbf{aboutme :} identité, rôle ou consignes du robot. Question sur KODA
+		$\rightarrow$ \texttt{USE\_MEMORY} ; définition fournie par l'utilisateur
+		$\rightarrow$ \texttt{NO\_MEMORY}.
+		
+		\vspace{0.3em}
+		
+		\item \textbf{technical :} informatique, code, mathématiques. Toujours
+		\texttt{NO\_MEMORY}.
+		
+		\vspace{0.3em}
+		
+		\item \textbf{information\_generale :} savoir encyclopédique et échanges sociaux
+		non couverts ailleurs ; intègre les cas \textit{conversationnels} tant qu'ils
+		ne tombent pas sous les pièges \textit{mon/ma/mes} ou entourage. Questions du
+		type \textit{Qui est X ?} sans lien personnel restent en
+		\texttt{NO\_MEMORY} / \texttt{information\_generale}.
 		
 	\end{itemize}
-	
-	\vspace{1em}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/clasifer.png}
-		\captionof{figure}{Block 3 — Classification sémantique de la question par agent IA}
-	\end{center}
-
-	\vspace{1em}
 	
 	\noindent\underline{\textbf{Référence :} Kahneman, D. (2011). \textit{Thinking, Fast
 			and Slow} ; Russell \& Norvig (2010), \textit{Artificial Intelligence: A Modern
@@ -1688,8 +2028,8 @@ le pipeline d'insertion suivant :
 	
 	Ensemble, ces trois mécanismes — réactif, mémoriel et proactif — forment la fondation de l'expérience utilisateur unique que KODA ambitionne d'offrir : celle d'un compagnon intelligent, attentionné et toujours présent.
 	%================================================================
-	\chapter{Cycle 4 : Distributeur de Services}
-	\chaptermark{Distributeur de Services}
+	\chapter{Cycle 2 : Distributeur de Services}
+	\chaptermark{Cycle 2 — Distributeur de Services}
 	
 	%------------------------------------------------------------------
 	\section{Introduction}
@@ -1705,7 +2045,7 @@ le pipeline d'insertion suivant :
 	acteurs du système.
 	
 	Conformément à la méthodologie cyclique adoptée dans ce rapport,
-	ce quatrième cycle se concentre exclusivement sur ce composant.
+	ce \textbf{deuxième} cycle se concentre exclusivement sur ce composant.
 	Chaque cycle vise à livrer un composant fonctionnel, testable et
 	intégrable de manière incrémentale~; le Distributeur de Services
 	représente ainsi le cycle le plus complexe et le plus structurant
@@ -2178,7 +2518,7 @@ Les principales tables et leurs rôles sont les suivants~:
 	\section{Conclusion}
 	%------------------------------------------------------------------
 	
-	Le Cycle~4 a permis de concevoir, de développer et de valider
+	Le Cycle~2 a permis de concevoir, de développer et de valider
 	le composant le plus structurant de notre écosystème~: le
 	Distributeur de Services. Ce backend, développé en Python avec
 	FastAPI et organisé selon les principes de la Clean Architecture,
@@ -2201,7 +2541,7 @@ Les principales tables et leurs rôles sont les suivants~:
 	autonomes du robot.
 	
 	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black,
-		title=\textbf{Points clés du Cycle 4}]
+		title=\textbf{Points clés du Cycle 2}]
 		\begin{itemize}[noitemsep]
 			\item Backend FastAPI + Python structuré en Clean Architecture
 			\item Communication avec 5 composants extérieurs

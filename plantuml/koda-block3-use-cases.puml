@@ -1,0 +1,35 @@
+@startuml koda_block3_use_cases
+title Block 3 — Cas d'utilisation (classification / dépendance mémoire)
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Utilisateur" as user
+
+rectangle "KODA — Block 3\n(Analyseur de Dépendance Mémoire)" as B3 {
+
+  usecase "UC-B3-1 : Analyser le message\n(classification globale)" as UC1
+
+  usecase "UC-B3-2 : Décider USE_MEMORY\nou NO_MEMORY" as UC2
+
+  usecase "UC-B3-3 : Catégoriser\n(presentation, personnel,\naboutme, note, technical,\ngenerale)" as UC3
+
+  usecase "UC-B3-4 : Produire la sortie\nstructurée (3 ou 4 lignes)" as UC4
+
+  usecase "UC-B3-5 : Parser et valider\n(Code2 → routage)" as UC5
+}
+
+user --> UC1
+UC1 ..> UC2 : <<include>>
+UC1 ..> UC3 : <<include>>
+UC1 ..> UC4 : <<include>>
+UC1 ..> UC5 : <<include>>
+
+note bottom of UC3
+  Six catégories du prompt ;
+  règles anti-piège et arbre
+  de décision côté LLM
+end note
+
+@enduml

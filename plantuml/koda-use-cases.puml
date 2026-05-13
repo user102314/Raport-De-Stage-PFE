@@ -1,0 +1,44 @@
+@startuml koda_use_cases
+title KODA — Diagramme de cas d'utilisation (chat / pipeline Webhook 1)
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Utilisateur" as user
+
+rectangle "Système KODA\n(Webhook 1 — analyse et routage)" as sys {
+
+  usecase "Envoyer un message\n(chat / webhook)" as UC_chat
+
+  usecase "Demander la fermeture\nou le mode OFF" as UC_off
+  note bottom of UC_off
+    Détection : ferme, off, bye,
+    shutdown, sleep, etc.
+  end note
+
+  usecase "S'authentifier\n(mot de passe)" as UC_auth
+  note bottom of UC_auth
+    Égalité stricte avec
+    le mot de passe en base
+  end note
+
+  usecase "Demander de la musique\n(chante / lire + titre)" as UC_music
+
+  usecase "Indiquer une direction\n(déplacement)" as UC_dir
+
+  usecase "Message non classé\n(intention inconnu)" as UC_unk
+  note bottom of UC_unk
+    Aucun motif reconnu ;
+    traitement spécifique si etat = 1
+  end note
+}
+
+user --> UC_chat
+user --> UC_off
+user --> UC_auth
+user --> UC_music
+user --> UC_dir
+user --> UC_unk
+
+@enduml

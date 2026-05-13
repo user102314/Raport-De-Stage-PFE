@@ -1,0 +1,63 @@
+@startuml koda_block3_sequence
+title Block 3 — Diagramme de séquence (Code5, Identité1, Basic LLM Chain, OpenRouter, Code2)
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor "Utilisateur\n(via pipeline amont)" as U
+participant "n8n\n(Webhook 1)" as N8
+participant "Code5\n(inputquestoin)" as C5
+database "PostgreSQL\n(Identité1)" as DB
+participant "Basic LLM Chain" as LLM
+participant "OpenRouter\nChat Model" as OR
+participant "API\nOpenRouter" as API
+participant "Code2\n(parse sortie)" as C2
+participant "Routage aval\n(switch / branches)" as RT
+
+U -> N8 : Message déjà filtré\n(Block 1–2)
+activate N8
+
+N8 -> C5 : Exécuter préparation entrée
+activate C5
+C5 --> N8 : json.inputquestoin
+deactivate C5
+
+N8 -> DB : executeQuery\n(contexte identité)
+activate DB
+DB --> N8 : Lignes profil / état
+deactivate DB
+
+N8 -> LLM : Chaîne : prompt + contexte
+activate LLM
+
+LLM -> OR : Appel modèle\n(prompt Analyseur)
+activate OR
+OR -> API : HTTPS\n(gemini-2.5-flash-lite…)
+activate API
+API --> OR : Réponse brute\n(3 ou 4 lignes)
+deactivate API
+OR --> LLM : Texte classifié
+deactivate OR
+
+LLM --> N8 : Sortie LLM
+deactivate LLM
+
+N8 -> C2 : Normaliser / parser\n(USE_MEMORY, catégorie, lignes)
+activate C2
+C2 --> N8 : Objet structuré\npour routage
+deactivate C2
+
+N8 -> RT : Transmettre décision
+activate RT
+RT --> U : Suite du pipeline\n(Block 4+)
+deactivate RT
+
+deactivate N8
+
+note over LLM, OR
+  Basic LLM Chain = une passe
+  prompt → modèle → réponse
+  (sans boucle d'outils type AI Agent)
+end note
+
+@enduml

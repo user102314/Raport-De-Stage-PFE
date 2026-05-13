@@ -1,0 +1,62 @@
+@startuml koda_block1_sequence
+title Block 1 — Diagramme de séquence (Webhook, Identité, Test, Switch)
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor "Utilisateur" as U
+participant "Interface / Chat" as C
+participant "Webhook n8n" as W
+participant "When chat message\nreceived" as T0
+database "PostgreSQL\n(Identité)" as DB
+participant "Nœud Code\n<<Test>>" as B1
+participant "Switch\n(intention)" as SW
+participant "Branches métier\n(musique, off, on…)" as BR
+
+U -> C : Saisit un message\n(chatInput)
+C -> W : Requête HTTP (webhook)
+activate W
+
+W -> T0 : Déclenche le flux\n(message utilisateur)
+activate T0
+T0 --> W : json.chatInput
+deactivate T0
+
+W -> DB : Requête Identité\n(motdepasse, etat, …)
+activate DB
+DB --> W : Ligne utilisateur / état
+deactivate DB
+
+W -> B1 : Données agrégées\n(message + $input)
+activate B1
+note right of B1
+  Normalisation, listes mots-clés,
+  priorité : ferme → motdepasse
+  → musique → direction → inconnu
+end note
+B1 --> W : JSON\n(intention, flags, nomChanson, direction…)
+deactivate B1
+
+W -> SW : Router selon intention
+activate SW
+
+alt intention = musique
+  SW -> BR : Branche musique\n(SerpAPI, réponse…)
+else intention = ferme
+  SW -> BR : Branche arrêt / OFF
+else intention = motdepasse
+  SW -> BR : Branche authentification / ON
+else intention = direction
+  SW -> BR : Branche réponse direction
+else intention = inconnu
+  SW -> BR : Branche inconnu /\nestInconnu (etat==1)
+end
+
+activate BR
+BR --> C : Réponse (selon branche)
+deactivate BR
+deactivate SW
+deactivate W
+C --> U : Affichage réponse
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml koda_block3_activity
+title Block 3 — Flux d'activité (chaîne linéaire n8n)
+
+skinparam ActivityBackgroundColor #E8F4FF
+skinparam ActivityBorderColor #336699
+
+start
+
+:Code5 — construire\ninputquestoin;
+
+:Identité1 — PostgreSQL\nexecuteQuery\n(contexte utilisateur);
+
+:Basic LLM Chain — injecter\nprompt Analyseur de\nDépendance Mémoire;
+
+:OpenRouter Chat Model —\nappel API modèle\n(Gemini via OpenRouter);
+
+if (Sortie 3 lignes ?) then (oui)
+  :Catégorie standard\nUSE_MEMORY / NO_MEMORY\n+ catégorie + input;
+else (non — presentation)
+  :Sortie 4 lignes\n+ prénom/nom extrait;
+endif
+
+:Code2 — parser le gabarit\nstrict (sans texte parasite);
+
+:Transmettre au\nroutage aval;
+
+stop
+
+@enduml
