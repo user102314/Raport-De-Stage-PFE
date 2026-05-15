@@ -1,0 +1,102 @@
+@startuml koda_chapitre_classes_schema
+title Schema des classes metier — persistance KODA
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+
+class utilisateur {
+  + iduser : PK
+  --
+  nom
+  idkoda : FK
+}
+
+class conversation {
+  + id : PK
+  --
+  question
+  reponce
+  date
+  typedequestion
+  iduser : FK
+}
+
+class historique {
+  + id : PK
+  --
+  created_at
+  question
+  reponce
+  type_question
+}
+
+class information_personelle {
+  + id : PK
+  --
+  question
+  reponce
+  date
+  iduser : FK
+}
+
+class note {
+  + id : PK
+  --
+  note
+  etat
+  date
+}
+
+class seeting {
+  + idkoda : PK
+  --
+  name
+  sexe
+  date
+  motdepasse
+  etat
+  caractere
+  langue
+}
+
+class accompagnement {
+  + id : PK
+  --
+  interets
+  synthese
+  point_cles
+  conseils
+  iduser : FK
+}
+
+class imageuser {
+  + idimage : PK
+  --
+  iduser : FK
+  url
+}
+
+utilisateur ||--o{ conversation
+utilisateur ||--o{ information_personelle
+utilisateur ||--o{ accompagnement
+utilisateur ||--o{ imageuser
+
+seeting "1" ||--o{ "n" utilisateur : idkoda
+
+note bottom of seeting
+  La cle primaire ''idkoda'' identifie la configuration KODA (table seeting).
+  Chaque utilisateur pointe vers cette configuration via ''utilisateur.idkoda'' (cle etrangere).
+end note
+
+note bottom of historique
+  Fenetre des 5 derniers messages ;
+  cle utilisateur selon votre DDL
+  (non liste dans la spec initiale).
+end note
+
+note bottom of note
+  Souvent liee a un utilisateur
+  ou a un evenement selon le flux n8n.
+end note
+
+@enduml

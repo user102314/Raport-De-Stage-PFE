@@ -1,0 +1,49 @@
+@startuml koda_block4_face_use_cases
+title Block 4 — Cas d'utilisation : identité, visage et routage n8n
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Utilisateur\n(devant le robot)" as U
+actor "Application mobile\n(gestion profils)" as App
+
+rectangle "Block 4 — Reconnaissance et enregistrement\n(lien visage / profil / webhook)" as B4Package {
+
+  usecase "S'identifier par\nle visage (temps réel)" as UC_id
+  note bottom of UC_id
+    Camera -> API :
+    comparaison encodages -> persone
+  end note
+
+  usecase "Enregistrer une nouvelle\npersonne (visage + profil)" as UC_reg
+  note bottom of UC_reg
+    Photos, encodage 128D,
+    PostgreSQL
+  end note
+
+  usecase "Branche presentation\n(Switch1, HTTP, Postgres)" as UC_pres
+
+  usecase "Gérer utilisateur unkonu\n(LLM invitation)" as UC_unk
+
+  usecase "Poursuivre vers Block 5\n(personne connue)" as UC_ok
+}
+
+U --> UC_id
+U --> UC_unk
+App --> UC_reg
+UC_reg ..> UC_pres : souvent après
+UC_id ..> UC_ok : Si match fort
+UC_unk ..> UC_reg : après presentation
+
+rectangle "Infrastructure" as eco {
+  usecase "Capture camera robot" as UC_cam
+  usecase "API FastAPI +\nface_recognition" as UC_api
+}
+
+U --> UC_cam
+UC_cam ..> UC_id : <<include>>
+UC_api ..> UC_id : <<include>>
+UC_api ..> UC_reg : <<include>>
+
+@enduml

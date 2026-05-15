@@ -1,0 +1,71 @@
+@startuml koda_block4_workflow_sequence
+title Block 4 - Logique apres Block 3 (Switch1, 3 voies)\nWorkflow n8n : Code8, HTTP, Postgres, LLM, Block 5
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor "Utilisateur" as U
+participant "Block 3\n(questionType, persone, ...)" as B3
+participant "Switch1\n(Rules)" as SW
+participant "Code8" as C8
+participant "HTTP Request\n(API nouvel utilisateur)" as HTTP
+participant "Code7" as C7
+database "Postgres2\n(insert)" as PG2
+participant "If1" as IF
+participant "Basic LLM + OpenRouter" as LLM
+database "Postgres18\n(insert)" as PG18
+participant "Block 5" as B5
+
+B3 -> SW : Resultat classification
+activate SW
+
+alt presentation (questionType)
+  note right of SW
+    Nouvelle personne :
+    donnees + image (API profil)
+  end note
+  SW -> C8 : Payload\n(profil, image)
+  activate C8
+  C8 -> HTTP : POST nouvel utilisateur
+  activate HTTP
+  HTTP --> C7 : Reponse API
+  deactivate HTTP
+  activate C7
+  C7 -> PG2 : INSERT identite
+  activate PG2
+  PG2 -> IF : Controle succes
+  activate IF
+  IF -> B5 : Suite vers Block 5
+  activate B5
+  deactivate IF
+  deactivate PG2
+  deactivate C7
+  deactivate C8
+  deactivate B5
+
+else unkonu (persone inconnue)
+  note right of SW
+    Premier contact :
+    pas traitement metier Block 5 ici
+  end note
+  SW -> LLM : Prompt demande introduction
+  activate LLM
+  LLM -> LLM : Generation texte amical
+  LLM --> U : Invite a se presenter
+  LLM -> PG18 : INSERT trace (optionnel)
+  deactivate LLM
+
+else defaut (personne connue)
+  SW -> B5 : Direct vers Block 5
+  activate B5
+  deactivate B5
+end
+
+deactivate SW
+
+note over B5
+  Voie 1 : apres enregistrement OK.
+  Voie 3 : route directe sans presentation ni unkonu.
+end note
+
+@enduml

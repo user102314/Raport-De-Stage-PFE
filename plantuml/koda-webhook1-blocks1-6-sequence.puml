@@ -1,0 +1,64 @@
+@startuml koda_webhook1_blocks1_6_sequence
+title Webhook 1 — Séquence générale entre Block 1 et Block 6
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 16
+
+participant "Block 1\nIntention (Test, Switch)" as B1
+participant "Block 2\nHistorique" as B2
+participant "Block 3\nClassification sémantique" as B3
+participant "Block 4\nReconnaissance utilisateur" as B4
+participant "Block 5\nContexte & réponse" as B5
+participant "Block 6\nExtraction notes" as B6
+
+note over B1
+  Point d'entrée métier du Webhook~1 :
+  intention unique et routage n8n
+end note
+
+B1 -> B2 : Question + contexte intention
+
+note over B2
+  Comparaison aux 5 derniers messages.
+  Si doublon : réponse depuis cache
+  (sortie directe, blocs 3-6 non parcourus)
+end note
+
+B2 -> B3 : Question nouvelle
+
+note over B3
+  Type de question, mémoire,
+  labels sémantiques (JSON)
+end note
+
+opt Cas "presentation"
+  B3 -> B4 : Données à enregistrer\n(prénom, profil)
+  B4 --> B3 : Profil mis à jour
+end opt
+
+B3 -> B5 : Décision mémoire +\nclassification
+
+note over B5
+  Récupération contexte,
+  génération de la réponse
+end note
+
+opt Cas "note"
+  B5 -> B6 : Question + réponse\npour structuration
+  B6 --> B5 : Événement structuré\n(JSON)
+end opt
+
+note over B5
+  Réponse finalisée ;
+  persistance (Block 7) en aval du webhook.
+end note
+
+note right of B6
+  Scénario général : enchaînement 1, 2, 3 puis 5 ;
+  embranchements optionnels vers 4 (présentation)
+  et 6 (note). Le Block 2 peut court-circuiter
+  sans activer les blocs 3 à 6.
+end note
+
+@enduml

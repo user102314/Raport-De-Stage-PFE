@@ -1,0 +1,53 @@
+@startuml koda_use_cases_block1
+title KODA — Cas d'utilisation du Block 1 (Switch : intentions et branches)
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Utilisateur" as user
+
+rectangle "Bloc 1 — Analyse intention\n(Webhook 1, nœud Switch)" as b1 {
+
+  usecase "Envoyer un message\n(chat / webhook)" as UC_chat
+
+  usecase "Demander la musique\n(chante / titre)" as UC_music
+
+  usecase "Fermer ou passer\nen mode OFF" as UC_off
+  note bottom of UC_off
+    Branche OFF : Identité5,
+    réponse « I am OFF »
+  end note
+
+  usecase "S'authentifier\nmot de passe (ON)" as UC_auth
+  note bottom of UC_auth
+    Branche ON : Identité4,
+    réponse « I am on »
+  end note
+
+  usecase "Indiquer une direction\n(déplacement)" as UC_dir
+
+  usecase "Vérifier l'historique\n(répétition / mémoire courte)" as UC_hist
+  note bottom of UC_hist
+    Table historique, Code3/Code4,
+    Respond to Webhook2
+  end note
+
+  usecase "Scénario spécifique\n(branche Code10)" as UC_special
+  note bottom of UC_special
+    Réponse dédiée (ex. I am OFF2)
+  end note
+
+  usecase "Message non classé\n(intention inconnu)" as UC_unk
+}
+
+user --> UC_chat
+user --> UC_music
+user --> UC_off
+user --> UC_auth
+user --> UC_dir
+user --> UC_hist
+user --> UC_special
+user --> UC_unk
+
+@enduml

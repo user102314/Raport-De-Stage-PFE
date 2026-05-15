@@ -1,0 +1,75 @@
+@startuml koda_block1_switch_six_branches
+title Block 1 — Séquence : nœud Test, Switch (6 sorties) et branches métier
+' Aligné sur public/block1.png (Switch mode Rules, sorties 0 à 5)
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor "Utilisateur" as U
+participant "Webhook / chat\nn8n" as W
+participant "Test\nCode intention" as Test
+participant "Switch\nRules (0-5)" as SW
+participant "SerpAPI\n(musique)" as Serp
+participant "Code\n(extraction lien)" as CodeM
+database "PostgreSQL\n(Identité, historique)" as DB
+participant "Réponses\n(Respond / Webhook)" as R
+
+U -> W : Message utilisateur\n(chatInput, contexte)
+activate W
+
+W -> Test : Agrège message +\ndonnées Identité (etat, ...)
+activate Test
+Test --> W : JSON intention,\nnomChanson, flags...
+deactivate Test
+
+W -> SW : Router selon règle\n(sortie 0 à 5)
+activate SW
+
+alt Sortie 0 — Musique
+  SW -> Serp : GET API search\n(titre extrait)
+  activate Serp
+  Serp --> SW : résultats bruts
+  deactivate Serp
+  SW -> CodeM : Extrait lien /\nformat playlist
+  activate CodeM
+  CodeM -> R : Réponse musique\n(Respond Music)
+  deactivate CodeM
+else Sortie 1 — Identité OFF (ferme)
+  SW -> DB : Identité5\nexecuteQuery
+  activate DB
+  DB --> SW : ligne état robot
+  deactivate DB
+  SW -> R : I am OFF
+else Sortie 2 — Identité ON (motdepasse)
+  SW -> DB : Identité4\nexecuteQuery
+  activate DB
+  DB --> SW : validation ON
+  deactivate DB
+  SW -> R : I am on
+else Sortie 3 — Direction
+  SW -> R : Respond Direction
+else Sortie 4 — Historique (comparaison)
+  SW -> DB : historique\nexecuteQuery
+  activate DB
+  DB --> SW : derniers messages
+  deactivate DB
+  note right of SW
+    Code4 / Code3 : similarité avec\nnouvelle question
+  end note
+  SW -> R : Respond to Webhook2\n(cache ou poursuite flux)
+else Sortie 5 — Branche Code10
+  SW -> R : I am OFF2
+end
+
+activate R
+R --> U : Réponse utilisateur
+deactivate R
+deactivate SW
+deactivate W
+
+note bottom of SW
+  Les 6 branches correspondent au Switch
+  sur la capture public/block1.png.
+end note
+
+@enduml
