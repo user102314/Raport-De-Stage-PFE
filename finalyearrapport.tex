@@ -522,7 +522,7 @@ headheight=14pt
 	
 	Ce chapitre esquisse le cadre fondamental de notre étude en définissant l'environnement contextuel et organisationnel du projet. Nous commençons par introduire l'organisme d'accueil, en mettant en évidence son expertise technologique et sa structure interne dédiée à l'innovation.
 	
-	Ensuite, nous exposons la problématique centrale, justifiant le besoin critique d'un système intelligent. Une analyse rigoureuse des solutions existantes nous permet d'identifier les limites actuelles et de mieux positionner notre système proposé. Enfin, nous détaillons la méthodologie de projet adoptée, assurant une approche structurée et efficace tout au long du cycle de développement.
+	Ensuite, nous exposons la problématique centrale, justifiant le besoin critique d'un système intelligent. Une analyse rigoureuse des solutions existantes nous permet d'identifier les limites actuelles et de mieux positionner notre système proposé. Enfin, nous présentons la \textbf{méthodologie en spirale} retenue pour piloter le développement par cycles successifs.
 	
 	%----------------------------------------------------------------
 	\sectiontitle{Contexte Général du Projet}
@@ -674,36 +674,59 @@ En intégrant ces composants, la solution proposée garantit une résilience op�
 	
 	Pour garantir un haut degré de fiabilité et une intégration harmonieuse des différentes couches logicielles et matérielles, ce projet suit un cadre d'ingénierie rigoureux.
 	
-	\subsectiontitle{Approche Agile et Cycle en V}
+	\subsectiontitle{Modèle en spirale}
 	
-Bien que le projet intègre des concepts de prototypage rapide caractéristiques des méthodes Agiles, l'architecture globale repose sur un Cycle en V. Ce modèle représente un chemin d'exécution séquentiel où chaque phase de développement (côté gauche) est associée à une phase de test correspondante (côté droit).
-
-Nous avons adopté cette méthodologie car elle garantit que les protocoles de test pour notre matériel embarqué et nos workflows d'intelligence artificielle soient définis avant l'assemblage physique, conduisant à un cycle d'intégration plus efficace. La figure \ref{fig:vmodel} illustre les étapes fondamentales de ce cadre dans un contexte d'ingénierie général.
-
+	Le pilotage du projet KODA repose sur le \textbf{modèle en spirale}, et non sur un
+	cycle en~V séquentiel ni sur une succession de sprints Scrum. À chaque tour de
+	spirale, une partie du système est \textbf{précisée}, \textbf{construite},
+	\textbf{testée} et \textbf{raccordée} au reste ; avant d'engager le tour suivant,
+	l'équipe \textbf{réévalue les risques} (techniques, d'intégration, de délai) et
+	ajuste les priorités. Cette démarche convient à un compagnon robotique
+	multicouche~: on ne livre pas tout d'un coup, on fait monter en puissance le moteur
+	de réflexion, le lien avec le robot, l'application mobile, puis la validation
+	d'ensemble.
 	
+	Le périmètre est découpé en \textbf{six cycles thématiques}, ordonnés de façon
+	logique~:
+	\begin{enumerate}
+		\item analyse et réflexion (moteur conversationnel)~;
+		\item couche de distribution et persistance des données~;
+		\item partie matérielle embarquée~;
+		\item partie logicielle sur le robot~;
+		\item application mobile de pilotage~;
+		\item tests et validation globale.
+	\end{enumerate}
+	
+	Chaque cycle se clôt par un \textbf{incrément démontrable} (fonctionnalité
+	branchée, scénario utilisateur, critères d'acceptation) et par un point de
+	synchronisation avec l'encadrement. La planification détaillée, les rôles et le
+	calendrier des jalons sont formalisés au chapitre~II ; la figure ci-dessous en
+	résume le principe.
+	
+	\IfFileExists{public/ch2-modele-spirale.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.92\textwidth]{public/ch2-modele-spirale.png}
+			\caption{Modèle en spirale — enchaînement des six cycles de développement KODA}
+			\label{fig:ch1-modele-spirale}
+		\end{figure}
+	}{}
 	
 	\vspace{0.3cm}
-	\noindent\textbf{1) Le flux de processus : Déconstruction et Réassemblage}\\
-	La méthodologie forme une forme en "V" symétrique, divisée en trois segments principaux :
+	\noindent\textbf{Artefacts et traçabilité}\\
+	À chaque tour, des livrables assurent la continuité entre les cycles~:
 	\begin{itemize}
-		\item \textbf{Le segment de vérification (Étapes 1--4) :} Se concentre sur la traduction des besoins des utilisateurs en un plan architectural définitif.
-		\item \textbf{Le sommet (Étape 5) :} L'implémentation est le tournant critique où le codage, l'assemblage matériel et la configuration des workflows ont lieu.
-		\item \textbf{Le segment de validation (Étapes 6--8) :} Réassemble et vérifie le système à travers des tests unitaires et des tests d'intégration globaux.
-	\end{itemize}
-
-	\vspace{0.3cm}
-	\noindent\textbf{2) Artefacts Clés du Projet}\\
-	La traçabilité est maintenue en générant des artefacts spécifiques à chaque étape :
-	\begin{itemize}
-		\item \textbf{Spécifications des Besoins :} Besoins utilisateurs et techniques documentés.
-		\item \textbf{Conception de l'Architecture Système :} Plans d'intégration matériel/logiciel.
-		\item \textbf{Conception Détaillée des Composants :} Logique de code, endpoints API et schéma de base de données.
+		\item \textbf{Besoins et périmètre} mis à jour (utilisateur, sécurité, mémoire).
+		\item \textbf{Architecture et intégration} (schémas, interfaces entre robot,
+		logiciel de réflexion, application).
+		\item \textbf{Réalisation et recette} du cycle en cours (tests, démonstration,
+		correctifs avant le tour suivant).
 	\end{itemize}
 	
 	\section{Conclusion}
 	
 	
-Ce chapitre a établi le contexte du projet KODA. En identifiant les lacunes critiques des assistants virtuels actuels — notamment le manque de personnalité, de réflexion autonome et d'intégration embarquée — nous avons défini notre solution innovante. De plus, en adoptant une méthodologie de développement structurée, nous avons établi une feuille de route qui garantit la fiabilité tout au long des défis techniques à venir.
+Ce chapitre a établi le contexte du projet KODA. En identifiant les lacunes critiques des assistants virtuels actuels — notamment le manque de personnalité, de réflexion autonome et d'intégration embarquée — nous avons défini notre solution innovante. Le \textbf{modèle en spirale} et les six cycles de développement posent une feuille de route incrémentale, adaptée à la complexité d'un système distribué entre compagnon physique, réflexion et pilotage mobile.
 
 Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les besoins, la méthodologie de développement \textbf{en spirale} par cycles successifs et les environnements techniques retenus pour mener à bien la réalisation de KODA.
 	
@@ -733,33 +756,41 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\subsection{Spécifications des besoins fonctionnels}
 	
-	Les besoins fonctionnels décrivent \textit{ce que} le système doit faire du point de
-	vue des utilisateurs et des scénarios d'usage, en cohérence avec la solution
-	esquissée au chapitre~I (n8n, backend Python, Raspberry Pi, application mobile,
-	base PostgreSQL).
+	Les besoins fonctionnels précisent \textit{ce que} KODA doit offrir à l'utilisateur,
+	sans décrire encore les choix d'implémentation. Ils reprennent la problématique du
+	chapitre~I~: un \textbf{compagnon de vie} capable de présence, de réflexion et
+	d'accompagnement personnalisé, et non un simple exécuteur de commandes.
 	
 	\begin{itemize}
-		\item \textbf{Interaction conversationnelle :} réception d'un message utilisateur,
-		traitement par workflows n8n (webhooks), production d'une réponse contextualisée
-		et routage selon l'intention (fermeture, authentification, musique, direction,
-		classification mémoire, etc.).
-		\item \textbf{Mémoire et personnalisation :} distinction entre réponses nécessitant
-		une consultation de profil (\texttt{USE\_MEMORY}) et réponses autonomes
-		(\texttt{NO\_MEMORY}) ; enregistrement de présentations, notes et informations
-		personnelles ; consolidation périodique (webhook nocturne) telle que décrite au
-		cycle~1.
-		\item \textbf{Distribution des services :} API REST (FastAPI) reliant la base
-		de données (Supabase / PostgreSQL), n8n, le robot et l'application mobile ;
-		endpoints pour commandes, sessions, événements et services cognitifs (STT, TTS,
-		reconnaissance faciale, modèles de langage).
-		\item \textbf{Couche embarquée :} exécution sur Raspberry Pi des fonctions temps
-		réel attendues (captures, dialogue avec le backend, signaux vers actionneurs ou
-		périphériques selon le cahier des charges physique).
-		\item \textbf{Pilotage mobile :} application cross-plateforme de configuration, de
-		suivi et de supervision du compagnon.
-		\item \textbf{Sécurité et modes de fonctionnement :} gestion d'états (ouvert /
-		fermé), mot de passe, filtrage des intentions sensibles conformément au premier
-		flux n8n.
+		\item \textbf{Dialoguer naturellement :} l'utilisateur s'adresse à KODA à l'oral ou
+		par message ; le compagnon comprend la demande, y répond de façon claire et
+		pertinente, et adapte son ton à la situation (explication, conseil, réconfort).
+		Lorsque la question appelle une réponse immédiate (arrêt, mot de passe, musique,
+		déplacement), KODA réagit sans détour ; sinon, il prend le temps d'analyser avant
+		de répondre.
+		\item \textbf{Se souvenir et personnaliser :} KODA reconnaît les personnes avec
+		lesquelles il interagit, retient leurs présentations, leurs préférences et les
+		éléments importants de leurs échanges (notes, informations personnelles). Il peut
+		répondre en s'appuyant sur ce qu'il sait déjà de l'utilisateur, ou traiter une
+		question générale sans tout reconsulter ; la mémoire est consolidée au fil du
+		temps pour garder une continuité dans la relation.
+		\item \textbf{Reconnaître et accueillir :} le compagnon identifie l'interlocuteur
+		(visage, contexte) et adapte son comportement~: accueil personnalisé pour une
+		personne connue, invitation à se présenter pour un visiteur inconnu, conformément
+		à l'objectif de présence humaine évoqué au chapitre~I.
+		\item \textbf{Être présent physiquement :} le robot matérialise l'interaction
+		(captures, parole, déplacements ou signaux prévus par le prototype) et reste
+		relie au reste du système pour que l'expérience ne se limite pas à un écran ou à
+		une enceinte déconnectée du corps du compagnon.
+		\item \textbf{Permettre le pilotage à distance :} via l'application mobile,
+		l'utilisateur configure la personnalité de KODA (nom, caractère, langue, etc.),
+		suit son activité et supervise son compagnon au quotidien, comme annoncé dans la
+		solution proposée au chapitre~I.
+		\item \textbf{Protéger l'usage et l'environnement :} KODA fonctionne selon des
+		modes ouvert ou protégé (mot de passe), afin de limiter l'accès aux fonctions
+		sensibles lorsque le compagnon est en mode sécurisé~; cette exigence répond au
+		besoin, formulé au chapitre~I, d'allier accompagnement humain et gestion
+		responsable de l'environnement domestique.
 	\end{itemize}
 	
 	\IfFileExists{public/ch2-besoins-fonctionnels.png}{%
@@ -780,23 +811,36 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\subsection{Spécification des besoins non fonctionnels}
 	
-	Les besoins non fonctionnels encadrent la \textbf{qualité} du système.
+	Les besoins non fonctionnels décrivent \textit{comment} le système doit se comporter
+	pour être acceptable au quotidien~: fiabilité, confiance, simplicité d'évolution.
+	Ils complètent les besoins fonctionnels sans entrer dans le détail des outils retenus
+	au chapitre~III et suivants.
 	
 	\begin{itemize}
-		\item \textbf{Performance et latence :} réponses utilisateur acceptables malgré
-		les appels externes (OpenRouter, SerpAPI, Azure) ; optimisation par cache
-		conversationnel (bloc historique du Webhook~1).
-		\item \textbf{Disponibilité et résilience :} tolérance aux indisponibilités
-		partielles des services cloud ; persistance des données critiques en PostgreSQL.
-		\item \textbf{Sécurité :} authentification aux API, gestion des secrets (clés
-		OpenRouter, SerpAPI, Supabase), moindre exposition des surfaces d'attaque sur le
-		robot et le backend.
-		\item \textbf{Maintenabilité :} séparation des couches (Clean Architecture côté
-		backend), workflows n8n modulaires par blocs, documentation des webhooks.
-		\item \textbf{Interopérabilité :} formats JSON REST, connecteurs standards
-		(PostgreSQL, SDK officiels).
-		\item \textbf{Évolutivité :} possibilité d'ajouter des nœuds n8n, des endpoints ou
-		des écrans mobiles sans remettre en cause l'ensemble de l'\textbf{architecture cible}.
+		\item \textbf{Réactivité perçue :} les réponses du compagnon doivent paraître
+		fluides à l'utilisateur, y compris lorsque le traitement s'appuie sur des
+		services en ligne (recherche, synthèse vocale, etc.)~; les échanges déjà connus ne
+		doivent pas systématiquement être retraités comme s'il n'y avait aucune mémoire.
+		\item \textbf{Continuité de service :} une coupure partielle d'un service distant
+		ne doit pas faire perdre l'essentiel des données ni bloquer durablement
+		l'interaction~; les informations importantes (profils, historiques, paramètres)
+		restent conservées de façon durable.
+		\item \textbf{Confiance et respect de la vie privée :} seules les personnes
+		autorisées accèdent aux fonctions sensibles~; les identifiants et données
+		personnelles sont protégés, et le compagnon n'expose pas inutilement ce qu'il
+		sait de l'utilisateur.
+		\item \textbf{Clarté pour l'équipe projet :} la logique est organisée par blocs
+		(dialogue, mémoire, robot, application) afin de pouvoir corriger ou enrichir une
+		partie sans remettre en cause tout le système~; les scénarios principaux restent
+		documentés pour la validation en fin de cycle.
+		\item \textbf{Ouverture aux évolutions :} il doit être possible d'ajouter une
+		nouvelle capacité (type de question, écran mobile, capteur) en s'appuyant sur
+		l'architecture globale du chapitre~I, sans repartir d'une conception entièrement
+		nouvelle.
+		\item \textbf{Accessibilité d'usage :} l'application de pilotage et les modes du
+		compagnon restent compréhensibles pour un utilisateur non spécialiste, en ligne
+		avec l'objectif d'un compagnon \og accessible \fg{} par rapport aux robots
+		professionnels coûteux évoqués dans l'analyse de l'existant.
 	\end{itemize}
 	
 	\subsection{Architecture du système}
@@ -834,12 +878,22 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\end{itemize}
 	
 	\IfFileExists{public/ch2-diagramme-acteurs.png}{%
-		\begin{figure}[htbp]
+		\clearpage
+		\begin{figure}[p]
 			\centering
-			\includegraphics[width=0.98\textwidth]{public/ch2-diagramme-acteurs.png}
-			\caption{Acteurs principaux et contexte d'intégration du système KODA}
+			\vfill
+			\rotatebox{90}{%
+				\includegraphics[
+					width=0.88\textheight,
+					keepaspectratio
+				]{public/ch2-diagramme-acteurs.png}%
+			}
+			\vspace{1.5em}
+			\captionof{figure}{Acteurs principaux et contexte d'intégration du système KODA}
 			\label{fig:ch2-acteurs}
+			\vfill
 		\end{figure}
+		\clearpage
 	}{%
 		\begin{center}
 			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1.2em}
@@ -1098,8 +1152,8 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\noindent\textbf{Réutilisation possible :} la figure d'architecture multicouche du
 	chapitre~I (\texttt{public/ch2-architecture-systeme.png}) peut être réutilisée ou
 	déclinée pour d'autres sections après recadrage ou légende adaptée au
-	§\,2.2.3 / 2.5. Le \textbf{cycle en~V} évoqué au chapitre~I complète la spirale en
-	rappelant la symétrie analyse / tests tout au long du projet.
+	§\,2.2.3 / 2.5. Le \textbf{modèle en spirale} introduit au chapitre~I est détaillé
+	ici (cycles, planification, figure~\ref{fig:ch2-modele-spirale}).
 	
 	%----------------------------------------------------------------
 	\section{Conclusion}
