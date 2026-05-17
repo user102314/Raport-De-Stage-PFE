@@ -1,0 +1,115 @@
+\babel@toc {french}{}\relax 
+\babel@toc {french}{}\relax 
+\babel@toc {french}{}\relax 
+\babel@toc {french}{}\relax 
+\babel@toc {french}{}\relax 
+\contentsline {chapter}{Introduction Générale}{1}{chapter*.4}%
+\contentsline {chapter}{\numberline {I}Cadre Général du Projet et Présentation de l'Organisme}{2}{chapter.1}%
+\contentsline {section}{\numberline {I.1}Introduction du chapitre}{3}{section.1.1}%
+\contentsline {section}{\numberline {I.2}Contexte Général du Projet}{3}{section.1.2}%
+\contentsline {section}{\numberline {I.3}Présentation de l'Organisme d'Accueil (MicroEdition)}{3}{section.1.3}%
+\contentsline {subsection}{\numberline {I.3.1}Profil de l'Entreprise}{3}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {I.3.2}Services}{4}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {I.3.3}Recherche \& Développement (R\&D)}{4}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {I.3.4}Structure Organisationnelle}{4}{subsection.1.3.4}%
+\contentsline {section}{\numberline {I.4}Problématique}{5}{section.1.4}%
+\contentsline {section}{\numberline {I.5}Analyse des Solutions Existantes}{5}{section.1.5}%
+\contentsline {subsection}{\numberline {I.5.1}Étude de l'existant}{6}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {I.5.2}Synthèse et Critique : Le "Manque d'Humanité"}{6}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {I.5.3}La Différenciation de Koda}{7}{subsection.1.5.3}%
+\contentsline {section}{\numberline {I.6}Solution Proposée}{7}{section.1.6}%
+\contentsline {section}{\numberline {I.7}Méthodologie du Projet}{8}{section.1.7}%
+\contentsline {subsection}{\numberline {I.7.1}Approche Agile et Cycle en V}{8}{subsection.1.7.1}%
+\contentsline {section}{\numberline {I.8}Conclusion}{9}{section.1.8}%
+\contentsline {chapter}{\numberline {II}Préparation du Projet}{10}{chapter.2}%
+\contentsline {section}{\numberline {II.1}Introduction du chapitre}{11}{section.2.1}%
+\contentsline {section}{\numberline {II.2}Spécification des besoins}{11}{section.2.2}%
+\contentsline {subsection}{\numberline {II.2.1}Spécifications des besoins fonctionnels}{11}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {II.2.2}Spécification des besoins non fonctionnels}{12}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {II.2.3}Architecture du système}{12}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {II.2.4}Identification des acteurs}{12}{subsection.2.2.4}%
+\contentsline {section}{\numberline {II.3}Pilotage du projet — Méthodologie cylindrique par cycles}{13}{section.2.3}%
+\contentsline {subsection}{\numberline {II.3.1}Équipe et rôles}{13}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {II.3.2}Découpage du travail : six cycles}{13}{subsection.2.3.2}%
+\contentsline {section}{\numberline {II.4}Planification des cycles}{14}{section.2.4}%
+\contentsline {section}{\numberline {II.5}Architecture}{14}{section.2.5}%
+\contentsline {subsection}{\numberline {II.5.1}Architecture de l'application}{14}{subsection.2.5.1}%
+\contentsline {section}{\numberline {II.6}Environnement de travail}{15}{section.2.6}%
+\contentsline {subsection}{\numberline {II.6.1}Environnement matériel}{15}{subsection.2.6.1}%
+\contentsline {section}{\numberline {II.7}Environnement logiciel}{15}{section.2.7}%
+\contentsline {subsection}{\numberline {II.7.1}Outils de développement et modélisation}{15}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {II.7.2}Langages et frameworks utilisés}{15}{subsection.2.7.2}%
+\contentsline {section}{\numberline {II.8}Conclusion}{15}{section.2.8}%
+\contentsline {chapter}{\numberline {III}Cycle 1 : ANALYSEUR ET RÉFLÉCHISSEMENT}{17}{chapter.3}%
+\contentsline {section}{\numberline {III.1}Introduction}{18}{section.3.1}%
+\contentsline {section}{\numberline {III.2}Définitions Fondamentales}{18}{section.3.2}%
+\contentsline {subsection}{\numberline {III.2.1}n8n}{18}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {III.2.2}Webhook}{19}{subsection.3.2.2}%
+\contentsline {section}{\numberline {III.3}Fondements Théoriques}{19}{section.3.3}%
+\contentsline {subsection}{\numberline {III.3.1}La Théorie du Double Traitement}{19}{subsection.3.3.1}%
+\contentsline {section}{\numberline {III.4}Fonctionnalités Techniques}{20}{section.3.4}%
+\contentsline {subsection}{\numberline {III.4.1}Premier Flux — Webhook 1 : Analyse et Réponse}{21}{subsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {III.4.1.1}Principe Général}{21}{subsubsection.3.4.1.1}%
+\contentsline {subsubsection}{\numberline {III.4.1.2}Format de la Requête Entrante}{21}{subsubsection.3.4.1.2}%
+\contentsline {subsubsection}{\numberline {III.4.1.3}Description Détaillée des Blocs de Traitement}{21}{subsubsection.3.4.1.3}%
+\contentsline {paragraph}{\numberline {III.4.1.3.1}Block 1 : Analyse du message utilisateur et classification d'intention}{21}{paragraph.3.4.1.3.1}%
+\contentsline {paragraph}{\numberline {III.4.1.3.2}Block 2 : Vérification de la Question dans l'Historique}{25}{paragraph.3.4.1.3.2}%
+\contentsline {paragraph}{\numberline {III.4.1.3.3}Block 3 : Classification Sémantique de la Question}{27}{paragraph.3.4.1.3.3}%
+\contentsline {subparagraph}{\numberline {III.4.1.3.3.1}Basic LLM Chain en lieu et place de l'AI Agent}{29}{subparagraph.3.4.1.3.3.1}%
+\contentsline {subparagraph}{\numberline {III.4.1.3.3.2}Configuration OpenRouter (modèle Gemini)}{29}{subparagraph.3.4.1.3.3.2}%
+\contentsline {subparagraph}{\numberline {III.4.1.3.3.3}SerpAPI et OpenRouter dans l'écosystème d'API du projet}{30}{subparagraph.3.4.1.3.3.3}%
+\contentsline {subparagraph}{\numberline {III.4.1.3.3.4}Prompt Engineering — Analyseur de Dépendance Mémoire}{31}{subparagraph.3.4.1.3.3.4}%
+\contentsline {subparagraph}{\numberline {III.4.1.3.3.5}Détail des Types de Questions Classifiés}{33}{subparagraph.3.4.1.3.3.5}%
+\contentsline {paragraph}{\numberline {III.4.1.3.4}Block 4 : Reconnaissance et Enregistrement de l'Utilisateur}{33}{paragraph.3.4.1.3.4}%
+\contentsline {paragraph}{\numberline {III.4.1.3.5}Block 5 : Récupération Contextuelle et Génération de la Réponse}{35}{paragraph.3.4.1.3.5}%
+\contentsline {subparagraph}{\numberline {III.4.1.3.5.1}Branche Mémorielle (\texttt {use\_memory = true})}{35}{subparagraph.3.4.1.3.5.1}%
+\contentsline {subparagraph}{\numberline {III.4.1.3.5.2}Branche Générale (\texttt {use\_memory = false})}{38}{subparagraph.3.4.1.3.5.2}%
+\contentsline {subsubsection}{\numberline {III.4.1.4}Vue Complète du Block 5 — Les Deux Branches}{39}{subsubsection.3.4.1.4}%
+\contentsline {paragraph}{\numberline {III.4.1.4.1}Block 6 : Mise à Jour de Mémoire}{41}{paragraph.3.4.1.4.1}%
+\contentsline {subsubsection}{\numberline {III.4.1.5}Diagramme de Séquence du Webhook 1}{44}{subsubsection.3.4.1.5}%
+\contentsline {subsection}{\numberline {III.4.2}Deuxième Flux — Webhook 2 : Filtre et Synthèse Journalière}{44}{subsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {III.4.2.1}Principe et Inspiration}{44}{subsubsection.3.4.2.1}%
+\contentsline {subsubsection}{\numberline {III.4.2.2}Fonctionnement du Webhook 2}{45}{subsubsection.3.4.2.2}%
+\contentsline {subsubsection}{\numberline {III.4.2.3}Structure des Fiches de Synthèse Générées}{45}{subsubsection.3.4.2.3}%
+\contentsline {subsubsection}{\numberline {III.4.2.4}Impact sur le Système Global}{46}{subsubsection.3.4.2.4}%
+\contentsline {subsection}{\numberline {III.4.3}Troisième Flux — Webhook 3 : Spontanéité et Interaction Proactive}{47}{subsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {III.4.3.1}Principe : La Spontanéité comme Dimension Humaine}{47}{subsubsection.3.4.3.1}%
+\contentsline {subsubsection}{\numberline {III.4.3.2}Déclenchement et Fonctionnement}{47}{subsubsection.3.4.3.2}%
+\contentsline {subsubsection}{\numberline {III.4.3.3}Génération de la Phrase d'Accroche}{47}{subsubsection.3.4.3.3}%
+\contentsline {section}{\numberline {III.5}Vue Générale du Cycle 1}{48}{section.3.5}%
+\contentsline {section}{\numberline {III.6}Conclusion}{49}{section.3.6}%
+\contentsline {chapter}{\numberline {IV}Cycle 2 : Distributeur de Services}{50}{chapter.4}%
+\contentsline {section}{\numberline {IV.1}Introduction}{51}{section.4.1}%
+\contentsline {section}{\numberline {IV.2}Architecture Utilisée}{51}{section.4.2}%
+\contentsline {subsection}{\numberline {IV.2.1}Choix du langage : Python}{51}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {IV.2.2}Clean Architecture : principes et application}{52}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {IV.2.3}Structure des répertoires du projet}{53}{subsection.4.2.3}%
+\contentsline {section}{\numberline {IV.3}Fonctionnalités Techniques}{54}{section.4.3}%
+\contentsline {subsection}{\numberline {IV.3.1}Communication avec la base de données (Supabase / PostgreSQL)}{54}{subsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {IV.3.1.1}Modèle relationnel et rôle des tables}{55}{subsubsection.4.3.1.1}%
+\contentsline {subsection}{\numberline {IV.3.2}Services Azure : Speech-to-Text et Text-to-Speech}{56}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {IV.3.3}Service de reconnaissance des personnes}{58}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {IV.3.4}Interface avec le workflow n8n}{60}{subsection.4.3.4}%
+\contentsline {paragraph}{\numberline {IV.3.4.0.1}Images recommandées pour cette section}{61}{paragraph.4.3.4.0.1}%
+\contentsline {subsection}{\numberline {IV.3.5}Services pour l'application mobile multiplateforme}{61}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {IV.3.6}Communication avec le système embarqué (robot réel)}{63}{subsection.4.3.6}%
+\contentsline {section}{\numberline {IV.4}Problèmes Rencontrés et Solutions Apportées}{64}{section.4.4}%
+\contentsline {section}{\numberline {IV.5}Conclusion}{65}{section.4.5}%
+\contentsline {chapter}{\numberline {V}Cycle 3 : Système Embarqué --- Partie Matérielle}{67}{chapter.5}%
+\contentsline {section}{\numberline {V.1}Introduction}{68}{section.5.1}%
+\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{68}{section.5.2}%
+\contentsline {section}{\numberline {V.3}Description Détaillée des Composants}{69}{section.5.3}%
+\contentsline {subsection}{\numberline {V.3.1}Unité Centrale~: Raspberry Pi 4 Model B}{69}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {V.3.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{70}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {V.3.3}Système d'Actionneurs}{70}{subsection.5.3.3}%
+\contentsline {subsubsection}{\numberline {V.3.3.1}Moteurs DC --- Mobilité}{70}{subsubsection.5.3.3.1}%
+\contentsline {subsubsection}{\numberline {V.3.3.2}Servomoteurs --- Articulations}{71}{subsubsection.5.3.3.2}%
+\contentsline {subsection}{\numberline {V.3.4}Système Audio}{71}{subsection.5.3.4}%
+\contentsline {subsubsection}{\numberline {V.3.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{71}{subsubsection.5.3.4.1}%
+\contentsline {subsubsection}{\numberline {V.3.4.2}Sortie Audio~: Amplificateur PAM8403 et Haut-Parleurs}{71}{subsubsection.5.3.4.2}%
+\contentsline {subsection}{\numberline {V.3.5}Système de Vision~: Caméra Raspberry Pi}{71}{subsection.5.3.5}%
+\contentsline {subsection}{\numberline {V.3.6}Interface d'Expression Faciale~: Écran Nextion 3{,}5\textquotedbl }{72}{subsection.5.3.6}%
+\contentsline {subsection}{\numberline {V.3.7}Système d'Alimentation}{72}{subsection.5.3.7}%
+\contentsline {section}{\numberline {V.4}Schéma de Câblage Global}{72}{section.5.4}%
+\contentsline {section}{\numberline {V.5}Conclusion}{72}{section.5.5}%
+\contentsfinish 
