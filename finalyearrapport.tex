@@ -501,7 +501,8 @@ headheight=14pt
 		\item \textbf{Chapitre~II} expose la préparation du projet : spécification des besoins, identification des acteurs, méthodologie de pilotage \textit{en spirale} par cycles, planification, architecture cible et environnements de travail.
 		\item \textbf{Chapitre~III} correspond au \textbf{Cycle~1} — \textbf{Analyseur et réflexion} : workflows n8n (webhooks, blocs~1 à~7, intégration LLM et persistance).
 		\item \textbf{Chapitre~IV} correspond au \textbf{Cycle~2} — backend \textit{Distributeur de Services} (FastAPI, persistance, services cloud).
-		\item Les autres cycles (matériel embarqué, logiciel Raspberry Pi, application cross-plateforme, tests et validation) sont présentés ou prolongés dans la suite du document selon le périmètre rédigé à ce jour.
+		\item \textbf{Chapitre~V} — \textbf{Cycle~3}~: système embarqué, partie matérielle (plateforme robot, câblage, validation).
+		\item Les \textbf{cycles~4 à~6} (logiciel Raspberry Pi, application cross-plateforme, tests finaux) sont présentés dans la suite du document.
 	\end{itemize}
 	
 	%================================================================
@@ -2987,20 +2988,20 @@ Les principales tables et leurs rôles sont les suivants~:
 	\section{Introduction}
 	%------------------------------------------------------------------
 	
-	Après avoir mis en place le cerveau logique de KODA (Cycle~1 — workflows n8n) et
-	son système nerveux logiciel (Cycle~2 — Distributeur de Services), ce troisième
-	cycle se consacre à la dimension physique du robot~: la conception et l'assemblage
-	de la \textbf{plateforme matérielle embarquée}.
+	Après le \textbf{Cycle~1} (moteur de réflexion n8n) et le \textbf{Cycle~2}
+	(Distributeur de Services), le \textbf{Cycle~3} porte sur le
+	\textbf{corps matériel} de KODA~: choix des composants, câblage, alimentation
+	et validation physique du prototype.
 	
-	Ce chapitre détaille l'ensemble des composants électroniques et mécaniques qui
-	constituent le corps de KODA. Chaque composant a été sélectionné en fonction de
-	critères précis~: compatibilité avec l'écosystème Raspberry Pi, coût accessible,
-	disponibilité sur le marché local, et adéquation avec les fonctionnalités attendues
-	(mobilité, interaction vocale, expression faciale, reconnaissance visuelle).
+	Ce chapitre reste volontairement centré sur le \textbf{hardware} et les
+	\textbf{concepts d'intégration}. Le logiciel embarqué (scripts Raspberry Pi,
+	protocoles série, audio, caméra) fera l'objet du \textbf{Cycle~4}.
 	
-	Nous présentons successivement l'architecture matérielle globale, le détail de
-	chaque sous-système (contrôle, actionneurs, audio, vision, affichage, alimentation),
-	le schéma de câblage, ainsi que les difficultés rencontrées lors de l'assemblage.
+	Nous présentons l'architecture globale, la \textbf{conception 3D du châssis}
+	(Blender), chaque sous-système (contrôle, actionneurs, audio, vision,
+	affichage), le schéma de câblage, puis une campagne de
+	\textbf{tests unitaires par composant} suivie d'un \textbf{test d'intégration}
+	complète de la plateforme.
 	
 	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black,
 		title=\textbf{Objectif du Cycle 3}]
@@ -3047,17 +3048,17 @@ Les principales tables et leurs rôles sont les suivants~:
 			\hline
 			Commande moteur & Arduino Uno + Shield L293D & Pilotage PWM des actionneurs \\
 			\hline
-			Mobilité & 2 moteurs DC (M2, M3) & Déplacement du robot (roues) \\
+			Mobilité & 2 moteurs DC (M1, M3) & Déplacement du robot (traction différentielle) \\
 			\hline
-			Articulations & 3 servomoteurs (S1, S2, S3) & Bras droit, bras gauche, tête \\
+			Articulations & 3 servomoteurs (S1, S2, S3) & Bras droit, bras gauche ; S3 = écran Nextion \\
 			\hline
-			Entrée audio & ReSpeaker 4-Mic Array USB & Capture vocale + détection de direction \\
+			Entrée audio & ReSpeaker 4-Mic Array USB & Capture vocale + direction de la voix \\
 			\hline
-			Sortie audio & PAM8403 + 2 haut-parleurs & Amplification et restitution de la voix \\
+			Sortie audio & Jack + PAM8403 + HP ; Bluetooth & Restitution filaire ou sans fil \\
 			\hline
-			Vision & Caméra Raspberry Pi & Capture vidéo, reconnaissance faciale \\
+			Vision & Caméra Raspberry Pi (CSI) & Acquisition d'images pour identification \\
 			\hline
-			Affichage & Écran Nextion 3{,}5\textquotedbl & Expression faciale animée \\
+			Affichage & Nextion NX4832T035\_011 (3{,}5\textquotedbl) & Visage animé du robot \\
 			\hline
 			Alimentation Pi & Power Bank 5V / 3A & Alimentation du Raspberry Pi \\
 			\hline
@@ -3065,6 +3066,55 @@ Les principales tables et leurs rôles sont les suivants~:
 			\hline
 		\end{tabularx}
 	\end{table}
+	
+	%------------------------------------------------------------------
+	\section{Conception mécanique et châssis 3D (Blender)}
+	%------------------------------------------------------------------
+	
+	Au-delà du câblage électronique, KODA repose sur un \textbf{habillage mécanique}
+	imprimé en 3D, conçu sous \textbf{Blender}. Le point de départ n'était pas une
+	création entièrement \textit{from scratch}, mais un \textbf{modèle 3D existant}
+	(humanoid simplifié) que nous avons dû \textbf{adapter} au prototype réel~:
+	découpe des volumes, redimensionnement des pièces, ajout d'ouvertures manquantes
+	(logement écran Nextion, passage caméra sur le torse, fixation des bras) et
+	harmonisation avec la base à chenilles.
+	
+	Cette étape a constitué un \textbf{vrai défi} du Cycle~3~: chaque modification
+	impacte l'encombrement interne (câbles, Raspberry Pi, batterie) et la
+	cohérence visuelle du robot. La figure~\ref{fig:ch3-conception3d} illustre la
+	vue éclatée des pièces modélisées~; la figure~\ref{fig:ch3-robot-reel} montre
+	le résultat physique après impression et assemblage.
+	
+	\textbf{Choix mécaniques retenus sur le prototype~:}
+	\begin{itemize}
+		\item \textbf{Caméra}~: fixée sur le \textbf{torse} (corps), face avant,
+		indépendante du servo S3.
+		\item \textbf{Écran Nextion}~: intégré dans la \textbf{tête}, entraîné par
+		le servo S3 (rotation du visage animé seulement).
+		\item \textbf{Base}~: châssis à chenilles pour la mobilité (moteurs M1/M3).
+	\end{itemize}
+	
+	\begin{figure}[htbp]
+		\centering
+		\IfFileExists{public/conception3d.png}{%
+			\includegraphics[width=0.92\textwidth]{public/conception3d.png}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/conception3d.png}}}
+		}
+		\caption{Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}
+		\label{fig:ch3-conception3d}
+	\end{figure}
+	
+	\begin{figure}[htbp]
+		\centering
+		\IfFileExists{public/robot_reel.jpeg}{%
+			\includegraphics[width=0.75\textwidth]{public/robot_reel.jpeg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/robot\_reel.jpeg}}}
+		}
+		\caption{Prototype physique KODA après impression 3D et montage}
+		\label{fig:ch3-robot-reel}
+	\end{figure}
 	
 	%------------------------------------------------------------------
 	\section{Description Détaillée des Composants}
@@ -3083,8 +3133,9 @@ Les principales tables et leurs rôles sont les suivants~:
 		\item \textbf{Communication réseau}~: connexion Wi-Fi au backend (Distributeur
 		de Services) pour l'échange de données avec les workflows n8n et la base
 		de données.
-		\item \textbf{Traitement audio}~: interface avec le ReSpeaker (entrée) et le
-		PAM8403 (sortie) via les ports USB et jack 3{,}5~mm.
+		\item \textbf{Traitement audio}~: ReSpeaker en entrée (USB) ; sortie soit
+		via le \textbf{jack 3{,}5~mm} et l'amplificateur PAM8403, soit via
+		\textbf{Bluetooth} vers un haut-parleur externe.
 		\item \textbf{Traitement vidéo}~: acquisition d'images via la caméra pour
 		la reconnaissance faciale.
 		\item \textbf{Pilotage de l'écran Nextion}~: communication série UART pour
@@ -3132,13 +3183,13 @@ Les principales tables et leurs rôles sont les suivants~:
 	Dans KODA, l'Arduino reçoit ses instructions du Raspberry Pi via une
 	\textbf{liaison série USB} et pilote~:
 	\begin{itemize}
-		\item \textbf{2 moteurs DC} (sur les bornes M2 et M3 du shield)~: assurant
-		le déplacement du robot par traction différentielle.
-		\item \textbf{3 servomoteurs} (sur les connecteurs Servo du shield)~:
+		\item \textbf{2 moteurs DC} (bornes \textbf{M1} et \textbf{M3} du shield)~:
+		déplacement par traction différentielle.
+		\item \textbf{3 servomoteurs}~:
 		\begin{itemize}
 			\item \textbf{S1}~: bras droit
 			\item \textbf{S2}~: bras gauche
-			\item \textbf{S3}~: tête (rotation horizontale du cou)
+			\item \textbf{S3}~: tête / cou (rotation de l'écran Nextion uniquement)
 		\end{itemize}
 	\end{itemize}
 	
@@ -3155,7 +3206,20 @@ Les principales tables et leurs rôles sont les suivants~:
 	par un système de \textbf{traction différentielle}~: en faisant varier
 	indépendamment la vitesse et le sens de rotation de chaque moteur, le robot
 	peut avancer, reculer, tourner à gauche ou à droite. Ce principe simple
-	et éprouvé est largement utilisé en robotique mobile.
+	et éprouvé est largement utilisé en robotique mobile (figure~\ref{fig:ch3-traction-diff}).
+	
+	\begin{figure}[htbp]
+		\centering
+		\IfFileExists{public/ch3-traction-differentielle.png}{%
+			\includegraphics[width=0.85\textwidth]{public/ch3-traction-differentielle.png}
+		}{%
+			\fbox{\begin{minipage}{0.85\textwidth}\centering\vspace{0.8cm}
+				\textit{Figure à ajouter~: \texttt{public/ch3-traction-differentielle.png}}
+			\vspace{0.8cm}\end{minipage}}
+		}
+		\caption{Principe de traction différentielle — moteurs M1 et M3}
+		\label{fig:ch3-traction-diff}
+	\end{figure}
 	
 	\subsubsection{Servomoteurs --- Articulations}
 	
@@ -3165,9 +3229,9 @@ Les principales tables et leurs rôles sont les suivants~:
 		\item \textbf{Servomoteur S1 (bras droit)} et \textbf{S2 (bras gauche)}~:
 		permettent de simuler des gestes d'accueil, de salutation ou d'indication
 		directionnelle.
-		\item \textbf{Servomoteur S3 (tête)}~: assure la rotation de la tête pour
-		orienter la caméra et l'écran Nextion vers l'interlocuteur, renforçant
-		l'impression d'une interaction naturelle.
+		\item \textbf{Servomoteur S3 (tête / cou)}~: oriente uniquement
+		l'\textbf{écran Nextion} (visage animé). La \textbf{caméra} est fixée sur le
+		\textbf{châssis} (corps) du robot et ne suit pas ce mouvement.
 	\end{itemize}
 	
 	%--- Audio ---
@@ -3183,51 +3247,79 @@ Les principales tables et leurs rôles sont les suivants~:
 		de l'utilisateur quelle que soit sa position autour du robot.
 		\item \textbf{Détection de la Direction d'Arrivée (DOA ---
 		\textit{Direction of Arrival})}~: identification de l'angle d'où provient
-		la voix, permettant au robot d'orienter sa tête vers l'interlocuteur.
+		la voix. Le robot \textbf{pivote sur place} grâce aux \textbf{deux moteurs DC}
+		(M1, M3) pour s'orienter vers l'interlocuteur, puis la \textbf{caméra}
+		(fixée sur le corps) permet la détection du visage
+		(figure~\ref{fig:ch3-schema-doa}).
 	\end{itemize}
+	
+	\begin{figure}[htbp]
+		\centering
+		\IfFileExists{public/ch3-schema-doa.png}{%
+			\includegraphics[width=0.88\textwidth]{public/ch3-schema-doa.png}
+		}{%
+			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{0.8cm}
+				\textit{Figure à ajouter~: \texttt{public/ch3-schema-doa.png}}
+			\vspace{0.8cm}\end{minipage}}
+		}
+		\caption{Enchaînement conceptuel~: DOA (micro) $\rightarrow$ rotation du robot (M1, M3) $\rightarrow$ caméra (torse)}
+		\label{fig:ch3-schema-doa}
+	\end{figure}
 	
 	Le ReSpeaker est connecté au Raspberry Pi via un \textbf{port USB} et est
 	reconnu comme un périphérique audio standard sous Linux.
 	
-	\subsubsection{Sortie Audio~: Amplificateur PAM8403 et Haut-Parleurs}
+	\subsubsection{Sortie Audio~: double chaîne (jack filaire et Bluetooth)}
 	
-	Le \textbf{PAM8403} est un amplificateur audio stéréo classe D de faible
-	puissance (2$\times$3W). Il reçoit le signal audio analogique depuis la
-	\textbf{sortie jack 3{,}5~mm} du Raspberry Pi et alimente deux
-	\textbf{haut-parleurs miniatures}.
+	KODA dispose de \textbf{deux modes de restitution} de la parole, tous deux
+	pilotés depuis le Raspberry Pi~:
 	
-	Ce composant est utilisé pour restituer la voix synthétisée par le service
-	Azure TTS (Text-to-Speech) transmise par le backend, donnant ainsi à KODA
-	sa capacité de \textbf{parole}.
+	\begin{itemize}
+		\item \textbf{Chaîne filaire}~: sortie \textbf{jack 3{,}5~mm} du Pi
+		$\rightarrow$ amplificateur \textbf{PAM8403} $\rightarrow$ deux
+		haut-parleurs (gauche / droite). Solution compacte, intégrée au châssis.
+		\item \textbf{Chaîne sans fil}~: le Bluetooth intégré du Raspberry Pi~4
+		peut envoyer le flux audio vers un \textbf{haut-parleur Bluetooth}
+		(appairage classique). Utile pour les essais ou une sortie plus puissante
+		sans modifier le câblage jack.
+	\end{itemize}
+	
+	Le choix entre les deux dépend du contexte de démonstration~; la couche
+	logicielle (Cycle~4) sélectionnera la carte audio ALSA appropriée.
 	
 	%--- Vision ---
 	\subsection{Système de Vision~: Caméra Raspberry Pi}
 	
 	La \textbf{caméra officielle Raspberry Pi} est connectée via le port
-	\textbf{CSI} (\textit{Camera Serial Interface}) de la carte. Elle assure
-	la capture d'images et de flux vidéo utilisés pour la
-	\textbf{reconnaissance faciale} des utilisateurs.
+	\textbf{CSI} (nappe dédiée). Elle fournit les images nécessaires à
+	l'\textbf{identification visuelle} des utilisateurs.
 	
-	Les images capturées sont transmises au backend (Distributeur de Services)
-	qui les traite via le service de reconnaissance de personnes décrit au
-	Cycle~2, permettant à KODA d'identifier visuellement son interlocuteur
-	et d'adapter son comportement en conséquence.
+	Au niveau matériel, seule la \textbf{qualité de capture} (netteté,
+	éclairage, cadrage) est concernée dans ce cycle. L'envoi des images vers
+	le serveur distant et le traitement logiciel seront détaillés au
+	\textbf{Cycle~4}.
 	
 	%--- Nextion ---
-	\subsection{Interface d'Expression Faciale~: Écran Nextion 3{,}5\textquotedbl}
+	\subsection{Interface d'Expression Faciale~: Nextion NX4832T035\_011}
 	
-	L'\textbf{écran Nextion 3{,}5 pouces} est un écran tactile intelligent doté
-	de son propre microcontrôleur embarqué. Il communique avec le Raspberry Pi
-	via une liaison \textbf{série UART} (broches TX/RX du GPIO).
+	L'écran \textbf{Nextion NX4832T035\_011} (3{,}5 pouces) intègre son propre
+	microcontrôleur~: le Raspberry Pi n'affiche pas des pixels en temps réel,
+	mais envoie des \textbf{commandes série} pour changer de page ou d'expression
+	(sourire, surprise, écoute, etc.) déjà stockées dans la mémoire de l'écran.
 	
-	Dans KODA, l'écran Nextion joue un rôle fondamental~: il affiche le
-	\textbf{visage animé} du robot. Des expressions faciales préprogrammées
-	(sourire, surprise, réflexion, tristesse, etc.) sont stockées dans la
-	mémoire interne de l'écran et activées par des commandes série envoyées
-	depuis le Raspberry Pi selon le contexte de l'interaction.
+	\textbf{Alimentation et liaison} (câblage retenu sur le prototype)~:
+	\begin{itemize}
+		\item \textbf{5\,V} et \textbf{GND} du Nextion reliés au \textbf{5\,V}
+		et \textbf{GND} du GPIO du Raspberry Pi (masse commune).
+		\item \textbf{RX} du Nextion (fil jaune) $\rightarrow$ broche \textbf{8}
+		du Pi (\textbf{GPIO~14}, ligne \textbf{TX} du Pi).
+		\item \textbf{TX} du Nextion (fil bleu) $\rightarrow$ broche \textbf{10}
+		du Pi (\textbf{GPIO~15}, ligne \textbf{RX} du Pi).
+	\end{itemize}
 	
-	Cette composante contribue directement à l'objectif central du projet~:
-	créer un compagnon doté d'une \textbf{dimension émotionnelle} perceptible.
+	Ce câblage UART permet au Pi d'animer le \textbf{visage} de KODA sans
+	surcharger le bus USB, tout en gardant une interface visuelle dédiée à
+	l'interaction humaine.
 	
 	%--- Alimentation ---
 	\subsection{Système d'Alimentation}
@@ -3261,38 +3353,141 @@ Les principales tables et leurs rôles sont les suivants~:
 	\section{Schéma de Câblage Global}
 	%------------------------------------------------------------------
 	
-	Le schéma de câblage ci-dessous synthétise l'interconnexion de tous les
-	composants matériels de KODA.
+	La figure~\ref{fig:ch3-architecture-materielle} présente le
+	\textbf{schéma de montage} du prototype~: vue type \textit{Fritzing},
+	avec l'ensemble des connexions entre Raspberry Pi, Arduino, capteurs,
+	actionneurs et alimentations.
+	
+	\begin{figure}[htbp]
+		\centering
+		\IfFileExists{public/ch3-architecture-materielle.png}{%
+			\includegraphics[width=\textwidth]{public/ch3-architecture-materielle.png}
+		}{%
+			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1.2cm}
+				\textit{Figure manquante~: \texttt{public/ch3-architecture-materielle.png}}
+			\vspace{1.2cm}\end{minipage}}
+		}
+		\caption{Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}
+		\label{fig:ch3-architecture-materielle}
+	\end{figure}
+	
+	Le tableau~\ref{tab:cablage} récapitule les connexions pour la rédaction
+	et la maintenance du prototype.
 	
 	\begin{table}[htbp]
 		\centering
 		\caption{Récapitulatif des connexions entre composants}
 		\label{tab:cablage}
 		\renewcommand{\arraystretch}{1.25}
-		\begin{tabularx}{\textwidth}{|p{3.5cm}|p{3cm}|p{2.5cm}|X|}
+		\begin{tabularx}{\textwidth}{|p{3.2cm}|p{2.8cm}|p{2.2cm}|X|}
 			\hline
 			\textbf{Composant} & \textbf{Connecté à} & \textbf{Interface} & \textbf{Détail} \\
 			\hline
-			Arduino Uno & Raspberry Pi & USB (série) & Réception des commandes moteur \\
+			Arduino Uno & Raspberry Pi & USB & Commandes moteur (série) \\
 			\hline
-			ReSpeaker 4-Mic & Raspberry Pi & USB & Entrée audio \\
+			ReSpeaker 4-Mic & Raspberry Pi & USB & Entrée audio + DOA \\
 			\hline
-			PAM8403 + HP & Raspberry Pi & Jack 3{,}5~mm & Sortie audio amplifiée \\
+			PAM8403 + HP L/R & Raspberry Pi & Jack 3{,}5~mm & Sortie filaire \\
 			\hline
-			Caméra Pi & Raspberry Pi & CSI (nappe) & Flux vidéo \\
+			HP Bluetooth & Raspberry Pi & Bluetooth & Sortie sans fil (option) \\
 			\hline
-			Écran Nextion & Raspberry Pi & UART (GPIO) & Commandes d'affichage série \\
+			Caméra Pi & Raspberry Pi & CSI & Nappe caméra \\
 			\hline
-			Moteurs DC (M2, M3) & Shield L293D & Bornes moteur & Traction différentielle \\
+			Nextion NX4832T035\_011 & Raspberry Pi & UART + alim &
+			5V/GND GPIO ; RX$\rightarrow$ pin~8 ; TX$\rightarrow$ pin~10 \\
 			\hline
-			Servos (S1, S2, S3) & Shield L293D & Connecteurs servo & Bras droit, gauche, tête \\
+			Moteurs DC M1, M3 & Shield L293D & Bornes M1, M3 & Traction différentielle \\
+			\hline
+			Servos S1, S2, S3 & Shield L293D & Servo 1, 2, 3 & Bras D/G ; S3 = Nextion \\
 			\hline
 			Power Bank 5V/3A & Raspberry Pi & USB-C & Alimentation logique \\
 			\hline
-			3$\times$ piles 3{,}7V & Shield L293D & Bornier Vin & Alimentation motrice \\
+			3$\times$ piles 3{,}7V (série) & Shield L293D & Vin & Alimentation motrice \\
 			\hline
 		\end{tabularx}
 	\end{table}
+	
+	%------------------------------------------------------------------
+	\section{Assemblage et points d'attention}
+	%------------------------------------------------------------------
+	
+	L'intégration physique a mis en évidence quelques \textbf{contraintes}
+	récurrentes, sans entrer dans le détail logiciel (Cycle~4)~:
+	\begin{itemize}
+		\item \textbf{Séparation des alimentations}~: éviter de nourrir les moteurs
+		depuis le 5\,V du Pi~; les perturbations PWM peuvent provoquer des
+		réinitialisations ou du bruit sur l'audio.
+		\item \textbf{UART Nextion}~: respecter le croisement TX/RX (fil RX de
+		l'écran vers TX du Pi) et une masse commune stable.
+		\item \textbf{USB multiples}~: ReSpeaker, Arduino et alimentation
+		compétent pour les ports USB du Pi~; une alimentation 5\,V/3\,A fiable
+		(power bank) est indispensable.
+		\item \textbf{Encombrement mécanique}~: la nappe CSI (caméra sur le corps)
+		et les câbles des servos (dont S3 pour le Nextion) doivent rester libres
+		de frottement lors des mouvements articulés.
+	\end{itemize}
+	
+	%------------------------------------------------------------------
+	\section{Validation matérielle — tests par composant}
+	%------------------------------------------------------------------
+	
+	Chaque sous-système a été validé \textbf{individuellement} avant le test
+	global (contrôle visuel ou fonctionnel, sans détailler les scripts).
+	Le tableau~\ref{tab:tests_unitaires_cycle3} ci-dessous synthétise cette
+	démarche.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Tests unitaires par composant (Cycle~3)}
+		\label{tab:tests_unitaires_cycle3}
+		\renewcommand{\arraystretch}{1.35}
+		\small
+		\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{3.2cm}|}
+			\hline
+			\textbf{Composant} & \textbf{Procédure (concept)} & \textbf{Critère OK} \\
+			\hline
+			Power Bank + Pi & Mise sous tension, boot Raspberry Pi OS &
+			LED activité, pas de brown-out \\
+			\hline
+			ReSpeaker USB & Enregistrement court, niveau sonore &
+			Signal audible, périphérique reconnu \\
+			\hline
+			Sortie jack + PAM8403 & Lecture d'un son test sur les HP &
+			Son clair L/R \\
+			\hline
+			Sortie Bluetooth & Appairage HP BT, lecture test &
+			Son sur HP externe \\
+			\hline
+			Caméra CSI & Capture d'une image fixe &
+			Image nette, pas de bandes \\
+			\hline
+			Nextion UART & Changement de page ou d'expression &
+			Affichage réactif \\
+			\hline
+			Arduino + USB & Envoi d'une commande simple (moniteur série) &
+			Réponse attendue \\
+			\hline
+			Moteurs M1, M3 & Avancer, reculer, pivoter &
+			Roues cohérentes \\
+			\hline
+			Servos S1, S2, S3 & Balayage angle min--max &
+			Mouvement fluide, sans à-coups \\
+			\hline
+			Alim.\ 3 piles (série) & Charge moteurs à vide &
+			Tension stable sur Vin \\
+			\hline
+		\end{tabularx}
+		\normalsize
+	\end{table}
+	
+	\subsection{Test d'intégration matérielle}
+	
+	Le \textbf{test complet} consiste à alimenter l'ensemble, vérifier que le Pi
+	détecte simultanément micro, caméra et écran, que l'Arduino répond toujours
+	sur USB, et qu'un scénario court combine~: capture vocale, mouvement des
+	servos, rotation des roues, changement d'expression Nextion, sans coupure
+	d'alimentation ni conflit USB. Ce test valide la \textbf{plateforme prête
+	pour le Cycle~4} (logiciel embarqué et liaison réseau avec le backend).
 	
 	%------------------------------------------------------------------
 	\section{Conclusion}
@@ -3314,10 +3509,10 @@ Les principales tables et leurs rôles sont les suivants~:
 		title=\textbf{Points clés du Cycle 3}]
 		\begin{itemize}[noitemsep]
 			\item Architecture biprocesseur~: Raspberry Pi 4 + Arduino Uno / L293D
-			\item 5 actionneurs~: 2 moteurs DC (mobilité) + 3 servomoteurs (bras, tête)
-			\item Système audio complet~: ReSpeaker 4-Mic (entrée) + PAM8403 (sortie)
-			\item Vision par caméra Pi et expression faciale via écran Nextion 3{,}5\textquotedbl
-			\item Alimentation double~: Power Bank (logique) + 3$\times$3{,}7V (moteurs)
+			\item 5 actionneurs~: M1/M3 (DC) + S1/S2 (bras) + S3 (Nextion)
+			\item Audio~: ReSpeaker (entrée) ; sortie jack/PAM8403 ou Bluetooth
+			\item Nextion NX4832T035\_011 (UART GPIO 8/10, alim. 5\,V Pi)
+			\item Tests unitaires puis intégration~; logiciel au Cycle~4
 		\end{itemize}
 	\end{tcolorbox}
 

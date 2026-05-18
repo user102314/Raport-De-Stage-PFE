@@ -1,0 +1,16 @@
+# Cycle 3 — Figures suggérées (à générer ou photographier)
+
+## Déjà prévues dans le rapport
+- public/ch3-architecture-materielle.png  → export PlantUML plantuml/koda-cycle3-hardware.puml
+- public/ch3-schema-cablage-main.png     → esquisse main (copiée) ; option : redessiner proprement
+
+## Figures recommandées (photos réelles — priorité PFE)
+- public/ch3-photo-robot-global.jpg      → vue d’ensemble du prototype assemblé
+- public/ch3-photo-nextion-cablage.jpg     → détail fils 5V/GND + RX/TX vers GPIO 8/10
+- public/ch3-photo-audio-pam8403.jpg         → chaîne jack → PAM8403 → HP
+- public/ch3-photo-moteurs-shield.jpg      → shield L293D, M1/M3, servos S1–S3
+- public/ch3-photo-alimentation.jpg        → power bank + pack 3 piles série
+
+## Optionnel (schémas)
+- public/ch3-traction-differentielle.png   → schéma concept M1/M3 (avancer, tourner)
+- public/ch3-test-integration-flow.png     → frise : test unitaire → test complet

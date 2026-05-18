@@ -1,0 +1,67 @@
+@startuml koda-cycle3-hardware
+!theme plain
+skinparam backgroundColor #FEFEFE
+skinparam componentStyle rectangle
+skinparam defaultFontSize 11
+title Architecture matérielle KODA — Cycle 3
+
+together {
+  package "Alimentation logique" as PWR_PI #E8F4FD {
+    component [Power Bank\n5V / 3A USB-C] as PB
+  }
+  package "Unité centrale" as PI_BOX #FFF8E1 {
+    component [Raspberry Pi 4\nModel B] as RPI
+    component [Caméra Pi\nCSI] as CAM
+    component [ReSpeaker\n4-Mic Array] as MIC
+    component [Écran Nextion\nNX4832T035_011\n3,5"] as NX
+  }
+  package "Sortie audio" as AUDIO_OUT #F3E5F5 {
+    component [Jack 3,5 mm] as JACK
+    component [PAM8403] as AMP
+    component [HP L / HP R] as HP
+    component [Haut-parleur\nBluetooth] as BT_HP
+  }
+}
+
+together {
+  package "Alimentation motrice" as PWR_MOT #FFEBEE {
+    component [3 × piles Li-ion\n3,7 V en série\n≈ 11,1 V] as BAT
+  }
+  package "Commande actionneurs" as MOT_BOX #E8F5E9 {
+    component [Arduino Uno\n+ Shield L293D] as ARD
+    component [Moteur DC M1] as M1
+    component [Moteur DC M3] as M3
+    component [Servo S1\nbras droit] as S1
+    component [Servo S2\nbras gauche] as S2
+    component [Servo S3\ntête / cou] as S3
+  }
+}
+
+PB --> RPI : USB-C
+MIC --> RPI : USB
+CAM --> RPI : nappe CSI
+NX --> RPI : UART\n5V, GND\nRX→Pin 8 (TX)\nTX→Pin 10 (RX)
+JACK --> RPI
+JACK --> AMP
+AMP --> HP
+RPI ..> BT_HP : Bluetooth 5.0\n(sortie sans fil)
+RPI --> ARD : USB (série)
+BAT --> ARD : Vin shield
+ARD --> M1
+ARD --> M3
+ARD --> S1
+ARD --> S2
+ARD --> S3
+
+note right of RPI
+  **Rôle** : audio, vision,
+  réseau Wi-Fi, écran Nextion,
+  commande Arduino
+end note
+
+note right of ARD
+  **Rôle** : PWM temps réel
+  moteurs DC + servos
+end note
+
+@enduml
