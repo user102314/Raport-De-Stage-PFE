@@ -14,7 +14,8 @@
 \contentsline {table}{\numberline {IV.3}{\ignorespaces Problèmes techniques rencontrés et solutions apportées}}{82}{table.caption.33}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {V.1}{\ignorespaces Inventaire des composants matériels de KODA}}{86}{table.caption.34}%
-\contentsline {table}{\numberline {V.2}{\ignorespaces Spécifications techniques du Raspberry Pi 4 Model B}}{87}{table.caption.35}%
-\contentsline {table}{\numberline {V.3}{\ignorespaces Architecture d'alimentation de KODA}}{89}{table.caption.36}%
-\contentsline {table}{\numberline {V.4}{\ignorespaces Récapitulatif des connexions entre composants}}{90}{table.caption.37}%
+\contentsline {table}{\numberline {V.2}{\ignorespaces Spécifications techniques du Raspberry Pi 4 Model B}}{89}{table.caption.37}%
+\contentsline {table}{\numberline {V.3}{\ignorespaces Architecture d'alimentation de KODA}}{92}{table.caption.40}%
+\contentsline {table}{\numberline {V.4}{\ignorespaces Récapitulatif des connexions entre composants}}{93}{table.caption.42}%
 \contentsfinish 
+\contentsline {table}{\numberline {V.5}{\ignorespaces Tests unitaires par composant (Cycle~3)}}{95}{table.caption.43}%

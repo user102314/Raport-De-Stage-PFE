@@ -117,18 +117,22 @@
 \contentsline {chapter}{\numberline {V}Cycle 3 : Système Embarqué --- Partie Matérielle}{84}{chapter.5}%
 \contentsline {section}{\numberline {V.1}Introduction}{85}{section.5.1}%
 \contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{85}{section.5.2}%
-\contentsline {section}{\numberline {V.3}Description Détaillée des Composants}{86}{section.5.3}%
-\contentsline {subsection}{\numberline {V.3.1}Unité Centrale~: Raspberry Pi 4 Model B}{86}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {V.3.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{87}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {V.3.3}Système d'Actionneurs}{87}{subsection.5.3.3}%
-\contentsline {subsubsection}{\numberline {V.3.3.1}Moteurs DC --- Mobilité}{87}{subsubsection.5.3.3.1}%
-\contentsline {subsubsection}{\numberline {V.3.3.2}Servomoteurs --- Articulations}{88}{subsubsection.5.3.3.2}%
-\contentsline {subsection}{\numberline {V.3.4}Système Audio}{88}{subsection.5.3.4}%
-\contentsline {subsubsection}{\numberline {V.3.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{88}{subsubsection.5.3.4.1}%
-\contentsline {subsubsection}{\numberline {V.3.4.2}Sortie Audio~: Amplificateur PAM8403 et Haut-Parleurs}{88}{subsubsection.5.3.4.2}%
-\contentsline {subsection}{\numberline {V.3.5}Système de Vision~: Caméra Raspberry Pi}{88}{subsection.5.3.5}%
-\contentsline {subsection}{\numberline {V.3.6}Interface d'Expression Faciale~: Écran Nextion 3{,}5\textquotedbl }{89}{subsection.5.3.6}%
-\contentsline {subsection}{\numberline {V.3.7}Système d'Alimentation}{89}{subsection.5.3.7}%
-\contentsline {section}{\numberline {V.4}Schéma de Câblage Global}{89}{section.5.4}%
-\contentsline {section}{\numberline {V.5}Conclusion}{89}{section.5.5}%
+\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{86}{section.5.3}%
+\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{87}{section.5.4}%
+\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{87}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{87}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{89}{subsection.5.4.3}%
+\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{89}{subsubsection.5.4.3.1}%
+\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{89}{subsubsection.5.4.3.2}%
+\contentsline {subsection}{\numberline {V.4.4}Système Audio}{90}{subsection.5.4.4}%
+\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{90}{subsubsection.5.4.4.1}%
+\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{90}{subsubsection.5.4.4.2}%
+\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{91}{subsection.5.4.5}%
+\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{91}{subsection.5.4.6}%
+\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{92}{subsection.5.4.7}%
+\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{92}{section.5.5}%
+\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{93}{section.5.6}%
+\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{93}{section.5.7}%
+\contentsline {subsection}{\numberline {V.7.1}Test d'intégration matérielle}{94}{subsection.5.7.1}%
+\contentsline {section}{\numberline {V.8}Conclusion}{94}{section.5.8}%
 \contentsfinish 
