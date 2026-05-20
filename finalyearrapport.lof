@@ -4,41 +4,60 @@
 \babel@toc {french}{}\relax 
 \babel@toc {french}{}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {I.1}{\ignorespaces Architecture Globale de la Solution Proposée}}{8}{figure.caption.5}%
+\contentsline {figure}{\numberline {I.1}{\ignorespaces Modèle en spirale — enchaînement des six cycles de développement KODA}}{9}{figure.caption.5}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {II.1}{\ignorespaces Synthèse visuelle des besoins fonctionnels KODA (chapitre~II)}}{13}{figure.caption.6}%
+\contentsline {figure}{\numberline {II.2}{\ignorespaces Architecture multicouche du système KODA (vue chapitre~II)}}{14}{figure.caption.7}%
+\contentsline {figure}{\numberline {II.3}{\ignorespaces Acteurs principaux et contexte d'intégration du système KODA}}{16}{figure.caption.8}%
+\contentsline {figure}{\numberline {II.4}{\ignorespaces Modèle en spirale et enchaînement des six cycles de développement KODA}}{18}{figure.caption.10}%
+\contentsline {figure}{\numberline {II.5}{\ignorespaces Planification des cycles : jalons, chevauchements et dépendances}}{19}{figure.caption.11}%
+\contentsline {figure}{\numberline {II.6}{\ignorespaces Environnement logiciel : outils de développement et chaîne technique (chapitre~II)}}{21}{figure.caption.12}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {III.1}{\ignorespaces Architecture cognitive de KODA inspirée de la théorie du double traitement}}{20}{figure.caption.7}%
-\contentsline {figure}{\numberline {III.2}{\ignorespaces Block 1 — Workflow n8n : réception du message, lecture identité PostgreSQL, nœud Code \textit {Test} et routage par \textit {Switch} selon l'intention}}{22}{figure.3.2}%
-\contentsline {figure}{\numberline {III.3}{\ignorespaces Block 1 — Diagramme de séquence du premier bloc}}{23}{figure.3.3}%
-\contentsline {figure}{\numberline {III.4}{\ignorespaces Block 1 — Diagramme de cas d'utilisation associé au premier bloc}}{24}{figure.3.4}%
-\contentsline {figure}{\numberline {III.5}{\ignorespaces Block 2 — Vérification et comparaison avec les 5 derniers messages}}{26}{figure.3.5}%
-\contentsline {figure}{\numberline {III.6}{\ignorespaces Block 2 — Diagramme de séquence du deuxième bloc}}{26}{figure.3.6}%
-\contentsline {figure}{\numberline {III.7}{\ignorespaces Block 3 — Chaîne n8n : Code5, Identité1 (PostgreSQL), Basic LLM Chain avec modèle OpenRouter, puis Code2 pour le format de sortie}}{28}{figure.3.7}%
-\contentsline {figure}{\numberline {III.8}{\ignorespaces Block 3 — Diagramme de séquence du troisième bloc}}{28}{figure.3.8}%
-\contentsline {figure}{\numberline {III.9}{\ignorespaces Block 3 — Diagramme de cas d'utilisation associé au troisième bloc}}{29}{figure.3.9}%
-\contentsline {figure}{\numberline {III.10}{\ignorespaces Block 3 — Paramètres du nœud OpenRouter Chat Model (credential, modèle Gemini via OpenRouter)}}{30}{figure.3.10}%
-\contentsline {figure}{\numberline {III.11}{\ignorespaces Intégration SerpAPI — recherche structurée (écosystème d'API aux côtés d'OpenRouter pour les LLM)}}{30}{figure.3.11}%
-\contentsline {figure}{\numberline {III.12}{\ignorespaces Block 4 — Reconnaissance et enregistrement du profil utilisateur}}{35}{figure.3.12}%
-\contentsline {figure}{\numberline {III.13}{\ignorespaces Block 4 — Diagramme de séquence du quatrième bloc}}{35}{figure.3.13}%
-\contentsline {figure}{\numberline {III.14}{\ignorespaces Block 5.1 — Branche mémorielle : récupération et génération contextuelle}}{37}{figure.3.14}%
-\contentsline {figure}{\numberline {III.15}{\ignorespaces Block 5.2 — Branche générale : contexte conversationnel et génération de réponse}}{39}{figure.3.15}%
-\contentsline {figure}{\numberline {III.16}{\ignorespaces Block 5 — Vue complète des deux branches de traitement contextuel}}{40}{figure.3.16}%
-\contentsline {figure}{\numberline {III.17}{\ignorespaces Block 5 — Diagramme de séquence du cinquième bloc}}{40}{figure.3.17}%
-\contentsline {figure}{\numberline {III.18}{\ignorespaces Block 5 — Diagramme de classes du cinquième bloc}}{41}{figure.3.18}%
-\contentsline {figure}{\numberline {III.19}{\ignorespaces Block 6 — Pipeline de mise à jour de la mémoire et persistance des données}}{43}{figure.3.19}%
-\contentsline {figure}{\numberline {III.20}{\ignorespaces Block 6 — Diagramme de classes du sixième bloc}}{44}{figure.3.20}%
-\contentsline {figure}{\numberline {III.21}{\ignorespaces Vue complète du deuxième workflow}}{45}{figure.3.21}%
-\contentsline {figure}{\numberline {III.22}{\ignorespaces Vue des outputs du 2éme workflow}}{46}{figure.3.22}%
-\contentsline {figure}{\numberline {III.23}{\ignorespaces Vue complète du troisiéme workflow}}{47}{figure.3.23}%
-\contentsline {figure}{\numberline {III.24}{\ignorespaces Diagramme de use case du 1er cycle}}{49}{figure.3.24}%
+\contentsline {figure}{\numberline {III.1}{\ignorespaces Schéma des classes métier --- persistance KODA (Webhook~1 et mémorisation ; relations \texttt {utilisateur} / \texttt {seeting}, conversations, historique, notes).}}{27}{figure.caption.13}%
+\contentsline {figure}{\numberline {III.2}{\ignorespaces Architecture cognitive de KODA inspirée de la théorie du double traitement}}{28}{figure.caption.14}%
+\contentsline {figure}{\numberline {III.3}{\ignorespaces Webhook~1 --- diagramme de séquence général entre les six blocs (vue macro ; notes et persistance~: Block~6).}}{30}{figure.3.3}%
+\contentsline {figure}{\numberline {III.4}{\ignorespaces Block~1 — intégration SerpAPI dans le workflow n8n (branche musique du \textit {Switch})}}{32}{figure.caption.15}%
+\contentsline {figure}{\numberline {III.5}{\ignorespaces Block~1 — nœud \textit {Search Music} (SerpAPI, moteur YouTube) et exemple de sortie (\texttt {search\_query}, \texttt {youtube\_url})}}{32}{figure.caption.16}%
+\contentsline {figure}{\numberline {III.6}{\ignorespaces Block 1 — Workflow n8n : nœud Code \textit {Test}, \textit {Switch} à six sorties (musique SerpAPI, identité ON/OFF, direction, historique, branche dédiée)}}{33}{figure.3.6}%
+\contentsline {figure}{\numberline {III.7}{\ignorespaces Block 1 — Diagramme de séquence du premier bloc}}{34}{figure.3.7}%
+\contentsline {figure}{\numberline {III.8}{\ignorespaces Block 1 — Diagramme de cas d'utilisation associé au premier bloc}}{35}{figure.3.8}%
+\contentsline {figure}{\numberline {III.9}{\ignorespaces Block 2 — Vérification et comparaison avec les 5 derniers messages}}{36}{figure.3.9}%
+\contentsline {figure}{\numberline {III.10}{\ignorespaces Block 2 — Diagramme de séquence du deuxième bloc}}{37}{figure.3.10}%
+\contentsline {figure}{\numberline {III.11}{\ignorespaces Block 3 — Chaîne n8n : Code5, Identité1 (PostgreSQL), Basic LLM Chain avec modèle OpenRouter, puis Code2 pour le format de sortie}}{38}{figure.3.11}%
+\contentsline {figure}{\numberline {III.12}{\ignorespaces Block 3 — Diagramme de séquence du troisième bloc}}{39}{figure.3.12}%
+\contentsline {figure}{\numberline {III.13}{\ignorespaces Block 3 — Diagramme de cas d'utilisation associé au troisième bloc}}{39}{figure.3.13}%
+\contentsline {figure}{\numberline {III.14}{\ignorespaces Block 3 — Paramètres du nœud OpenRouter Chat Model (credential, modèle Gemini via OpenRouter)}}{40}{figure.3.14}%
+\contentsline {figure}{\numberline {III.15}{\ignorespaces Block~3 — tableau de bord OpenRouter (clé API workflow n8n, suivi des dépenses par modèle)}}{41}{figure.caption.17}%
+\contentsline {figure}{\numberline {III.16}{\ignorespaces Block 4 — \textit {Switch1}, branche enregistrement (\texttt {presentation}), branche LLM (\texttt {unkonu}) et poursuite vers le Block~5}}{44}{figure.3.16}%
+\contentsline {figure}{\numberline {III.17}{\ignorespaces Block 4 — Entrée JSON du \textit {Switch1} (\texttt {persone = unkonu}, sortie Block~3)}}{45}{figure.3.17}%
+\contentsline {figure}{\numberline {III.18}{\ignorespaces Block 4 — Sortie texte~: invitation à la première rencontre et demande du prénom}}{45}{figure.3.18}%
+\contentsline {figure}{\numberline {III.19}{\ignorespaces Block 4 — Diagramme de séquence du quatrième bloc}}{46}{figure.caption.18}%
+\contentsline {figure}{\numberline {III.20}{\ignorespaces Block 5.1 — Branche mémorielle : récupération et génération contextuelle}}{48}{figure.3.20}%
+\contentsline {figure}{\numberline {III.21}{\ignorespaces Block 5.2 — Branche générale : contexte conversationnel et génération de réponse}}{50}{figure.3.21}%
+\contentsline {figure}{\numberline {III.22}{\ignorespaces Block 5 — Vue complète des deux branches de traitement contextuel}}{51}{figure.3.22}%
+\contentsline {figure}{\numberline {III.23}{\ignorespaces Block 5 — Diagramme de séquence du cinquième bloc}}{51}{figure.3.23}%
+\contentsline {figure}{\numberline {III.24}{\ignorespaces Block 6 (partie~1) — Sous-workflow n8n~: test \texttt {questiontype = note}, \textit {Basic LLM Chain~2} et structuration}}{52}{figure.3.24}%
+\contentsline {figure}{\numberline {III.25}{\ignorespaces Block 6 — Entrée JSON~: \texttt {question}, \texttt {output}, \texttt {persone} et \texttt {questiontype = note}}}{53}{figure.3.25}%
+\contentsline {figure}{\numberline {III.26}{\ignorespaces Block 6 — Sortie JSON~: \texttt {date\_evenement} et \texttt {evenement} extraits du message naturel}}{53}{figure.3.26}%
+\contentsline {figure}{\numberline {III.27}{\ignorespaces Block 6 (partie~2) — Diagramme de classes (persistance mémoire)}}{55}{figure.3.27}%
+\contentsline {figure}{\numberline {III.28}{\ignorespaces Webhook~1 --- vue d'ensemble du workflow n8n (entrée et enchaînement des blocs)}}{56}{figure.caption.19}%
+\contentsline {figure}{\numberline {III.29}{\ignorespaces Webhook~2 --- vue d'ensemble du workflow n8n (collecte PostgreSQL, structuration, AI Agent, insertion \texttt {accompagnement})}}{58}{figure.caption.20}%
+\contentsline {figure}{\numberline {III.30}{\ignorespaces Webhook~2 --- diagramme de séquence (synthèse journalière et persistance)}}{58}{figure.caption.21}%
+\contentsline {figure}{\numberline {III.31}{\ignorespaces Webhook~2 --- exemple de sortie structurée (quatre dimensions de la fiche journalière)}}{60}{figure.caption.22}%
+\contentsline {figure}{\numberline {III.32}{\ignorespaces Webhook~2 --- schéma de persistance (\texttt {utilisateur} $\rightarrow $ \texttt {accompagnement}~: \texttt {interets}, \texttt {synthese}, \texttt {point\_cles}, \texttt {conseils})}}{61}{figure.caption.23}%
+\contentsline {figure}{\numberline {III.33}{\ignorespaces Webhook~3 --- workflow n8n (\textit {If7}, branches AI Agent2 / AI Agent3, réponses webhook)}}{62}{figure.caption.24}%
+\contentsline {figure}{\numberline {III.34}{\ignorespaces Webhook~3 --- entrée du nœud \textit {Code11} (listes issues du Webhook~2, \texttt {username}, \texttt {utilisateur} ou \texttt {Inconnu})}}{63}{figure.caption.25}%
+\contentsline {figure}{\numberline {III.35}{\ignorespaces Webhook~3 --- sortie JSON (\texttt {parole\_du\_robot}, \texttt {emotion\_visuelle})}}{64}{figure.caption.26}%
+\contentsline {figure}{\numberline {III.36}{\ignorespaces Webhook~3 --- diagramme de séquence (introduction de parole et mémoire Flux~2)}}{65}{figure.caption.27}%
+\contentsline {figure}{\numberline {III.37}{\ignorespaces Cycle~1 --- diagramme de cas d'utilisation (trois webhooks et blocs associés)}}{66}{figure.caption.29}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {IV.1}{\ignorespaces Interface Supabase utilisée pour l'administration de la base PostgreSQL}}{55}{figure.caption.10}%
-\contentsline {figure}{\numberline {IV.2}{\ignorespaces Logo SupaBase}}{55}{figure.4.2}%
-\contentsline {figure}{\numberline {IV.3}{\ignorespaces Koda Schema Base De Donneé}}{56}{figure.4.3}%
-\contentsline {figure}{\numberline {IV.4}{\ignorespaces Capture Azur Configuration}}{58}{figure.4.4}%
-\contentsline {figure}{\numberline {IV.5}{\ignorespaces Capture Test Text To Speeach}}{58}{figure.4.5}%
-\contentsline {figure}{\numberline {IV.6}{\ignorespaces Capture Test Speeach To Text }}{58}{figure.4.6}%
-\contentsline {figure}{\numberline {IV.7}{\ignorespaces Exemple de image dans la memoire}}{59}{figure.4.7}%
-\contentsline {figure}{\numberline {IV.8}{\ignorespaces Capture Input WorkFlow (N8N)}}{61}{figure.4.8}%
+\contentsline {figure}{\numberline {IV.1}{\ignorespaces Interface Supabase utilisée pour l'administration de la base PostgreSQL}}{73}{figure.caption.31}%
+\contentsline {figure}{\numberline {IV.2}{\ignorespaces Logo SupaBase}}{73}{figure.4.2}%
+\contentsline {figure}{\numberline {IV.3}{\ignorespaces Koda Schema Base De Donneé}}{74}{figure.4.3}%
+\contentsline {figure}{\numberline {IV.4}{\ignorespaces Capture Azur Configuration}}{76}{figure.4.4}%
+\contentsline {figure}{\numberline {IV.5}{\ignorespaces Capture Test Text To Speeach}}{76}{figure.4.5}%
+\contentsline {figure}{\numberline {IV.6}{\ignorespaces Capture Test Speeach To Text }}{76}{figure.4.6}%
+\contentsline {figure}{\numberline {IV.7}{\ignorespaces Exemple de image dans la memoire}}{77}{figure.4.7}%
+\contentsline {figure}{\numberline {IV.8}{\ignorespaces Capture Input WorkFlow (N8N)}}{79}{figure.4.8}%
 \addvspace {10\p@ }
 \contentsfinish 

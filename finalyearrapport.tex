@@ -83,8 +83,6 @@ headheight=14pt
 \usepackage{multirow}
 \usepackage{colortbl}
 \usepackage{makecell}
-\usepackage{amssymb}
-\usepackage{float}
 
 %----------------------------------------------------------------
 % Listes
@@ -499,7 +497,7 @@ headheight=14pt
 	\begin{itemize}
 		\item \textbf{Chapitre~I} présente le cadre général du projet, l'organisme d'accueil, la problématique, l'analyse de l'existant et la solution proposée.
 		\item \textbf{Chapitre~II} expose la préparation du projet : spécification des besoins, identification des acteurs, méthodologie de pilotage \textit{en spirale} par cycles, planification, architecture cible et environnements de travail.
-		\item \textbf{Chapitre~III} correspond au \textbf{Cycle~1} — \textbf{Analyseur et réflexion} : workflows n8n (webhooks, blocs~1 à~7, intégration LLM et persistance).
+		\item \textbf{Chapitre~III} correspond au \textbf{Cycle~1} — \textbf{Analyseur et réflexion} : workflows n8n (webhooks, six blocs de traitement, intégration LLM et persistance).
 		\item \textbf{Chapitre~IV} correspond au \textbf{Cycle~2} — backend \textit{Distributeur de Services} (FastAPI, persistance, services cloud).
 		\item Les autres cycles (matériel embarqué, logiciel Raspberry Pi, application cross-plateforme, tests et validation) sont présentés ou prolongés dans la suite du document selon le périmètre rédigé à ce jour.
 	\end{itemize}
@@ -524,7 +522,7 @@ headheight=14pt
 	
 	Ce chapitre esquisse le cadre fondamental de notre étude en définissant l'environnement contextuel et organisationnel du projet. Nous commençons par introduire l'organisme d'accueil, en mettant en évidence son expertise technologique et sa structure interne dédiée à l'innovation.
 	
-	Ensuite, nous exposons la problématique centrale, justifiant le besoin critique d'un système intelligent. Une analyse rigoureuse des solutions existantes nous permet d'identifier les limites actuelles et de mieux positionner notre système proposé. Enfin, nous présentons la \textbf{méthodologie en spirale} retenue pour piloter le développement par cycles successifs.
+	Ensuite, nous exposons la problématique centrale, justifiant le besoin critique d'un système intelligent. Une analyse rigoureuse des solutions existantes nous permet d'identifier les limites actuelles et de mieux positionner notre système proposé. Enfin, nous détaillons la méthodologie de projet adoptée, assurant une approche structurée et efficace tout au long du cycle de développement.
 	
 	%----------------------------------------------------------------
 	\sectiontitle{Contexte Général du Projet}
@@ -664,11 +662,7 @@ headheight=14pt
 En intégrant ces composants, la solution proposée garantit une résilience opérationnelle, des interactions humaines authentiques et une expérience de gestion unifiée.
 
 	
-	\begin{figure}[ht]
-		\makebox[\textwidth][c]{\includegraphics[width=0.98\textwidth]{public/ch2-architecture-systeme.png}}
-		\caption{Architecture Globale de la Solution Proposée}
-		\label{fig:archiglobale}
-	\end{figure}
+	
 	
 	%----------------------------------------------------------------
 	\sectiontitle{Méthodologie du Projet}
@@ -782,7 +776,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		à l'objectif de présence humaine évoqué au chapitre~I.
 		\item \textbf{Être présent physiquement :} le robot matérialise l'interaction
 		(captures, parole, déplacements ou signaux prévus par le prototype) et reste
-		relie au reste du système pour que l'expérience ne se limite pas à un écran ou à
+		relié au reste du système pour que l'expérience ne se limite pas à un écran ou à
 		une enceinte déconnectée du corps du compagnon.
 		\item \textbf{Permettre le pilotage à distance :} via l'application mobile,
 		l'utilisateur configure la personnalité de KODA (nom, caractère, langue, etc.),
@@ -816,7 +810,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	Les besoins non fonctionnels décrivent \textit{comment} le système doit se comporter
 	pour être acceptable au quotidien~: fiabilité, confiance, simplicité d'évolution.
 	Ils complètent les besoins fonctionnels sans entrer dans le détail des outils retenus
-	au chapitre~III et suivants.
+	aux chapitres techniques suivants.
 	
 	\begin{itemize}
 		\item \textbf{Réactivité perçue :} les réponses du compagnon doivent paraître
@@ -853,7 +847,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	cloud ; un \textbf{noyau embarqué (Raspberry Pi)} assure le lien avec le monde
 	physique ; une \textbf{application mobile} prolonge l'expérience utilisateur ; une
 	\textbf{base PostgreSQL} matérialise la mémoire long terme. La
-	figure~\ref{fig:archiglobale} du chapitre~I illustre cette décomposition ; les cycles
+	figure~\ref{fig:ch2-architecture-systeme} (chapitre~I et~II) illustre cette décomposition ; les cycles
 	de développement du présent rapport s'alignent sur ces blocs pour réduire le
 	rayon d'intégration à chaque itération.
 	
@@ -873,25 +867,26 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		\item le \textbf{système KODA} (ensemble logiciel/matériel) ;
 		\item le \textbf{Distributeur de services} (backend) en tant qu'intermédiaire
 		technique ;
-		\item les \textbf{services externes} (Supabase, fournisseurs LLM via OpenRouter,
-		SerpAPI pour la recherche structurée, Azure pour la voix et la vision) ;
+		\item les \textbf{services externes} (Supabase, OpenRouter pour les LLM,
+		SerpAPI pour la recherche musique au Block~1, Azure pour la voix et la vision) ;
 		\item l'\textbf{organisme d'accueil} et l'\textbf{équipe projet} (rôles de pilotage
 		et de validation).
 	\end{itemize}
 	
+	% Figure acteurs : page portrait dediee, rotation 90° pour lisibilite
 	\IfFileExists{public/ch2-diagramme-acteurs.png}{%
 		\clearpage
 		\begin{figure}[p]
 			\centering
 			\vfill
-			\rotatebox{90}{%
+			\rotatebox{-90}{%
 				\includegraphics[
-					width=0.88\textheight,
+					width=0.92\textheight,
 					keepaspectratio
 				]{public/ch2-diagramme-acteurs.png}%
-			}
-			\vspace{1.5em}
-			\captionof{figure}{Acteurs principaux et contexte d'intégration du système KODA}
+			}%
+			\vspace{1.2em}
+			\caption{Acteurs principaux et contexte d'intégration du système KODA}
 			\label{fig:ch2-acteurs}
 			\vfill
 		\end{figure}
@@ -1046,10 +1041,10 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	règle d'inversion des dépendances ; l'«\,oignon\,» met l'accent sur la \textbf{testabilité}
 	du noyau et sur le fait que l'infrastructure soit interchangeable sans toucher au
 	c\oe{}ur du système. Ainsi, le backend KODA reste cohérent avec la vision multicouche
-	de la figure~\ref{fig:archiglobale} tout en précisant sa structure interne.
+	de la figure~\ref{fig:ch2-architecture-systeme} tout en précisant sa structure interne.
 	
 	%----------------------------------------------------------------
-	\section{Environnement de travail}
+	\section{Environnement de Developement}
 	%----------------------------------------------------------------
 	
 	\subsection{Environnement matériel}
@@ -1122,34 +1117,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	suffit de créer chaque fichier sous ce nom puis d'insérer
 	\texttt{\textbackslash includegraphics} dans la section concernée.
 	
-	\begin{table}[htbp]
-		\centering
-		\caption{Images et diagrammes associés au chapitre II (noms de fichiers cibles)}
-		\label{tab:ch2_figures}
-		\small
-		\renewcommand{\arraystretch}{1.2}
-		\begin{tabular}{|p{4.6cm}|p{4.2cm}|p{5.6cm}|}
-			\hline
-			\textbf{Fichier (\texttt{public/...})} & \textbf{Section cible} & \textbf{Contenu attendu} \\
-			\hline
-			\texttt{ch2-modele-spirale.png} & Pilotage (modèle en spirale) & Schéma spirale : tours successifs avec les six cycles KODA (n8n $\rightarrow$ validation). \\
-			\hline
-			\texttt{ch2-planification-cycles.png} & Planification des cycles & Frise chronologique ou diagramme de Gantt (jalons PFE, dépendances entre cycles). \\
-			\hline
-			\texttt{ch2-architecture-systeme.png} & Architecture du système / Architecture de l'application & Vue multicouche (mobile, n8n, FastAPI, PostgreSQL, Pi) ; peut être une version retravaillée de l'architecture globale. \\
-			\hline
-			\texttt{ch2-onion-backend.png} & Architecture de l'application (oignon) & Schéma des anneaux : domaine, cas d'usage, adaptateurs, infrastructure (Distributeur). \\
-			\hline
-			\texttt{ch2-diagramme-acteurs.png} & Identification des acteurs & Diagramme de cas d'utilisation simplifié ou diagramme de contexte (acteurs externes). \\
-			\hline
-			\texttt{ch2-environnement-materiel.png} & Environnement matériel & Photo ou montage : PC de développement, Raspberry Pi, périphériques du robot. \\
-			\hline
-			\texttt{ch2-environnement-logiciel.png} & Environnement logiciel & Captures (IDE, n8n, Supabase, terminal Docker/Git) regroupées sur une planche. \\
-			\hline
-			\texttt{ch2-besoins-fonctionnels.png} & Spécification fonctionnelle (optionnel) & Tableau ou mind map des exigences F (lisible à l'impression). \\
-			\hline
-		\end{tabular}
-	\end{table}
+
 	
 	\noindent\textbf{Réutilisation possible :} la figure d'architecture multicouche du
 	chapitre~I (\texttt{public/ch2-architecture-systeme.png}) peut être réutilisée ou
@@ -1268,9 +1236,10 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	Techniquement, le nœud n8n \textbf{OpenRouter Chat Model} envoie la conversation au
 	point de terminaison OpenRouter ; la réponse du modèle sélectionné est renvoyée à la
-	\textbf{Basic LLM Chain} du Block~3. OpenRouter n'est pas un LLM en soi : c'est la
-	\textbf{couche d'accès} au LLM choisi, comparable à un \textit{routeur} entre votre
-	workflow et le fournisseur d'inférence réel.
+	\textbf{Basic LLM Chain} du Block~3 (classification sémantique). OpenRouter n'est pas
+	un LLM en soi : c'est la \textbf{couche d'accès} au LLM choisi. \textbf{SerpAPI}, lui,
+	intervient uniquement au \textbf{Block~1} (branche \texttt{musique}) pour la recherche
+	YouTube via Google, et ne doit pas être confondu avec cette couche d'inférence.
 	
 	\noindent\underline{\textbf{Référence :} OpenRouter — \texttt{https://openrouter.ai/docs}}
 	
@@ -1278,7 +1247,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\subsection{Schéma de classes — persistance KODA}
 	%----------------------------------------------------------------
 	
-	Les workflows n8n s'appuient sur PostgreSQL pour relier utilisateurs, configuration (\texttt{seeting}, clé primaire \texttt{idkoda} référencée par \texttt{utilisateur.idkoda}) et données de conversation ou d'accompagnement. La figure~\ref{fig:koda-chapitre-classes-schema} synthétise le modèle conceptuel associé au \textbf{Block~7} (mémoire et persistance) dans le Cycle~1.
+	Les workflows n8n s'appuient sur PostgreSQL pour relier utilisateurs, configuration (\texttt{seeting}, clé primaire \texttt{idkoda} référencée par \texttt{utilisateur.idkoda}) et données de conversation ou d'accompagnement. La figure~\ref{fig:koda-chapitre-classes-schema} synthétise le modèle conceptuel de la \textbf{mémoire et de la persistance} dans le Cycle~1.
 	
 	\IfFileExists{public/koda-chapitre-classes-schema.png}{%
 		\begin{figure}[htbp]
@@ -1352,9 +1321,10 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	Le Webhook 1 est le pipeline principal et en temps réel de KODA. Il est déclenché à chaque fois qu'un utilisateur pose une question au robot. Son rôle est d'analyser la question, d'accéder aux informations contextuelles pertinentes, et de générer une réponse personnalisée et naturelle.
 	
 	Le pipeline comporte \textbf{six blocs de traitement} (numérotés \textbf{1} à
-	\textbf{6}), auxquels s'ajoute un \textbf{Block~7} de clôture chargé de la
-	persistance et de la mémoire. Chaque bloc accomplit une tâche précise avant de
-	transmettre ses résultats au suivant. L'ensemble du flux est orchestré par n8n.
+	\textbf{6}). Le \textbf{Block~6}, en fin de chaîne, regroupe l'extraction
+	conditionnelle des \textit{notes} et la \textbf{mise à jour de la mémoire}
+	persistante. Chaque bloc accomplit une tâche précise avant de transmettre ses
+	résultats au suivant. L'ensemble du flux est orchestré par n8n.
 	
 	% ----------------------------------------------------------------
 	% IMAGE À INSÉRER : Vue d'ensemble du workflow Webhook 1
@@ -1380,9 +1350,8 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
   Les blocs sont numérotés de \textbf{1 à 6} pour suivre l'\textbf{ordre logique} du
   traitement en temps réel~: analyse d'intention et routage (\textbf{entrée fonctionnelle} du webhook), confrontation à l'historique, classification sémantique fine,
   gestion de la présentation ou de l'utilisateur inconnu (\texttt{unkonu}),
-  génération de la réponse contextualisée, puis extraction structurale des \textit{notes}
-  lorsque le scénario l'exige. Un \textbf{Block~7} distinct, décrit en fin de chaîne, assure la
-  \textbf{mise en mémoire persistante} après la réponse visible~: sans cette
+  génération de la réponse contextualisée, puis \textbf{Block~6} (extraction des
+  \textit{notes} si besoin, puis persistance et clôture du webhook). Sans cette
   segmentation, un flux monolithique mélangerait garde-fous, logique métier et accès
   base de données, rendant les erreurs difficiles à isoler et les appels LLM moins
   maîtrisés.
@@ -1393,19 +1362,17 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
   	\item \textbf{Block~3 — Classification sémantique fine.} Il structure la demande et prépare des décisions ou des prompts alignés sur le domaine KODA (mémoire, catégories, garde-fous). C'est le bloc où le LLM (via OpenRouter) joue notamment le rôle d'analyseur de dépendance mémoire pour trancher consultation base / pas de consultation.
   	\item \textbf{Block~4 — Utilisateur connu ou inconnu (\texttt{unkonu}).} Il gère la reconnaissance et l'enregistrement côté présentation ou visage selon le scénario, et invite à se présenter lorsque l'utilisateur est encore inconnu. Les embranchements conditionnels mènent soit vers des nœuds dédiés (HTTP, Postgres), soit vers le bloc de génération de réponse.
   	\item \textbf{Block~5 — Réponse contextualisée.} Il agrège le contexte utile (historique, profil, intention) et pilote la génération de la réponse naturelle adressée à l'utilisateur. C'est le cœur de la valeur perçue : expliquer, conseiller ou guider avec un ton conforme à la personnalité KODA.
-  	\item \textbf{Block~6 — Extraction des \textit{notes} (conditionnel).} Lorsque le scénario l'exige, il extrait des éléments structurés (notes, états, métadonnées) sans alourdir les blocs amont. Ces artefacts alimentent le suivi ou l'évaluation dans des tables ou flux séparés.
-  	\item \textbf{Block~7 — Persistance et mémoire.} Il clôture le traitement en écrivant conversations, paramètres et traces nécessaires aux interactions suivantes. Il matérialise le lien avec le schéma de données (utilisateur, \texttt{seeting} via \texttt{idkoda}, historiques, etc.) présenté en figure~\ref{fig:koda-chapitre-classes-schema}.
+  	\item \textbf{Block~6 — Notes et mémoire persistante.} En deux temps~: (1)~lorsque le scénario l'exige, extraction structurée des \textit{notes} (rappels, rendez-vous, alarmes)~; (2)~enregistrement des conversations, informations personnelles, historique récent (cinq derniers messages) et envoi de la réponse finale. Ce bloc matérialise le lien avec le schéma de données (utilisateur, \texttt{seeting} via \texttt{idkoda}, historiques, etc.) présenté en figure~\ref{fig:koda-chapitre-classes-schema}.
   \end{itemize}
   
   La figure~\ref{fig:webhook1-sequence-blocs} résume l'enchaînement général des
-  blocs~1 à~6 du Webhook~1 (embranchements optionnels pour la présentation et les
-  \textit{notes}) ; le Block~7, rappelé dans la légende, intervient en aval pour la
-  persistance.
+  six blocs du Webhook~1 (embranchements optionnels pour la présentation et les
+  \textit{notes}, puis persistance dans le Block~6).
   
   \IfFileExists{public/dsg.png}{%
   	\begin{center}
   		\includegraphics[width=0.98\textwidth]{public/dsg.png}
-  		\captionof{figure}{Webhook~1 --- diagramme de séquence général entre les blocs~1 à~6 (vue macro ; persistance : Block~7).}
+  		\captionof{figure}{Webhook~1 --- diagramme de séquence général entre les six blocs (vue macro ; notes et persistance~: Block~6).}
   		\label{fig:webhook1-sequence-blocs}
   	\end{center}
   }{%
@@ -1432,6 +1399,35 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
   \end{enumerate}
   
   Le nœud renvoie un objet JSON regroupant les indicateurs booléens (\texttt{contientFerme}, \texttt{motdepasseexiste}, \texttt{contientPlay}), les champs extraits (\texttt{nomChanson}, \texttt{direction}), \texttt{estInconnu}, l'\texttt{intention} finale, le \texttt{messageOriginal}, ainsi que \texttt{directionvaribale} (vrai si aucune direction) et \texttt{etat} pour les nœuds suivants. Ainsi, le Block~1 ne se limite plus à un simple garde-fou d'état : il \textbf{centralise la sémantique opérationnelle} du message (arrêt, authentification, média, déplacement) avant le routage n8n.
+  
+  \subparagraph{Branche musique — SerpAPI comme outil de recherche Google.}
+  
+  Lorsque l'intention vaut \texttt{musique}, le \textit{Switch} active une branche dédiée qui
+  n'utilise \textbf{pas} de modèle de langage~: elle s'appuie sur \textbf{SerpAPI}, service
+  tiers exposant une API de \textbf{recherche structurée} (moteur \texttt{youtube} dans notre
+  configuration). Si l'utilisateur demande de \textbf{chanter} ou de \textbf{lire} un morceau
+  (MP3 / audio), le nœud HTTP \textit{Search Music} envoie une requête \texttt{GET} vers
+  \texttt{https://serpapi.com/search} avec la requête extraite (\texttt{nomChanson}, ex.
+  \emph{Fayrouz pour le matin}). SerpAPI renvoie un JSON contenant notamment
+  \texttt{youtube\_url} et les métadonnées de recherche, exploitables en aval pour la lecture
+  ou la restitution du lien (figure~\ref{fig:block1-serpapi-result}).
+  
+  \IfFileExists{public/serpapi.png}{%
+  	\begin{figure}[htbp]
+  		\centering
+  		\includegraphics[width=0.95\textwidth]{public/serpapi.png}
+  		\caption{Block~1 — intégration SerpAPI dans le workflow n8n (branche musique du \textit{Switch})}
+  		\label{fig:block1-serpapi}
+  	\end{figure}
+  }{}
+  \IfFileExists{public/block1-serpapi-search-music.png}{%
+  	\begin{figure}[htbp]
+  		\centering
+  		\includegraphics[width=0.98\textwidth]{public/block1-serpapi-search-music.png}
+  		\caption{Block~1 — nœud \textit{Search Music} (SerpAPI, moteur YouTube) et exemple de sortie (\texttt{search\_query}, \texttt{youtube\_url})}
+  		\label{fig:block1-serpapi-result}
+  	\end{figure}
+  }{}
   
   \vspace{1em}
   \begin{center}
@@ -1635,23 +1631,30 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\end{center}
 	
 	\vspace{0.5em}
-	\subparagraph{SerpAPI et OpenRouter dans l'écosystème d'API du projet}
+	\subparagraph{OpenRouter dans le Block~3 — agrégation et suivi d'usage}
 	
-	\textbf{SerpAPI} est intégré à KODA pour des recherches structurées sur le Web
-	(notamment le bloc musique du premier flux, avec extraction de liens via un moteur
-	de résultats). Dans le cadre du projet, l'offre mobilisée autour de SerpAPI a
-	également permis d'obtenir un \textbf{accès à l'API OpenRouter} pour les essais sur
-	les modèles de langage, ce qui complète la couche recherche par une couche
-	d'inférence LLM sans infrastructure dédiée. Les deux services s'inscrivent dans un
-	même \textbf{écosystème d'API cloud} : SerpAPI pour les données web structurées,
-	OpenRouter pour l'agrégation de modèles (figure~\ref{fig:serpapi}).
+	Au \textbf{Block~3}, \textbf{OpenRouter} est le point d'accès unique aux modèles de
+	langage~: il ne remplace pas SerpAPI (réservé au Block~1, branche musique), mais
+	\textbf{centralise l'inférence LLM} pour la classification sémantique. Une clé API
+	dédiée au workflow n8n (\emph{clé de workflow n8n}) permet de suivre la consommation
+	et de limiter les coûts (figure~\ref{fig:openrouter-dashboard})~; les modèles
+	effectivement sollicités incluent notamment \texttt{google/gemini-2.5-flash-lite-preview-09-2025}
+	(configuration du nœud, figure~\ref{fig:block3openrouter}) et, selon les essais,
+	\texttt{gpt-4o-mini} via le même agrégateur.
 	
-	\vspace{0.5em}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/serpapi.png}
-		\captionof{figure}{Intégration SerpAPI — recherche structurée (écosystème d'API aux côtés d'OpenRouter pour les LLM)}
-		\label{fig:serpapi}
-	\end{center}
+	\IfFileExists{public/openrouter-dashboard.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.92\textwidth]{public/openrouter-dashboard.png}
+			\caption{Block~3 — tableau de bord OpenRouter (clé API workflow n8n, suivi des dépenses par modèle)}
+			\label{fig:openrouter-dashboard}
+		\end{figure}
+	}{}
+	
+	\noindent Les avantages retenus pour KODA sont~: \textbf{un seul credential} dans n8n,
+	\textbf{changement de modèle} par simple modification de l'identifiant, et
+	\textbf{comparaison} rapide entre fournisseurs (latence, coût, qualité de classification)
+	sans multiplier les comptes OpenAI, Google ou Anthropic.
 	
 	% ----------------------------------------------------------------
 	% PROMPT ENGINEERING
@@ -2129,31 +2132,35 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		\includegraphics[width=0.95\textwidth]{public/dsb5.png}
 		\captionof{figure}{Block 5 — Diagramme de séquence du cinquième bloc}
 	\end{center}
-	\vspace{0.5em}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/dcb5.png}
-		\captionof{figure}{Block 5 — Diagramme de classes du cinquième bloc}
-	\end{center}
+	
 	\vspace{1em}
 
 	
 	% ================================================================
-	% BLOCK 6 : Notes — test final (extraction date / événement)
+	% BLOCK 6 : Notes (extraction) + mise à jour mémoire (persistance)
 	% ================================================================
 	
-	\paragraph{Block 6 : Extraction structurée des \textit{notes} (test final)}
+	\paragraph{Block 6 : Notes, structuration et mise à jour de la mémoire}
+	
+	Le \textbf{Block~6} clôt le Webhook~1 en regroupant deux responsabilités
+	complémentaires~: d'abord l'\textbf{extraction conditionnelle} des \textit{notes}
+	(lorsque le Block~3 a classé la demande en \texttt{note}), puis la
+	\textbf{persistance complète} de l'échange et la réponse à l'utilisateur. Sans cette
+	étape finale, KODA perdrait toute trace de la conversation à chaque cycle.
+	
+	\subparagraph{Partie 1 — Extraction structurée des \textit{notes} (conditionnel).}
 	
 	Lorsque le \textbf{Block~3} classe la demande avec
 	\texttt{questiontype = note}, le pipeline ne se contente pas d'étiqueter le message~:
-	un \textbf{sous-bloc dédié} du Block~6 prend le relais \textbf{avant} toute insertion en
-	base (Block~7). Ce scénario couvre les rappels, alarmes et rendez-vous~: l'utilisateur
+	la \textbf{première partie} du Block~6 prend le relais \textbf{avant} toute insertion en
+	base. Ce scénario couvre les rappels, alarmes et rendez-vous~: l'utilisateur
 	formule une intention temporelle en langage naturel (souvent approximatif ou fautif),
 	et le système doit en extraire une \textbf{date}, une \textbf{heure} et un
 	\textbf{libellé d'événement} exploitables par la table \texttt{notes}.
 	
-	\subparagraph{Sous-bloc de détection (\textit{If}) et \textit{Basic LLM Chain~2}.}
+	\subparagraph{Détection (\textit{If}) et \textit{Basic LLM Chain~2}.}
 	
-	Au cœur du Block~6, un petit enchaînement n8n assure la \textbf{détection automatique}
+	Au cœur de cette première partie, un petit enchaînement n8n assure la \textbf{détection automatique}
 	et le \textbf{traitement spécialisé} des notes~:
 	\begin{enumerate}[leftmargin=*, itemsep=0.25em]
 		\item un nœud \textbf{If} vérifie que le champ \texttt{questiontype} issu du
@@ -2163,7 +2170,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		en amont, l'identifiant \texttt{persone} et le type \texttt{note}~;
 		\item le modèle \textbf{décompose} la phrase en JSON structuré
 		(\texttt{date\_evenement}, \texttt{evenement}, éventuellement
-		\texttt{format\_valide}) \textbf{avant} l'enregistrement définitif par le Block~7.
+		\texttt{format\_valide}) \textbf{avant} l'enregistrement définitif (partie~2 du Block~6).
 	\end{enumerate}
 	
 	Ainsi, une formulation du type \emph{«\,Rappelle-moi le 9 heures, j'ai un rendez-vous
@@ -2176,7 +2183,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\vspace{0.5em}
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{public/captureworkflowb6.png}
-		\captionof{figure}{Block 6 — Sous-workflow n8n~: test \texttt{questiontype = note}, \textit{Basic LLM Chain~2} et structuration avant persistance}
+		\captionof{figure}{Block 6 (partie~1) — Sous-workflow n8n~: test \texttt{questiontype = note}, \textit{Basic LLM Chain~2} et structuration}
 		\label{fig:block6-note-workflow}
 	\end{center}
 	
@@ -2195,7 +2202,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\noindent\textbf{Exemple de sortie (structuration LLM).}\\
 	La \textit{Basic LLM Chain~2} renvoie un objet texte contenant la date-heure normalisée
-	et l'événement reformulé, prêt pour insertion dans \texttt{notes} au Block~7~:
+	et l'événement reformulé, prêt pour insertion dans \texttt{notes} (partie~2 du Block~6)~:
 	
 	\vspace{0.4em}
 	\begin{center}
@@ -2206,27 +2213,22 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\vspace{0.3em}
 	\noindent
-	En résumé, le Block~6 fait le lien entre la \textbf{classification sémantique}
-	(Block~3, type \texttt{note}) et la \textbf{mémoire actionnable} (Block~7)~: détection
-	automatique, extraction LLM, puis persistance des champs structurés.
-	\vspace{0.8em}
+	La première partie du Block~6 fait le lien entre la \textbf{classification sémantique}
+	(Block~3, type \texttt{note}) et les champs structurés exploitables en base~:
+	détection automatique, extraction LLM, puis passage à la persistance.
 	
-	% ================================================================
-	% BLOCK 7 : Mise à Jour de Mémoire (ex-Block 6)
-	% ================================================================
+	\subparagraph{Partie 2 — Mise à jour de la mémoire et clôture du webhook.}
 	
-	\paragraph{Block 7 : Mise à Jour de Mémoire}
-	
-	Le Block~7 constitue la dernière étape du pipeline principal du Webhook~1. Il intervient immédiatement après la génération de la réponse par le Block~5 (et, le cas échéant, après la structuration des champs \texttt{note} par le Block~6), et assure la \textbf{persistance complète de l'interaction} dans la base de données. Son rôle est essentiel : sans lui, KODA perdrait toute trace de la conversation à chaque cycle, compromettant sa capacité de personnalisation et de suivi contextuel.
-	
-	Ce bloc est responsable de l'\textbf{enregistrement systématique des nouvelles données} produites ou identifiées lors du traitement de la question. Chaque branche du Block~5 (mémorielle ou générale) transite par ce bloc avant la clôture du pipeline.
-	
-	\vspace{0.8em}
-	\noindent\textbf{Fonctionnement Technique du Bloc :}
+	La \textbf{deuxième partie} du Block~6 intervient après la génération de la réponse par le
+	Block~5 (et, le cas échéant, après la structuration des champs \texttt{note} en
+	partie~1). Elle assure la \textbf{persistance complète de l'interaction} dans la base de
+	données et l'\textbf{enregistrement systématique} des nouvelles données produites ou
+	identifiées lors du traitement. Chaque branche du Block~5 (mémorielle ou générale)
+	transite par cette étape avant la clôture du pipeline.
 	
 	\vspace{0.5em}
 	
-	Le Block~7 exécute une séquence de cinq opérations de persistance, chacune ciblant un aspect spécifique de la mémoire de KODA :
+	Cette partie exécute une séquence de cinq opérations de persistance, chacune ciblant un aspect spécifique de la mémoire de KODA :
 	
 	\begin{enumerate}
 		\item \textbf{Enregistrement de la nouvelle conversation :}
@@ -2236,7 +2238,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		Si le Block 3 a classifié la question comme étant de type \texttt{about\_me} ou \texttt{information\_personnelle}, le système extrait les données pertinentes (préférences, centres d'intérêt, faits personnels) et les enregistre dans le tableau \texttt{personal\_info}. Ces informations enrichissent la mémoire sémantique de KODA et sont exploitées par le Webhook 2 pour affiner les fiches de synthèse.
 		
 		\item \textbf{Insertion conditionnelle dans le tableau des notes :}
-		Si le type de question retourné par le Block~3 est \texttt{note}, le système identifie qu'il s'agit d'une action que l'utilisateur souhaite planifier ou mémoriser (alarme, rendez-vous, rappel, tâche à effectuer). Les champs structurés produits par le \textbf{Block~6} (\texttt{date\_evenement}, \texttt{evenement}, \texttt{format\_valide}, etc.) sont alors enregistrés dans le tableau \texttt{notes}, dédié au stockage des éléments actionnables liés à l'utilisateur.
+		Si le type de question retourné par le Block~3 est \texttt{note}, le système identifie qu'il s'agit d'une action que l'utilisateur souhaite planifier ou mémoriser (alarme, rendez-vous, rappel, tâche à effectuer). Les champs structurés produits en \textbf{partie~1} du Block~6 (\texttt{date\_evenement}, \texttt{evenement}, \texttt{format\_valide}, etc.) sont alors enregistrés dans le tableau \texttt{notes}, dédié au stockage des éléments actionnables liés à l'utilisateur.
 		
 		\item \textbf{Mise à jour de l'historique des messages récents :}
 		Le système insère la nouvelle discussion (question + réponse) dans le tableau \texttt{historique} et supprime simultanément la plus ancienne entrée si le nombre de messages dépasse 5. Cette rotation garantit que l'historique ne contient que les \textbf{5 derniers messages}, conformément à la logique de vérification du Block 2 qui s'appuie sur cet historique pour détecter les questions répétées.
@@ -2249,36 +2251,87 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{public/dcb6.png}
-		\captionof{figure}{Block 7 — Diagramme de classes du septième bloc (persistance mémoire)}
-		\label{fig:block7-dcb6}
+		\captionof{figure}{Block 6 (partie~2) — Diagramme de classes (persistance mémoire)}
+		\label{fig:block6-dcb6}
 	\end{center}
 	\vspace{1em}
 	
 	%----------------------------------------------------------------
-	\subsubsection{Diagramme de Séquence du Webhook 1}
+	\subsubsection{Synthèse visuelle du pipeline}
 	
-	Le diagramme ci-dessous illustre le flux complet des données et des décisions au sein du Webhook 1, depuis la réception de la requête jusqu'à la génération de la réponse finale.
+	La figure~\ref{fig:webhook1-sequence-blocs} (déjà présentée en début de section)
+	résume l'enchaînement macroscopique des six blocs. Pour une vue \textbf{complète}
+	du Webhook~1 (toutes les branches conditionnelles sur une seule figure), il est
+	recommandé d'exporter le diagramme PlantUML
+	\texttt{plantuml/koda-webhook1-blocks1-6-sequence.puml} vers
+	\texttt{public/sequence-webhook1-complet.png} si une version plus détaillée que
+	\texttt{dsg.png} est souhaitée en fin de chapitre.
 	
-	% ----------------------------------------------------------------
-	% IMAGE À INSÉRER : Diagramme de séquence complet du Webhook 1
-	% Chemin suggéré : public/sequence1.png
-	% Légende : "Diagramme de séquence — Pipeline complet du Webhook 1"
-	% Composants du diagramme :
-	%   S0 "Webhook (Entrée)" → pré-traitement chat
-	%   Pipeline Webhook 1 : Block 1 (Switch intentions) puis Block 2 ... Block 7
-	%   S0.5 → S1 "Block 1 : Identité / Test / Switch intentions"
-	%   S1 → S2 "Block 2 : Historique (5 derniers messages)"
-	%   [Si question déjà traitée] S2 → S6 "Réponse directe"
-	%   [Sinon] S2 → S3 "Block 3 : Classification sémantique"
-	%   [Si type = présentation] S3 → S4 "Block 4 : Enregistrement utilisateur"
-	%   S4 → BDD "Création profil"
-	%   [Sinon] S3 → S5 "Block 5 : Récupération contextuelle"
-	%   [Si usememory = vrai] S5 récupère profil complet + conversations
-	%   [Sinon] S5 récupère uniquement la dernière conversation
-	%   [Si type = note] S5 ou branche dédiée → "Block 6 : extraction date / événement"
-	%   S5 → S7 "Block 7 : persistance mémoire + Respond to Webhook"
-	%   S7 → "Retour Webhook"
-	% ----------------------------------------------------------------
+	\IfFileExists{public/sequence-webhook1-complet.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/sequence-webhook1-complet.png}
+			\caption{Webhook~1 --- diagramme de séquence détaillé (pipeline complet, blocs~1 à~6)}
+			\label{fig:webhook1-sequence-complet}
+		\end{figure}
+	}{%
+		\IfFileExists{public/captureworkflowinput.png}{%
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width=0.95\textwidth]{public/captureworkflowinput.png}
+				\caption{Webhook~1 --- vue d'ensemble du workflow n8n (entrée et enchaînement des blocs)}
+				\label{fig:webhook1-vue-ensemble}
+			\end{figure}
+		}{}}
+	
+	%----------------------------------------------------------------
+	\subsubsection{Conclusion du Webhook 1}
+	
+	Le \textbf{Webhook~1} constitue le cœur opérationnel de KODA en interaction
+	quotidienne~: à chaque message reçu (\texttt{user\_name}, question), il enchaîne
+	analyse, décision, génération et mémorisation dans un pipeline unique orchestré par
+	n8n. Conçu en \textbf{six blocs} successifs, ce flux traduit dans l'ingénierie la
+	théorie du double traitement évoquée en début de chapitre~: un traitement
+	\textbf{rapide} lorsque l'historique récent suffit (Block~2), puis un traitement
+	\textbf{plus approfondi} lorsque la question exige classification, contexte et
+	formulation personnalisée (blocs~3 à~5).
+	
+	Le \textbf{Block~1} assure la \textbf{sécurité et l'action immédiate} du compagnon
+	(fermeture, mot de passe, musique, déplacement) avant tout appel coûteux au modèle
+	de langage. Le \textbf{Block~2} limite la redondance en confrontant la demande aux
+	\textbf{cinq derniers échanges}, ce qui améliore la réactivité perçue et réduit la
+	consommation de ressources. Le \textbf{Block~3} structure ensuite le sens du message
+	(\texttt{USE\_MEMORY} / \texttt{NO\_MEMORY}, six catégories) et prépare un routage
+	fiable vers les branches adaptées. Le \textbf{Block~4} matérialise la dimension
+	\og humaine \fg{} du projet~: enregistrement d'une nouvelle personne, accueil d'un
+	interlocuteur \texttt{unkonu}, ou poursuite directe pour un profil déjà connu. Le
+	\textbf{Block~5} concentre la \textbf{valeur conversationnelle}~: réponse enrichie
+	ou générale selon la mémoire requise, dans le ton et l'identité de KODA. Enfin, le
+	\textbf{Block~6} clôt le cycle en deux temps~: structuration conditionnelle des
+	\textit{notes} (rappels, rendez-vous), puis \textbf{persistance} (conversations,
+	informations personnelles, historique glissant, réponse HTTP) conforme au schéma de
+	données du chapitre.
+	
+	Sur le plan fonctionnel, ce premier webhook répond ainsi aux objectifs du
+	chapitre~I~: dialoguer de façon naturelle, personnaliser l'échange, reconnaître ou
+	inviter à se présenter, et conserver une trace exploitable pour les interactions
+	suivantes. Il ne constitue pas une fin en soi~: les journaux alimentés ici
+	(conversations, \texttt{historique}, \texttt{notes}, profils) sont la matière du
+	\textbf{Webhook~2} (consolidation nocturne) et, indirectement, du \textbf{Webhook~3}
+	(proactivité). L'architecture modulaire par blocs a facilité l'itération sur les
+	prompts, les requêtes SQL et les embranchements n8n sans remettre en cause l'ensemble
+	du flux.
+	
+	Des \textbf{limites} demeurent inhérentes à un prototype de fin d'études~:
+	dépendance à des services externes (OpenRouter, SerpAPI, hébergement base de
+	données), sensibilité à la qualité des prompts et à la latence réseau, et nécessité
+	de tests utilisateurs plus larges sur les cas limites (fautes d'orthographe,
+	multilingue, bruit ambiant côté robot). Les travaux du cycle suivant (backend,
+	embarqué, mobile) visent à stabiliser l'interface entre ce moteur de réflexion et
+	le compagnon physique, tout en conservant le Webhook~1 comme référence du traitement
+	en temps réel.
+	
+	
 	
 	%----------------------------------------------------------------
 	\subsection{Deuxième Flux — Webhook 2 : Filtre et Synthèse Journalière}
@@ -2288,28 +2341,70 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	Le Webhook 2 s'inspire d'un phénomène bien documenté en sciences cognitives : durant le sommeil, le cerveau humain effectue un travail actif de \textbf{consolidation mémorielle}. Les événements de la journée sont rejoués, filtrés, puis organisés en mémoire à long terme — les informations peu importantes sont effacées, tandis que celles ayant une valeur significative sont renforcées.
 	
-	Nous reproduisons ce mécanisme de manière algorithmique : le Webhook 2 s'exécute automatiquement chaque nuit (à 02h00), analyse l'ensemble des échanges de la journée pour chaque utilisateur, et en génère une \textbf{synthèse structurée} enregistrée dans la base de données.
+	Nous reproduisons ce mécanisme de manière algorithmique : le \textbf{Webhook~2} est
+	\textbf{déclenché par un trigger côté backend} (appel HTTP planifié ou événement
+	émis par le Distributeur de services), qui active le workflow n8n correspondant.
+	À chaque exécution (typiquement en fin de journée), le flux analyse les échanges
+	accumulés pour chaque utilisateur actif et en génère une \textbf{synthèse structurée}
+	enregistrée dans la base de données.
 	
 	\noindent\underline{\textbf{Référence :} Walker, M. \& Stickgold, R. (2006). Sleep, Memory, and Plasticity. \textit{Annual Review of Psychology}, 57, 139–166.}
-	\vspace{0.5em}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/flux2.png}
-		\captionof{figure}{Vue complète du deuxième workflow}
-	\end{center}
+	
 	\subsubsection{Fonctionnement du Webhook 2}
 	
-	Le processus se déroule en trois temps :
+	Le processus se déroule en \textbf{trois temps}, matérialisés dans le workflow n8n
+	(figure~\ref{fig:webhook2-workflow-n8n})~:
 	\begin{enumerate}
-		\item \textbf{Collecte :} Récupération de l'ensemble des nouvelles interactions de la journée pour tous les utilisateurs actifs.
-		\item \textbf{Analyse et synthèse :} Un agent IA analyse le contenu des échanges et génère une fiche de synthèse structurée pour chaque utilisateur.
-		\item \textbf{Persistance :} Les fiches sont enregistrées dans la base de données et associées au profil de chaque utilisateur.
+		\item \textbf{Collecte :} le \textbf{trigger backend} appelle le webhook n8n~;
+		les nœuds PostgreSQL \textit{Get ID USER}, \textit{GetAll Data~1}
+		et \textit{GetAll Data~2} récupèrent, pour chaque utilisateur actif, l'identifiant,
+		le contexte de profil et l'ensemble des \textbf{échanges de la journée}
+		(conversations, informations utiles à la synthèse).
+		\item \textbf{Analyse et synthèse :} les nœuds Code \textit{Data Received} et
+		\textit{Structuration} agrègent et formatent ces données en un prompt unique~;
+		l'\textbf{AI Agent} \textit{Mod Thinking When Koda Sleep} (modèle Google Gemini
+		via n8n) produit une fiche structurée en quatre dimensions (voir ci-dessous).
+		\item \textbf{Persistance :} le nœud Code \textit{Response} parse la sortie du
+		modèle, puis \textit{Insertion Des Données} écrit les champs dans la table
+		\texttt{accompagnement} (liée à \texttt{iduser}), consolidant la mémoire à long
+		terme.
 	\end{enumerate}
 	
-	% ----------------------------------------------------------------
-	% IMAGE À INSÉRER : Vue d'ensemble du workflow Webhook 2
-	% Chemin suggéré : public/webhook2.png
-	% Légende : "Vue d'ensemble du workflow n8n — Webhook 2 : Filtre et Synthèse Journalière"
-	% ----------------------------------------------------------------
+	\IfFileExists{public/webhook2.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/webhook2.png}
+			\caption{Webhook~2 --- vue d'ensemble du workflow n8n (collecte PostgreSQL, structuration, AI Agent, insertion \texttt{accompagnement})}
+			\label{fig:webhook2-workflow-n8n}
+		\end{figure}
+	}{%
+		\begin{center}
+			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1em}
+				\textit{Ajouter \texttt{public/webhook2.png} --- capture du workflow n8n Webhook~2.}
+				\vspace{1em}\end{minipage}}
+		\end{center}
+	}
+	
+	\subsubsection{Diagramme de séquence du Webhook 2}
+	
+	La figure~\ref{fig:webhook2-sequence} résume les interactions entre le
+	\textbf{backend} (trigger), le workflow n8n, PostgreSQL, les nœuds de structuration et l'agent IA.
+	La source PlantUML est \texttt{plantuml/koda-webhook2-synthese-sequence.puml}.
+	
+	\IfFileExists{public/koda_webhook2_synthese_sequence.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/koda_webhook2_synthese_sequence.png}
+			\caption{Webhook~2 --- diagramme de séquence (synthèse journalière et persistance)}
+			\label{fig:webhook2-sequence}
+		\end{figure}
+	}{%
+		\begin{center}
+			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1em}
+				\textit{Exporter \texttt{plantuml/koda-webhook2-synthese-sequence.puml} vers \texttt{public/koda\_webhook2\_synthese\_sequence.png}.}
+				\vspace{1em}\end{minipage}}
+		\end{center}
+	}
 	
 	\subsubsection{Structure des Fiches de Synthèse Générées}
 	
@@ -2321,77 +2416,178 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		\item \textbf{Points clés :} Extraction des informations factuelles importantes révélées durant la journée — décisions évoquées, projets mentionnés, problèmes soulevés. Ces éléments enrichissent la mémoire sémantique du profil.
 		\item \textbf{Conseils personnalisés :} Génération de recommandations adaptées au profil et au contexte de l'utilisateur, permettant à KODA d'offrir une valeur proactive lors des interactions suivantes.
 	\end{itemize}
-	\vspace{0.5em}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/4conseil.png}
-		\captionof{figure}{Vue des outputs du 2éme workflow}
-	\end{center}
-	% ----------------------------------------------------------------
-	% IMAGE À INSÉRER : Exemple de fiche de synthèse journalière
-	% Chemin suggéré : public/4conseil.png
-	% Légende : "Exemple de fiche de synthèse journalière générée par le Webhook 2 (4 dimensions)"
-	% ----------------------------------------------------------------
+	\IfFileExists{public/4conseil.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.95\textwidth]{public/4conseil.png}
+			\caption{Webhook~2 --- exemple de sortie structurée (quatre dimensions de la fiche journalière)}
+			\label{fig:webhook2-output-4dimensions}
+		\end{figure}
+	}{%
+		\noindent\textit{(Figure optionnelle~: ajouter \texttt{public/4conseil.png} --- capture des champs \texttt{interets}, \texttt{synthese}, \texttt{point\_cles}, \texttt{conseils} en sortie du nœud \textit{Response}.)}
+	}
+	
+	\subsubsection{Persistance : relation \texttt{utilisateur} / \texttt{accompagnement}}
+	
+	Le nœud \textit{Insertion Des Données} écrit une fiche par utilisateur dans la table
+	\texttt{accompagnement}, reliée à \texttt{utilisateur} par la clé étrangère
+	\texttt{iduser}. La figure~\ref{fig:webhook2-schema-accompagnement} précise cette
+	liaison (un utilisateur, zéro ou plusieurs fiches de synthèse journalière).
+	
+	\IfFileExists{public/webhook2-schema-accompagnement.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.72\textwidth]{public/webhook2-schema-accompagnement.png}
+			\caption{Webhook~2 --- schéma de persistance (\texttt{utilisateur} $\rightarrow$ \texttt{accompagnement}~: \texttt{interets}, \texttt{synthese}, \texttt{point\_cles}, \texttt{conseils})}
+			\label{fig:webhook2-schema-accompagnement}
+		\end{figure}
+	}{}
 	
 	\noindent\underline{\textbf{Référence :} Miller, G.A. (1956). The magical number seven, plus or minus two. \textit{Psychological Review}, 63(2), 81–97.}
 	
 	\subsubsection{Impact sur le Système Global}
 	
-	Les synthèses du Webhook 2 constituent la \textbf{mémoire à long terme} de KODA. Elles sont consultées par le Webhook 1 pour enrichir le contexte des réponses, et exploitées par le Webhook 3 pour générer des interactions spontanées pertinentes.
+	Les synthèses du Webhook~2 constituent la \textbf{mémoire à long terme} de KODA,
+	stockées dans \texttt{accompagnement} (figures~\ref{fig:webhook2-schema-accompagnement}
+	et~\ref{fig:koda-chapitre-classes-schema}).
+	Elles sont consultées par le \textbf{Webhook~1} pour enrichir le contexte des réponses
+	(branche mémorielle du Block~5) et exploitées par le \textbf{Webhook~3} pour générer
+	des interactions spontanées pertinentes (\texttt{interests}, \texttt{daily\_summary},
+	\texttt{key\_points}, \texttt{personalized\_advice}).
 	
-	% ----------------------------------------------------------------
-	% IMAGE À INSÉRER : Diagramme du flux de données entre Webhook 2 et la base de données
-	% Chemin suggéré : public/sequence2.png
-	% Légende : "Flux de données entre le Webhook 2 et la mémoire long terme"
-	% ----------------------------------------------------------------
+	\subsubsection{Conclusion du Webhook 2}
+	
+	Le deuxième flux complète le premier en apportant une \textbf{consolidation différée}~:
+	là où le Webhook~1 réagit en temps réel et ne conserve qu'une fenêtre courte
+	(\texttt{historique}, cinq messages), le Webhook~2 rejoue la journée entière pour
+	en extraire une \textbf{mémoire durable} et structurée. Son architecture linéaire
+	(collecte SQL $\rightarrow$ structuration $\rightarrow$ raisonnement IA $\rightarrow$
+	insertion) reste simple à maintenir. Le \textbf{trigger backend} assure la
+	planification sans intervention manuelle et fait le lien entre les journaux
+	conversationnels et la personnalisation à long terme du compagnon.
+	
+	\noindent\textbf{Figures associées au Webhook~2~:}
+	workflow n8n (\ref{fig:webhook2-workflow-n8n}),
+	diagramme de séquence (\ref{fig:webhook2-sequence}),
+	exemple de sortie quatre dimensions (\ref{fig:webhook2-output-4dimensions}),
+	schéma \texttt{utilisateur}/\texttt{accompagnement} (\ref{fig:webhook2-schema-accompagnement}),
+	vue globale des classes (\ref{fig:koda-chapitre-classes-schema}).
 	
 	%----------------------------------------------------------------
 	\subsection{Troisième Flux — Webhook 3 : Spontanéité et Interaction Proactive}
 	%----------------------------------------------------------------
 	
-	\subsubsection{Principe : La Spontanéité comme Dimension Humaine}
+	\subsubsection{Principe : la spontanéité comme dimension humaine}
 	
-	Un compagnon humain ne se contente pas de répondre aux questions : il prend aussi l'initiative d'engager la conversation de manière spontanée et contextuelle. Les recherches en psychologie sociale ont montré que les interactions les plus mémorables et satisfaisantes sont souvent celles initiées de façon inattendue, en dehors du cadre purement transactionnel.
+	Un compagnon humain ne se contente pas de répondre aux questions : il peut aussi
+	\textbf{prendre la parole en premier}, avec un ton adapté à la personne devant lui.
+	Les recherches en psychologie sociale montrent que les interactions les plus
+	mémorables sont souvent celles initiées hors d'un simple échange question-réponse.
 	
-	C'est cette dimension que le Webhook 3 cherche à reproduire. Son rôle est de permettre à KODA d'\textbf{initier lui-même la conversation} lorsqu'il détecte la présence d'un utilisateur qu'il reconnaît, sans attendre que celui-ci pose une question.
-	\vspace{0.5em}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/clasifer.png}
-		\captionof{figure}{Vue complète du troisiéme workflow}
-	\end{center}
+	Le \textbf{Webhook~3} matérialise cette spontanéité. Son \textbf{rôle principal} est
+	de recevoir un \textbf{nom de personne} (utilisateur connu, ex. \texttt{Oussema}) ou
+	la valeur \texttt{unkonu} / \texttt{Inconnu}, puis de produire une
+	\textbf{introduction orale} (\texttt{parole\_du\_robot}) accompagnée d'une
+	\textbf{émotion visuelle} (\texttt{emotion\_visuelle}) pour le robot. À chaque
+	déclenchement, il \textbf{recharge les informations du Webhook~2} (centres
+	d'intérêt, profils, points de vue, conseils stockés dans \texttt{accompagnement}) afin
+	que la phrase d'accueil reste personnalisée et cohérente avec l'historique récent.
+	
 	\noindent\underline{\textbf{Référence :} Dautenhahn, K. \& Billard, A. (1999). Bringing up robots or the psychology of socially intelligent robots. \textit{Proceedings of the 3rd annual conference on Autonomous Agents}, 366–367.}
 	
-	\subsubsection{Déclenchement et Fonctionnement}
+	\subsubsection{Déclenchement et entrées}
 	
-	Le Webhook 3 est déclenché dès que le \textbf{module de vision} de KODA identifie le visage d'un utilisateur reconnu. L'identifiant de cet utilisateur est transmis au webhook, qui active le pipeline de génération d'une phrase d'accroche personnalisée.
+	Le Webhook~3 est activé lorsque le \textbf{backend} ou le module de vision du robot
+	détecte une présence et transmet un identifiant (\texttt{username}, \texttt{acteur}).
+	Le workflow n8n (figure~\ref{fig:webhook3-workflow-n8n}) enchaîne~:
+	\textit{Identité7} (PostgreSQL) $\rightarrow$ nœud \textit{Code} $\rightarrow$
+	\textit{If7}, qui oriente soit vers \textbf{AI Agent3} (personne connue), soit vers
+	\textbf{Postgres15} + \textbf{Code11} + \textbf{AI Agent2} (cas nécessitant une
+	introduction enrichie à partir des listes issues du Flux~2).
 	
-	% ----------------------------------------------------------------
-	% IMAGE À INSÉRER : Vue d'ensemble du workflow Webhook 3
-	% Chemin suggéré : public/webhook3.png
-	% Légende : "Vue d'ensemble du workflow n8n — Webhook 3 : Spontanéité et Interaction Proactive"
-	% ----------------------------------------------------------------
+	\IfFileExists{public/webhook3.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/webhook3.png}
+			\caption{Webhook~3 --- workflow n8n (\textit{If7}, branches AI Agent2 / AI Agent3, réponses webhook)}
+			\label{fig:webhook3-workflow-n8n}
+		\end{figure}
+	}{}
 	
-	\subsubsection{Génération de la Phrase d'Accroche}
+	\subsubsection{Préparation des données (nœud Code11)}
 	
-	Un agent IA génère une \textbf{phrase d'accroche unique et personnalisée} en exploitant les données de la fiche de synthèse produite par le Webhook 2. Les variables injectées dans le prompt de génération sont les suivantes :
+	Le nœud \textbf{Code11} consolide, pour chaque exécution, les listes produites à
+	partir des fiches \texttt{accompagnement} (Webhook~2)~:
+	\begin{itemize}
+		\item \texttt{ma\_liste\_des\_centre\_d\_interet} $\leftarrow$ centres d'intérêt ;
+		\item \texttt{ma\_liste\_des\_profils} $\leftarrow$ profils comportementaux ;
+		\item \texttt{ma\_liste\_des\_points\_de\_vue} $\leftarrow$ points de vue ;
+		\item \texttt{ma\_liste\_des\_conseils} $\leftarrow$ conseils personnalisés ;
+		\item \texttt{username} --- identifiant transmis par le backend ;
+		\item \texttt{utilisateur} --- \texttt{acteur} si connu, sinon \textbf{\texttt{Inconnu}}.
+	\end{itemize}
 	
-	\begin{tcolorbox}[colback=blue!5, colframe=blue!40!black, title=Variables du Prompt d'Interaction Spontanée]
-		\begin{itemize}
-			\item \texttt{\{user\_name\}} — Prénom ou identifiant de l'utilisateur
-			\item \texttt{\{interests\}} — Centres d'intérêt identifiés (depuis le Webhook 2)
-			\item \texttt{\{daily\_summary\}} — Synthèse de la dernière journée d'échanges
-			\item \texttt{\{key\_points\}} — Points clés retenus lors des interactions précédentes
-			\item \texttt{\{personalized\_advice\}} — Conseils personnalisés disponibles
-			\item \texttt{\{previous\_openings\}} — Historique des phrases d'accroche déjà utilisées (pour garantir l'unicité)
-		\end{itemize}
-	\end{tcolorbox}
+	La figure~\ref{fig:webhook3-code11-input} illustre cette étape dans l'interface n8n.
 	
-	% ----------------------------------------------------------------
-	% IMAGE À INSÉRER : Nœud de l'agent IA pour la génération de la phrase spontanée
-	% Chemin suggéré : public/spontaneite.png
-	% Légende : "Nœud de l'agent IA — Génération de la phrase d'accroche spontanée (Webhook 3)"
-	% ----------------------------------------------------------------
+	\IfFileExists{public/webhook3-code11-input.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/webhook3-code11-input.png}
+			\caption{Webhook~3 --- entrée du nœud \textit{Code11} (listes issues du Webhook~2, \texttt{username}, \texttt{utilisateur} ou \texttt{Inconnu})}
+			\label{fig:webhook3-code11-input}
+		\end{figure}
+	}{}
 	
-	\noindent\underline{\textbf{Référence :} Reeves, B. \& Nass, C. (1996). \textit{The Media Equation: How People Treat Computers, Television, and New Media Like Real People and Places}. Cambridge University Press.}
+	\subsubsection{Génération de l'introduction et sortie JSON}
+	
+	L'\textbf{AI Agent} (modèle Google Gemini via n8n) produit une réponse structurée
+	exploitée par le robot et l'interface~:
+	\begin{itemize}
+		\item \texttt{parole\_du\_robot} --- texte d'introduction à prononcer (ton amical,
+		référence au prénom si connu, reprise des thèmes mémorisés) ;
+		\item \texttt{emotion\_visuelle} --- indication d'affichage (ex. \emph{Clin d'œil}).
+	\end{itemize}
+	
+	Exemple pour un utilisateur reconnu (\texttt{Oussema})~: \emph{«\,Salut Oussema !
+	T'inquiète, je t'ai pas zappé, même si tu testes ma mémoire H24. Alors, on se fait
+	un petit défi pour voir qui a la meilleure aujourd'hui ?\,»} avec
+	\texttt{emotion\_visuelle = Clin d'œil} (figure~\ref{fig:webhook3-output-parole}).
+	
+	\IfFileExists{public/webhook3-output-parole.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.92\textwidth]{public/webhook3-output-parole.png}
+			\caption{Webhook~3 --- sortie JSON (\texttt{parole\_du\_robot}, \texttt{emotion\_visuelle})}
+			\label{fig:webhook3-output-parole}
+		\end{figure}
+	}{}
+	
+	\subsubsection{Diagramme de séquence du Webhook 3}
+	
+	La figure~\ref{fig:webhook3-sequence} synthétise le flux~: détection backend,
+	lecture mémoire long terme (Webhook~2), structuration \textit{Code11}, génération
+	par l'\textbf{AI Agent} et réponse au robot.
+	Source PlantUML~: \texttt{plantuml/koda-webhook3-spontaneite-sequence.puml}.
+	
+	\IfFileExists{public/koda_webhook3_spontaneite_sequence.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/koda_webhook3_spontaneite_sequence.png}
+			\caption{Webhook~3 --- diagramme de séquence (introduction de parole et mémoire Flux~2)}
+			\label{fig:webhook3-sequence}
+		\end{figure}
+	}{}
+	
+	\subsubsection{Conclusion du Webhook 3}
+	
+	Le troisième flux complète la chaîne cognitive~: le Webhook~1 répond aux questions,
+	le Webhook~2 consolide la mémoire, le Webhook~3 \textbf{initie la relation} en
+	parlant d'abord, avec un contenu qui s'appuie systématiquement sur les synthèses
+	journalières. La distinction \textbf{nom connu} / \textbf{unkonu} permet d'adapter
+	l'accueil (personnalisation versus invitation à se présenter), tout en conservant
+	une expérience cohérente avec la personnalité de KODA.
+	
+	\noindent\underline{\textbf{Référence :} Reeves, B. \& Nass, C. (1996). \textit{The Media Equation}. Cambridge University Press.}
 	
 	%----------------------------------------------------------------
 	\section{Vue Générale du Cycle 1}
@@ -2421,10 +2617,14 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		\label{tab:correspondance_cognitive}
 	\end{table}
 	\vspace{0.5em}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/ducc1.png}
-		\captionof{figure}{ Diagramme de use case du 1er cycle}
-	\end{center}
+	\IfFileExists{public/ducc1.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.95\textwidth]{public/ducc1.png}
+			\caption{Cycle~1 --- diagramme de cas d'utilisation (trois webhooks et blocs associés)}
+			\label{fig:ducc1-cycle1}
+		\end{figure}
+	}{}
 	
 	% ----------------------------------------------------------------
 	% IMAGE À INSÉRER : Architecture cognitive globale de KODA
@@ -2439,11 +2639,22 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	%----------------------------------------------------------------
 	
-	Ce chapitre a présenté l'architecture cognitive de KODA, structurée autour de trois webhooks complémentaires orchestrés par la plateforme n8n. Chaque composant trouve sa justification dans des principes issus des sciences cognitives et de l'intelligence artificielle.
+	Ce chapitre a présenté l'architecture cognitive de KODA, structurée autour de trois
+	webhooks complémentaires orchestrés par la plateforme n8n, en s'appuyant sur la
+	théorie du double traitement, OpenRouter (Block~3), SerpAPI (Block~1, branche musique)
+	et PostgreSQL pour la persistance.
 	
-	Le \textbf{Webhook 1} assure le traitement en temps réel des questions, avec une optimisation par vérification de l'historique (Block 2) et une classification intelligente qui adapte le niveau de traitement à la nature de chaque requête. Le \textbf{Webhook 2} reproduit la consolidation nocturne du cerveau humain, en générant chaque nuit des fiches de synthèse personnalisées qui enrichissent progressivement la mémoire à long terme de KODA. Le \textbf{Webhook 3} confère au robot une dimension proactive et sociale, lui permettant d'initier des interactions personnalisées dès la détection d'un utilisateur.
+	Le \textbf{Webhook~1} (six blocs) assure le traitement en temps réel~: garde-fous et
+	routage (Block~1), cache historique (Block~2), classification (Block~3), identité
+	(Block~4), réponse contextualisée (Block~5), puis notes et mémoire (Block~6).
+	Le \textbf{Webhook~2}, déclenché par le \textbf{backend}, consolide la journée en
+	fiches \texttt{accompagnement}. Le \textbf{Webhook~3} produit l'introduction de parole
+	(\texttt{parole\_du\_robot}, \texttt{emotion\_visuelle}) à partir de ces synthèses.
 	
-	Ensemble, ces trois mécanismes — réactif, mémoriel et proactif — forment la fondation de l'expérience utilisateur unique que KODA ambitionne d'offrir : celle d'un compagnon intelligent, attentionné et toujours présent.
+	Ensemble, ces mécanismes — réactif, mémoriel et proactif — constituent le socle du
+	Cycle~1. Le \textbf{chapitre suivant} (Cycle~2 --- Distributeur de services) décrit
+	comment le backend Python relie ce moteur n8n au robot, à l'application mobile et aux
+	services cloud (Azure, Supabase).
 	%================================================================
 	\chapter{Cycle 2 : Distributeur de Services}
 	\chaptermark{Cycle 2 — Distributeur de Services}

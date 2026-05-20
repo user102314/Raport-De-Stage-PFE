@@ -1,0 +1,23 @@
+@startuml koda_webhook3_spontaneite_sequence
+title Webhook 3 — Introduction de parole
+
+skinparam sequenceMessageAlign center
+skinparam ParticipantPadding 8
+skinparam maxMessageSize 120
+
+actor "Backend" as Backend
+participant "Webhook 3" as WH
+database "PostgreSQL" as DB
+participant "Code11" as Code
+participant "AI Agent" as AI
+
+Backend -> WH : username\n(connu ou unkonu)
+WH -> DB : Fiches Webhook 2\n(accompagnement)
+DB --> WH : interets, synthese,\nconseils, acteur
+WH -> Code : Listes + utilisateur
+Code --> WH : Contexte structuré
+WH -> AI : Génération introduction\n(nom connu / Inconnu)
+AI --> WH : parole_du_robot,\nemotion_visuelle
+WH --> Backend : Réponse JSON
+
+@enduml

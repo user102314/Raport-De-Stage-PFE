@@ -1,0 +1,59 @@
+@startuml koda_webhook2_synthese_sequence
+title Webhook 2 — Synthèse journalière (consolidation nocturne)
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 14
+
+actor "Backend\n(trigger planifié)" as Backend
+participant "Webhook 2\n(déclencheur)" as WH
+database "PostgreSQL" as DB
+participant "Code\n(Data Received,\nStructuration,\nResponse)" as Code
+participant "AI Agent\nMod Thinking\nWhen Koda Sleep" as AI
+participant "Google Gemini\n(via n8n)" as LLM
+
+note over Backend, WH
+  Déclenché par le backend (trigger) :
+  consolidation nocturne des échanges
+end note
+
+Backend -> WH : Appel HTTP (trigger backend)
+
+WH -> DB : Get ID USER\n(liste des utilisateurs actifs)
+DB --> WH : iduser, identifiants
+
+WH -> DB : GetAll Data 1\n(contexte profil / paramètres KODA)
+DB --> WH : Données agrégées (1 item)
+
+WH -> Code : Data Received\n(normalisation JSON)
+
+WH -> DB : GetAll Data 2\n(conversations du jour,\ninfos personnelles…)
+DB --> WH : N échanges (ex. 14 items)
+
+WH -> Code : Structuration\n(prompt consolidé par utilisateur)
+Code --> WH : Contexte structuré (1 item)
+
+WH -> AI : Mod Thinking When Koda Sleep
+AI -> LLM : Analyse et synthèse\n(4 dimensions)
+LLM --> AI : Texte structuré
+AI --> WH : Fiche journalière
+
+WH -> Code : Response\n(parsing champs)
+Code --> WH : interets, synthese,\npoint_cles, conseils
+
+WH -> DB : Insertion des données\n(table accompagnement)
+DB --> WH : OK
+
+note over DB
+  Mémoire long terme :
+  interets, synthese,
+  point_cles, conseils
+  (liés à iduser)
+end note
+
+note right of WH
+  Alimente le Webhook 1 (contexte)
+  et le Webhook 3 (spontanéité)
+end note
+
+@enduml
