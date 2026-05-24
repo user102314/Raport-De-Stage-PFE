@@ -1,0 +1,46 @@
+@startuml
+title Cycle 4 - Cas d'utilisation logiciel Raspberry Pi
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam shadowing false
+
+actor "Utilisateur" as U
+actor "Backend FastAPI" as API
+actor "Technicien /\nequipe projet" as TECH
+
+rectangle "Logiciel embarque Raspberry Pi" as SYS {
+  usecase "Demarrer KODA\npython -m app.main" as UC_BOOT
+  usecase "Verifier le materiel\nau boot" as UC_CHECK
+  usecase "Detecter le mot reveil\nlocalement" as UC_WAKE
+  usecase "Orienter le robot\nvers la voix" as UC_DOA
+  usecase "Ecouter une question\njusqu'au silence" as UC_LISTEN
+  usecase "Envoyer l'audio\nau backend" as UC_BACKEND
+  usecase "Executer une action\ntexte / musique /\nmouvement / sommeil" as UC_ACTION
+  usecase "Afficher une expression\nsur Nextion" as UC_FACE
+  usecase "Commander Arduino\npar USB serie" as UC_MOTION
+  usecase "Arreter proprement\nles adaptateurs" as UC_STOP
+}
+
+U --> UC_WAKE
+U --> UC_LISTEN
+U --> UC_ACTION
+API --> UC_BACKEND
+TECH --> UC_BOOT
+TECH --> UC_CHECK
+TECH --> UC_STOP
+
+UC_BOOT ..> UC_CHECK : <<include>>
+UC_WAKE ..> UC_DOA : <<include>>
+UC_LISTEN ..> UC_BACKEND : <<include>>
+UC_BACKEND ..> UC_ACTION : <<include>>
+UC_ACTION ..> UC_FACE : <<include>>
+UC_ACTION ..> UC_MOTION : <<extend>>
+
+note bottom of UC_ACTION
+  La decision vient du backend :
+  action=text, music, motion, sleep ou error.
+end note
+
+@enduml

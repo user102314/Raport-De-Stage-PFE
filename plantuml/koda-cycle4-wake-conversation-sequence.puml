@@ -1,0 +1,54 @@
+@startuml
+title Cycle 4 - Sequence wake word, ecoute et reponse
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 10
+skinparam shadowing false
+
+actor "Utilisateur" as U
+participant "WakeWordService\n(Vosk)" as WAKE
+participant "DOAReader" as DOA
+participant "MotionService" as MOTION
+participant "SpeechService" as SPEECH
+participant "ContinuousListener\n(VAD)" as LISTENER
+participant "ConversationService" as CONV
+participant "BackendClient" as API
+participant "DisplayService" as DISPLAY
+participant "AudioOutput" as OUT
+
+U -> WAKE : prononce le mot reveil
+activate WAKE
+WAKE -> WAKE : stream PCM + match keywords
+WAKE --> CONV : WakeMatch
+deactivate WAKE
+
+CONV -> DISPLAY : SURPRISED
+CONV -> DOA : lire angle voix
+DOA --> CONV : angle brut
+CONV -> MOTION : rotate_by_angle(angle)
+CONV -> SPEECH : salutation
+SPEECH -> OUT : lecture WAV
+
+CONV -> DISPLAY : THINKING
+U -> LISTENER : pose la question
+LISTENER -> LISTENER : enregistrement jusqu'au silence
+LISTENER --> CONV : audio WAV
+
+CONV -> API : POST /api/audio/speech-to-action
+activate API
+API --> CONV : ActionResult\n(action + audio_b64)
+deactivate API
+
+CONV -> CONV : dispatch action
+CONV -> DISPLAY : expression adaptee
+CONV -> OUT : reponse audio
+
+loop tours de suivi
+  CONV -> DOA : reorientation courte
+  CONV -> LISTENER : ecoute nouvelle question
+end
+
+CONV -> DISPLAY : resume_idle()
+
+@enduml

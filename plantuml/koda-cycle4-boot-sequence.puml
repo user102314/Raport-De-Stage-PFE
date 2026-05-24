@@ -1,0 +1,50 @@
+@startuml
+title Cycle 4 - Sequence de demarrage et diagnostic materiel
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 12
+skinparam shadowing false
+
+actor "Technicien" as TECH
+participant "python -m app.main" as MAIN
+participant "load_config()" as CONFIG
+participant "run_full_check()" as CHECK
+participant "Adapters" as ADAPT
+participant "BackendClient" as API
+participant "Services" as SERVICES
+
+TECH -> MAIN : lancer le robot
+activate MAIN
+MAIN -> CONFIG : lire variables d'environnement
+CONFIG --> MAIN : AppConfig
+
+MAIN -> CHECK : lancer checks paralleles
+activate CHECK
+CHECK -> CHECK : mic, camera, nextion,\narduino, bluetooth,\naudio, system
+CHECK --> MAIN : statuts detectes / absents
+deactivate CHECK
+
+MAIN -> ADAPT : construire adapters
+activate ADAPT
+ADAPT --> MAIN : instances pretes
+deactivate ADAPT
+
+MAIN -> ADAPT : ouvrir Nextion + Arduino
+ADAPT --> MAIN : succes ou mode degrade
+
+MAIN -> API : start() + health()
+activate API
+API --> MAIN : backend joignable ou warning
+deactivate API
+
+MAIN -> SERVICES : construire display, motion,\nspeech, listener, music,\nconversation, wake word
+activate SERVICES
+SERVICES --> MAIN : services initialises
+deactivate SERVICES
+
+MAIN -> MAIN : afficher visage idle\nhello si Arduino ouvert
+MAIN --> TECH : KODA online
+deactivate MAIN
+
+@enduml

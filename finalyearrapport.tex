@@ -43,9 +43,13 @@ headheight=14pt
 %----------------------------------------------------------------
 \usepackage{xcolor}
 \usepackage{graphicx}
+<<<<<<< Updated upstream
 % Pas de flottants pour les figures KODA (\kodafigure) ; \FloatBarrier = no-op sans placeins
 \newcommand{\FloatBarrier}{}
 
+=======
+\usepackage{float}               % Fournit l'option [H] pour figures/tables ancrees
+>>>>>>> Stashed changes
 \makeatletter
 \newcommand{\nonfloatingfigure}[3]{%
   \vspace{\intextsep}
@@ -196,7 +200,49 @@ headheight=14pt
 % Boites colorees (tcolorbox)
 %----------------------------------------------------------------
 \usepackage{tcolorbox}
-\tcbuselibrary{skins, breakable}
+\tcbuselibrary{skins, breakable, listings}
+
+%----------------------------------------------------------------
+% Code de test (snippets shell / Python / Arduino)
+%----------------------------------------------------------------
+\usepackage{listings}
+\definecolor{kodaCodeBg}{HTML}{F5F7FA}
+\definecolor{kodaCodeFrame}{HTML}{B0BEC5}
+\definecolor{kodaCodeKw}{HTML}{1565C0}
+\definecolor{kodaCodeComment}{HTML}{616161}
+\definecolor{kodaCodeString}{HTML}{2E7D32}
+\lstdefinestyle{kodatest}{
+	basicstyle=\ttfamily\footnotesize,
+	backgroundcolor=\color{kodaCodeBg},
+	frame=single,
+	framerule=0.4pt,
+	rulecolor=\color{kodaCodeFrame},
+	numbers=none,
+	showstringspaces=false,
+	breaklines=true,
+	keywordstyle=\color{kodaCodeKw}\bfseries,
+	commentstyle=\color{kodaCodeComment}\itshape,
+	stringstyle=\color{kodaCodeString},
+	captionpos=b,
+	aboveskip=0.4em,
+	belowskip=0.4em,
+	xleftmargin=8pt,
+	xrightmargin=8pt,
+	inputencoding=utf8,
+	extendedchars=true,
+	literate=%
+		{é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1
+		{à}{{\`a}}1 {â}{{\^a}}1 {ç}{{\c c}}1
+		{î}{{\^\i}}1 {ï}{{\"\i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+		{ù}{{\`u}}1 {É}{{\'E}}1 {È}{{\`E}}1 {’}{{'}}1 {→}{{$\rightarrow$}}1,
+}
+\lstdefinelanguage{shellkoda}{
+	morekeywords={sudo, apt, install, arecord, aplay, paplay, bluetoothctl, scan, connect, trust, pair, rpicam-still, rpicam-hello, libcamera-still, vcgencmd, python, python3, scp, ssh, cat, echo, ls, cd, grep, curl, uvicorn, screen, dmesg, lsusb, raspi-config},
+	morecomment=[l]{\#},
+	morestring=[b]",
+	morestring=[b]',
+	sensitive=true,
+}
 
 \newtcolorbox{ucbox}[1]{
 	enhanced, breakable,
@@ -2776,7 +2822,18 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 		intégrant mobilité, interaction vocale, vision et expression faciale,
 		prête à accueillir la couche logicielle embarquée du Cycle~4.
 	\end{tcolorbox}
-	
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/robot_reel.jpeg}{%
+			\includegraphics[width=0.75\textwidth]{public/robot_reel.jpeg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/robot\_reel.jpeg}}}
+		}
+		\caption{Prototype physique KODA après impression 3D et montage}
+		\label{fig:ch3-robot-reel}
+	\end{figure}
+
 	%------------------------------------------------------------------
 	\section{Architecture Matérielle Globale}
 	%------------------------------------------------------------------
@@ -2861,7 +2918,7 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 		\item \textbf{Base}~: châssis à chenilles pour la mobilité (moteurs M1/M3).
 	\end{itemize}
 	
-	\begin{figure}[htbp]
+	\begin{figure}[H]
 		\centering
 		\IfFileExists{public/conception3d.png}{%
 			\includegraphics[width=0.92\textwidth]{public/conception3d.png}
@@ -2870,17 +2927,6 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 		}
 		\caption{Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}
 		\label{fig:ch3-conception3d}
-	\end{figure}
-	
-	\begin{figure}[htbp]
-		\centering
-		\IfFileExists{public/robot_reel.jpeg}{%
-			\includegraphics[width=0.75\textwidth]{public/robot_reel.jpeg}
-		}{%
-			\fbox{\textit{Figure manquante~: \texttt{public/robot\_reel.jpeg}}}
-		}
-		\caption{Prototype physique KODA après impression 3D et montage}
-		\label{fig:ch3-robot-reel}
 	\end{figure}
 	
 	%------------------------------------------------------------------
@@ -2910,7 +2956,18 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 		\item \textbf{Commande de l'Arduino}~: envoi d'instructions de mouvement via
 		la liaison série USB.
 	\end{itemize}
-	
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/raspberry.jpg}{%
+			\includegraphics[width=0.55\textwidth]{public/raspberry.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/raspberry.jpg}}}
+		}
+		\caption{Raspberry Pi 4 Model B utilisé comme unité centrale de KODA}
+		\label{fig:ch3-raspberry}
+	\end{figure}
+
 	\begin{table}[htbp]
 		\centering
 		\caption{Spécifications techniques du Raspberry Pi 4 Model B}
@@ -2946,7 +3003,7 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 	ATmega328P, cadencé à 16~MHz. Il est couplé au \textbf{Shield L293D},
 	un circuit intégré de pilotage moteur (\textit{motor driver}) qui permet de
 	contrôler simultanément jusqu'à 4~moteurs DC et 2~servomoteurs.
-	
+
 	Dans KODA, l'Arduino reçoit ses instructions du Raspberry Pi via une
 	\textbf{liaison série USB} et pilote~:
 	\begin{itemize}
@@ -2963,7 +3020,29 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 	Le Shield L293D est alimenté indépendamment par \textbf{3~piles lithium
 	de 3{,}7~V} connectées en série, fournissant une tension nominale d'environ
 	11{,}1~V nécessaire au fonctionnement des moteurs DC sous charge.
-	
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/arduino.jpg}{%
+			\includegraphics[width=0.55\textwidth]{public/arduino.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/arduino.jpg}}}
+		}
+		\caption{Carte Arduino Uno (microcontrôleur ATmega328P à 16~MHz)}
+		\label{fig:ch3-arduino}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/l293d.jpg}{%
+			\includegraphics[width=0.55\textwidth]{public/l293d.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/l293d.jpg}}}
+		}
+		\caption{Shield L293D empilé sur l'Arduino Uno (commande des moteurs DC et servomoteurs)}
+		\label{fig:ch3-l293d}
+	\end{figure}
+
 	%--- Actionneurs ---
 	\subsection{Système d'Actionneurs}
 	
@@ -2974,8 +3053,19 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 	indépendamment la vitesse et le sens de rotation de chaque moteur, le robot
 	peut avancer, reculer, tourner à gauche ou à droite. Ce principe simple
 	et éprouvé est largement utilisé en robotique mobile (figure~\ref{fig:ch3-traction-diff}).
-	
-	\begin{figure}[htbp]
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/moteur.jpg}{%
+			\includegraphics[width=0.5\textwidth]{public/moteur.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/moteur.jpg}}}
+		}
+		\caption{Moteur DC utilisé pour la mobilité du robot (bornes M1 et M3 du shield)}
+		\label{fig:ch3-moteur-dc}
+	\end{figure}
+
+	\begin{figure}[H]
 		\centering
 		\IfFileExists{public/ch3-traction-differentielle.png}{%
 			\includegraphics[width=0.85\textwidth]{public/ch3-traction-differentielle.png}
@@ -2987,7 +3077,7 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 		\caption{Principe de traction différentielle — moteurs M1 et M3}
 		\label{fig:ch3-traction-diff}
 	\end{figure}
-	
+
 	\subsubsection{Servomoteurs --- Articulations}
 	
 	Les trois servomoteurs offrent à KODA des capacités d'\textbf{expression
@@ -3000,7 +3090,18 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 		l'\textbf{écran Nextion} (visage animé). La \textbf{caméra} est fixée sur le
 		\textbf{châssis} (corps) du robot et ne suit pas ce mouvement.
 	\end{itemize}
-	
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/servo.jpg}{%
+			\includegraphics[width=0.5\textwidth]{public/servo.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/servo.jpg}}}
+		}
+		\caption{Servomoteur utilisé pour les articulations (bras S1/S2 et rotation Nextion S3)}
+		\label{fig:ch3-servo}
+	\end{figure}
+
 	%--- Audio ---
 	\subsection{Système Audio}
 	
@@ -3019,8 +3120,22 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 		(fixée sur le corps) permet la détection du visage
 		(figure~\ref{fig:ch3-schema-doa}).
 	\end{itemize}
-	
-	\begin{figure}[htbp]
+
+	Le ReSpeaker est connecté au Raspberry Pi via un \textbf{port USB} et est
+	reconnu comme un périphérique audio standard sous Linux.
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/mic.jpg}{%
+			\includegraphics[width=0.55\textwidth]{public/mic.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/mic.jpg}}}
+		}
+		\caption{ReSpeaker 4-Mic Array USB : quatre microphones MEMS pour capture omnidirectionnelle et détection de direction (DOA)}
+		\label{fig:ch3-respeaker}
+	\end{figure}
+
+	\begin{figure}[H]
 		\centering
 		\IfFileExists{public/ch3-schema-doa.png}{%
 			\includegraphics[width=0.88\textwidth]{public/ch3-schema-doa.png}
@@ -3032,10 +3147,7 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 		\caption{Enchaînement conceptuel~: DOA (micro) $\rightarrow$ rotation du robot (M1, M3) $\rightarrow$ caméra (torse)}
 		\label{fig:ch3-schema-doa}
 	\end{figure}
-	
-	Le ReSpeaker est connecté au Raspberry Pi via un \textbf{port USB} et est
-	reconnu comme un périphérique audio standard sous Linux.
-	
+
 	\subsubsection{Sortie Audio~: double chaîne (jack filaire et Bluetooth)}
 	
 	KODA dispose de \textbf{deux modes de restitution} de la parole, tous deux
@@ -3053,7 +3165,29 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 	
 	Le choix entre les deux dépend du contexte de démonstration~; la couche
 	logicielle (Cycle~4) sélectionnera la carte audio ALSA appropriée.
-	
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/pam8403.jpg}{%
+			\includegraphics[width=0.5\textwidth]{public/pam8403.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/pam8403.jpg}}}
+		}
+		\caption{Amplificateur audio PAM8403 (chaîne filaire entre la sortie jack du Pi et les haut-parleurs)}
+		\label{fig:ch3-pam8403}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/hauteparleurs.jpg}{%
+			\includegraphics[width=0.5\textwidth]{public/hauteparleurs.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/hauteparleurs.jpg}}}
+		}
+		\caption{Paire de haut-parleurs gauche/droite alimentés par le PAM8403}
+		\label{fig:ch3-hauteparleurs}
+	\end{figure}
+
 	%--- Vision ---
 	\subsection{Système de Vision~: Caméra Raspberry Pi}
 	
@@ -3065,7 +3199,18 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 	éclairage, cadrage) est concernée dans ce cycle. L'envoi des images vers
 	le serveur distant et le traitement logiciel seront détaillés au
 	\textbf{Cycle~4}.
-	
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/camera.jpg}{%
+			\includegraphics[width=0.45\textwidth]{public/camera.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/camera.jpg}}}
+		}
+		\caption{Caméra Raspberry Pi connectée au port CSI (acquisition d'images pour l'identification visuelle)}
+		\label{fig:ch3-camera}
+	\end{figure}
+
 	%--- Nextion ---
 	\subsection{Interface d'Expression Faciale~: Nextion NX4832T035\_011}
 	
@@ -3087,7 +3232,18 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 	Ce câblage UART permet au Pi d'animer le \textbf{visage} de KODA sans
 	surcharger le bus USB, tout en gardant une interface visuelle dédiée à
 	l'interaction humaine.
-	
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/ecran.jpg}{%
+			\includegraphics[width=0.55\textwidth]{public/ecran.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/ecran.jpg}}}
+		}
+		\caption{Écran Nextion NX4832T035\_011 (3{,}5\textquotedbl) affichant le visage animé de KODA}
+		\label{fig:ch3-nextion}
+	\end{figure}
+
 	%--- Alimentation ---
 	\subsection{Système d'Alimentation}
 	
@@ -3115,7 +3271,29 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 	Cette séparation protège le Raspberry Pi contre les perturbations
 	électromagnétiques et les chutes de tension provoquées par les appels
 	de courant des moteurs.
-	
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/powerbank.jpg}{%
+			\includegraphics[width=0.5\textwidth]{public/powerbank.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/powerbank.jpg}}}
+		}
+		\caption{Power Bank 5\,V / 3\,A alimentant le Raspberry Pi (chaîne logique)}
+		\label{fig:ch3-powerbank}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\IfFileExists{public/piles.jpg}{%
+			\includegraphics[width=0.5\textwidth]{public/piles.jpg}
+		}{%
+			\fbox{\textit{Figure manquante~: \texttt{public/piles.jpg}}}
+		}
+		\caption{3 piles lithium 3{,}7\,V en série (11{,}1\,V total) alimentant le Shield L293D et les moteurs}
+		\label{fig:ch3-piles}
+	\end{figure}
+
 	%------------------------------------------------------------------
 	\section{Schéma de Câblage Global}
 	%------------------------------------------------------------------
@@ -3246,7 +3424,159 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 		\end{tabularx}
 		\normalsize
 	\end{table}
-	
+
+	\subsection{Commandes de test par composant}
+
+	Chaque composant a été vérifié avec une commande courte exécutée directement
+	depuis le Raspberry Pi (\textit{shell} ou \textit{Python}), ou via un mini-script
+	côté Arduino. Les extraits ci-dessous donnent la procédure exacte employée pour
+	confirmer le bon fonctionnement.
+
+	\paragraph{Power Bank + Raspberry Pi.}
+	On vérifie qu'aucun \textit{brown-out} (chute de tension) n'a été détecté par
+	le firmware du Pi après mise sous tension.
+
+\begin{lstlisting}[style=kodatest, language=shellkoda, caption={Diagnostic alimentation \texttt{vcgencmd}}]
+# Doit retourner 0x0 ; tout bit non nul indique under-voltage ou throttling.
+vcgencmd get_throttled
+# Tension sur le rail 5V (volts) :
+vcgencmd measure_volts core
+\end{lstlisting}
+
+	\paragraph{ReSpeaker 4-Mic Array USB.}
+	Test en deux temps~: enregistrement audio brut via ALSA/PipeWire, puis lecture
+	de l'angle de provenance du son (\textit{DOA}) via le registre interne du
+	microcontrôleur XMOS du ReSpeaker.
+
+\begin{lstlisting}[style=kodatest, language=shellkoda, caption={Enregistrement 5\,s et lecture du DOA}]
+# 1. Enregistrer 5 s en mono 16 kHz S16_LE (format attendu par Vosk/Azure STT)
+arecord -D pipewire -f S16_LE -r 16000 -c 1 -d 5 /tmp/test_mic.wav
+aplay  /tmp/test_mic.wav   # ecoute de controle
+
+# 2. Detection de la Direction of Arrival (DOA) via tuning.py de Seeed
+python3 -c "from usb_4_mic_array.tuning import Tuning; import usb.core; \
+dev=usb.core.find(idVendor=0x2886, idProduct=0x0018); \
+t=Tuning(dev); print('DOA =', t.direction, 'deg')"
+\end{lstlisting}
+
+	\paragraph{Sortie jack + amplificateur PAM8403.}
+	On lit un signal sinusoïdal stéréo connu pour vérifier les deux canaux
+	(gauche/droite) de l'amplificateur et des haut-parleurs.
+
+\begin{lstlisting}[style=kodatest, language=shellkoda, caption={Lecture d'un son test stereo}]
+# Son systeme livre avec alsa-utils : "Front Center" annonce L puis R
+aplay /usr/share/sounds/alsa/Front_Center.wav
+aplay /usr/share/sounds/alsa/Front_Left.wav
+aplay /usr/share/sounds/alsa/Front_Right.wav
+\end{lstlisting}
+
+	\paragraph{Sortie Bluetooth.}
+	Appairage du haut-parleur Bluetooth puis lecture d'un WAV via le serveur audio
+	PipeWire (qui route vers le sink \texttt{bluez\_output.<MAC>.a2dp-sink}).
+
+\begin{lstlisting}[style=kodatest, language=shellkoda, caption={Appairage et lecture sur HP Bluetooth}]
+# Appairage initial (a faire une seule fois)
+bluetoothctl power on
+bluetoothctl pair    AD:1C:99:E7:9B:78
+bluetoothctl trust   AD:1C:99:E7:9B:78
+bluetoothctl connect AD:1C:99:E7:9B:78
+
+# Lecture vers le sink Bluetooth
+paplay --device=bluez_output.AD_1C_99_E7_9B_78.a2dp-sink /tmp/test_mic.wav
+\end{lstlisting}
+
+	\paragraph{Caméra Raspberry Pi (CSI).}
+	Capture d'une image fixe avec l'utilitaire \texttt{rpicam-still} et contrôle
+	visuel du fichier produit.
+
+\begin{lstlisting}[style=kodatest, language=shellkoda, caption={Capture d'une image avec rpicam-still}]
+# Capture une photo en 1920x1080 apres 2 s d'autofocus
+rpicam-still --width 1920 --height 1080 -t 2000 -o /tmp/test_cam.jpg
+
+# Verifier le fichier (taille typique : > 200 Ko si l'image est nette)
+ls -lh /tmp/test_cam.jpg
+\end{lstlisting}
+
+	\paragraph{Écran Nextion (UART).}
+	Envoi d'une commande \texttt{page} via la liaison série \texttt{/dev/serial0}
+	(GPIO 14/15 du Pi). Chaque commande Nextion se termine par trois octets
+	\texttt{0xFF}.
+
+\begin{lstlisting}[style=kodatest, language=Python, caption={Changer la page affichee par le Nextion}]
+import serial
+ser = serial.Serial("/dev/serial0", baudrate=9600, timeout=1)
+# Trois 0xFF marquent la fin de chaque instruction Nextion
+END = b"\xff\xff\xff"
+ser.write(b"page 2" + END)        # bascule sur l'expression "joyeux"
+ser.write(b"t0.txt=\"Hello\"" + END)
+ser.close()
+\end{lstlisting}
+
+	\paragraph{Arduino + Shield L293D (commande série USB).}
+	Le sketch Arduino lit un octet sur le port série~; le Pi envoie un caractère
+	pour déclencher un mouvement (\texttt{F}~=~forward, \texttt{B}~=~backward,
+	\texttt{S}~=~stop). On vérifie ici le canal de communication uniquement.
+
+\begin{lstlisting}[style=kodatest, language=Python, caption={Envoi d'une commande au sketch Arduino}]
+import serial, time
+ard = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=2)
+time.sleep(2)                # laisser l'Arduino rebooter apres ouverture du port
+ard.write(b"F")              # forward 1 s puis stop
+time.sleep(1)
+ard.write(b"S")
+print(ard.readline().decode(errors="replace").strip())   # ACK eventuel
+ard.close()
+\end{lstlisting}
+
+	\paragraph{Moteurs DC (M1, M3).}
+	Extrait du sketch Arduino utilisant la bibliothèque \texttt{AFMotor} (Adafruit
+	Motor Shield v1, équivalent L293D). Ce \textit{loop} fait avancer puis reculer
+	le robot pendant une seconde dans chaque sens.
+
+\begin{lstlisting}[style=kodatest, language=C++, caption={Test des moteurs M1 et M3 (Arduino + L293D)}]
+#include <AFMotor.h>
+AF_DCMotor m1(1);   // borne M1
+AF_DCMotor m3(3);   // borne M3
+void setup() {
+  m1.setSpeed(200); m3.setSpeed(200);   // 0-255
+}
+void loop() {
+  m1.run(FORWARD);  m3.run(FORWARD);  delay(1000);
+  m1.run(BACKWARD); m3.run(BACKWARD); delay(1000);
+  m1.run(RELEASE);  m3.run(RELEASE);  delay(2000);
+}
+\end{lstlisting}
+
+	\paragraph{Servomoteurs (S1, S2, S3).}
+	Balayage de l'angle minimum au maximum pour les trois servomoteurs branchés
+	sur les broches \texttt{Servo\_1}, \texttt{Servo\_2} et \texttt{Servo\_3} du
+	shield L293D.
+
+\begin{lstlisting}[style=kodatest, language=C++, caption={Balayage des trois servomoteurs}]
+#include <Servo.h>
+Servo s1, s2, s3;   // bras droit, bras gauche, tete (Nextion)
+void setup() {
+  s1.attach(9);  s2.attach(10); s3.attach(11);
+}
+void loop() {
+  for (int a = 0; a <= 180; a += 5) {
+    s1.write(a); s2.write(180 - a); s3.write(a / 2);
+    delay(30);
+  }
+}
+\end{lstlisting}
+
+	\paragraph{Alimentation 3~piles 3{,}7\,V (Vin shield).}
+	Mesure au multimètre sur les bornes Vin du Shield L293D, sous charge (moteurs
+	en rotation). La tension doit rester stable autour de 11\,V.
+
+\begin{lstlisting}[style=kodatest, language=shellkoda, caption={Procedure de mesure (notes oscilloscope/multimetre)}]
+# Aucune commande logicielle : mesure physique au multimetre.
+#  - A vide       : ~12.4 V sur Vin du shield
+#  - Sous charge  : ~11.0 V (chute typique d'environ 1 V due au courant moteurs)
+# Si la tension chute sous 9 V -> recharger ou remplacer les piles.
+\end{lstlisting}
+
 	\subsection{Test d'intégration matérielle}
 	
 	Le \textbf{test complet} consiste à alimenter l'ensemble, vérifier que le Pi
@@ -3283,4 +3613,511 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 		\end{itemize}
 	\end{tcolorbox}
 
+<<<<<<< Updated upstream
+=======
+	%================================================================
+	%  CHAPITRE VI : Cycle 4 --- Système Embarqué, Partie Logicielle
+	%================================================================
+	\chapter{Cycle 4 : Système Embarqué --- Partie Logicielle Raspberry Pi}
+	\chaptermark{Cycle 4 --- Logiciel Raspberry Pi}
+	
+	%------------------------------------------------------------------
+	\section{Introduction}
+	%------------------------------------------------------------------
+	
+	Le \textbf{Cycle~3} a validé la plateforme matérielle de KODA : Raspberry Pi,
+	Arduino, ReSpeaker, écran Nextion, caméra, sortie audio et alimentation. Le
+	\textbf{Cycle~4} transforme cette plateforme physique en un robot capable de
+	réagir en continu, de dialoguer et d'exécuter les décisions produites par le
+	Distributeur de Services et le moteur n8n.
+	
+	Ce chapitre présente donc la \textbf{partie logicielle embarquée Raspberry Pi}.
+	Le programme principal est lancé par la commande \texttt{python -m app.main} et
+	repose sur une architecture Python \textbf{asynchrone}, organisée autour de
+	services de haut niveau et d'adaptateurs matériels. Le Raspberry Pi n'est pas
+	le cerveau conversationnel complet de KODA ; il joue plutôt le rôle de
+	\textbf{corps opérationnel} : il écoute, s'oriente vers la voix, capture la
+	question, communique avec le backend, affiche une expression, prononce la
+	réponse et transmet les mouvements à l'Arduino.
+	
+	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black,
+		title=\textbf{Objectif du Cycle 4}]
+		Implémenter et valider le logiciel embarqué du Raspberry Pi afin de relier
+		les composants matériels du robot au backend FastAPI : écoute vocale,
+		mot de réveil, orientation par DOA, capture de question, affichage Nextion,
+		lecture audio, commandes Arduino USB et arrêt propre du système.
+	\end{tcolorbox}
+	
+	%------------------------------------------------------------------
+	\section{Architecture logicielle globale}
+	%------------------------------------------------------------------
+	
+	Le logiciel Raspberry Pi est conçu comme une couche d'orchestration locale.
+	Il démarre les adaptateurs matériels, vérifie les dépendances au boot, puis
+	exécute une boucle principale qui alterne entre un mode \textbf{passif}
+	(attente du mot de réveil) et un mode \textbf{actif} (conversation avec
+	l'utilisateur). Les traitements lourds de compréhension, de décision et de
+	synthèse vocale restent délégués au \textbf{Distributeur FastAPI}, qui relaie
+	l'information vers n8n, Supabase et les services cloud.
+	
+	L'architecture suit quatre niveaux :
+	\begin{itemize}
+		\item \textbf{Point d'entrée} : \texttt{app.main}, responsable du démarrage,
+		du diagnostic, de l'instanciation des services, de la boucle principale et
+		de l'arrêt propre.
+		\item \textbf{Configuration} : \texttt{app.config}, qui centralise les
+		variables dépendantes du robot (\texttt{BACKEND\_URL},
+		\texttt{NEXTION\_PORT}, port Arduino, paramètres Vosk, Bluetooth, calibration
+		de rotation).
+		\item \textbf{Services} : modules métier indépendants du détail matériel
+		(conversation, mot de réveil, affichage, mouvement, audio, musique).
+		\item \textbf{Adaptateurs} : interfaces concrètes vers le monde externe :
+		HTTP FastAPI, ReSpeaker, Nextion, Arduino USB et sortie audio.
+	\end{itemize}
+	
+	\IfFileExists{public/koda-cycle4-logical-architecture.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/koda-cycle4-logical-architecture.png}
+			\caption{Cycle~4 --- architecture logique du logiciel Raspberry Pi}
+			\label{fig:ch4-logical-architecture}
+		\end{figure}
+	}{%
+		\begin{center}
+			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1em}
+				\textit{Exporter \texttt{plantuml/koda-cycle4-logical-architecture.puml}
+				vers \texttt{public/koda-cycle4-logical-architecture.png}.}
+				\vspace{1em}\end{minipage}}
+		\end{center}
+	}
+	
+	\IfFileExists{public/ch4-raspberry-corps-operationnel.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.95\textwidth]{public/ch4-raspberry-corps-operationnel.png}
+			\caption{Cycle~4 --- le Raspberry Pi comme corps opérationnel de KODA}
+			\label{fig:ch4-corps-operationnel}
+		\end{figure}
+	}{%
+		\IfFileExists{public/koda-cycle4-raspberry-body-map.png}{%
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width=0.90\textwidth]{public/koda-cycle4-raspberry-body-map.png}
+				\caption{Cycle~4 --- cartographie fonctionnelle du logiciel Raspberry}
+				\label{fig:ch4-corps-operationnel}
+			\end{figure}
+		}{}
+	}
+	
+	%------------------------------------------------------------------
+	\section{Architecture du code}
+	%------------------------------------------------------------------
+	
+	Le projet \texttt{codeRaspberry} est volontairement séparé en dossiers courts
+	et lisibles. Cette organisation facilite le test d'un composant sans lancer
+	l'ensemble du robot et évite que le programme principal manipule directement
+	les détails série, audio ou HTTP.
+	
+	\begin{itemize}
+		\item \textbf{\texttt{app/}} contient le point d'entrée et la configuration.
+		\item \textbf{\texttt{services/}} regroupe les comportements de haut niveau :
+		conversation, wake word, écoute continue, affichage, mouvement, audio,
+		synthèse vocale, musique et diagnostic matériel.
+		\item \textbf{\texttt{adapters/}} encapsule les interfaces techniques :
+		HTTP FastAPI, ReSpeaker, Nextion, Arduino USB et sortie audio.
+		\item \textbf{\texttt{utils/}} fournit les traces d'état et les logs.
+		\item \textbf{\texttt{tests/}} vérifie la configuration, les imports et une
+		partie des checks matériels.
+	\end{itemize}
+	
+	\IfFileExists{public/koda-cycle4-code-architecture.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/koda-cycle4-code-architecture.png}
+			\caption{Cycle~4 --- architecture du code \texttt{codeRaspberry}}
+			\label{fig:ch4-code-architecture}
+		\end{figure}
+	}{%
+		\begin{center}
+			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1em}
+				\textit{Exporter \texttt{plantuml/koda-cycle4-code-architecture.puml}
+				vers \texttt{public/koda-cycle4-code-architecture.png}.}
+				\vspace{1em}\end{minipage}}
+		\end{center}
+	}
+	
+	Le diagramme de classes ci-dessous présente les principaux objets logiciels
+	qui coopèrent pendant une interaction vocale. \texttt{ConversationService}
+	est l'orchestrateur fonctionnel d'un tour de parole : il récupère l'audio,
+	appelle le backend, puis déclenche l'action appropriée. Les services
+	\texttt{DisplayService}, \texttt{MotionService}, \texttt{SpeechService} et
+	\texttt{MusicPlayer} traduisent ensuite la décision en comportement physique.
+	
+	\IfFileExists{public/koda-cycle4-classes-services.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/koda-cycle4-classes-services.png}
+			\caption{Cycle~4 --- classes principales, services et adaptateurs}
+			\label{fig:ch4-classes-services}
+		\end{figure}
+	}{}
+	
+	\IfFileExists{public/koda-cycle4-use-cases.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.95\textwidth]{public/koda-cycle4-use-cases.png}
+			\caption{Cycle~4 --- cas d'utilisation du logiciel embarqué Raspberry Pi}
+			\label{fig:ch4-use-cases}
+		\end{figure}
+	}{}
+	
+	%------------------------------------------------------------------
+	\section{Configuration et lancement}
+	%------------------------------------------------------------------
+	
+	L'exécution se fait depuis le dossier \texttt{codeRaspberry}. Les variables
+	d'environnement permettent d'adapter le même code à un robot donné sans
+	modifier les sources Python. La commande de lancement retenue est :
+	
+\begin{lstlisting}[style=kodatest, language=shellkoda, caption={Lancement du logiciel embarqué Raspberry Pi}]
+source .venv/bin/activate
+export BACKEND_URL=http://192.168.69.185:8765
+export NEXTION_PORT=/dev/serial0
+export NEXTION_REQUIRE_GPIO_UART=1
+export AUDIO_CARD_INDEX=1
+python -m app.main
+\end{lstlisting}
+	
+	Les paramètres essentiels sont :
+	\begin{itemize}
+		\item \textbf{\texttt{BACKEND\_URL}} : adresse du Distributeur FastAPI sur le
+		même réseau Wi-Fi que le Raspberry Pi.
+		\item \textbf{\texttt{NEXTION\_PORT}} : port série UART utilisé par l'écran,
+		généralement \texttt{/dev/serial0} avec TX/RX sur GPIO~14/15.
+		\item \textbf{Arduino USB} : port série détecté parmi \texttt{/dev/ttyUSB*}
+		ou \texttt{/dev/ttyACM*}, utilisé pour envoyer les commandes moteurs et servos.
+		\item \textbf{Audio} : ReSpeaker en entrée, sortie Bluetooth ou jack selon la
+		configuration PulseAudio/ALSA.
+		\item \textbf{Vosk} : modèle local de reconnaissance utilisé pour détecter le
+		mot de réveil sans interroger le cloud en continu.
+	\end{itemize}
+	
+	%------------------------------------------------------------------
+	\section{Démarrage et diagnostic matériel}
+	%------------------------------------------------------------------
+	
+	Au démarrage, \texttt{app.main} charge la configuration, lance les checks
+	matériels, ouvre les adaptateurs disponibles, initialise le client backend,
+	puis construit les services applicatifs. Les checks matériels sont exécutés
+	avant la boucle principale afin de produire un diagnostic lisible : micro,
+	caméra, Nextion, Arduino USB, sortie audio, Bluetooth et système.
+	
+	Cette étape n'arrête pas nécessairement le programme dès qu'un composant est
+	absent. Le système privilégie un \textbf{mode dégradé contrôlé} : il loggue le
+	problème, continue lorsque c'est possible, puis évite d'appeler un composant
+	non ouvert. Par exemple, si l'Arduino n'est pas disponible, les réponses
+	vocales et expressions peuvent encore fonctionner, mais les mouvements sont
+	ignorés.
+	
+	\IfFileExists{public/koda-cycle4-boot-sequence.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/koda-cycle4-boot-sequence.png}
+			\caption{Cycle~4 --- séquence de démarrage et diagnostic matériel}
+			\label{fig:ch4-boot-sequence}
+		\end{figure}
+	}{}
+	
+	%------------------------------------------------------------------
+	\section{Boucle principale et machine d'états}
+	%------------------------------------------------------------------
+	
+	Après l'initialisation, le robot entre dans une boucle asynchrone. En mode
+	passif, il écoute le mot de réveil. Lorsqu'il le détecte, il affiche une
+	expression de surprise, s'oriente vers l'utilisateur grâce au DOA, prononce
+	une salutation, puis lance une capture de question jusqu'au silence. Le retour
+	du backend décide ensuite du comportement : réponse vocale, musique, mouvement,
+	sommeil ou erreur.
+	
+	\IfFileExists{public/ch4-cycle-etats-passif-actif-sommeil.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.95\textwidth]{public/ch4-cycle-etats-passif-actif-sommeil.png}
+			\caption{Cycle~4 --- cycle passif, actif et sommeil du robot}
+			\label{fig:ch4-state-machine}
+		\end{figure}
+	}{%
+		\IfFileExists{public/koda-cycle4-state-machine.png}{%
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width=0.78\textwidth]{public/koda-cycle4-state-machine.png}
+				\caption{Cycle~4 --- machine d'états logicielle du robot}
+				\label{fig:ch4-state-machine}
+			\end{figure}
+		}{}
+	}
+	
+	%------------------------------------------------------------------
+	\section{Pipeline vocal : mot de réveil, écoute et réponse}
+	%------------------------------------------------------------------
+	
+	Le pipeline vocal constitue le cœur de l'expérience utilisateur. Il combine
+	trois traitements complémentaires :
+	\begin{itemize}
+		\item \textbf{Détection locale du mot de réveil} : le service de réveil
+		utilise préférentiellement le moteur Vosk local, qui consomme un flux PCM
+		continu du ReSpeaker. Ce choix réduit la latence et évite d'envoyer tous les
+		sons ambiants au backend.
+		\item \textbf{Écoute active par VAD} : après le réveil, le service
+		\texttt{ContinuousListenerService} capture la question complète jusqu'à une
+		période de silence, au lieu d'imposer une durée fixe.
+		\item \textbf{Traitement distant} : l'audio WAV est envoyé au backend par
+		\texttt{BackendClient} sur l'endpoint
+		\texttt{/api/audio/speech-to-action}. Le backend renvoie un objet
+		\texttt{ActionResult} contenant le type d'action, le texte reconnu, le texte à
+		prononcer, l'audio TTS encodé et éventuellement une URL musique ou une
+		commande de mouvement.
+	\end{itemize}
+	
+	\IfFileExists{public/ch4-audio-pipeline-logiciel.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.95\textwidth]{public/ch4-audio-pipeline-logiciel.png}
+			\caption{Cycle~4 --- pipeline audio logiciel du Raspberry Pi}
+			\label{fig:ch4-audio-pipeline}
+		\end{figure}
+	}{%
+		\IfFileExists{public/koda-cycle4-audio-pipeline.png}{%
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width=0.95\textwidth]{public/koda-cycle4-audio-pipeline.png}
+				\caption{Cycle~4 --- pipeline audio logiciel du Raspberry Pi}
+				\label{fig:ch4-audio-pipeline}
+			\end{figure}
+		}{}
+	}
+	
+	\IfFileExists{public/koda-cycle4-wake-conversation-sequence.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/koda-cycle4-wake-conversation-sequence.png}
+			\caption{Cycle~4 --- séquence mot de réveil, écoute et réponse}
+			\label{fig:ch4-wake-conversation}
+		\end{figure}
+	}{}
+	
+	%------------------------------------------------------------------
+	\section{Gestion des actions retournées par le backend}
+	%------------------------------------------------------------------
+	
+	Le backend ne renvoie pas seulement un texte. Il interprète la réponse n8n
+	et la transforme en \textbf{action structurée}. Côté Raspberry,
+	\texttt{ConversationService} applique la logique suivante :
+	\begin{itemize}
+		\item \textbf{\texttt{text}} : lecture directe de l'audio TTS et animation
+		faciale.
+		\item \textbf{\texttt{music}} : annonce vocale, téléchargement ou récupération
+		en cache local, puis lecture du morceau.
+		\item \textbf{\texttt{motion}} : annonce vocale puis exécution d'une commande
+		\texttt{forward}, \texttt{backward}, \texttt{left}, \texttt{right} ou
+		\texttt{stop}.
+		\item \textbf{\texttt{sleep}} : lecture d'un message de fin, expression
+		\texttt{SLEEPING}, puis retour en attente du mot de réveil.
+		\item \textbf{\texttt{error}} : expression triste et journalisation de
+		l'erreur.
+	\end{itemize}
+	
+	\IfFileExists{public/koda-cycle4-action-sequence.png}{%
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.98\textwidth]{public/koda-cycle4-action-sequence.png}
+			\caption{Cycle~4 --- dispatch des actions retournées par le backend}
+			\label{fig:ch4-action-sequence}
+		\end{figure}
+	}{}
+	
+	%------------------------------------------------------------------
+	\section{Affichage Nextion et expressions}
+	%------------------------------------------------------------------
+	
+	L'écran Nextion n'est pas piloté pixel par pixel depuis le Raspberry Pi. Les
+	images et animations sont préparées dans l'interface Nextion, puis le Pi
+	envoie des commandes série simples. Le service \texttt{DisplayService}
+	sérialise ces commandes avec un verrou asynchrone afin d'éviter les conflits
+	lorsque plusieurs actions tentent de changer l'expression au même moment.
+	
+	Les expressions utilisées par le logiciel sont : neutre, clignement, heureux,
+	amour, colère, triste, sommeil, surprise, chant et réflexion. Pendant une
+	réponse, le service peut désactiver temporairement le timer de clignement
+	(\texttt{tm0.en=0}), afficher une expression fixe, puis restaurer l'état idle.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Expressions logicielles envoyées à l'écran Nextion}
+		\label{tab:ch4-expressions-nextion}
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabular}{|l|l|}
+			\hline
+			\textbf{Expression} & \textbf{Usage principal} \\
+			\hline
+			\texttt{NEUTRAL} & Attente et retour idle \\
+			\hline
+			\texttt{SURPRISED} & Mot de réveil détecté \\
+			\hline
+			\texttt{THINKING} & Capture ou traitement de la question \\
+			\hline
+			\texttt{SINGING} & Réponse vocale ou musique \\
+			\hline
+			\texttt{SAD} & Erreur ou échec de traitement \\
+			\hline
+			\texttt{SLEEPING} & Passage en sommeil \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	%------------------------------------------------------------------
+	\section{Mouvement, Arduino USB et orientation DOA}
+	%------------------------------------------------------------------
+	
+	Le Raspberry Pi délègue le pilotage temps réel des moteurs et servomoteurs à
+	l'Arduino Uno via une liaison \textbf{USB série}. Le protocole reste volontairement
+	simple : chaque mouvement correspond à une commande courte, par exemple
+	\texttt{F} pour avancer, \texttt{B} pour reculer, \texttt{L} et \texttt{R} pour
+	tourner, \texttt{S} pour arrêter. Cette simplicité rend le protocole robuste et
+	facile à tester depuis un terminal série.
+	
+	Le service \texttt{MotionService} ajoute une couche de sécurité logicielle :
+	les commandes sont protégées par un verrou, les rotations ouvertes sont
+	temporisées, puis un \texttt{STOP} est envoyé après la durée calculée. Pour
+	l'orientation vers l'utilisateur, \texttt{DOAReader} lit l'angle fourni par le
+	ReSpeaker. Cet angle est converti en rotation relative dans l'intervalle
+	$[-180^\circ, +180^\circ]$, puis envoyé au robot sous forme de rotation à gauche
+	ou à droite.
+	
+	Deux modes de calibration sont prévus :
+	\begin{itemize}
+		\item \textbf{Modèle linéaire} : durée calculée à partir d'une vitesse
+		angulaire moyenne, d'un offset et d'une durée minimale.
+		\item \textbf{Table LUT} : interpolation entre mesures réelles pour compenser
+		l'inertie, la friction et la variation de tension batterie.
+	\end{itemize}
+	
+	%------------------------------------------------------------------
+	\section{Robustesse et arrêt propre}
+	%------------------------------------------------------------------
+	
+	La robustesse du logiciel embarqué repose sur plusieurs choix :
+	\begin{itemize}
+		\item \textbf{Asynchronisme} : les lectures audio, appels HTTP, commandes
+		série et lectures audio sont orchestrés par \texttt{asyncio}.
+		\item \textbf{Verrous locaux} : \texttt{DisplayService} et
+		\texttt{MotionService} protègent les ressources qui ne supportent pas les
+		accès concurrents.
+		\item \textbf{Fallback wake word} : si Vosk n'est pas disponible, le système
+		peut revenir à une détection par morceaux audio envoyés au STT backend.
+		\item \textbf{Diagnostics explicites} : les composants absents sont loggués
+		avec leur nom et leur message d'erreur.
+		\item \textbf{Arrêt propre} : sur \texttt{SIGINT} ou \texttt{SIGTERM}, le
+		robot affiche l'expression sommeil, arrête les moteurs, ferme le client
+		HTTP et libère les ports série.
+	\end{itemize}
+	
+	L'arrêt propre est essentiel pour éviter de laisser le robot dans un état
+	incohérent, par exemple avec les moteurs actifs ou un port série bloqué.
+	
+	%------------------------------------------------------------------
+	\section{Tests et validation logicielle}
+	%------------------------------------------------------------------
+	
+	La validation du Cycle~4 combine des tests automatisés et des essais réels sur
+	le Raspberry Pi.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Tests de validation du logiciel Raspberry Pi}
+		\label{tab:ch4-tests-logiciel}
+		\renewcommand{\arraystretch}{1.25}
+		\begin{tabularx}{\textwidth}{|p{3.2cm}|X|p{3.4cm}|}
+			\hline
+			\textbf{Type de test} & \textbf{Procédure} & \textbf{Critère OK} \\
+			\hline
+			Configuration & Exécuter les tests \texttt{test\_config.py} avec variables par défaut et overrides & Valeurs chargées sans erreur \\
+			\hline
+			Imports & Lancer \texttt{test\_imports.py} & Tous les modules principaux importables \\
+			\hline
+			Hardware checks & Lancer \texttt{run\_full\_check()} sur le Pi & Rapport lisible par composant \\
+			\hline
+			Wake word & Prononcer le mot de réveil devant le ReSpeaker & Passage de PASSIVE à WAKE \\
+			\hline
+			VAD question & Poser une question puis se taire & WAV complet capturé jusqu'au silence \\
+			\hline
+			Backend action & Envoyer une question vocale au backend & ActionResult exploitable reçu \\
+			\hline
+			Nextion & Changer d'expression depuis le service display & Expression visible à l'écran \\
+			\hline
+			Motion & Envoyer une commande directionnelle & Arduino reçoit et exécute le mouvement \\
+			\hline
+			Shutdown & Interrompre le programme par Ctrl+C & Moteurs arrêtés et ports fermés \\
+			\hline
+		\end{tabularx}
+	\end{table}
+	
+	Les commandes minimales de validation logicielle sont :
+	
+\begin{lstlisting}[style=kodatest, language=shellkoda, caption={Commandes de validation du Cycle 4}]
+pytest tests/
+python -m app.main
+\end{lstlisting}
+	
+	%------------------------------------------------------------------
+	\section{Limites et perspectives}
+	%------------------------------------------------------------------
+	
+	Le logiciel embarqué actuel assure le lien principal entre l'utilisateur, le
+	mouvement, l'affichage et le backend. Certaines améliorations restent toutefois
+	possibles :
+	\begin{itemize}
+		\item renforcer la reconnaissance faciale côté Raspberry en appelant le
+		service \texttt{/api/identify-face} depuis un module caméra intégré ;
+		\item ajouter un service \texttt{systemd} pour démarrer KODA automatiquement
+		au boot ;
+		\item enrichir la télémétrie pour suivre les erreurs audio, backend et
+		mouvement pendant les démonstrations ;
+		\item stocker localement quelques réponses de secours si le backend devient
+		temporairement indisponible.
+	\end{itemize}
+	
+	%------------------------------------------------------------------
+	\section{Conclusion}
+	%------------------------------------------------------------------
+	
+	Ce chapitre a présenté le logiciel embarqué Raspberry Pi qui donne vie au
+	prototype KODA. Le programme \texttt{app.main} coordonne les services et
+	adaptateurs nécessaires pour passer d'une plateforme matérielle assemblée à un
+	compagnon capable d'écouter, de s'orienter, de parler, d'afficher des émotions
+	et d'exécuter des mouvements.
+	
+	Le choix d'une architecture asynchrone, séparée en services et adaptateurs,
+	rend le système plus maintenable et plus robuste face aux contraintes du réel :
+	matériel parfois absent, latence réseau, capture audio continue, ports série et
+	arrêt propre. Le Cycle~4 complète ainsi le Cycle~3 en transformant le corps
+	matériel en plateforme interactive connectée au cerveau n8n et au Distributeur
+	de Services.
+	
+	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black,
+		title=\textbf{Points clés du Cycle 4}]
+		\begin{itemize}[noitemsep]
+			\item Démarrage par \texttt{python -m app.main} et configuration par variables d'environnement
+			\item Architecture Python asynchrone : services métier + adaptateurs matériels
+			\item Wake word local avec Vosk, écoute VAD et pipeline \texttt{/api/audio/speech-to-action}
+			\item Nextion via UART, Arduino via USB série, audio via Bluetooth ou jack
+			\item Diagnostic matériel, mode dégradé, logs et arrêt propre
+		\end{itemize}
+	\end{tcolorbox}
+	
+	Le chapitre suivant, \textbf{Cycle~5}, sera consacré à l'application mobile
+	cross-plateforme KodaMate, qui permet à l'utilisateur de configurer, contrôler
+	et superviser son compagnon.
+	
+>>>>>>> Stashed changes
 \end{document}

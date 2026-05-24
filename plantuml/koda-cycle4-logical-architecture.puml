@@ -1,0 +1,87 @@
+@startuml
+title Cycle 4 - Architecture logique du logiciel Raspberry Pi
+
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontSize 11
+skinparam packageStyle rectangle
+
+actor "Utilisateur" as USER
+
+package "Raspberry Pi - logiciel embarque" as PI #E8F4FF {
+  component "app.main\norchestration asyncio" as MAIN
+  component "Config\nvariables .env" as CONFIG
+  component "Hardware checks\nboot diagnostic" as CHECKS
+
+  package "Services metier" as SERVICES #F3F8EE {
+    component "WakeWordService\nVosk / fallback STT" as WAKE
+    component "ContinuousListenerService\nVAD avec sox" as LISTENER
+    component "ConversationService\ndispatch action" as CONV
+    component "DisplayService\nexpressions Nextion" as DISPLAY
+    component "MotionService\nmoteurs + servos" as MOTION
+    component "SpeechService\nlecture TTS" as SPEECH
+    component "MusicPlayer\ncache local WAV" as MUSIC
+    component "DOAReader\nangle locuteur" as DOA
+  }
+
+  package "Adapters" as ADAPTERS #FFF8E1 {
+    component "RespeakerAdapter\narecord / PCM stream" as RESPEAKER
+    component "BackendClient\nHTTP REST FastAPI" as BACKEND_CLIENT
+    component "NextionAdapter\nUART /dev/serial0" as NEXTION
+    component "ArduinoAdapter\nUSB serial" as ARDUINO
+    component "AudioOutputAdapter\nPulseAudio / Bluetooth" as AUDIO_OUT
+  }
+}
+
+cloud "Distributeur FastAPI\n/api/audio/*\n/api/trigger-n8n" as BACKEND #FDEDEC
+database "Supabase / n8n\nmemoire et raisonnement" as BRAIN #F4ECF7
+
+node "Materiel" as HW #EEEEEE {
+  component "ReSpeaker 4-Mic USB" as MIC
+  component "Nextion 3.5 pouces" as SCREEN
+  component "Arduino Uno + L293D" as UNO
+  component "Haut-parleur Bluetooth / jack" as SPEAKER
+}
+
+USER --> MIC : parole
+MIC --> RESPEAKER : USB audio
+RESPEAKER --> WAKE
+RESPEAKER --> LISTENER
+RESPEAKER --> DOA
+
+MAIN --> CONFIG
+MAIN --> CHECKS
+MAIN --> WAKE
+MAIN --> CONV
+MAIN --> DISPLAY
+MAIN --> MOTION
+MAIN --> SPEECH
+MAIN --> MUSIC
+MAIN --> DOA
+
+CONV --> BACKEND_CLIENT : audio WAV
+BACKEND_CLIENT --> BACKEND : HTTP REST
+BACKEND --> BRAIN : n8n + base
+BRAIN --> BACKEND
+BACKEND --> BACKEND_CLIENT : action JSON + audio_b64
+
+DISPLAY --> NEXTION
+NEXTION --> SCREEN : UART
+MOTION --> ARDUINO
+ARDUINO --> UNO : commandes H/F/B/L/R/S
+SPEECH --> AUDIO_OUT
+MUSIC --> AUDIO_OUT
+AUDIO_OUT --> SPEAKER : audio WAV
+
+DOA --> MOTION : angle relatif
+SCREEN --> USER : expression
+SPEAKER --> USER : reponse vocale
+UNO --> USER : mouvement
+
+note bottom of BACKEND_CLIENT
+  Le Raspberry ne raisonne pas seul :
+  il capture, oriente, affiche et execute
+  les actions retournees par le backend.
+end note
+
+@enduml

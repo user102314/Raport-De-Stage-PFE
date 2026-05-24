@@ -1,0 +1,80 @@
+@startuml
+title Cycle 4 - Architecture du code codeRaspberry
+
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+skinparam defaultFontSize 11
+
+package "app/" as APP #E8F4FF {
+  component "main.py\nrun(), boucles, shutdown" as MAIN
+  component "config.py\nAppConfig + env" as CONFIG
+}
+
+package "services/" as SERVICES #F3F8EE {
+  component "hardware_check/\nchecks paralleles" as HWC
+  component "wake_word/\nmatcher + Vosk engine" as WW
+  component "listener/\nVAD capture" as LISTEN
+  component "conversation/\naction dispatcher" as CONV
+  component "audio/\nrecord + DOA + music" as AUDIO
+  component "display/\nNextion face" as DISPLAY
+  component "motion/\nrotation + dispatcher" as MOTION
+  component "speech/\nTTS playback" as SPEECH
+}
+
+package "adapters/" as ADAPTERS #FFF8E1 {
+  component "backend_client.py\nHTTP async" as BACKEND
+  component "respeaker_adapter.py\narecord/stream_pcm" as RESPEAKER
+  component "nextion_adapter.py\nserial command" as NEXTION
+  component "arduino_adapter.py\nUSB serial command" as ARDUINO
+  component "audio_output_adapter.py\npaplay/bluetoothctl" as AUDIOOUT
+}
+
+package "core/ + utils/" as CORE #F4ECF7 {
+  component "event_bus.py\nbus simple" as BUS
+  component "logger.py\nlogging" as LOGGER
+  component "states.py\ntraces d'etat" as STATES
+}
+
+MAIN --> CONFIG
+MAIN --> HWC
+MAIN --> WW
+MAIN --> LISTEN
+MAIN --> CONV
+MAIN --> AUDIO
+MAIN --> DISPLAY
+MAIN --> MOTION
+MAIN --> SPEECH
+MAIN --> BACKEND
+MAIN --> RESPEAKER
+MAIN --> NEXTION
+MAIN --> ARDUINO
+MAIN --> AUDIOOUT
+
+CONV --> BACKEND
+CONV --> DISPLAY
+CONV --> MOTION
+CONV --> SPEECH
+CONV --> LISTEN
+CONV --> AUDIO
+
+WW --> RESPEAKER
+WW --> BACKEND
+LISTEN --> RESPEAKER
+AUDIO --> RESPEAKER
+DISPLAY --> NEXTION
+MOTION --> ARDUINO
+SPEECH --> AUDIOOUT
+
+SERVICES ..> LOGGER
+ADAPTERS ..> LOGGER
+MAIN ..> STATES
+
+note right of CONFIG
+  Toutes les valeurs dependantes du robot
+  passent par l'environnement :
+  BACKEND_URL, NEXTION_PORT,
+  ARDUINO_PORT, AUDIO sink, Vosk, rotation.
+end note
+
+@enduml
