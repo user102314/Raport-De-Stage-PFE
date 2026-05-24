@@ -243,65 +243,93 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {IV.9}{\ignorespaces Test Speech-to-Text}}{74}{figure.4.9}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.1.2}Reconnaissance des personnes}{75}{subsubsection.4.4.1.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {IV.10}{\ignorespaces Exemple d'images de référence en mémoire (profils utilisateurs)}}{75}{figure.4.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.4.2}Communication avec l'application mobile}{76}{subsection.4.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.11}{\ignorespaces Endpoints REST exposés à l'application mobile}}{76}{figure.4.11}\protected@file@percent }
-\newlabel{fig:ch4-endpoints-mobile}{{IV.4.2}{76}{Communication avec l'application mobile}{figure.4.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.12}{\ignorespaces Exécution de quelques endpoints (tests)}}{76}{figure.4.12}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {IV.2}{\ignorespaces Endpoints exposés à l'application mobile (à compléter)}}{77}{table.caption.15}\protected@file@percent }
-\newlabel{tab:endpoints_mobile}{{IV.2}{77}{Endpoints exposés à l'application mobile (à compléter)}{table.caption.15}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.4.3}Communication avec la base de données}{77}{subsection.4.4.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.13}{\ignorespaces Interface Supabase --- administration PostgreSQL}}{77}{figure.4.13}\protected@file@percent }
-\newlabel{fig:supabase_interface}{{IV.4.3}{77}{Communication avec la base de données}{figure.4.13}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.3.1}Modèle relationnel et rôle des tables}{77}{subsubsection.4.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.4.4}Communication avec le workflow n8n}{78}{subsection.4.4.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.14}{\ignorespaces Communication avec n8n --- exemple de payload en entrée de webhook}}{79}{figure.4.14}\protected@file@percent }
-\newlabel{fig:ch4-n8n-input}{{IV.4.4}{79}{}{figure.4.14}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV.5}Problèmes Rencontrés et Solutions Apportées}{79}{section.4.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {IV.3}{\ignorespaces Problèmes techniques rencontrés et solutions apportées}}{79}{table.caption.16}\protected@file@percent }
-\newlabel{tab:problemes}{{IV.3}{79}{Problèmes techniques rencontrés et solutions apportées}{table.caption.16}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV.6}Conclusion}{80}{section.4.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {V}Cycle 3 : Système Embarqué --- Partie Matérielle}{81}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.4.2}Communication avec l'application mobile cross-plateforme}{76}{subsection.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {IV.4.2.0.1}URL de base.}{76}{paragraph.4.4.2.0.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.11}{\ignorespaces Routes REST du Distributeur (vue globale)}}{76}{figure.4.11}\protected@file@percent }
+\newlabel{fig:ch4-endpoints-mobile}{{IV.4.2.0.1}{76}{URL de base}{figure.4.11}{}}
+\gdef \LT@i {\LT@entry 
+    {3}{22.79999pt}\LT@entry 
+    {3}{169.86154pt}\LT@entry 
+    {1}{120.52054pt}\LT@entry 
+    {1}{171.7356pt}}
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.12}{\ignorespaces Exécution de quelques endpoints (tests)}}{77}{figure.4.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.2.1}Endpoints consommés par KodaMate}{77}{subsubsection.4.4.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IV.2}{\ignorespaces Endpoints REST consommés par KodaMate}}{77}{table.4.2}\protected@file@percent }
+\newlabel{tab:endpoints_mobile}{{IV.2}{77}{Endpoints REST consommés par KodaMate}{table.4.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.2.2}Authentification, paramètres et alimentation}{78}{subsubsection.4.4.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.2.3}Chat, historique et périmètre hors mobile}{78}{subsubsection.4.4.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.4.3}Communication avec la base de données}{78}{subsection.4.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.3.1}Chaîne d'accès aux données}{78}{subsubsection.4.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.3.2}Connexion Supabase au démarrage}{78}{subsubsection.4.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.3.3}Accès aux tables dans le code métier}{79}{subsubsection.4.4.3.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IV.3}{\ignorespaces Opérations types via le SDK \texttt  {supabase-py}}}{79}{table.caption.15}\protected@file@percent }
+\newlabel{tab:supabase-operations}{{IV.3}{79}{Opérations types via le SDK \texttt {supabase-py}}{table.caption.15}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.3.4}Validation de la connexion (test d'exécution)}{79}{subsubsection.4.4.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.13}{\ignorespaces Exécution --- test de communication base de données (\texttt  {GET\ /api/db-test}, 200 OK)}}{79}{figure.4.13}\protected@file@percent }
+\newlabel{fig:ch4-db-test}{{IV.4.3.4}{79}{Validation de la connexion (test d'exécution)}{figure.4.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.14}{\ignorespaces Interface Supabase --- administration PostgreSQL (Studio)}}{79}{figure.4.14}\protected@file@percent }
+\newlabel{fig:supabase_interface}{{IV.4.3.4}{79}{Validation de la connexion (test d'exécution)}{figure.4.14}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.3.5}Modèle relationnel et rôle des tables}{79}{subsubsection.4.4.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.4.4}Communication avec le workflow n8n}{80}{subsection.4.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.4.1}Méthode de communication}{80}{subsubsection.4.4.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.15}{\ignorespaces Communication avec n8n --- exemple de payload en entrée de webhook (Webhook~1)}}{81}{figure.4.15}\protected@file@percent }
+\newlabel{fig:ch4-n8n-input}{{IV.4.4.1}{81}{Méthode de communication}{figure.4.15}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.4.2}Pourquoi le backend consomme n8n (et pas le Raspberry Pi)}{81}{subsubsection.4.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.4.3}Les trois cas d'usage consommés par le backend}{82}{subsubsection.4.4.4.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IV.4}{\ignorespaces Trois cas d'usage backend $\rightarrow $ n8n}}{82}{table.caption.16}\protected@file@percent }
+\newlabel{tab:ch4-n8n-usecases}{{IV.4}{82}{Trois cas d'usage backend $\rightarrow $ n8n}{table.caption.16}{}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {IV.4.4.3.1}Cas d'usage 1 — Question et réponse (flux~1).}{82}{paragraph.4.4.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {IV.4.4.3.2}Cas d'usage 2 — Déclencheur nocturne (flux~2).}{82}{paragraph.4.4.4.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.16}{\ignorespaces Webhook~2 --- workflow n8n (synthèse journalière, rappel)}}{82}{figure.4.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {IV.4.4.3.3}Cas d'usage 3 — Introduction et parole (flux~3).}{83}{paragraph.4.4.4.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.17}{\ignorespaces Webhook~3 --- diagramme de séquence (rappel)}}{83}{figure.4.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.4.4}Qualité de service côté backend}{83}{subsubsection.4.4.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV.5}Problèmes Rencontrés et Solutions Apportées}{84}{section.4.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IV.5}{\ignorespaces Problèmes techniques rencontrés et solutions apportées}}{84}{table.caption.17}\protected@file@percent }
+\newlabel{tab:problemes}{{IV.5}{84}{Problèmes techniques rencontrés et solutions apportées}{table.caption.17}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV.6}Conclusion}{84}{section.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {V}Cycle 3 : Système Embarqué --- Partie Matérielle}{86}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {V.1}Introduction}{82}{section.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{82}{section.5.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {V.1}{\ignorespaces Inventaire des composants matériels de KODA}}{83}{table.caption.17}\protected@file@percent }
-\newlabel{tab:composants_cycle3}{{V.1}{83}{Inventaire des composants matériels de KODA}{table.caption.17}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{83}{section.5.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {V.1}{\ignorespaces Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}}{84}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:ch3-conception3d}{{V.1}{84}{Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}{figure.caption.18}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{84}{section.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{84}{subsection.5.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{84}{subsection.5.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {V.2}{\ignorespaces Prototype physique KODA après impression 3D et montage}}{85}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:ch3-robot-reel}{{V.2}{85}{Prototype physique KODA après impression 3D et montage}{figure.caption.19}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {V.2}{\ignorespaces Spécifications techniques du Raspberry Pi 4 Model B}}{86}{table.caption.20}\protected@file@percent }
-\newlabel{tab:rpi4_specs}{{V.2}{86}{Spécifications techniques du Raspberry Pi 4 Model B}{table.caption.20}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{86}{subsection.5.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{86}{subsubsection.5.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{86}{subsubsection.5.4.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {V.3}{\ignorespaces Principe de traction différentielle — moteurs M1 et M3}}{87}{figure.caption.21}\protected@file@percent }
-\newlabel{fig:ch3-traction-diff}{{V.3}{87}{Principe de traction différentielle — moteurs M1 et M3}{figure.caption.21}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.4}Système Audio}{87}{subsection.5.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{87}{subsubsection.5.4.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{87}{subsubsection.5.4.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {V.4}{\ignorespaces Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}}{88}{figure.caption.22}\protected@file@percent }
-\newlabel{fig:ch3-schema-doa}{{V.4}{88}{Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}{figure.caption.22}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{88}{subsection.5.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{88}{subsection.5.4.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{89}{subsection.5.4.7}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {V.3}{\ignorespaces Architecture d'alimentation de KODA}}{89}{table.caption.23}\protected@file@percent }
-\newlabel{tab:alimentation}{{V.3}{89}{Architecture d'alimentation de KODA}{table.caption.23}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{89}{section.5.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {V.5}{\ignorespaces Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}}{89}{figure.caption.24}\protected@file@percent }
-\newlabel{fig:ch3-architecture-materielle}{{V.5}{89}{Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}{figure.caption.24}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {V.4}{\ignorespaces Récapitulatif des connexions entre composants}}{90}{table.caption.25}\protected@file@percent }
-\newlabel{tab:cablage}{{V.4}{90}{Récapitulatif des connexions entre composants}{table.caption.25}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{90}{section.5.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{90}{section.5.7}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {V.5}{\ignorespaces Tests unitaires par composant (Cycle~3)}}{91}{table.caption.26}\protected@file@percent }
-\newlabel{tab:tests_unitaires_cycle3}{{V.5}{91}{Tests unitaires par composant (Cycle~3)}{table.caption.26}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.7.1}Test d'intégration matérielle}{91}{subsection.5.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V.8}Conclusion}{91}{section.5.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V.1}Introduction}{87}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{87}{section.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {V.1}{\ignorespaces Inventaire des composants matériels de KODA}}{88}{table.caption.18}\protected@file@percent }
+\newlabel{tab:composants_cycle3}{{V.1}{88}{Inventaire des composants matériels de KODA}{table.caption.18}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{88}{section.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {V.1}{\ignorespaces Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}}{89}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:ch3-conception3d}{{V.1}{89}{Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{89}{section.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{89}{subsection.5.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{89}{subsection.5.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {V.2}{\ignorespaces Prototype physique KODA après impression 3D et montage}}{90}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:ch3-robot-reel}{{V.2}{90}{Prototype physique KODA après impression 3D et montage}{figure.caption.20}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {V.2}{\ignorespaces Spécifications techniques du Raspberry Pi 4 Model B}}{91}{table.caption.21}\protected@file@percent }
+\newlabel{tab:rpi4_specs}{{V.2}{91}{Spécifications techniques du Raspberry Pi 4 Model B}{table.caption.21}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{91}{subsection.5.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{91}{subsubsection.5.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{91}{subsubsection.5.4.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {V.3}{\ignorespaces Principe de traction différentielle — moteurs M1 et M3}}{92}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:ch3-traction-diff}{{V.3}{92}{Principe de traction différentielle — moteurs M1 et M3}{figure.caption.22}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.4}Système Audio}{92}{subsection.5.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{92}{subsubsection.5.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{92}{subsubsection.5.4.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {V.4}{\ignorespaces Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}}{93}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:ch3-schema-doa}{{V.4}{93}{Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{93}{subsection.5.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{93}{subsection.5.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{94}{subsection.5.4.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {V.3}{\ignorespaces Architecture d'alimentation de KODA}}{94}{table.caption.24}\protected@file@percent }
+\newlabel{tab:alimentation}{{V.3}{94}{Architecture d'alimentation de KODA}{table.caption.24}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{94}{section.5.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {V.5}{\ignorespaces Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}}{94}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:ch3-architecture-materielle}{{V.5}{94}{Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}{figure.caption.25}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {V.4}{\ignorespaces Récapitulatif des connexions entre composants}}{95}{table.caption.26}\protected@file@percent }
+\newlabel{tab:cablage}{{V.4}{95}{Récapitulatif des connexions entre composants}{table.caption.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{95}{section.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{95}{section.5.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {V.5}{\ignorespaces Tests unitaires par composant (Cycle~3)}}{96}{table.caption.27}\protected@file@percent }
+\newlabel{tab:tests_unitaires_cycle3}{{V.5}{96}{Tests unitaires par composant (Cycle~3)}{table.caption.27}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.7.1}Test d'intégration matérielle}{96}{subsection.5.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V.8}Conclusion}{96}{section.5.8}\protected@file@percent }
 \ttl@finishall
-\gdef \@abspage@last{107}
+\gdef \@abspage@last{113}

@@ -62,14 +62,17 @@
 \contentsline {figure}{\numberline {IV.8}{\ignorespaces Test Text-to-Speech}}{74}{figure.4.8}%
 \contentsline {figure}{\numberline {IV.9}{\ignorespaces Test Speech-to-Text}}{74}{figure.4.9}%
 \contentsline {figure}{\numberline {IV.10}{\ignorespaces Exemple d'images de référence en mémoire (profils utilisateurs)}}{75}{figure.4.10}%
-\contentsline {figure}{\numberline {IV.11}{\ignorespaces Endpoints REST exposés à l'application mobile}}{76}{figure.4.11}%
-\contentsline {figure}{\numberline {IV.12}{\ignorespaces Exécution de quelques endpoints (tests)}}{76}{figure.4.12}%
-\contentsline {figure}{\numberline {IV.13}{\ignorespaces Interface Supabase --- administration PostgreSQL}}{77}{figure.4.13}%
-\contentsline {figure}{\numberline {IV.14}{\ignorespaces Communication avec n8n --- exemple de payload en entrée de webhook}}{79}{figure.4.14}%
+\contentsline {figure}{\numberline {IV.11}{\ignorespaces Routes REST du Distributeur (vue globale)}}{76}{figure.4.11}%
+\contentsline {figure}{\numberline {IV.12}{\ignorespaces Exécution de quelques endpoints (tests)}}{77}{figure.4.12}%
+\contentsline {figure}{\numberline {IV.13}{\ignorespaces Exécution --- test de communication base de données (\texttt {GET\ /api/db-test}, 200 OK)}}{79}{figure.4.13}%
+\contentsline {figure}{\numberline {IV.14}{\ignorespaces Interface Supabase --- administration PostgreSQL (Studio)}}{79}{figure.4.14}%
+\contentsline {figure}{\numberline {IV.15}{\ignorespaces Communication avec n8n --- exemple de payload en entrée de webhook (Webhook~1)}}{81}{figure.4.15}%
+\contentsline {figure}{\numberline {IV.16}{\ignorespaces Webhook~2 --- workflow n8n (synthèse journalière, rappel)}}{82}{figure.4.16}%
+\contentsline {figure}{\numberline {IV.17}{\ignorespaces Webhook~3 --- diagramme de séquence (rappel)}}{83}{figure.4.17}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {V.1}{\ignorespaces Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}}{84}{figure.caption.18}%
-\contentsline {figure}{\numberline {V.2}{\ignorespaces Prototype physique KODA après impression 3D et montage}}{85}{figure.caption.19}%
-\contentsline {figure}{\numberline {V.3}{\ignorespaces Principe de traction différentielle — moteurs M1 et M3}}{87}{figure.caption.21}%
-\contentsline {figure}{\numberline {V.4}{\ignorespaces Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}}{88}{figure.caption.22}%
-\contentsline {figure}{\numberline {V.5}{\ignorespaces Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}}{89}{figure.caption.24}%
+\contentsline {figure}{\numberline {V.1}{\ignorespaces Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}}{89}{figure.caption.19}%
+\contentsline {figure}{\numberline {V.2}{\ignorespaces Prototype physique KODA après impression 3D et montage}}{90}{figure.caption.20}%
+\contentsline {figure}{\numberline {V.3}{\ignorespaces Principe de traction différentielle — moteurs M1 et M3}}{92}{figure.caption.22}%
+\contentsline {figure}{\numberline {V.4}{\ignorespaces Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}}{93}{figure.caption.23}%
+\contentsline {figure}{\numberline {V.5}{\ignorespaces Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}}{94}{figure.caption.25}%
 \contentsfinish 

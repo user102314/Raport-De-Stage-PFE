@@ -117,31 +117,46 @@
 \contentsline {subsection}{\numberline {IV.4.1}Communication avec le système embarqué}{72}{subsection.4.4.1}%
 \contentsline {subsubsection}{\numberline {IV.4.1.1}Voix et parole (Azure STT / TTS)}{73}{subsubsection.4.4.1.1}%
 \contentsline {subsubsection}{\numberline {IV.4.1.2}Reconnaissance des personnes}{75}{subsubsection.4.4.1.2}%
-\contentsline {subsection}{\numberline {IV.4.2}Communication avec l'application mobile}{76}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {IV.4.3}Communication avec la base de données}{77}{subsection.4.4.3}%
-\contentsline {subsubsection}{\numberline {IV.4.3.1}Modèle relationnel et rôle des tables}{77}{subsubsection.4.4.3.1}%
-\contentsline {subsection}{\numberline {IV.4.4}Communication avec le workflow n8n}{78}{subsection.4.4.4}%
-\contentsline {section}{\numberline {IV.5}Problèmes Rencontrés et Solutions Apportées}{79}{section.4.5}%
-\contentsline {section}{\numberline {IV.6}Conclusion}{80}{section.4.6}%
-\contentsline {chapter}{\numberline {V}Cycle 3 : Système Embarqué --- Partie Matérielle}{81}{chapter.5}%
-\contentsline {section}{\numberline {V.1}Introduction}{82}{section.5.1}%
-\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{82}{section.5.2}%
-\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{83}{section.5.3}%
-\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{84}{section.5.4}%
-\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{84}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{84}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{86}{subsection.5.4.3}%
-\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{86}{subsubsection.5.4.3.1}%
-\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{86}{subsubsection.5.4.3.2}%
-\contentsline {subsection}{\numberline {V.4.4}Système Audio}{87}{subsection.5.4.4}%
-\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{87}{subsubsection.5.4.4.1}%
-\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{87}{subsubsection.5.4.4.2}%
-\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{88}{subsection.5.4.5}%
-\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{88}{subsection.5.4.6}%
-\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{89}{subsection.5.4.7}%
-\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{89}{section.5.5}%
-\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{90}{section.5.6}%
-\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{90}{section.5.7}%
-\contentsline {subsection}{\numberline {V.7.1}Test d'intégration matérielle}{91}{subsection.5.7.1}%
-\contentsline {section}{\numberline {V.8}Conclusion}{91}{section.5.8}%
+\contentsline {subsection}{\numberline {IV.4.2}Communication avec l'application mobile cross-plateforme}{76}{subsection.4.4.2}%
+\contentsline {paragraph}{\numberline {IV.4.2.0.1}URL de base.}{76}{paragraph.4.4.2.0.1}%
+\contentsline {subsubsection}{\numberline {IV.4.2.1}Endpoints consommés par KodaMate}{77}{subsubsection.4.4.2.1}%
+\contentsline {subsubsection}{\numberline {IV.4.2.2}Authentification, paramètres et alimentation}{78}{subsubsection.4.4.2.2}%
+\contentsline {subsubsection}{\numberline {IV.4.2.3}Chat, historique et périmètre hors mobile}{78}{subsubsection.4.4.2.3}%
+\contentsline {subsection}{\numberline {IV.4.3}Communication avec la base de données}{78}{subsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {IV.4.3.1}Chaîne d'accès aux données}{78}{subsubsection.4.4.3.1}%
+\contentsline {subsubsection}{\numberline {IV.4.3.2}Connexion Supabase au démarrage}{78}{subsubsection.4.4.3.2}%
+\contentsline {subsubsection}{\numberline {IV.4.3.3}Accès aux tables dans le code métier}{79}{subsubsection.4.4.3.3}%
+\contentsline {subsubsection}{\numberline {IV.4.3.4}Validation de la connexion (test d'exécution)}{79}{subsubsection.4.4.3.4}%
+\contentsline {subsubsection}{\numberline {IV.4.3.5}Modèle relationnel et rôle des tables}{79}{subsubsection.4.4.3.5}%
+\contentsline {subsection}{\numberline {IV.4.4}Communication avec le workflow n8n}{80}{subsection.4.4.4}%
+\contentsline {subsubsection}{\numberline {IV.4.4.1}Méthode de communication}{80}{subsubsection.4.4.4.1}%
+\contentsline {subsubsection}{\numberline {IV.4.4.2}Pourquoi le backend consomme n8n (et pas le Raspberry Pi)}{81}{subsubsection.4.4.4.2}%
+\contentsline {subsubsection}{\numberline {IV.4.4.3}Les trois cas d'usage consommés par le backend}{82}{subsubsection.4.4.4.3}%
+\contentsline {paragraph}{\numberline {IV.4.4.3.1}Cas d'usage 1 — Question et réponse (flux~1).}{82}{paragraph.4.4.4.3.1}%
+\contentsline {paragraph}{\numberline {IV.4.4.3.2}Cas d'usage 2 — Déclencheur nocturne (flux~2).}{82}{paragraph.4.4.4.3.2}%
+\contentsline {paragraph}{\numberline {IV.4.4.3.3}Cas d'usage 3 — Introduction et parole (flux~3).}{83}{paragraph.4.4.4.3.3}%
+\contentsline {subsubsection}{\numberline {IV.4.4.4}Qualité de service côté backend}{83}{subsubsection.4.4.4.4}%
+\contentsline {section}{\numberline {IV.5}Problèmes Rencontrés et Solutions Apportées}{84}{section.4.5}%
+\contentsline {section}{\numberline {IV.6}Conclusion}{84}{section.4.6}%
+\contentsline {chapter}{\numberline {V}Cycle 3 : Système Embarqué --- Partie Matérielle}{86}{chapter.5}%
+\contentsline {section}{\numberline {V.1}Introduction}{87}{section.5.1}%
+\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{87}{section.5.2}%
+\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{88}{section.5.3}%
+\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{89}{section.5.4}%
+\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{89}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{89}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{91}{subsection.5.4.3}%
+\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{91}{subsubsection.5.4.3.1}%
+\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{91}{subsubsection.5.4.3.2}%
+\contentsline {subsection}{\numberline {V.4.4}Système Audio}{92}{subsection.5.4.4}%
+\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{92}{subsubsection.5.4.4.1}%
+\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{92}{subsubsection.5.4.4.2}%
+\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{93}{subsection.5.4.5}%
+\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{93}{subsection.5.4.6}%
+\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{94}{subsection.5.4.7}%
+\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{94}{section.5.5}%
+\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{95}{section.5.6}%
+\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{95}{section.5.7}%
+\contentsline {subsection}{\numberline {V.7.1}Test d'intégration matérielle}{96}{subsection.5.7.1}%
+\contentsline {section}{\numberline {V.8}Conclusion}{96}{section.5.8}%
 \contentsfinish 

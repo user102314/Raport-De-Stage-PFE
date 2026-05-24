@@ -1113,10 +1113,10 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\begin{itemize}
 		\item \textbf{JavaScript} (expressions n8n, nœuds Code) ;
-		\item \textbf{Python~3} avec \textbf{FastAPI}, SQLAlchemy, asyncpg, SDK Azure et
+		\item \textbf{Python~3} avec \textbf{FastAPI}, SDK \textbf{supabase-py}, SDK Azure et
 		intégrations Gemini/OpenRouter côté Distributeur ;
 		\item \textbf{SQL} (PostgreSQL) ;
-		\item \textbf{Dart / Flutter} pour l'application cross-plateforme ;
+		\item \textbf{Dart} pour l'application mobile cross-plateforme KodaMate ;
 		\item \textbf{Bash} et utilitaires système sur Raspberry Pi OS.
 	\end{itemize}
 	
@@ -2564,45 +2564,173 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		sur le serveur de déploiement.
 	\end{tcolorbox}
 	
-	\subsection{Communication avec l'application mobile}
+	\subsection{Communication avec l'application mobile cross-plateforme}
 	
-	L'application \textbf{Flutter} consomme des \textbf{API REST} exposées par le
-	Distributeur~: authentification, profils, agenda, activités, journaux d'échange,
-	paramètres du robot. Chaque requête est sécurisée par \textbf{JWT} (Supabase Auth),
-	validé par un middleware FastAPI transversal.
+	L'application \textbf{KodaMate} est une \textbf{application mobile cross-plateforme}
+	(Android / iOS) pour configurer, piloter et suivre KODA. Elle communique uniquement
+	avec le \textbf{Distributeur} (FastAPI), et non directement avec n8n ou Supabase.
 	
-	\IfFileExists{public/listeendpoint.png}{%
-		\kodafigureL[0.90\textwidth]{public/listeendpoint.png}{Endpoints REST exposés à l'application mobile}{fig:ch4-endpoints-mobile}
-	}{}
+	\paragraph{URL de base.}
+	Les appels ciblent \texttt{http://<IP-du-PC>:8000/api} (ex.\
+	\texttt{http://192.168.1.17:8000/api}). Au démarrage, \texttt{GET\ /} (racine,
+	hors \texttt{/api}) vérifie que le serveur est opérationnel
+	(\texttt{message}, \texttt{routes\_prefix}).
+	
+	\IfFileExists{public/ch4-kodamate-endpoints-mobile.png}{%
+		\kodafigureL[0.95\textwidth]{public/ch4-kodamate-endpoints-mobile.png}{KodaMate --- endpoints de communication avec le backend (périmètre application mobile uniquement)}{fig:ch4-endpoints-mobile}
+	}{%
+		\IfFileExists{public/listeendpoint.png}{%
+			\kodafigureL[0.90\textwidth]{public/listeendpoint.png}{Routes REST du Distributeur (vue globale)}{fig:ch4-endpoints-mobile}
+		}{}%
+	}
 	\IfFileExists{public/exucution.png}{%
 		\kodafigure[0.90\textwidth]{public/exucution.png}{Exécution de quelques endpoints (tests)}
 	}{}
 	
-	\begin{table}[htbp]
-		\centering
-		\caption{Endpoints exposés à l'application mobile (à compléter)}
-		\label{tab:endpoints_mobile}
-		\renewcommand{\arraystretch}{1.3}
-		\begin{tabular}{|l|c|l|}
-			\hline
-			\textbf{Endpoint} & \textbf{Méthode} & \textbf{Description} \\
-			\hline
-			&  &  \\
-			&  &  \\
-			\hline
-		\end{tabular}
-	\end{table}
+	\subsubsection{Endpoints consommés par KodaMate}
+	
+	Le tableau~\ref{tab:endpoints_mobile} liste les routes \textbf{utilisées à l'écran}.
+	Les flux robot (audio, visage, WebSocket) et d'autres API backend ne passent pas
+	par l'application mobile.
+	
+	\footnotesize
+	\begin{longtable}{|c|l|p{3.8cm}|p{5.6cm}|}
+		\caption{Endpoints REST consommés par KodaMate}
+		\label{tab:endpoints_mobile} \\
+		\hline
+		\textbf{\#} & \textbf{Route} & \textbf{Écran} & \textbf{Entrée / sortie (résumé)} \\
+		\hline
+		\endfirsthead
+		\hline
+		\textbf{\#} & \textbf{Route} & \textbf{Écran} & \textbf{Entrée / sortie (résumé)} \\
+		\hline
+		\endhead
+		1 & \texttt{GET\ /} & Bootstrap, login, session &
+		200~: \texttt{message}, \texttt{routes\_prefix}. \\
+		\hline
+		2 & \texttt{POST\ /api/auth/login} & Connexion &
+		JSON~: \texttt{emailclient}, \texttt{motdepasse} $\rightarrow$
+		\texttt{idproduit}, \texttt{idkoda} ; 401 / 503. \\
+		\hline
+		3 & \texttt{GET\ /api/settings} & Accueil, paramètres &
+		\texttt{name}, \texttt{sexe}, \texttt{etat}, \texttt{caractere}, \texttt{langue}, etc. \\
+		\hline
+		4 & \texttt{PUT\ /api/settings} & Config robot &
+		Corps JSON partiel ; mise à jour \texttt{setting}. \\
+		\hline
+		5 & \texttt{POST\ /api/power-on} & Accueil &
+		\texttt{status=power\_on}, \texttt{etat=1}. \\
+		\hline
+		6 & \texttt{POST\ /api/power-off} & Accueil &
+		\texttt{status=power\_off}, \texttt{etat=0}. \\
+		\hline
+		7 & \texttt{POST\ /api/trigger-n8n} & Chat &
+		\texttt{question} $\rightarrow$ réponse n8n (\texttt{response}, \texttt{answer}, etc.). \\
+		\hline
+		8 & \texttt{GET\ /api/conversations} & Historique &
+		Filtres \texttt{date\_from}, \texttt{date\_to} ; tableau d'échanges. \\
+		\hline
+		9 & \texttt{GET\ /api/conversations/last100} & Historique (repli) &
+		100 derniers messages si erreur sur~\#8. \\
+		\hline
+		10 & Open-Meteo \texttt{/v1/forecast} & Accueil météo &
+		API externe (lat/long, ex. Alger) ; température, vent, humidité. \\
+		\hline
+	\end{longtable}
+	\normalsize
+	
+	\subsubsection{Authentification, paramètres et alimentation}
+	
+	Après \texttt{POST\ /api/auth/login}, KodaMate stocke localement
+	\texttt{email}, \texttt{idproduit} et \texttt{idkoda}. Les écrans paramètres
+	utilisent \texttt{GET/PUT\ /api/settings} (champ \texttt{etat} = marche/arrêt).
+	Les boutons power appellent \texttt{power-on} / \texttt{power-off} puis relisent
+	\texttt{GET\ /api/settings}.
+	
+	\subsubsection{Chat, historique et périmètre hors mobile}
+	
+	Le chat passe par \texttt{POST\ /api/trigger-n8n} (relais vers n8n, Cycle~1).
+	L'historique utilise \texttt{/api/conversations} ou \texttt{/last100}. Les routes
+	\texttt{/api/notes} sont prêtes côté client mais sans écran pour l'instant~;
+	\texttt{/api/users}, \texttt{/api/identify-face}, \texttt{/api/audio/*},
+	\texttt{/api/activities}, etc., servent le robot ou d'autres modules, pas KodaMate.
 	
 	\subsection{Communication avec la base de données}
 	
-	La couche de persistance repose sur \textbf{PostgreSQL} hébergé sur
-	\textbf{Supabase} (interface d'administration, SQL, gestion des accès).
-	Le Distributeur y accède via \texttt{SQLAlchemy} (ORM) et \texttt{asyncpg}
-	(asynchrone), selon la chaîne~:
-	\textit{API REST $\rightarrow$ service $\rightarrow$ repository $\rightarrow$ PostgreSQL}.
+	La persistance repose sur \textbf{PostgreSQL}, hébergé et administré via
+	\textbf{Supabase}. Le Distributeur s'appuie sur le \textbf{SDK \texttt{supabase-py}},
+	qui appelle l'API REST \textbf{PostgREST} de Supabase, traduite en opérations SQL sur
+	PostgreSQL. Il n'y a pas de requêtes SQL écrites à la main dans la couche métier.
+	
+	\subsubsection{Chaîne d'accès aux données}
+	
+	L'\textbf{application mobile ne parle jamais directement} à la base. Le flux est~:
+	\begin{center}
+		\small
+		\textbf{KodaMate} $\rightarrow$ \textbf{FastAPI} (\texttt{/api/...})
+		$\rightarrow$ \textbf{ApiServiceImpl}
+		$\rightarrow$ \textbf{client Supabase}
+		$\rightarrow$ \textbf{PostgreSQL (Supabase)}
+	\end{center}
+	
+	Le téléphone envoie du HTTP au Distributeur (port~8000)~; le backend lit et écrit les
+	données, puis renvoie du JSON. Seul le backend détient les identifiants Supabase.
+	
+	\subsubsection{Connexion Supabase au démarrage}
+	
+	Configuration dans \texttt{.env}~: \texttt{SUPABASE\_URL} (adresse du projet) et
+	\texttt{SUPABASE\_KEY} (clé API, \textit{service role} ou \textit{anon}). Au lancement,
+	\texttt{get\_supabase\_client()} (\texttt{database.py}) crée un \textbf{client unique}
+	réutilisé pour tout le processus~:
+	\begin{center}
+		\ttfamily\small
+		\_client = create\_client(SUPABASE\_URL, SUPABASE\_KEY)
+	\end{center}
+	
+	\subsubsection{Accès aux tables dans le code métier}
+	
+	Chaque opération suit le même schéma (résultat = liste de dictionnaires JSON)~:
+	
+	\begin{table}[htbp]
+		\centering
+		\caption{Opérations types via le SDK \texttt{supabase-py}}
+		\label{tab:supabase-operations}
+		\renewcommand{\arraystretch}{1.25}
+		\footnotesize
+		\begin{tabularx}{\textwidth}{|l|X|}
+			\hline
+			\textbf{Action} & \textbf{Exemple} \\
+			\hline
+			Lire & \texttt{client.table("conversation").select("*").execute().data} \\
+			\hline
+			Filtrer & \texttt{.eq("emailclient", email)} \\
+			\hline
+			Trier / limiter & \texttt{.order("date", desc=True).limit(100)} \\
+			\hline
+			Insérer & \texttt{.insert(data).execute().data} \\
+			\hline
+			Modifier & \texttt{.update(data).eq("id", id).execute().data} \\
+			\hline
+			Supprimer & \texttt{.delete().eq("id", id).execute().data} \\
+			\hline
+		\end{tabularx}
+	\end{table}
+	
+	\noindent FastAPI renvoie ces lignes telles quelles à KodaMate ou aux autres clients
+	du backend. La couche \texttt{ApiServiceImpl} centralise les accès par table.
+	
+	\subsubsection{Validation de la connexion (test d'exécution)}
+	
+	Une route de test, \texttt{GET\ /api/db-test}, vérifie que le backend atteint
+	Supabase avant les flux métier. La figure~\ref{fig:ch4-db-test} montre une exécution
+	réussie~: \texttt{GET\ /api/db-test} depuis \texttt{127.0.0.1}, réponse
+	\textbf{200 OK} — la chaîne FastAPI $\rightarrow$ client Supabase $\rightarrow$
+	PostgreSQL est opérationnelle.
+	
+	\kodafigureL[0.92\textwidth]{public/ch4-db-test-execution.png}{Exécution --- test de communication base de données (\texttt{GET\ /api/db-test}, 200 OK)}{fig:ch4-db-test}
 	
 	\IfFileExists{public/supabase.jpg}{%
-		\kodafigureL[0.95\textwidth]{public/supabase.jpg}{Interface Supabase --- administration PostgreSQL}{fig:supabase_interface}
+		\kodafigureL[0.95\textwidth]{public/supabase.jpg}{Interface Supabase --- administration PostgreSQL (Studio)}{fig:supabase_interface}
 	}{}
 	
 	\subsubsection{Modèle relationnel et rôle des tables}
@@ -2626,36 +2754,130 @@ figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 	
 	\subsection{Communication avec le workflow n8n}
 	
-	Le moteur de workflow \textbf{n8n} joue le rôle d'orchestrateur
-	cognitif du système~: il reçoit les requêtes, applique la logique de
-	traitement et renvoie une réponse structurée au backend. Dans notre
-	architecture, la communication entre Python et n8n est fondée sur un
-	échange HTTP de type \textbf{requête/réponse} via webhook.
-
-	\subsubsection*{Rôle de cette communication}
-	L'objectif principal est de déléguer à n8n la logique
-	conversationnelle et décisionnelle, tout en conservant dans le backend
-	Python les fonctions techniques (sécurité, accès base de données,
-	services matériels). Cette séparation permet de modifier rapidement le
-	comportement métier dans n8n sans impacter la couche d'exposition API.
-
-	\subsubsection*{Flux détaillé : de la requête à la réponse}
-	Le scénario standard suit les étapes suivantes~:
-	\begin{enumerate}
-		\item le backend récupère le \textbf{nom de l'utilisateur} (ou son identifiant) et la \textbf{question} formulée~;
-		\item il construit un payload JSON normalisé (ex.~: \texttt{\{"name":"...", "question":"..."\}})~;
-		\item ce payload est envoyé au webhook n8n via une requête \texttt{HTTP POST}~;
-		\item n8n exécute le workflow correspondant~: enrichissement du contexte, appels de services, règles de décision et génération de réponse~;
-		\item n8n retourne un objet de sortie contenant la \textbf{réponse finale}~;
-		\item le backend valide le format, journalise l'échange et renvoie la réponse au robot ou à l'application cliente.
+	Le \textbf{moteur n8n} (Cycle~1, chapitre~III) porte la logique cognitive~: analyse des
+	messages, synthèse journalière, introduction orale. Le \textbf{Distributeur} (Cycle~2)
+	n'exécute pas cette logique~: il \textbf{appelle} les webhooks n8n en HTTP et transmet
+	les réponses aux clients (KodaMate, robot). Le détail des six parties du Webhook~1 et des
+	flux~2/3 est documenté au chapitre~III~; ici nous décrivons \textbf{comment le backend
+	communique} avec n8n et \textbf{pourquoi} cette centralisation est retenue.
+	
+	\subsubsection{Méthode de communication}
+	
+	Le protocole retenu est un échange \textbf{requête / réponse} en \textbf{HTTP POST} vers
+	des \textbf{URL de webhook} n8n (une URL par flux). Le backend~:
+	\begin{enumerate}[leftmargin=*, itemsep=0.25em]
+		\item reçoit une demande d'un composant (application mobile, robot, planificateur interne)~;
+		\item construit un \textbf{payload JSON} (question, identifiant utilisateur, contexte)~;
+		\item envoie \texttt{POST} au webhook n8n concerné~;
+		\item attend la réponse JSON du workflow (timeout et gestion d'erreur côté FastAPI)~;
+		\item valide ou normalise la sortie, puis la renvoie au demandeur ou persiste en base.
 	\end{enumerate}
-
-	Sur le plan qualité, cette interface inclut la gestion des
-	\textit{timeouts}, le contrôle des erreurs de webhook et la validation
-	du schéma de réponse pour garantir la robustesse en exploitation.
+	
+	Exemple côté application mobile~: \texttt{POST\ /api/trigger-n8n} avec
+	\texttt{\{"question": "..."\}} — route FastAPI qui encapsule l'appel au \textbf{Webhook~1}
+	(question--réponse), sans exposer l'URL n8n au téléphone.
+	
 	\IfFileExists{public/captureworkflowinput.png}{%
-		\kodafigureL[0.95\textwidth]{public/captureworkflowinput.png}{Communication avec n8n --- exemple de payload en entrée de webhook}{fig:ch4-n8n-input}
+		\kodafigureL[0.95\textwidth]{public/captureworkflowinput.png}{Communication avec n8n --- exemple de payload en entrée de webhook (Webhook~1)}{fig:ch4-n8n-input}
 	}{}
+	
+	\subsubsection{Pourquoi le backend consomme n8n (et pas le Raspberry Pi)}
+	
+	Dans une architecture naïve, le \textbf{Raspberry Pi} pourrait appeler directement les
+	webhooks n8n (flux~1 et~3, dialogue et spontanéité). Nous avons retenu l'inverse pour les
+	flux \textbf{temps réel}~1 et~3~: ce sont les \textbf{endpoints du Distributeur} qui
+	consomment n8n~; le robot dialogue avec le backend (WebSocket / HTTP), pas avec n8n.
+	
+	\textbf{Objectifs de ce choix~:}
+	\begin{itemize}[leftmargin=*, itemsep=0.25em]
+		\item \textbf{Réduire les dépendances sur la carte embarquée}~: pas de gestion des
+		URL n8n, clés ou formats JSON complexes sur le Pi~;
+		\item \textbf{Alléger et fiabiliser le code embarqué}~: le Pi se concentre sur capteurs,
+		moteurs, audio et commandes~;
+		\item \textbf{Un seul point de distribution}~: le Distributeur reste l'intermédiaire
+		entre \emph{tous} les composants (mobile, robot, base, n8n, Azure), cohérent avec le
+		rôle du Cycle~2.
+	\end{itemize}
+	
+	Le \textbf{flux~2} (synthèse nocturne) est déclenché depuis le \textbf{backend} par un
+	\textbf{job planifié} (et non par le robot)~: même logique de centralisation.
+	
+	\subsubsection{Les trois cas d'usage consommés par le backend}
+	
+	Le Distributeur matérialise \textbf{trois consommations} des workflows n8n, alignées sur
+	les trois flux du chapitre~III (tableau~\ref{tab:ch4-n8n-usecases}).
+	
+	\begin{table}[htbp]
+		\centering
+		\caption{Trois cas d'usage backend $\rightarrow$ n8n}
+		\label{tab:ch4-n8n-usecases}
+		\renewcommand{\arraystretch}{1.3}
+		\footnotesize
+		\begin{tabularx}{\textwidth}{|c|p{2.8cm}|p{2.6cm}|X|}
+			\hline
+			\textbf{\#} & \textbf{Cas d'usage} & \textbf{Flux n8n} & \textbf{Rôle et déclenchement} \\
+			\hline
+			1 &
+			Question -- réponse &
+			Webhook~1 (flux~1) &
+			Traitement \textbf{temps réel} d'une question utilisateur (chat mobile, dialogue robot
+			via backend). Le backend transmet \texttt{user\_name} + \texttt{question}, récupère la
+			réponse structurée et la renvoie au client. \\
+			\hline
+			2 &
+			Synthèse journalière &
+			Webhook~2 (flux~2) &
+			\textbf{Déclencheur automatique} (planifié, ex. chaque nuit)~: le backend récupère
+			\textbf{tous les utilisateurs} actifs en base, puis invoque le flux~2 \textbf{pour
+			chaque utilisateur} afin d'analyser les échanges de la journée et produire la fiche
+			\texttt{accompagnement} (intérêts, synthèse, points clés, conseils). \\
+			\hline
+			3 &
+			Introduction / parole &
+			Webhook~3 (flux~3) &
+			Demande d'\textbf{introduction orale} (\texttt{parole\_du\_robot},
+			\texttt{emotion\_visuelle}) lorsqu'une personne est détectée (nom connu ou
+			\texttt{unkonu}). Le backend charge le contexte issu des synthèses Webhook~2 et
+			relaye la sortie vers le robot. \\
+			\hline
+		\end{tabularx}
+	\end{table}
+	
+	\paragraph{Cas d'usage 1 — Question et réponse (flux~1).}
+	C'est le chemin le plus fréquent~: une question arrive (KodaMate ou pipeline vocal du
+	robot), le backend appelle le Webhook~1, n8n enchaîne les six parties du pipeline
+	(classification, historique, réponse, persistance, etc., voir
+	chapitre~III et figure~\ref{fig:webhook1-sequence-blocs}), puis renvoie le texte de réponse.
+	
+	\paragraph{Cas d'usage 2 — Déclencheur nocturne (flux~2).}
+	Un \textbf{trigger automatique} côté Distributeur (cron / tâche planifiée) s'exécute
+	\textbf{chaque jour pendant la nuit}. Séquence~: (i)~lecture de la liste des utilisateurs
+	en PostgreSQL~; (ii)~pour chaque utilisateur, \texttt{POST} vers le webhook du
+	\textbf{flux~2}~; (iii)~n8n agrège les conversations du jour, produit la synthèse et le
+	backend (ou n8n via nœuds SQL) met à jour \texttt{accompagnement}. Ce traitement ne
+	requiert pas d'interaction utilisateur immédiate.
+	
+	\IfFileExists{public/webhook2.png}{%
+		\kodafigure[0.85\textwidth]{public/webhook2.png}{Webhook~2 --- workflow n8n (synthèse journalière, rappel)}
+	}{}
+	
+	\paragraph{Cas d'usage 3 — Introduction et parole (flux~3).}
+	Lorsque le robot ou la vision détecte une présence, le backend reçoit un identifiant
+	(\texttt{username} / \texttt{acteur}) et appelle le \textbf{Webhook~3}. n8n recharge les
+	données consolidées par le flux~2 et génère une phrase d'accueil personnalisée plus une
+	émotion affichée sur le robot. Ce flux alimente la \textbf{spontanéité} du compagnon
+	(chapitre~III, troisième flux).
+	
+	\IfFileExists{public/koda_webhook3_spontaneite_sequence.png}{%
+		\kodafigure[0.88\textwidth]{public/koda_webhook3_spontaneite_sequence.png}{Webhook~3 --- diagramme de séquence (rappel)}
+	}{}
+	
+	\subsubsection{Qualité de service côté backend}
+	
+	Les appels n8n partagent les mêmes exigences~: \textit{timeouts} configurables, journalisation
+	des échecs de webhook, validation du schéma JSON en sortie, et absence d'exposition des
+	URL n8n vers le mobile ou le Raspberry Pi. Toute évolution des workflows reste localisée
+	dans n8n et dans la couche d'appel HTTP du Distributeur.
 	
 	%------------------------------------------------------------------
 	\section{Problèmes Rencontrés et Solutions Apportées}
