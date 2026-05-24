@@ -13,20 +13,12 @@
 \contentsline {table}{\numberline {IV.2}{\ignorespaces Endpoints exposés à l'application mobile (à compléter)}}{77}{table.caption.15}%
 \contentsline {table}{\numberline {IV.3}{\ignorespaces Problèmes techniques rencontrés et solutions apportées}}{79}{table.caption.16}%
 \addvspace {10\p@ }
-<<<<<<< Updated upstream
-\contentsline {table}{\numberline {V.1}{\ignorespaces Inventaire des composants matériels de KODA}}{83}{table.caption.17}%
-\contentsline {table}{\numberline {V.2}{\ignorespaces Spécifications techniques du Raspberry Pi 4 Model B}}{86}{table.caption.20}%
-\contentsline {table}{\numberline {V.3}{\ignorespaces Architecture d'alimentation de KODA}}{89}{table.caption.23}%
-\contentsline {table}{\numberline {V.4}{\ignorespaces Récapitulatif des connexions entre composants}}{90}{table.caption.25}%
-\contentsline {table}{\numberline {V.5}{\ignorespaces Tests unitaires par composant (Cycle~3)}}{91}{table.caption.26}%
-=======
-\contentsline {table}{\numberline {V.1}{\ignorespaces Inventaire des composants matériels de KODA}}{87}{table.caption.35}%
-\contentsline {table}{\numberline {V.2}{\ignorespaces Spécifications techniques du Raspberry Pi 4 Model B}}{89}{table.caption.38}%
-\contentsline {table}{\numberline {V.3}{\ignorespaces Architecture d'alimentation de KODA}}{96}{table.caption.50}%
-\contentsline {table}{\numberline {V.4}{\ignorespaces Récapitulatif des connexions entre composants}}{98}{table.caption.54}%
-\contentsline {table}{\numberline {V.5}{\ignorespaces Tests unitaires par composant (Cycle~3)}}{99}{table.caption.55}%
+\contentsline {table}{\numberline {V.1}{\ignorespaces Inventaire des composants matériels de KODA}}{84}{table.caption.18}%
+\contentsline {table}{\numberline {V.2}{\ignorespaces Spécifications techniques du Raspberry Pi 4 Model B}}{86}{table.caption.21}%
+\contentsline {table}{\numberline {V.3}{\ignorespaces Architecture d'alimentation de KODA}}{93}{table.caption.33}%
+\contentsline {table}{\numberline {V.4}{\ignorespaces Récapitulatif des connexions entre composants}}{95}{table.caption.37}%
+\contentsline {table}{\numberline {V.5}{\ignorespaces Tests unitaires par composant (Cycle~3)}}{96}{table.caption.38}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {VI.1}{\ignorespaces Expressions logicielles envoyées à l'écran Nextion}}{114}{table.caption.66}%
-\contentsline {table}{\numberline {VI.2}{\ignorespaces Tests de validation du logiciel Raspberry Pi}}{116}{table.caption.67}%
->>>>>>> Stashed changes
+\contentsline {table}{\numberline {VI.1}{\ignorespaces Expressions logicielles envoyées à l'écran Nextion}}{110}{table.caption.49}%
+\contentsline {table}{\numberline {VI.2}{\ignorespaces Tests de validation du logiciel Raspberry Pi}}{112}{table.caption.50}%
 \contentsfinish 

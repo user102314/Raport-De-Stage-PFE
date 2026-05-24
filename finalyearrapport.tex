@@ -43,13 +43,9 @@ headheight=14pt
 %----------------------------------------------------------------
 \usepackage{xcolor}
 \usepackage{graphicx}
-<<<<<<< Updated upstream
+\usepackage{float}               % Fournit l'option [H] pour figures/tables ancrees
 % Pas de flottants pour les figures KODA (\kodafigure) ; \FloatBarrier = no-op sans placeins
 \newcommand{\FloatBarrier}{}
-
-=======
-\usepackage{float}               % Fournit l'option [H] pour figures/tables ancrees
->>>>>>> Stashed changes
 \makeatletter
 \newcommand{\nonfloatingfigure}[3]{%
   \vspace{\intextsep}
@@ -3613,8 +3609,6 @@ void loop() {
 		\end{itemize}
 	\end{tcolorbox}
 
-<<<<<<< Updated upstream
-=======
 	%================================================================
 	%  CHAPITRE VI : Cycle 4 --- Système Embarqué, Partie Logicielle
 	%================================================================
@@ -4119,5 +4113,4 @@ python -m app.main
 	cross-plateforme KodaMate, qui permet à l'utilisateur de configurer, contrôler
 	et superviser son compagnon.
 	
->>>>>>> Stashed changes
 \end{document}

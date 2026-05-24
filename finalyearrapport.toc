@@ -44,7 +44,6 @@
 \contentsline {section}{\numberline {II.9}Conclusion}{22}{section.2.9}%
 \contentsline {chapter}{\numberline {III}Cycle 1 : ANALYSEUR ET RÉFLEXION}{23}{chapter.3}%
 \contentsline {section}{\numberline {III.1}Introduction}{24}{section.3.1}%
-<<<<<<< Updated upstream
 \contentsline {section}{\numberline {III.2}Fondements Théoriques}{24}{section.3.2}%
 \contentsline {subsection}{\numberline {III.2.1}Que signifie «~théorie du double traitement~»~?}{24}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {III.2.2}Réflexion rapide et réflexion lente}{25}{subsection.3.2.2}%
@@ -126,142 +125,49 @@
 \contentsline {section}{\numberline {IV.6}Conclusion}{80}{section.4.6}%
 \contentsline {chapter}{\numberline {V}Cycle 3 : Système Embarqué --- Partie Matérielle}{81}{chapter.5}%
 \contentsline {section}{\numberline {V.1}Introduction}{82}{section.5.1}%
-\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{82}{section.5.2}%
-\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{83}{section.5.3}%
-\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{84}{section.5.4}%
-\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{84}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{84}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{86}{subsection.5.4.3}%
-\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{86}{subsubsection.5.4.3.1}%
-\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{86}{subsubsection.5.4.3.2}%
-\contentsline {subsection}{\numberline {V.4.4}Système Audio}{87}{subsection.5.4.4}%
-\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{87}{subsubsection.5.4.4.1}%
-\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{87}{subsubsection.5.4.4.2}%
-\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{88}{subsection.5.4.5}%
-\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{88}{subsection.5.4.6}%
-\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{89}{subsection.5.4.7}%
-\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{89}{section.5.5}%
-\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{90}{section.5.6}%
-\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{90}{section.5.7}%
-\contentsline {subsection}{\numberline {V.7.1}Test d'intégration matérielle}{91}{subsection.5.7.1}%
-\contentsline {section}{\numberline {V.8}Conclusion}{91}{section.5.8}%
-=======
-\contentsline {section}{\numberline {III.2}Définitions Fondamentales}{24}{section.3.2}%
-\contentsline {subsection}{\numberline {III.2.1}n8n}{24}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {III.2.2}Webhook}{25}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {III.2.3}Grand modèle de langage (LLM)}{25}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {III.2.4}OpenRouter}{26}{subsection.3.2.4}%
-\contentsline {subsection}{\numberline {III.2.5}Schéma de classes — persistance KODA}{26}{subsection.3.2.5}%
-\contentsline {section}{\numberline {III.3}Fondements Théoriques}{27}{section.3.3}%
-\contentsline {subsection}{\numberline {III.3.1}La Théorie du Double Traitement}{27}{subsection.3.3.1}%
-\contentsline {section}{\numberline {III.4}Fonctionnalités Techniques}{28}{section.3.4}%
-\contentsline {subsection}{\numberline {III.4.1}Premier Flux — Webhook 1 : Analyse et Réponse}{28}{subsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {III.4.1.1}Principe Général}{28}{subsubsection.3.4.1.1}%
-\contentsline {subsubsection}{\numberline {III.4.1.2}Format de la Requête Entrante}{29}{subsubsection.3.4.1.2}%
-\contentsline {subsubsection}{\numberline {III.4.1.3}Description détaillée des blocs de traitement}{29}{subsubsection.3.4.1.3}%
-\contentsline {paragraph}{\numberline {III.4.1.3.1}Découpe du travail et rôle des blocs (1 à 6).}{29}{paragraph.3.4.1.3.1}%
-\contentsline {paragraph}{\numberline {III.4.1.3.2}Block 1 : Analyse du message utilisateur et classification d'intention}{30}{paragraph.3.4.1.3.2}%
-\contentsline {subparagraph}{\numberline {III.4.1.3.2.1}Branche musique — SerpAPI comme outil de recherche Google.}{31}{subparagraph.3.4.1.3.2.1}%
-\contentsline {paragraph}{\numberline {III.4.1.3.3}Block 2 : Vérification de la Question dans l'Historique}{36}{paragraph.3.4.1.3.3}%
-\contentsline {paragraph}{\numberline {III.4.1.3.4}Block 3 : Classification Sémantique de la Question}{38}{paragraph.3.4.1.3.4}%
-\contentsline {subparagraph}{\numberline {III.4.1.3.4.1}Basic LLM Chain en lieu et place de l'AI Agent}{40}{subparagraph.3.4.1.3.4.1}%
-\contentsline {subparagraph}{\numberline {III.4.1.3.4.2}Configuration OpenRouter (modèle Gemini)}{40}{subparagraph.3.4.1.3.4.2}%
-\contentsline {subparagraph}{\numberline {III.4.1.3.4.3}OpenRouter dans le Block~3 — agrégation et suivi d'usage}{41}{subparagraph.3.4.1.3.4.3}%
-\contentsline {subparagraph}{\numberline {III.4.1.3.4.4}Prompt Engineering — Analyseur de Dépendance Mémoire}{41}{subparagraph.3.4.1.3.4.4}%
-\contentsline {subparagraph}{\numberline {III.4.1.3.4.5}Détail des Types de Questions Classifiés}{43}{subparagraph.3.4.1.3.4.5}%
-\contentsline {paragraph}{\numberline {III.4.1.3.5}Block 4 : Reconnaissance et enregistrement de l'utilisateur}{43}{paragraph.3.4.1.3.5}%
-\contentsline {subparagraph}{\numberline {III.4.1.3.5.1}Routage par \textit {Switch1} (résultat du Block~3).}{43}{subparagraph.3.4.1.3.5.1}%
-\contentsline {subparagraph}{\numberline {III.4.1.3.5.2}Diagramme de séquence du block 4.}{45}{subparagraph.3.4.1.3.5.2}%
-\contentsline {paragraph}{\numberline {III.4.1.3.6}Block 5 : Récupération Contextuelle et Génération de la Réponse}{47}{paragraph.3.4.1.3.6}%
-\contentsline {subparagraph}{\numberline {III.4.1.3.6.1}Branche Mémorielle (\texttt {use\_memory = true})}{47}{subparagraph.3.4.1.3.6.1}%
-\contentsline {subparagraph}{\numberline {III.4.1.3.6.2}Branche Générale (\texttt {use\_memory = false})}{49}{subparagraph.3.4.1.3.6.2}%
-\contentsline {subsubsection}{\numberline {III.4.1.4}Vue Complète du Block 5 — Les Deux Branches}{50}{subsubsection.3.4.1.4}%
-\contentsline {paragraph}{\numberline {III.4.1.4.1}Block 6 : Notes, structuration et mise à jour de la mémoire}{51}{paragraph.3.4.1.4.1}%
-\contentsline {subparagraph}{\numberline {III.4.1.4.1.1}Partie 1 — Extraction structurée des \textit {notes} (conditionnel).}{51}{subparagraph.3.4.1.4.1.1}%
-\contentsline {subparagraph}{\numberline {III.4.1.4.1.2}Détection (\textit {If}) et \textit {Basic LLM Chain~2}.}{52}{subparagraph.3.4.1.4.1.2}%
-\contentsline {subparagraph}{\numberline {III.4.1.4.1.3}Partie 2 — Mise à jour de la mémoire et clôture du webhook.}{54}{subparagraph.3.4.1.4.1.3}%
-\contentsline {subsubsection}{\numberline {III.4.1.5}Synthèse visuelle du pipeline}{55}{subsubsection.3.4.1.5}%
-\contentsline {subsubsection}{\numberline {III.4.1.6}Conclusion du Webhook 1}{55}{subsubsection.3.4.1.6}%
-\contentsline {subsection}{\numberline {III.4.2}Deuxième Flux — Webhook 2 : Filtre et Synthèse Journalière}{57}{subsection.3.4.2}%
-\contentsline {subsubsection}{\numberline {III.4.2.1}Principe et Inspiration}{57}{subsubsection.3.4.2.1}%
-\contentsline {subsubsection}{\numberline {III.4.2.2}Fonctionnement du Webhook 2}{57}{subsubsection.3.4.2.2}%
-\contentsline {subsubsection}{\numberline {III.4.2.3}Diagramme de séquence du Webhook 2}{57}{subsubsection.3.4.2.3}%
-\contentsline {subsubsection}{\numberline {III.4.2.4}Structure des Fiches de Synthèse Générées}{59}{subsubsection.3.4.2.4}%
-\contentsline {subsubsection}{\numberline {III.4.2.5}Persistance : relation \texttt {utilisateur} / \texttt {accompagnement}}{59}{subsubsection.3.4.2.5}%
-\contentsline {subsubsection}{\numberline {III.4.2.6}Impact sur le Système Global}{59}{subsubsection.3.4.2.6}%
-\contentsline {subsubsection}{\numberline {III.4.2.7}Conclusion du Webhook 2}{59}{subsubsection.3.4.2.7}%
-\contentsline {subsection}{\numberline {III.4.3}Troisième Flux — Webhook 3 : Spontanéité et Interaction Proactive}{62}{subsection.3.4.3}%
-\contentsline {subsubsection}{\numberline {III.4.3.1}Principe : la spontanéité comme dimension humaine}{62}{subsubsection.3.4.3.1}%
-\contentsline {subsubsection}{\numberline {III.4.3.2}Déclenchement et entrées}{62}{subsubsection.3.4.3.2}%
-\contentsline {subsubsection}{\numberline {III.4.3.3}Préparation des données (nœud Code11)}{63}{subsubsection.3.4.3.3}%
-\contentsline {subsubsection}{\numberline {III.4.3.4}Génération de l'introduction et sortie JSON}{63}{subsubsection.3.4.3.4}%
-\contentsline {subsubsection}{\numberline {III.4.3.5}Diagramme de séquence du Webhook 3}{64}{subsubsection.3.4.3.5}%
-\contentsline {subsubsection}{\numberline {III.4.3.6}Conclusion du Webhook 3}{64}{subsubsection.3.4.3.6}%
-\contentsline {section}{\numberline {III.5}Vue Générale du Cycle 1}{64}{section.3.5}%
-\contentsline {section}{\numberline {III.6}Conclusion}{66}{section.3.6}%
-\contentsline {chapter}{\numberline {IV}Cycle 2 : Distributeur de Services}{68}{chapter.4}%
-\contentsline {section}{\numberline {IV.1}Introduction}{69}{section.4.1}%
-\contentsline {section}{\numberline {IV.2}Architecture Utilisée}{69}{section.4.2}%
-\contentsline {subsection}{\numberline {IV.2.1}Choix du langage : Python}{69}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {IV.2.2}Clean Architecture : principes et application}{70}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {IV.2.3}Structure des répertoires du projet}{71}{subsection.4.2.3}%
-\contentsline {section}{\numberline {IV.3}Fonctionnalités Techniques}{72}{section.4.3}%
-\contentsline {subsection}{\numberline {IV.3.1}Communication avec la base de données (Supabase / PostgreSQL)}{72}{subsection.4.3.1}%
-\contentsline {subsubsection}{\numberline {IV.3.1.1}Modèle relationnel et rôle des tables}{73}{subsubsection.4.3.1.1}%
-\contentsline {subsection}{\numberline {IV.3.2}Services Azure : Speech-to-Text et Text-to-Speech}{74}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {IV.3.3}Service de reconnaissance des personnes}{76}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {IV.3.4}Interface avec le workflow n8n}{78}{subsection.4.3.4}%
-\contentsline {paragraph}{\numberline {IV.3.4.0.1}Images recommandées pour cette section}{79}{paragraph.4.3.4.0.1}%
-\contentsline {subsection}{\numberline {IV.3.5}Services pour l'application mobile multiplateforme}{79}{subsection.4.3.5}%
-\contentsline {subsection}{\numberline {IV.3.6}Communication avec le système embarqué (robot réel)}{81}{subsection.4.3.6}%
-\contentsline {section}{\numberline {IV.4}Problèmes Rencontrés et Solutions Apportées}{81}{section.4.4}%
-\contentsline {section}{\numberline {IV.5}Conclusion}{82}{section.4.5}%
-\contentsline {chapter}{\numberline {V}Cycle 3 : Système Embarqué --- Partie Matérielle}{84}{chapter.5}%
-\contentsline {section}{\numberline {V.1}Introduction}{85}{section.5.1}%
-\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{86}{section.5.2}%
-\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{87}{section.5.3}%
-\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{88}{section.5.4}%
-\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{88}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{89}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{91}{subsection.5.4.3}%
-\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{91}{subsubsection.5.4.3.1}%
-\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{91}{subsubsection.5.4.3.2}%
-\contentsline {subsection}{\numberline {V.4.4}Système Audio}{92}{subsection.5.4.4}%
-\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{92}{subsubsection.5.4.4.1}%
-\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{93}{subsubsection.5.4.4.2}%
-\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{94}{subsection.5.4.5}%
-\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{95}{subsection.5.4.6}%
-\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{96}{subsection.5.4.7}%
-\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{97}{section.5.5}%
-\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{98}{section.5.6}%
-\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{98}{section.5.7}%
-\contentsline {subsection}{\numberline {V.7.1}Commandes de test par composant}{99}{subsection.5.7.1}%
-\contentsline {paragraph}{\numberline {V.7.1.0.1}Power Bank + Raspberry Pi.}{99}{paragraph.5.7.1.0.1}%
-\contentsline {paragraph}{\numberline {V.7.1.0.2}ReSpeaker 4-Mic Array USB.}{100}{paragraph.5.7.1.0.2}%
-\contentsline {paragraph}{\numberline {V.7.1.0.3}Sortie jack + amplificateur PAM8403.}{100}{paragraph.5.7.1.0.3}%
-\contentsline {paragraph}{\numberline {V.7.1.0.4}Sortie Bluetooth.}{100}{paragraph.5.7.1.0.4}%
-\contentsline {paragraph}{\numberline {V.7.1.0.5}Caméra Raspberry Pi (CSI).}{101}{paragraph.5.7.1.0.5}%
-\contentsline {paragraph}{\numberline {V.7.1.0.6}Écran Nextion (UART).}{101}{paragraph.5.7.1.0.6}%
-\contentsline {paragraph}{\numberline {V.7.1.0.7}Arduino + Shield L293D (commande série USB).}{101}{paragraph.5.7.1.0.7}%
-\contentsline {paragraph}{\numberline {V.7.1.0.8}Moteurs DC (M1, M3).}{102}{paragraph.5.7.1.0.8}%
-\contentsline {paragraph}{\numberline {V.7.1.0.9}Servomoteurs (S1, S2, S3).}{102}{paragraph.5.7.1.0.9}%
-\contentsline {paragraph}{\numberline {V.7.1.0.10}Alimentation 3~piles 3{,}7\,V (Vin shield).}{103}{paragraph.5.7.1.0.10}%
-\contentsline {subsection}{\numberline {V.7.2}Test d'intégration matérielle}{103}{subsection.5.7.2}%
-\contentsline {section}{\numberline {V.8}Conclusion}{103}{section.5.8}%
-\contentsline {chapter}{\numberline {VI}Cycle 4 : Système Embarqué --- Partie Logicielle Raspberry Pi}{105}{chapter.6}%
-\contentsline {section}{\numberline {VI.1}Introduction}{106}{section.6.1}%
-\contentsline {section}{\numberline {VI.2}Architecture logicielle globale}{106}{section.6.2}%
-\contentsline {section}{\numberline {VI.3}Architecture du code}{107}{section.6.3}%
-\contentsline {section}{\numberline {VI.4}Configuration et lancement}{109}{section.6.4}%
-\contentsline {section}{\numberline {VI.5}Démarrage et diagnostic matériel}{110}{section.6.5}%
-\contentsline {section}{\numberline {VI.6}Boucle principale et machine d'états}{111}{section.6.6}%
-\contentsline {section}{\numberline {VI.7}Pipeline vocal : mot de réveil, écoute et réponse}{112}{section.6.7}%
-\contentsline {section}{\numberline {VI.8}Gestion des actions retournées par le backend}{113}{section.6.8}%
-\contentsline {section}{\numberline {VI.9}Affichage Nextion et expressions}{113}{section.6.9}%
-\contentsline {section}{\numberline {VI.10}Mouvement, Arduino USB et orientation DOA}{114}{section.6.10}%
-\contentsline {section}{\numberline {VI.11}Robustesse et arrêt propre}{114}{section.6.11}%
-\contentsline {section}{\numberline {VI.12}Tests et validation logicielle}{115}{section.6.12}%
-\contentsline {section}{\numberline {VI.13}Limites et perspectives}{117}{section.6.13}%
-\contentsline {section}{\numberline {VI.14}Conclusion}{117}{section.6.14}%
->>>>>>> Stashed changes
+\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{83}{section.5.2}%
+\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{84}{section.5.3}%
+\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{85}{section.5.4}%
+\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{85}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{86}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{88}{subsection.5.4.3}%
+\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{88}{subsubsection.5.4.3.1}%
+\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{88}{subsubsection.5.4.3.2}%
+\contentsline {subsection}{\numberline {V.4.4}Système Audio}{89}{subsection.5.4.4}%
+\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{89}{subsubsection.5.4.4.1}%
+\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{90}{subsubsection.5.4.4.2}%
+\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{91}{subsection.5.4.5}%
+\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{92}{subsection.5.4.6}%
+\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{93}{subsection.5.4.7}%
+\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{94}{section.5.5}%
+\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{95}{section.5.6}%
+\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{95}{section.5.7}%
+\contentsline {subsection}{\numberline {V.7.1}Commandes de test par composant}{96}{subsection.5.7.1}%
+\contentsline {paragraph}{\numberline {V.7.1.0.1}Power Bank + Raspberry Pi.}{96}{paragraph.5.7.1.0.1}%
+\contentsline {paragraph}{\numberline {V.7.1.0.2}ReSpeaker 4-Mic Array USB.}{96}{paragraph.5.7.1.0.2}%
+\contentsline {paragraph}{\numberline {V.7.1.0.3}Sortie jack + amplificateur PAM8403.}{97}{paragraph.5.7.1.0.3}%
+\contentsline {paragraph}{\numberline {V.7.1.0.4}Sortie Bluetooth.}{97}{paragraph.5.7.1.0.4}%
+\contentsline {paragraph}{\numberline {V.7.1.0.5}Caméra Raspberry Pi (CSI).}{98}{paragraph.5.7.1.0.5}%
+\contentsline {paragraph}{\numberline {V.7.1.0.6}Écran Nextion (UART).}{98}{paragraph.5.7.1.0.6}%
+\contentsline {paragraph}{\numberline {V.7.1.0.7}Arduino + Shield L293D (commande série USB).}{98}{paragraph.5.7.1.0.7}%
+\contentsline {paragraph}{\numberline {V.7.1.0.8}Moteurs DC (M1, M3).}{99}{paragraph.5.7.1.0.8}%
+\contentsline {paragraph}{\numberline {V.7.1.0.9}Servomoteurs (S1, S2, S3).}{99}{paragraph.5.7.1.0.9}%
+\contentsline {paragraph}{\numberline {V.7.1.0.10}Alimentation 3~piles 3{,}7\,V (Vin shield).}{99}{paragraph.5.7.1.0.10}%
+\contentsline {subsection}{\numberline {V.7.2}Test d'intégration matérielle}{100}{subsection.5.7.2}%
+\contentsline {section}{\numberline {V.8}Conclusion}{100}{section.5.8}%
+\contentsline {chapter}{\numberline {VI}Cycle 4 : Système Embarqué --- Partie Logicielle Raspberry Pi}{101}{chapter.6}%
+\contentsline {section}{\numberline {VI.1}Introduction}{102}{section.6.1}%
+\contentsline {section}{\numberline {VI.2}Architecture logicielle globale}{102}{section.6.2}%
+\contentsline {section}{\numberline {VI.3}Architecture du code}{103}{section.6.3}%
+\contentsline {section}{\numberline {VI.4}Configuration et lancement}{105}{section.6.4}%
+\contentsline {section}{\numberline {VI.5}Démarrage et diagnostic matériel}{106}{section.6.5}%
+\contentsline {section}{\numberline {VI.6}Boucle principale et machine d'états}{107}{section.6.6}%
+\contentsline {section}{\numberline {VI.7}Pipeline vocal : mot de réveil, écoute et réponse}{108}{section.6.7}%
+\contentsline {section}{\numberline {VI.8}Gestion des actions retournées par le backend}{109}{section.6.8}%
+\contentsline {section}{\numberline {VI.9}Affichage Nextion et expressions}{109}{section.6.9}%
+\contentsline {section}{\numberline {VI.10}Mouvement, Arduino USB et orientation DOA}{110}{section.6.10}%
+\contentsline {section}{\numberline {VI.11}Robustesse et arrêt propre}{110}{section.6.11}%
+\contentsline {section}{\numberline {VI.12}Tests et validation logicielle}{111}{section.6.12}%
+\contentsline {section}{\numberline {VI.13}Limites et perspectives}{113}{section.6.13}%
+\contentsline {section}{\numberline {VI.14}Conclusion}{113}{section.6.14}%
 \contentsfinish 
