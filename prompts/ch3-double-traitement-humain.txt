@@ -1,0 +1,72 @@
+# Prompt — Figure explicative « double traitement » (Chapitre III, § Fondements théoriques)
+# Public cible : lecteur non spécialiste — AUCUN jargon « Système 1 / Système 2 » sur l'image
+# Enregistrer sous : public/ch3-double-traitement-humain.png
+# Recompiler : pdflatex finalyearrapport.tex (×2)
+
+================================================================================
+FIGURE — De la question humaine à la réponse (réflexion rapide vs lente)
+================================================================================
+
+Professional academic infographic for a French engineering thesis (PFE).
+Flat vector style, white background, soft blue (#185FA5) and warm orange accents,
+16:9 landscape, high resolution, clear French labels readable at print size.
+
+MAIN TITLE (top, bold):
+« Comment l'esprit répond à une question »
+
+SUBTITLE (smaller, gray):
+« Théorie du double traitement — cognition intuitive et cognition analytique »
+
+HORIZONTAL FLOW, 5 main steps, left to right, numbered circles ① to ⑤:
+
+① Box « Question entendue ou lue »
+   Icon: ear + speech bubble
+   Small text: « Perception et attention »
+
+② Box « Comprendre le sens »
+   Icon: brain + dialogue
+   Small text: « Intention, contexte, interlocuteur »
+
+③ Box « Mémoire mobilisée »
+   Icon: three stacked layers (simple, not technical)
+   Labels on layers: « Souvenirs récents », « Connaissances », « Relation avec l'autre »
+   NO English, NO "working memory" jargon
+
+④ SPLIT (clear Y-fork or diamond) — TWO PATHS with distinct colors:
+
+   UPPER PATH — ORANGE, lightning bolt icon:
+   Title: « Réflexion RAPIDE »
+   Subtitle: « Réutilise ce qui est déjà en mémoire »
+   Bullet icons (3 max): « Habitude », « Rappel immédiat », « Réponse quasi instantanée »
+   Small footnote on path: « Cognition intuitive / heuristique »
+
+   LOWER PATH — BLUE, magnifying glass + gears icon:
+   Title: « Réflexion LENTE »
+   Subtitle: « Analyse la mémoire pour construire la réponse »
+   Bullet icons (3 max): « Compare », « Combine », « Vérifie avant de parler »
+   Small footnote on path: « Cognition analytique / délibérative »
+
+   Between paths: thin dashed double-arrow labeled « Les deux voies coopèrent »
+
+⑤ Box « Réponse formulée »
+   Icon: speech bubble leaving to the right
+   Small text: « Parole ou écrit — correction possible »
+
+FOOTER (gray, small):
+« Inspiré de Kahneman (2011) — modèle pédagogique, hors implémentation technique »
+
+STRICT EXCLUSIONS (negative prompt):
+- Text "Système 1", "Système 2", "System 1", "System 2"
+- Robot, KODA, n8n, webhook, API, database, LLM, PostgreSQL
+- Photorealistic 3D, cartoon mascot, dark background, watermark, cluttered mind-map
+- Long paragraphs of text inside boxes (max 6 words per subtitle)
+
+================================================================================
+VARIANTE COURTE (générateurs à contexte limité)
+================================================================================
+
+Infographie académique française, fond blanc, flux horizontal :
+Question → Compréhension → Mémoire → bifurcation
+« Réflexion rapide : mémoire déjà présente » (orange) /
+« Réflexion lente : analyse pour construire la réponse » (bleu)
+→ Réponse. Style plat, bleu #185FA5, sans robot ni Système 1/2.

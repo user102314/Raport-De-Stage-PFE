@@ -43,6 +43,9 @@ headheight=14pt
 %----------------------------------------------------------------
 \usepackage{xcolor}
 \usepackage{graphicx}
+% Pas de flottants pour les figures KODA (\kodafigure) ; \FloatBarrier = no-op sans placeins
+\newcommand{\FloatBarrier}{}
+
 \makeatletter
 \newcommand{\nonfloatingfigure}[3]{%
   \vspace{\intextsep}
@@ -53,6 +56,22 @@ headheight=14pt
     \label{#3}
   \end{center}
   \vspace{\intextsep}
+}
+\makeatother
+
+% Figure non flottante (reste sous le titre de section ; label optionnel via 4e argument)
+\makeatletter
+\newcommand{\kodafigure}[3][0.98\textwidth]{%
+  \par\vspace{0.5em}%
+  \begin{center}%
+    \includegraphics[width=#1]{#2}%
+    \captionof{figure}{#3}%
+  \end{center}%
+  \vspace{0.5em}%
+}
+\newcommand{\kodafigureL}[4][0.98\textwidth]{%
+  \kodafigure[#1]{#2}{#3}%
+  \label{#4}%
 }
 \makeatother
 \usepackage{tikz}
@@ -1149,55 +1168,126 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\section{Introduction}
 	
-	Ce chapitre présente le moteur central de KODA : son système d'analyse, de réflexion et de génération de réponses. L'objectif principal est de permettre au robot de répondre de manière pertinente, contextualisée et naturelle aux questions posées par les utilisateurs. KODA étant conçu comme un accompagnateur virtuel à dimension humaine, il doit comprendre non seulement le contenu des questions, mais aussi le contexte et les besoins implicites de chaque utilisateur.
+	Le \textbf{Cycle~1 --- Analyseur et réflexion} constitue le \textbf{moteur cognitif} de KODA.
+	Son rôle est double~: assurer la \textbf{génération des réponses} lorsque l'utilisateur
+	pose une question, et alimenter la \textbf{spontanéité} du robot lorsqu'il prend
+	l'initiative de parler. L'objectif poursuivi est de développer un système capable
+	d'\textbf{accueillir une question}, de la \textbf{comprendre dans son contexte},
+	d'effectuer les \textbf{recherches et consultations} nécessaires (mémoire, profil,
+	services externes), puis de \textbf{formuler et restituer une réponse} adaptée.
 	
-	Pour atteindre cet objectif, nous avons conçu une architecture logicielle organisée autour de trois flux de travail automatisés (appelés \textbf{webhooks}), chacun remplissant une fonction précise et complémentaire. Avant de détailler leur fonctionnement, nous commençons par définir les technologies fondamentales sur lesquelles repose l'ensemble du système : la plateforme \textbf{n8n}, les \textbf{webhooks}, puis les briques d'\textbf{intelligence artificielle conversationnelle} — le \textbf{LLM} (\textit{Large Language Model}) et le service d'agrégation \textbf{OpenRouter} — utilisées notamment au \textbf{Block~3} pour la classification sémantique.
+	La chaîne de traitement --- de l'entrée utilisateur à la réponse --- forme une
+	\textbf{ligne de processus} successifs. Les \textbf{outils d'automatisation de flux}
+	offrent une meilleure lisibilité et un débogage par étape que du code monolithique~;
+	la \textbf{bonne pratique} retenue est la plateforme \textbf{n8n}, auto-hébergée et
+	adaptée aux pipelines mêlant règles métier et intelligence artificielle.
+	
+	Trois \textbf{webhooks} n8n structurent ce cycle. Après les fondements théoriques, la
+	modélisation globale puis l'analyse détaillée de chaque flux, le lecteur dispose d'une
+	vue complète du moteur d'analyse et de réflexion.
+	
+	%----------------------------------------------------------------
+	\section{Fondements Théoriques}
+	%----------------------------------------------------------------
+	
+	Cette section pose le \textbf{cadre cognitif} du Cycle~1. Elle explique, en termes
+	généraux, comment une personne comprend une question et choisit une réponse~; elle ne
+	décrit pas encore les outils informatiques (n8n, webhooks, base de données), traités
+	aux sections suivantes.
+	
+	\subsection{Que signifie «~théorie du double traitement~»~?}
+	
+	L'expression \textbf{théorie du double traitement} (\textit{dual-process theory}) désigne
+	une idée simple~: face à une question, l'esprit humain ne suit pas toujours le même
+	chemin. Selon la situation, il peut répondre \textbf{presque tout de suite} en s'appuyant
+	sur ce qu'il sait déjà, ou réfléchir \textbf{plus longtemps} en recomposant des
+	éléments mémorisés. Ce modèle, largement diffusé par Daniel Kahneman
+	(\textit{Thinking, Fast and Slow}, 2011), aide à comprendre pourquoi certaines réponses
+	sont instantanées et d'autres demandent un effort conscient.
+	
+	En psychologie cognitive, on parle souvent de \textbf{cognition intuitive} (rapide) et de
+	\textbf{cognition analytique} (lente), plutôt que de «~système~1~» et «~système~2~»~:
+	ces derniers termes sont des étiquettes de laboratoire peu parlantes pour le lecteur
+	non spécialiste. Nous les remplaçons donc par des formulations explicites ci-dessous.
+	
+	\subsection{Réflexion rapide et réflexion lente}
+	
+	\subsubsection{Réflexion rapide~: réutiliser la mémoire déjà présente}
+	
+	La \textbf{réflexion rapide} correspond à une \textbf{cognition heuristique}~: le cerveau
+	repère un schéma connu et active presque aussitôt un souvenir, une habitude ou une
+	règle déjà apprise. La réponse paraît «~évidente~» parce qu'elle ne reconstruit pas
+	toute la situation depuis zéro~; elle \textbf{s'appuie sur la mémoire déjà là}~:
+	souvenirs récents de la conversation, image de l'interlocuteur, faits appris par cœur,
+	gestes routiniers (saluer, donner son prénom, réciter une capitale connue).
+	
+	Cette voie est \textbf{économique en attention}~: elle convient lorsque la question
+	ressemble à quelque chose de déjà vécu ou lorsque l'information demandée est
+	directement stockée. Elle peut toutefois se tromper si le contexte a changé sans que
+	l'on s'en aperçoive (réponse trop hâtive fondée sur une analogie fausse).
+	
+	\subsubsection{Réflexion lente~: analyser la mémoire pour fabriquer une réponse}
+	
+	La \textbf{réflexion lente} correspond à une \textbf{cognition analytique}~: le cerveau
+	\textbf{parcourt}, \textbf{compare} et \textbf{combine} des éléments en mémoire pour
+	\textbf{construire} une réponse nouvelle. Elle intervient lorsque la question est
+	floue, inédite, émotionnellement chargée ou exige de croiser plusieurs souvenirs
+	(passés lointains, préférences de l'interlocuteur, règles implicites de politesse,
+	conséquences d'un choix).
+	
+	Elle est \textbf{plus lente} précisément parce qu'elle ne se contente pas d'un rappel
+	automatique~: elle \textbf{analyse} le contenu mémorisé (épisodes, connaissances,
+	sentiments) avant de formuler une phrase adaptée. On peut encore corriger ou affiner
+	la réponse une fois qu'elle est énoncée (reformulation, nuance, excuse).
+	
+	Les deux voies \textbf{coopèrent}~: la réflexion rapide propose souvent une première
+	piste~; la réflexion lente peut la confirmer, la nuancer ou la remplacer.
+	
+	\subsection{Comment une question est comprise avant la réponse}
+	
+	Qu'une question arrive à l'\textbf{oral} ou à l'\textbf{écrit}, le déroulement
+	général est le suivant~:
+	\begin{enumerate}[leftmargin=*, itemsep=0.25em]
+		\item \textbf{Percevoir la question}~: entendre ou lire les mots, filtrer le bruit,
+		porter attention à l'interlocuteur.
+		\item \textbf{Comprendre le sens}~: saisir ce qui est demandé (information, avis,
+		souhait, plaisanterie) et le contexte immédiat (qui parle, de quoi on parlait
+		juste avant).
+		\item \textbf{Mobiliser la mémoire}~: faire remonter des souvenirs utiles~:
+		échanges récents, connaissances générales, image de la relation avec cette personne.
+		\item \textbf{Choisir la voie rapide ou lente}~: si un souvenir pertinent «~saute aux
+		yeux~», la réflexion rapide suffit~; sinon, la réflexion lente assemble et vérifie
+		les éléments avant de répondre.
+		\item \textbf{Formuler et, si besoin, ajuster}~: prononcer ou écrire la réponse, puis
+		la corriger si elle sonne faux ou incomplet.
+	\end{enumerate}
+	
+	\IfFileExists{public/ch3-double-traitement-humain.png}{%
+		\kodafigureL[0.9\textwidth]{public/ch3-double-traitement-humain.png}{De la question à la réponse~: réflexion rapide (mémoire déjà présente) ou réflexion lente (analyse puis construction)}{fig:ch3-double-traitement-humain}
+	}{}
+	
+	\subsection{Intérêt pour un compagnon conversationnel comme KODA}
+	
+	Un robot compagnon doit imiter cette logique humaine~: parfois répondre vite en
+	réutilisant ce qui vient d'être dit ou mémorisé sur l'utilisateur~; parfois prendre
+	le temps d'\textbf{interpréter} la demande et d'\textbf{élaborer} une réponse plus
+	personnalisée. Le Cycle~1 matérialise ce principe dans l'implémentation technique,
+	décrite à partir de la section~\ref{sec:modelisation-cycle1}~; la figure~\ref{fig:archic}
+	en donne une vue d'ensemble une fois les notions d'outillage posées.
+	
+	\noindent\underline{\textbf{Références :} Kahneman, D. (2011). \textit{Thinking, Fast and Slow}~;
+	Evans, J.St.B.T. (2008). Dual-processing accounts of reasoning, judgment, and social cognition.}
+	\FloatBarrier
 	
 	%----------------------------------------------------------------
 	\section{Définitions Fondamentales}
 	%----------------------------------------------------------------
 	
-	\subsection{n8n}
-	
-	\textbf{n8n} (prononcé "n-eight-n", abréviation de \textit{nodemation}) est une \textbf{plateforme d'automatisation de flux de travail open-source}, conçue pour connecter des applications, des APIs et des services entre eux sans nécessiter de développement complexe.
-	
-	Techniquement, n8n fonctionne selon une architecture orientée \textbf{nœuds} (nodes) : chaque nœud représente une opération atomique — un appel à une API, une transformation de données, une condition logique, ou l'invocation d'un modèle d'intelligence artificielle. Ces nœuds sont reliés entre eux pour former des \textbf{flux de traitement} (workflows), dans lesquels les données circulent sous forme d'objets JSON structurés d'un nœud à l'autre.
-	
-	Voici les caractéristiques essentielles qui ont motivé notre choix de n8n pour le projet KODA :
-	
-	\begin{itemize}
-		\item \textbf{Architecture DAG (Graphe Orienté Acyclique) :} Les nœuds sont organisés en graphe sans cycle, garantissant un traitement ordonné et prévisible des données.
-		\item \textbf{Auto-hébergement :} Contrairement à des outils comme Zapier ou Make, n8n peut être installé sur un serveur privé. Cela assure un contrôle total sur les données des utilisateurs — un critère indispensable pour un projet traitant des informations personnelles.
-		\item \textbf{Intégration native avec les modèles IA :} n8n propose des connecteurs prêts à l'emploi pour les principaux modèles de langage (OpenAI, Anthropic Claude, Mistral), permettant d'insérer des nœuds d'intelligence artificielle directement dans le flux de traitement.
-		\item \textbf{Interface visuelle :} Le concepteur de workflows est entièrement graphique, permettant de visualiser, tester et déboguer chaque étape du traitement en temps réel.
-		\item \textbf{Déclencheurs multiples :} n8n supporte des dizaines de modes de déclenchement — webhooks HTTP, planification cron, événements base de données, etc.
-	\end{itemize}
-	
-	\noindent\underline{\textbf{Référence :} Documentation officielle n8n — \texttt{https://docs.n8n.io}}
-	
-	%---
-	\subsection{Webhook}
-	
-	Un \textbf{webhook} est un mécanisme de communication entre deux systèmes informatiques basé sur le modèle \textbf{événement → notification → action}. Contrairement à une requête classique où c'est le client qui interroge régulièrement un serveur pour savoir si quelque chose a changé (modèle \textit{polling}), un webhook fonctionne à l'inverse : c'est le serveur émetteur qui notifie automatiquement le serveur récepteur dès qu'un événement se produit.
-	
-	Concrètement, un webhook est une \textbf{URL HTTP unique} exposée par le système récepteur (ici, n8n). Lorsqu'un événement survient dans le système émetteur (par exemple : l'utilisateur pose une question au robot), celui-ci envoie une requête HTTP POST vers cette URL, avec les données de l'événement dans le corps de la requête. Le serveur récepteur traite alors ces données et déclenche le pipeline de traitement associé.
-	
-	\begin{center}
-		\begin{tabular}{|l|l|}
-			\hline
-			\textbf{Concept} & \textbf{Signification} \\
-			\hline
-			URL du webhook & Adresse unique qui reçoit les notifications \\
-			Déclencheur & L'événement qui provoque l'envoi \\
-			Payload & Les données transmises (format JSON) \\
-			Pipeline & L'ensemble des traitements activés \\
-			\hline
-		\end{tabular}
-	\end{center}
-	
-	Dans KODA, nous utilisons trois webhooks distincts, chacun dédié à une fonction cognitive précise du robot.
-	
-	\noindent\underline{\textbf{Référence :} Mozilla Developer Network — \texttt{https://developer.mozilla.org/en-US/docs/Glossary/WebHook}}
+	Le Cycle~1 s'appuie sur \textbf{n8n} (automatisation par workflows et nœuds, données
+	JSON, auto-hébergement) et sur trois \textbf{webhooks} HTTP déclenchant les pipelines
+	d'analyse, de synthèse et de spontanéité. Les appels aux modèles de langage passent
+	par \textbf{OpenRouter}, agrégateur d'API modèles utilisé dans les nœuds n8n de type
+	\textit{Basic LLM Chain} ou \textit{AI Agent}.
 	
 	\subsection{Grand modèle de langage (LLM)}
 	
@@ -1211,184 +1301,83 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	Dans n8n, un LLM est typiquement invoqué via des nœuds de type \textbf{Basic LLM Chain}
 	ou \textbf{AI Agent} : le workflow transmet un prompt système et le message
 	utilisateur ; le modèle renvoie une \textbf{complétion textuelle} exploitable par les
-	nœuds aval (parsing JSON, routage, réponse au webhook). Au \textbf{Block~3} du
-	premier flux, le LLM joue le rôle d'\textbf{Analyseur de Dépendance Mémoire} : il
+	nœuds aval (parsing JSON, routage, réponse au webhook). Dans la \textbf{classification
+	sémantique} du premier flux, le LLM joue le rôle d'\textbf{Analyseur de Dépendance Mémoire} : il
 	décide si une consultation de la base est nécessaire et assigne une catégorie, sous
 	une forme de sortie strictement contrôlée (lignes \texttt{USE\_MEMORY} /
 	\texttt{NO\_MEMORY}, etc.).
 	
-	\noindent\underline{\textbf{Référence :} Russell \& Norvig (2010), \textit{Artificial Intelligence: A Modern Approach} ; documentation modèles conversationnels.}
-	
-	\subsection{OpenRouter}
-	
-	\textbf{OpenRouter} est un \textbf{agrégateur d'API} qui expose, derrière une
-	\textbf{même interface HTTP} et un jeu d'identifiants (\textit{API key}), un
-	\textbf{catalogue de modèles} provenant de plusieurs fournisseurs (Google Gemini,
-	Anthropic, OpenAI, Meta, etc.). L'intérêt pour un projet comme KODA est triple :
-	\begin{itemize}
-		\item \textbf{Simplifier l'intégration} : un seul type de credential «\,compte
-		OpenRouter\,» dans n8n au lieu de multiplier les comptes propriétaires ;
-		\item \textbf{Changer de modèle} en ajustant simplement l'identifiant de modèle
-		(ex. \texttt{google/gemini-2.5-flash-lite-preview-09-2025}) sans réécrire tout le
-		workflow ;
-		\item \textbf{Comparer rapidement} des modèles (latence, coût, qualité) pour les
-		tâches de classification ou de génération.
-	\end{itemize}
-	
-	Techniquement, le nœud n8n \textbf{OpenRouter Chat Model} envoie la conversation au
-	point de terminaison OpenRouter ; la réponse du modèle sélectionné est renvoyée à la
-	\textbf{Basic LLM Chain} du Block~3 (classification sémantique). OpenRouter n'est pas
-	un LLM en soi : c'est la \textbf{couche d'accès} au LLM choisi. \textbf{SerpAPI}, lui,
-	intervient uniquement au \textbf{Block~1} (branche \texttt{musique}) pour la recherche
-	YouTube via Google, et ne doit pas être confondu avec cette couche d'inférence.
-	
-	\noindent\underline{\textbf{Référence :} OpenRouter — \texttt{https://openrouter.ai/docs}}
+	\noindent\underline{\textbf{Référence :} Russell \& Norvig (2010), \textit{Artificial Intelligence: A Modern Approach}.}
 	
 	%----------------------------------------------------------------
-	\subsection{Schéma de classes — persistance KODA}
+	\section{Modélisation globale du Cycle~1}
+	\label{sec:modelisation-cycle1}
 	%----------------------------------------------------------------
 	
-	Les workflows n8n s'appuient sur PostgreSQL pour relier utilisateurs, configuration (\texttt{seeting}, clé primaire \texttt{idkoda} référencée par \texttt{utilisateur.idkoda}) et données de conversation ou d'accompagnement. La figure~\ref{fig:koda-chapitre-classes-schema} synthétise le modèle conceptuel de la \textbf{mémoire et de la persistance} dans le Cycle~1.
+	La modélisation suivante traduit, sur le plan technique, la distinction entre
+	\textbf{réflexion rapide} (réutilisation de l'historique récent) et
+	\textbf{réflexion lente} (analyse approfondie avant réponse), introduite au
+	§\,III.2.
 	
+	\kodafigureL[0.78\textwidth]{public/archic.png}{Architecture cognitive de KODA inspirée de la théorie du double traitement}{fig:archic}
+	\FloatBarrier
+	
+	\clearpage
+	\subsection{Vue d'ensemble des trois flux n8n}
+	\IfFileExists{public/cycle1-vue-trois-flux-n8n.png}{%
+		\thispagestyle{mainStyle}
+		\kodafigureL[\textwidth]{public/cycle1-vue-trois-flux-n8n.png}{Cycle~1 --- vue d'ensemble des trois workflows n8n}{fig:cycle1-vue-trois-flux}
+	}{}
+	\FloatBarrier
+	
+	\clearpage
+	\subsection{Diagramme de cas d'utilisation général}
+	\IfFileExists{public/ducc1.png}{%
+		\kodafigureL[\textwidth]{public/ducc1.png}{Cycle~1 --- diagramme de cas d'utilisation général}{fig:ducc1-cycle1}
+	}{}
+	\FloatBarrier
+	
+	\clearpage
+	\subsection{Schéma de classes général}
 	\IfFileExists{public/koda-chapitre-classes-schema.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=\textwidth]{public/koda-chapitre-classes-schema.png}
-			\caption{Schéma des classes métier --- persistance KODA (Webhook~1 et mémorisation ; relations \texttt{utilisateur} / \texttt{seeting}, conversations, historique, notes).}
-			\label{fig:koda-chapitre-classes-schema}
-		\end{figure}
-	}{%
-		\begin{center}
-			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1em}
-				\textit{Ajouter \texttt{public/koda-chapitre-classes-schema.png} --- export du diagramme PlantUML \texttt{plantuml/koda-chapitre-classes-schema.puml}.}
-				\vspace{1em}\end{minipage}}
-		\end{center}
-	}
+		\kodafigureL[\textwidth]{public/koda-chapitre-classes-schema.png}{Cycle~1 --- schéma de classes général (persistance)}{fig:koda-chapitre-classes-schema}
+	}{}
+	\FloatBarrier
 	
 	%----------------------------------------------------------------
-	\section{Fondements Théoriques}
-%----------------------------------------------------------------
-
-\subsection{La Théorie du Double Traitement}
-
-    Le cadre théorique central de notre conception repose sur la \textbf{théorie du double 
-    traitement} (\textit{Dual-Process Theory}), formalisée par le psychologue et lauréat 
-    du prix Nobel d'économie Daniel Kahneman. Cette théorie explique comment le cerveau 
-    humain traite l'information et formule ses réponses à travers deux systèmes distincts :
-    
-    \begin{itemize}
-        \item \textbf{Système 1 — Rapide et Automatique :} Ce système fonctionne de manière
-        instinctive et inconsciente. Il mobilise des associations mémorisées et des réflexes 
-        cognitifs pour répondre quasi instantanément aux situations familières. Il gère la 
-        grande majorité de nos interactions quotidiennes sans effort apparent.
-    
-        \item \textbf{Système 2 — Lent et Délibéré :} Ce système entre en jeu lorsqu'une 
-        situation exige une réflexion consciente et approfondie. Il est sollicité pour les 
-        raisonnements complexes, les calculs, ou tout jugement nécessitant une analyse 
-        minutieuse. Il est plus lent, mais plus précis et rigoureux.
-    \end{itemize}
-    
-    En pratique, face à une question, le cerveau humain commence par activer le 
-    \textbf{Système 1} : si la réponse est connue et accessible, elle est fournie 
-    immédiatement. Dans le cas contraire, le \textbf{Système 2} prend le relais pour 
-    analyser la question en profondeur et construire une réponse adaptée.
-    
-    Dans KODA, nous avons transposé cette architecture cognitive : un agent de 
-    classification détermine si la question reçue relève d'un traitement rapide 
-    (accès direct à la mémoire) ou d'un traitement approfondi (analyse sémantique 
-    complète), et active le pipeline correspondant.
-    
-    \noindent\underline{\textbf{Référence :} Kahneman, D. (2011). \textit{Thinking, 
-    Fast and Slow}. Farrar, Straus and Giroux.}
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.85\textwidth]{public/archic.png}
-        \caption{Architecture cognitive de KODA inspirée de la théorie du double traitement}
-        \label{fig:archic}
-    \end{figure}
-
-%----------------------------------------------------------------
-	\section{Fonctionnalités Techniques}
-	
-	Cette section présente en détail les trois flux de travail (webhooks) qui constituent le cœur fonctionnel du système cognitif de KODA. Chaque flux remplit une fonction précise et complémentaire dans le pipeline de traitement.
+	\section{Fonctionnalités Techniques --- les trois flux}
 	
 	%----------------------------------------------------------------
 	\subsection{Premier Flux — Webhook 1 : Analyse et Réponse}
 	%----------------------------------------------------------------
 	
-	\subsubsection{Principe Général}
+	\subsubsection{Principe général et découpage en six parties}
 	
-	Le Webhook 1 est le pipeline principal et en temps réel de KODA. Il est déclenché à chaque fois qu'un utilisateur pose une question au robot. Son rôle est d'analyser la question, d'accéder aux informations contextuelles pertinentes, et de générer une réponse personnalisée et naturelle.
+	Le \textbf{Webhook~1} est le pipeline principal en temps réel. Il se décompose en
+	six parties, dans l'ordre de la figure~\ref{fig:webhook1-sequence-blocs}~:
+	\emph{entrée fonctionnelle}, \emph{confrontation à l'historique},
+	\emph{classification sémantique}, \emph{utilisateur connu ou inconnu},
+	\emph{réponse contextualisée}, \emph{notes et mémoire persistante}.
 	
-	Le pipeline comporte \textbf{six blocs de traitement} (numérotés \textbf{1} à
-	\textbf{6}). Le \textbf{Block~6}, en fin de chaîne, regroupe l'extraction
-	conditionnelle des \textit{notes} et la \textbf{mise à jour de la mémoire}
-	persistante. Chaque bloc accomplit une tâche précise avant de transmettre ses
-	résultats au suivant. L'ensemble du flux est orchestré par n8n.
-	
-	% ----------------------------------------------------------------
-	% IMAGE À INSÉRER : Vue d'ensemble du workflow Webhook 1
-	% Chemin suggéré : public/captureworkflow1.png
-	% Légende : "Vue d'ensemble du workflow n8n — Webhook 1 : Analyse et Réponse"
-	% ----------------------------------------------------------------
+	\subsubsection{Diagramme de séquence du Webhook~1}
+	\IfFileExists{public/dsg.png}{%
+		\kodafigureL[\textwidth]{public/dsg.png}{Webhook~1 --- diagramme de séquence (six parties du pipeline)}{fig:webhook1-sequence-blocs}
+	}{}
+	\FloatBarrier
 	
 	\subsubsection{Format de la Requête Entrante}
 	
 	Le webhook accepte les requêtes au format \texttt{(user\_name + question)}. Le champ \texttt{user\_name} est un identifiant unique généré automatiquement par le backend pour chaque utilisateur en cours d'interaction. Cet identifiant est injecté avec la question dans le flux de travail, permettant d'isoler et de gérer les données de chaque utilisateur de manière indépendante dans les environnements multi-utilisateurs.
 	
-  %----------------------------------------------------------------
-  \subsubsection{Description détaillée des blocs de traitement}
+  \subsubsection{Les six parties du Webhook~1}
   
-  \paragraph{Découpe du travail et rôle des blocs (1 à 6).}
-  La conception du Webhook~1 repose sur une \textbf{division du travail} : chaque
-  segment du workflow n8n correspond à un bloc avec une responsabilité limitée
-  (entrées, sorties et garde-fous identifiables). Cette décomposition facilite la
-  maintenance (modifier un prompt ou une requête SQL sans impacter tout le flux), le
-  diagnostic en cas d'anomalie, et la présentation pédagogique du pipeline dans ce
-  rapport.
+  \paragraph{Entrée fonctionnelle --- analyse du message et classification d'intention}
   
-  Les blocs sont numérotés de \textbf{1 à 6} pour suivre l'\textbf{ordre logique} du
-  traitement en temps réel~: analyse d'intention et routage (\textbf{entrée fonctionnelle} du webhook), confrontation à l'historique, classification sémantique fine,
-  gestion de la présentation ou de l'utilisateur inconnu (\texttt{unkonu}),
-  génération de la réponse contextualisée, puis \textbf{Block~6} (extraction des
-  \textit{notes} si besoin, puis persistance et clôture du webhook). Sans cette
-  segmentation, un flux monolithique mélangerait garde-fous, logique métier et accès
-  base de données, rendant les erreurs difficiles à isoler et les appels LLM moins
-  maîtrisés.
+  \kodafigureL[0.95\textwidth]{public/block1.png}{Webhook~1 --- entrée fonctionnelle (nœud \textit{Test}, \textit{Switch})}{fig:block1-workflow-n8n}
+  \kodafigure[0.95\textwidth]{public/dsb1.png}{Webhook~1 --- séquence de l'entrée fonctionnelle}
+  \kodafigure[0.95\textwidth]{public/ducb1.png}{Webhook~1 --- cas d'utilisation de l'entrée fonctionnelle}
   
-  \begin{itemize}[leftmargin=*, itemsep=0.55em]
-  	\item \textbf{Block~1 — Entrée fonctionnelle du Webhook~1.} Il analyse le message utilisateur, lit l'identité minimale dans PostgreSQL (\texttt{etat}, mot de passe) et produit une intention exploitable par le nœud \textit{Switch} n8n. Le \textit{Switch} à six branches oriente ensuite chaque scénario métier (musique, identité, direction, historique, etc.) avant la suite du flux ou une sortie immédiate.
-  	\item \textbf{Block~2 — Confrontation à l'historique.} Il compare la demande courante au contexte déjà stocké ou récent afin d'éviter des appels LLM inutiles lorsque la réponse est déjà couverte. Ce bloc réduit la latence et le coût cognitif tout en gardant des réponses cohérentes avec la conversation.
-  	\item \textbf{Block~3 — Classification sémantique fine.} Il structure la demande et prépare des décisions ou des prompts alignés sur le domaine KODA (mémoire, catégories, garde-fous). C'est le bloc où le LLM (via OpenRouter) joue notamment le rôle d'analyseur de dépendance mémoire pour trancher consultation base / pas de consultation.
-  	\item \textbf{Block~4 — Utilisateur connu ou inconnu (\texttt{unkonu}).} Il gère la reconnaissance et l'enregistrement côté présentation ou visage selon le scénario, et invite à se présenter lorsque l'utilisateur est encore inconnu. Les embranchements conditionnels mènent soit vers des nœuds dédiés (HTTP, Postgres), soit vers le bloc de génération de réponse.
-  	\item \textbf{Block~5 — Réponse contextualisée.} Il agrège le contexte utile (historique, profil, intention) et pilote la génération de la réponse naturelle adressée à l'utilisateur. C'est le cœur de la valeur perçue : expliquer, conseiller ou guider avec un ton conforme à la personnalité KODA.
-  	\item \textbf{Block~6 — Notes et mémoire persistante.} En deux temps~: (1)~lorsque le scénario l'exige, extraction structurée des \textit{notes} (rappels, rendez-vous, alarmes)~; (2)~enregistrement des conversations, informations personnelles, historique récent (cinq derniers messages) et envoi de la réponse finale. Ce bloc matérialise le lien avec le schéma de données (utilisateur, \texttt{seeting} via \texttt{idkoda}, historiques, etc.) présenté en figure~\ref{fig:koda-chapitre-classes-schema}.
-  \end{itemize}
-  
-  La figure~\ref{fig:webhook1-sequence-blocs} résume l'enchaînement général des
-  six blocs du Webhook~1 (embranchements optionnels pour la présentation et les
-  \textit{notes}, puis persistance dans le Block~6).
-  
-  \IfFileExists{public/dsg.png}{%
-  	\begin{center}
-  		\includegraphics[width=0.98\textwidth]{public/dsg.png}
-  		\captionof{figure}{Webhook~1 --- diagramme de séquence général entre les six blocs (vue macro ; notes et persistance~: Block~6).}
-  		\label{fig:webhook1-sequence-blocs}
-  	\end{center}
-  }{%
-  	\begin{center}
-  		\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1em}
-  			\textit{Ajouter \texttt{public/dsg.png} --- export du diagramme PlantUML
-  			\texttt{koda-webhook1-blocks1-6-sequence.puml}.}
-  			\vspace{1em}\end{minipage}}
-  	\end{center}
-  }
-  
-  \vspace{0.5em}
-  \paragraph{Block 1 : Analyse du message utilisateur et classification d'intention}
-  
-  Dès l'appel au webhook et la lecture du message de chat (\texttt{chatInput}), le flux interroge la base (nœud PostgreSQL \textit{Identité}) pour récupérer au minimum le \textbf{mot de passe} attendu et l'\textbf{état} courant du robot (\texttt{etat}). Le nœud Code \textbf{Test} (Block~1) consolide ces données et le texte saisi par l'utilisateur afin de produire une \textbf{intention} unique consommée par le nœud \textit{Switch} en aval. Ce \textit{Switch} (six sorties, voir figure~\ref{fig:block1-workflow-n8n}) active l'une des branches métier (musique via SerpAPI, arrêt / authentification via requêtes \textit{Identité4--5}, direction, historique comparé, branche \textit{Code10}, etc.) décrite par le diagramme de séquence source \texttt{plantuml/koda-block1-switch-six-branches-sequence.puml}.
+  Dès l'appel au webhook et la lecture du message de chat (\texttt{chatInput}), le flux interroge la base (nœud PostgreSQL \textit{Identité}) pour récupérer au minimum le \textbf{mot de passe} attendu et l'\textbf{état} courant du robot (\texttt{etat}). Le nœud Code \textbf{Test} consolide ces données et le texte saisi par l'utilisateur afin de produire une \textbf{intention} unique consommée par le nœud \textit{Switch} en aval. Ce \textit{Switch} (six sorties, voir figure~\ref{fig:block1-workflow-n8n}) active l'une des branches métier (musique via SerpAPI, arrêt / authentification via requêtes \textit{Identité4--5}, direction, historique comparé, branche \textit{Code10}, etc.) décrite par le diagramme de séquence source \texttt{plantuml/koda-block1-switch-six-branches-sequence.puml}.
   
   Le message est d'abord normalisé en \textbf{minuscules} pour les détections par sous-chaîne. La logique applique une \textbf{priorité fixe} entre les intentions reconnues :
   \begin{enumerate}
@@ -1399,7 +1388,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
   	\item \textbf{Inconnu (\texttt{inconnu})} : valeur par défaut de \texttt{intention} si aucune des intentions précédentes n'est détectée ; en parallèle, le booléen \texttt{estInconnu} vaut \texttt{true} lorsque aucune fermeture, aucune correspondance mot de passe, aucune musique ni direction n'est reconnue \textbf{et} que \texttt{etat == 1} (permet au workflow de traiter le cas « message non classé » selon la branche prévue, par exemple arrêt ou message dédié).
   \end{enumerate}
   
-  Le nœud renvoie un objet JSON regroupant les indicateurs booléens (\texttt{contientFerme}, \texttt{motdepasseexiste}, \texttt{contientPlay}), les champs extraits (\texttt{nomChanson}, \texttt{direction}), \texttt{estInconnu}, l'\texttt{intention} finale, le \texttt{messageOriginal}, ainsi que \texttt{directionvaribale} (vrai si aucune direction) et \texttt{etat} pour les nœuds suivants. Ainsi, le Block~1 ne se limite plus à un simple garde-fou d'état : il \textbf{centralise la sémantique opérationnelle} du message (arrêt, authentification, média, déplacement) avant le routage n8n.
+  Le nœud renvoie un objet JSON regroupant les indicateurs booléens (\texttt{contientFerme}, \texttt{motdepasseexiste}, \texttt{contientPlay}), les champs extraits (\texttt{nomChanson}, \texttt{direction}), \texttt{estInconnu}, l'\texttt{intention} finale, le \texttt{messageOriginal}, ainsi que \texttt{directionvaribale} (vrai si aucune direction) et \texttt{etat} pour les nœuds suivants. Ainsi, l'entrée fonctionnelle ne se limite plus à un simple garde-fou d'état : il \textbf{centralise la sémantique opérationnelle} du message (arrêt, authentification, média, déplacement) avant le routage n8n.
   
   \subparagraph{Branche musique — SerpAPI comme outil de recherche Google.}
   
@@ -1414,200 +1403,36 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
   ou la restitution du lien (figure~\ref{fig:block1-serpapi-result}).
   
   \IfFileExists{public/serpapi.png}{%
-  	\begin{figure}[htbp]
-  		\centering
-  		\includegraphics[width=0.95\textwidth]{public/serpapi.png}
-  		\caption{Block~1 — intégration SerpAPI dans le workflow n8n (branche musique du \textit{Switch})}
-  		\label{fig:block1-serpapi}
-  	\end{figure}
+  	\kodafigureL[0.95\textwidth]{public/serpapi.png}{Entrée fonctionnelle --- intégration SerpAPI dans le workflow n8n (branche musique du \textit{Switch})}{fig:block1-serpapi}
   }{}
   \IfFileExists{public/block1-serpapi-search-music.png}{%
-  	\begin{figure}[htbp]
-  		\centering
-  		\includegraphics[width=0.98\textwidth]{public/block1-serpapi-search-music.png}
-  		\caption{Block~1 — nœud \textit{Search Music} (SerpAPI, moteur YouTube) et exemple de sortie (\texttt{search\_query}, \texttt{youtube\_url})}
-  		\label{fig:block1-serpapi-result}
-  	\end{figure}
+  	\kodafigureL[0.98\textwidth]{public/block1-serpapi-search-music.png}{Entrée fonctionnelle --- nœud \textit{Search Music} (SerpAPI, moteur YouTube) et exemple de sortie (\texttt{search\_query}, \texttt{youtube\_url})}{fig:block1-serpapi-result}
   }{}
   
-  \vspace{1em}
-  \begin{center}
-  	\includegraphics[width=0.95\textwidth]{public/block1.png}
-  	\captionof{figure}{Block 1 — Workflow n8n : nœud Code \textit{Test}, \textit{Switch} à six sorties (musique SerpAPI, identité ON/OFF, direction, historique, branche dédiée)}
-  	\label{fig:block1-workflow-n8n}
-  \end{center}
-  \vspace{1em}
-  \begin{center}
-  	\includegraphics[width=0.95\textwidth]{public/dsb1.png}
-  	\captionof{figure}{Block 1 — Diagramme de séquence du premier bloc}
-  \end{center}
-  
-  \vspace{0.4em}
-  \noindent\textbf{Description du diagramme de séquence.}
-  Ce diagramme UML de \textbf{séquence} (version exportée \texttt{dsb1.png}) illustre les
-  interactions autour du nœud \textit{Test} et du \textit{Switch}. La version alignée
-  sur la capture \texttt{block1.png} avec les \textbf{six sorties} du \textit{Switch}
-  (musique, deux branches identité, direction, historique, branche \textit{Code10})
-  est disponible en source PlantUML~: \texttt{plantuml/koda-block1-switch-six-branches-sequence.puml}.
-  Le diagramme de séquence général du Webhook~1 (blocs~1 à~6) correspond au fichier
-  \texttt{plantuml/koda-webhook1-blocks1-6-sequence.puml} (export conseillé~: \texttt{public/dsg.png}).
-  
-  \vspace{1em}
-  \begin{center}
-  	\includegraphics[width=0.95\textwidth]{public/ducb1.png}
-  	\captionof{figure}{Block 1 — Diagramme de cas d'utilisation associé au premier bloc}
-  \end{center}
-  
-  \vspace{0.4em}
-  \noindent\textbf{Description du diagramme de cas d'utilisation.}
-  Ce diagramme UML de \textbf{cas d'utilisation} décrit les services initiaux vus depuis
-  l'utilisateur pour le routage intention du Block~1 (fermeture, authentification, musique,
-  direction, historique comparé, branche spécifique, inconnu avec \texttt{etat}). Une
-  version mise à jour sur six branches fonctionnelles est fournie dans
-  \texttt{plantuml/koda-use-cases-block1.puml}. La \textbf{frontière du système}
-  (rectangle) regroupe ces cas avant la classification sémantique profonde (\textbf{Block~3}) et avant la gestion
-  \textbf{personne connue / \texttt{unkonu}} couverte par le \textbf{Block~4}.
-  Les traits joignant l'acteur aux ovales expriment qu'il initie ou bénéficie de ces traitements rapides après le même message de chat ; les appels PostgreSQL ou SerpAPI ne sont pas détaillés ici mais sont visibles dans le diagramme de séquence et sur \texttt{block1.png}.
-  
-  \vspace{1em}
-  %--- block2
-
+	\paragraph{Confrontation à l'historique --- vérification des cinq derniers messages}
 	
-	\vspace{1em}
-	\paragraph{Block 2 : Vérification de la Question dans l'Historique}
+	\kodafigure[0.95\textwidth]{public/historique.png}{Confrontation à l'historique --- workflow n8n}
+	\kodafigure[0.95\textwidth]{public/dsb2.png}{Confrontation à l'historique --- diagramme de séquence}
 	
-	Avant d'engager le traitement complet de la question, ce bloc effectue une \textbf{recherche dans les 5 derniers messages} échangés avec l'utilisateur. L'objectif est de détecter si la question posée est une répétition ou une reformulation d'une question récente déjà traitée.
+	Cette partie compare la question aux \textbf{cinq derniers messages} PostgreSQL.
+	Si une similarité est détectée, la réponse existante est renvoyée~; sinon le flux
+	poursuit vers la \textbf{classification sémantique}.
 	
-	Le processus fonctionne de la manière suivante :
-	\begin{enumerate}
-		\item Le système récupère les 5 derniers échanges de l'utilisateur depuis la base de données.
-		\item Il applique une \textbf{comparaison sémantique} entre la nouvelle question et les questions précédentes (vérification de similarité par correspondance de mots-clés ou distance sémantique).
-		\item \textbf{Si une correspondance est trouvée :} la réponse précédente est directement récupérée et renvoyée à l'utilisateur, sans activer le reste du pipeline. Cela évite une consommation inutile de ressources computationnelles et raccourcit drastiquement le temps de réponse.
-		\item \textbf{Si aucune correspondance n'est trouvée :} la question est nouvelle et le pipeline continue normalement vers le Block 3.
-	\end{enumerate}
+	\paragraph{Classification sémantique --- analyse de dépendance mémoire}
 	
-	Ce bloc d'optimisation est particulièrement utile dans les contextes où plusieurs utilisateurs posent des questions similaires dans un court intervalle, ou lorsqu'un utilisateur répète accidentellement une question.
+	\kodafigureL[0.95\textwidth]{public/clasifer.png}{Classification sémantique --- chaîne n8n (Code5, Identité1, Basic LLM Chain, Code2)}{fig:block3workflow}
+	\kodafigure[0.95\textwidth]{public/dsb3.png}{Classification sémantique --- diagramme de séquence}
+	\kodafigureL[0.95\textwidth]{public/ducb3.png}{Classification sémantique --- cas d'utilisation}{fig:block3usecases}
 	
-	\vspace{1em}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/historique.png}
-		\captionof{figure}{Block 2 — Vérification et comparaison avec les 5 derniers messages}
-	\end{center}
-	\vspace{1em}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/dsb2.png}
-		\captionof{figure}{Block 2 — Diagramme de séquence du deuxième bloc}
-	\end{center}
-	\vspace{1em}
+	Cette partie réalise l'\textbf{analyse de dépendance mémoire} (\texttt{USE\_MEMORY} /
+	\texttt{NO\_MEMORY}, six catégories) via \textbf{Code5}, \textbf{Identité1},
+	\textbf{Basic LLM Chain} (OpenRouter) et \textbf{Code2}.
 	
-	% ----------------------------------------------------------------
-	% FONCTIONNEMENT TECHNIQUE
-	% ----------------------------------------------------------------
-	
-	\noindent\textbf{Fonctionnement Technique du Bloc :}
-	
-	\vspace{0.5em}
-	
-	Le workflow de ce bloc s'articule autour d'une logique de \textbf{récupération, comparaison et routage} décrite ci-dessous :
-	
-	\begin{enumerate}
-		
-		\item \textbf{Récupération des 5 derniers messages :}
-		Le nœud Postgres exécute une requête \texttt{SELECT} ordonnée par horodatage
-		(\texttt{ORDER BY created\_at DESC LIMIT 5}) afin de récupérer les cinq dernières
-		interactions de l'utilisateur courant depuis la base de données. Ces messages
-		constituent la fenêtre d'historique utilisée pour la comparaison.
-		
-		\vspace{0.3em}
-		
-		\item \textbf{Comparaison sémantique de la question :}
-		Un nœud Code (JavaScript) parcourt les messages récupérés et compare la nouvelle
-		question avec chacune des questions précédentes. La comparaison repose sur une
-		\textbf{détection de similarité} par correspondance de mots-clés et normalisation
-		du texte (mise en minuscules, suppression des espaces superflus). Si le taux de
-		similarité dépasse le seuil défini, la question est considérée comme déjà connue.
-		
-		\vspace{0.3em}
-		
-		\item \textbf{Routage selon le résultat de la comparaison :}
-		Un nœud IF évalue le résultat de la comparaison et oriente le flux selon deux chemins :
-		\begin{itemize}
-			\item \textbf{Branche \texttt{true} — Question déjà existante :} la réponse
-			précédente associée est directement récupérée depuis l'historique et transmise
-			au nœud \textit{Respond to Webhook} pour être renvoyée immédiatement à
-			l'utilisateur. \textbf{Aucune ressource supplémentaire n'est consommée},
-			ni appel au modèle d'IA, ni requête externe.
-			\item \textbf{Branche \texttt{false} — Question nouvelle :} le pipeline
-			continue normalement vers le Block 3 pour un traitement complet.
-		\end{itemize}
-		
-		\vspace{0.3em}
-		
-		\item \textbf{Optimisation des ressources et du temps de réponse :}
-		Ce mécanisme de cache conversationnel permet d'éviter toute consommation
-		inutile de ressources computationnelles (appels API, tokens LLM, requêtes
-		vectorielles). En renvoyant directement la réponse existante, le temps de
-		réponse du robot est \textbf{réduit de manière significative}, offrant une
-		expérience utilisateur plus fluide et un système plus économe en ressources.
-		
-	\end{enumerate}
-	
-	%---end
-	
-	%-- block 3
-	\vspace{1em}
-	\paragraph{Block 3 : Classification Sémantique de la Question}
-	
-	Ce bloc réalise l'\textbf{analyse de dépendance mémoire} : pour chaque message, il
-	décide si une consultation de la base (mémoire utilisateur / robot) est nécessaire
-	(\texttt{USE\_MEMORY} / \texttt{NO\_MEMORY}) et assigne une \textbf{catégorie}
-	parmi six types définis. Le pipeline n8n a été simplifié : l'ancien nœud
-	\textit{AI Agent} (raisonnement avec outils) a été remplacé par une
-	\textbf{Basic LLM Chain} — chaîne linéaire prompt $\rightarrow$ modèle $\rightarrow$
-	réponse — plus prévisible pour ce cas d'usage et moins coûteuse en orchestration.
-	
-	Le flux est le suivant : le nœud \textbf{Code5} prépare l'entrée textuelle
-	(\texttt{inputquestoin}) ; le nœud PostgreSQL \textbf{Identité1} exécute une
-	requête (\texttt{executeQuery}) pour enrichir le contexte identité si besoin ;
-	la \textbf{Basic LLM Chain} applique le prompt système «\,Analyseur de Dépendance
-	Mémoire\,» via un sous-nœud \textbf{OpenRouter Chat Model} ; enfin le nœud
-	\textbf{Code2} parse la sortie stricte (trois ou quatre lignes) pour alimenter le
-	routage aval. La figure~\ref{fig:block3workflow} donne une vue d'ensemble de
-	cette chaîne.
-	
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/clasifer.png}
-		\captionof{figure}{Block 3 — Chaîne n8n : Code5, Identité1 (PostgreSQL), Basic LLM Chain avec modèle OpenRouter, puis Code2 pour le format de sortie}
-		\label{fig:block3workflow}
-	\end{center}
-	\vspace{1em}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/dsb3.png}
-		\captionof{figure}{Block 3 — Diagramme de séquence du troisième bloc}
-	\end{center}
-	
-	\vspace{1em}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/ducb3.png}
-		\captionof{figure}{Block 3 — Diagramme de cas d'utilisation associé au troisième bloc}
-		\label{fig:block3usecases}
-	\end{center}
-	
-	\vspace{0.4em}
-	\noindent\textbf{Description du diagramme de cas d'utilisation.}
-	Ce diagramme situe l'acteur \textbf{Utilisateur} face aux capacités fonctionnelles
-	du Block~3 : analyse de dépendance mémoire, décision \texttt{USE\_MEMORY} /
-	\texttt{NO\_MEMORY}, attribution d'une catégorie parmi les six du prompt, production
-	d'une sortie structurée (trois ou quatre lignes) et validation pour le routage. Il
-	exprime la \textbf{couverture fonctionnelle} de la classification sans détailler
-	l'implémentation n8n ni les appels HTTP vers OpenRouter.
-	
-	\vspace{1em}
 	\subparagraph{Basic LLM Chain en lieu et place de l'AI Agent}
 	
 	Contrairement à un \textit{AI Agent} qui peut enchaîner des appels d'outils et des
 	boucles de raisonnement, la \textbf{Basic LLM Chain} se limite à une inférence
-	unique sur le message contextualisé. Cela convient au Block~3 : la politique de
+	unique sur le message contextualisé. Cela convient à la classification sémantique~: la politique de
 	classification est entièrement portée par le \textbf{prompt} (règles, pièges,
 	arbre de décision, format de sortie) ; le modèle n'a pas à «\,choisir\,» d'actions
 	externes, seulement à respecter le gabarit de réponse attendu par \textbf{Code2}.
@@ -1627,15 +1452,15 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\vspace{0.5em}
 	\begin{center}
 		\includegraphics[width=0.72\textwidth]{public/openrouter.png}
-		\captionof{figure}{Block 3 — Paramètres du nœud OpenRouter Chat Model (credential, modèle Gemini via OpenRouter)}
+		\captionof{figure}{Classification sémantique — Paramètres du nœud OpenRouter Chat Model (credential, modèle Gemini via OpenRouter)}
 		\label{fig:block3openrouter}
 	\end{center}
 	
 	\vspace{0.5em}
-	\subparagraph{OpenRouter dans le Block~3 — agrégation et suivi d'usage}
+	\subparagraph{OpenRouter --- agrégation et suivi d'usage}
 	
-	Au \textbf{Block~3}, \textbf{OpenRouter} est le point d'accès unique aux modèles de
-	langage~: il ne remplace pas SerpAPI (réservé au Block~1, branche musique), mais
+	Dans la \textbf{classification sémantique}, \textbf{OpenRouter} est le point d'accès unique aux modèles de
+	langage~: il ne remplace pas SerpAPI (réservé à l'entrée fonctionnelle, branche musique), mais
 	\textbf{centralise l'inférence LLM} pour la classification sémantique. Une clé API
 	dédiée au workflow n8n (\emph{clé de workflow n8n}) permet de suivre la consommation
 	et de limiter les coûts (figure~\ref{fig:openrouter-dashboard})~; les modèles
@@ -1644,12 +1469,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\texttt{gpt-4o-mini} via le même agrégateur.
 	
 	\IfFileExists{public/openrouter-dashboard.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=0.92\textwidth]{public/openrouter-dashboard.png}
-			\caption{Block~3 — tableau de bord OpenRouter (clé API workflow n8n, suivi des dépenses par modèle)}
-			\label{fig:openrouter-dashboard}
-		\end{figure}
+		\kodafigureL[0.92\textwidth]{public/openrouter-dashboard.png}{Classification sémantique --- tableau de bord OpenRouter (clé API workflow n8n, suivi des dépenses par modèle)}{fig:openrouter-dashboard}
 	}{}
 	
 	\noindent Les avantages retenus pour KODA sont~: \textbf{un seul credential} dans n8n,
@@ -1794,16 +1614,20 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	%-- block 4
 	\vspace{1em}
-	\paragraph{Block 4 : Reconnaissance et enregistrement de l'utilisateur}
+	\paragraph{Gestion utilisateur (unkonu) : Reconnaissance et enregistrement de l'utilisateur}
 	
-	Le \textbf{Block~4} reçoit en entrée le résultat structuré du \textbf{Block~3}
+	\kodafigureL[0.98\textwidth]{public/block4-workflow.png}{Gestion utilisateur (unkonu) --- \textit{Switch1}, branche enregistrement (\texttt{presentation}), branche LLM (\texttt{unkonu}) et poursuite vers la réponse contextualisée}{fig:block4-workflow}
+	\kodafigureL[0.92\textwidth]{public/block4-exemple-input-unkonu.png}{Gestion utilisateur (unkonu) --- Entrée JSON du \textit{Switch1} (\texttt{persone = unkonu}, sortie classification sémantique)}{fig:block4-input-unkonu}
+	\kodafigureL[0.88\textwidth]{public/block4-exemple-output-unkonu.png}{Gestion utilisateur (unkonu) --- Sortie texte~: invitation à la première rencontre et demande du prénom}{fig:block4-output-unkonu}
+	
+	Le \textbf{la gestion utilisateur connu ou inconnu} reçoit en entrée le résultat structuré du \textbf{la classification sémantique}
 	(\texttt{questionType}, \texttt{decision}, \texttt{persone}, \texttt{isPresentation},
 	etc.) et assure la \textbf{gestion des identités} avant la poursuite du pipeline.
 	Son rôle est double~: enregistrer une \textbf{nouvelle personne} lorsque le robot
 	doit la «\,connaître\,», ou \textbf{relancer une présentation} lorsque l'interlocuteur
 	reste marqué \texttt{unkonu} (inconnu) en base.
 	
-	\subparagraph{Routage par \textit{Switch1} (résultat du Block~3).}
+	\subparagraph{Routage par \textit{Switch1} (résultat du la classification sémantique).}
 	
 	Un nœud \textbf{Switch} (\textit{Switch1}, mode \textit{Rules}) distribue le flux
 	selon le type de question et l'état du profil~:
@@ -1811,15 +1635,15 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		\item \textbf{Type \texttt{presentation}~:} le Switch~1 active la branche
 		d'\textbf{enregistrement de la nouvelle personne} (\textbf{image} / profil envoyé via
 		\textit{Code8} puis \textbf{HTTP Request}, validation \textit{Code7}, \textbf{insert}
-		PostgreSQL). Après succès (éventuellement via \textit{If1}), le flux \textbf{poursuit vers le Block~5}
+		PostgreSQL). Après succès (éventuellement via \textit{If1}), le flux \textbf{poursuit vers le la réponse contextualisée}
 		pour le traitement conversationnel habituel.
 		\item \textbf{Personne \texttt{unkonu}~:} le flux emprunte la branche
 		\textbf{Basic LLM Chain} (\textit{OpenRouter}) pour produire une \textbf{introduction}
 		invitant l'utilisateur à se présenter ; un insert PostgreSQL peut journaliser l'échange.
-		Le traitement \textbf{principal du Block~5} n'est pas déclenché sur ce chemin tant que
+		Le traitement \textbf{principal du la réponse contextualisée} n'est pas déclenché sur ce chemin tant que
 		l'identité reste non rattachée au profil.
 		\item \textbf{Troisième chemin (personne connue, autre type)~:} le flux est
-		envoyé \textbf{directement au Block~5} pour continuer le travail (sans passer par
+		envoyé \textbf{directement au la réponse contextualisée} pour continuer le travail (sans passer par
 		l'enregistrement présentation ni par la branche introduction \texttt{unkonu}).
 	\end{itemize}
 	
@@ -1832,70 +1656,30 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	illustrent le cas \texttt{unkonu} lorsque l'utilisateur salue KODA sans être encore
 	reconnu (ex. \emph{«\,Bonjour, comment tu t'appelles\,?\,»}).
 	
-	\vspace{0.5em}
-	\begin{center}
-		\includegraphics[width=0.98\textwidth]{public/block4-workflow.png}
-		\captionof{figure}{Block 4 — \textit{Switch1}, branche enregistrement (\texttt{presentation}), branche LLM (\texttt{unkonu}) et poursuite vers le Block~5}
-		\label{fig:block4-workflow}
-	\end{center}
-	
 	\noindent\textbf{Exemple d'entrée — personne \texttt{unkonu}.}\\
-	Le panneau \textsc{Input} du \textit{Switch1} agrège la sortie du Block~3. Ici,
+	Le panneau \textsc{Input} du \textit{Switch1} agrège la sortie de la classification sémantique. Ici,
 	\texttt{persone} vaut \texttt{unkonu}, \texttt{questionType} est
 	\texttt{information\_generale} et \texttt{isPresentation} est \texttt{false}~:
 	le routage active donc la branche «\,demande de présentation\,» plutôt que
 	l'enregistrement direct.
-	
-	\vspace{0.4em}
-	\begin{center}
-		\includegraphics[width=0.92\textwidth]{public/block4-exemple-input-unkonu.png}
-		\captionof{figure}{Block 4 — Entrée JSON du \textit{Switch1} (\texttt{persone = unkonu}, sortie Block~3)}
-		\label{fig:block4-input-unkonu}
-	\end{center}
 	
 	\noindent\textbf{Exemple de sortie — relance de présentation.}\\
 	La \textit{Basic LLM Chain} produit une réponse d'accueil invitant l'utilisateur à
 	se présenter, tout en rappelant le prénom du compagnon (\texttt{namekoda}, ex.
 	\textit{mohsen})~:
 	
-	\vspace{0.4em}
-	\begin{center}
-		\includegraphics[width=0.88\textwidth]{public/block4-exemple-output-unkonu.png}
-		\captionof{figure}{Block 4 — Sortie texte~: invitation à la première rencontre et demande du prénom}
-		\label{fig:block4-output-unkonu}
-	\end{center}
-	
-	\subparagraph{Diagramme de séquence du block 4.}
-	
-	
-	La figure~\ref{fig:block4-workflow-sequence} reprend le diagramme exporté depuis
-	\texttt{koda-block4-workflow-sequence.puml}.
-	
-	\noindent\textbf{Source PlantUML~:} \texttt{plantuml/koda-block4-workflow-sequence.puml}.\\
-	\textbf{Fichier image~:} \texttt{public/block4-sequence-workflow.png}.
-	
-	% Page portrait : rotation 90° + grande echelle (ajuster scalebox si depassement page)
-	\clearpage
-\begin{figure}[p] % [p] force la figure sur une page seule
-    \centering
-    \vfill % Centre verticalement l'ensemble
-    
-    % La rotation de -90 tourne l'image vers la droite (sens horaire)
-    \rotatebox{-90}{%
-        \includegraphics[
-            width=0.88\textheight, % Taille optimale pour garder le titre sur la même page
-            keepaspectratio
-        ]{public/block4-sequence-workflow.png}%
-    }
-    
-    \vspace{1.5em} % Espace entre le bas de l'image tournée et le titre
-
-    \captionof{figure}{Block 4 — Diagramme de séquence du quatrième bloc}
-    \label{fig:block4-workflow-sequence}
-    
-    \vfill % Équilibre le centrage vertical
-\end{figure}
-\clearpage
+	\subparagraph{Diagramme de séquence --- gestion utilisateur (unkonu)}
+	\IfFileExists{public/block4-sequence-workflow.png}{%
+		\clearpage
+		\begin{center}
+			\rotatebox{-90}{%
+				\includegraphics[width=0.88\textheight,keepaspectratio]{public/block4-sequence-workflow.png}%
+			}
+			\captionof{figure}{Gestion utilisateur (unkonu) --- diagramme de séquence}
+			\label{fig:block4-workflow-sequence}
+		\end{center}
+		\FloatBarrier
+	}{}
 	
 	
 	
@@ -1905,11 +1689,11 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	%-- block 4
 	%-- block 5 
 	\vspace{1em}
-	\paragraph{Block 5 : Récupération Contextuelle et Génération de la Réponse}
+	\paragraph{Réponse contextualisée : Récupération Contextuelle et Génération de la Réponse}
 	
 	Ce bloc unifie les anciennes étapes de récupération mémorielle et de génération de
 	réponse en un seul pipeline intelligent. Il reçoit en entrée les deux informations
-	clés produites par le Block 3 : la décision \texttt{use\_memory} et le type de
+	clés produites par le Classification sémantique : la décision \texttt{use\_memory} et le type de
 	question classifié. En fonction de la valeur de \texttt{use\_memory}, le flux est
 	orienté vers l'une des deux branches de traitement suivantes.
 	
@@ -1922,7 +1706,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\vspace{0.3em}
 	
-	Lorsque le Block 3 retourne \texttt{USE\_MEMORY}, le système comprend que la
+	Lorsque le Classification sémantique retourne \texttt{USE\_MEMORY}, le système comprend que la
 	réponse nécessite des informations personnelles stockées. Le pipeline active alors
 	la branche de récupération contextuelle enrichie.
 	
@@ -2016,7 +1800,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\vspace{1em}
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{public/demigauche.png}
-		\captionof{figure}{Block 5.1 — Branche mémorielle : récupération et génération contextuelle}
+		\captionof{figure}{Réponse contextualisée.1 — Branche mémorielle : récupération et génération contextuelle}
 	\end{center}
 	\vspace{1em}
 	
@@ -2029,7 +1813,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\vspace{0.3em}
 	
-	Lorsque le Block 3 retourne \texttt{NO\_MEMORY}, la question ne nécessite pas
+	Lorsque le Classification sémantique retourne \texttt{NO\_MEMORY}, la question ne nécessite pas
 	de données personnelles stockées. Le pipeline active la branche générale qui
 	suit le processus ci-dessous :
 	
@@ -2106,7 +1890,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\vspace{1em}
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{public/demidoite.png}
-		\captionof{figure}{Block 5.2 — Branche générale : contexte conversationnel et génération de réponse}
+		\captionof{figure}{Réponse contextualisée.2 — Branche générale : contexte conversationnel et génération de réponse}
 	\end{center}
 	\vspace{1em}
 	
@@ -2115,23 +1899,23 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	% ================================================================
 	
 	\vspace{0.5em}
-	\subsubsection{Vue Complète du Block 5 — Les Deux Branches}
+	\subsubsection{Vue Complète du Réponse contextualisée — Les Deux Branches}
 	
 	\vspace{0.3em}
 	
-	La figure suivante présente l'architecture complète du Block 5 avec ses deux
+	La figure suivante présente l'architecture complète du Réponse contextualisée avec ses deux
 	branches de traitement parallèles, activées dynamiquement selon la décision
-	\texttt{use\_memory} issue du Block 3.
+	\texttt{use\_memory} issue du Classification sémantique.
 	
 	\vspace{0.5em}
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{public/demigauchedroit.png}
-		\captionof{figure}{Block 5 — Vue complète des deux branches de traitement contextuel}
+		\captionof{figure}{Réponse contextualisée — Vue complète des deux branches de traitement contextuel}
 	\end{center}
 	\vspace{0.5em}
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{public/dsb5.png}
-		\captionof{figure}{Block 5 — Diagramme de séquence du cinquième bloc}
+		\captionof{figure}{Réponse contextualisée — Diagramme de séquence du cinquième bloc}
 	\end{center}
 	
 	\vspace{1em}
@@ -2141,19 +1925,19 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	% BLOCK 6 : Notes (extraction) + mise à jour mémoire (persistance)
 	% ================================================================
 	
-	\paragraph{Block 6 : Notes, structuration et mise à jour de la mémoire}
+	\paragraph{Notes et mémoire persistante : Notes, structuration et mise à jour de la mémoire}
 	
-	Le \textbf{Block~6} clôt le Webhook~1 en regroupant deux responsabilités
+	Le \textbf{les notes et la mémoire persistante} clôt le Webhook~1 en regroupant deux responsabilités
 	complémentaires~: d'abord l'\textbf{extraction conditionnelle} des \textit{notes}
-	(lorsque le Block~3 a classé la demande en \texttt{note}), puis la
+	(lorsque le la classification sémantique a classé la demande en \texttt{note}), puis la
 	\textbf{persistance complète} de l'échange et la réponse à l'utilisateur. Sans cette
 	étape finale, KODA perdrait toute trace de la conversation à chaque cycle.
 	
 	\subparagraph{Partie 1 — Extraction structurée des \textit{notes} (conditionnel).}
 	
-	Lorsque le \textbf{Block~3} classe la demande avec
+	Lorsque le \textbf{la classification sémantique} classe la demande avec
 	\texttt{questiontype = note}, le pipeline ne se contente pas d'étiqueter le message~:
-	la \textbf{première partie} du Block~6 prend le relais \textbf{avant} toute insertion en
+	la \textbf{première partie} du les notes et la mémoire persistante prend le relais \textbf{avant} toute insertion en
 	base. Ce scénario couvre les rappels, alarmes et rendez-vous~: l'utilisateur
 	formule une intention temporelle en langage naturel (souvent approximatif ou fautif),
 	et le système doit en extraire une \textbf{date}, une \textbf{heure} et un
@@ -2165,13 +1949,13 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	et le \textbf{traitement spécialisé} des notes~:
 	\begin{enumerate}[leftmargin=*, itemsep=0.25em]
 		\item un nœud \textbf{If} vérifie que le champ \texttt{questiontype} issu du
-		Block~3 vaut bien \texttt{note}~; seules ces requêtes activent la branche d'extraction~;
+		la classification sémantique vaut bien \texttt{note}~; seules ces requêtes activent la branche d'extraction~;
 		\item une \textbf{Basic LLM Chain} (désignée ici \textit{LLM Chain~2} dans le
 		workflow) reçoit le message utilisateur, la réponse conversationnelle déjà produite
 		en amont, l'identifiant \texttt{persone} et le type \texttt{note}~;
 		\item le modèle \textbf{décompose} la phrase en JSON structuré
 		(\texttt{date\_evenement}, \texttt{evenement}, éventuellement
-		\texttt{format\_valide}) \textbf{avant} l'enregistrement définitif (partie~2 du Block~6).
+		\texttt{format\_valide}) \textbf{avant} l'enregistrement définitif (partie~2 du les notes et la mémoire persistante).
 	\end{enumerate}
 	
 	Ainsi, une formulation du type \emph{«\,Rappelle-moi le 9 heures, j'ai un rendez-vous
@@ -2184,47 +1968,47 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\vspace{0.5em}
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{public/captureworkflowb6.png}
-		\captionof{figure}{Block 6 (partie~1) — Sous-workflow n8n~: test \texttt{questiontype = note}, \textit{Basic LLM Chain~2} et structuration}
+		\captionof{figure}{Notes et mémoire persistante (partie~1) — Sous-workflow n8n~: test \texttt{questiontype = note}, \textit{Basic LLM Chain~2} et structuration}
 		\label{fig:block6-note-workflow}
 	\end{center}
 	
 	\noindent\textbf{Exemple d'entrée (nœud \textit{If} / LLM Chain~2).}\\
 	Le panneau \textsc{Input} JSON agrège les champs transmis par les blocs précédents.
 	Dans l'exemple ci-dessous, l'utilisateur \texttt{oussema} demande un rappel pour un
-	rendez-vous médical~; le Block~3 a déjà fixé \texttt{questiontype} à \texttt{note},
-	ce qui déclenche le traitement du Block~6~:
+	rendez-vous médical~; le la classification sémantique a déjà fixé \texttt{questiontype} à \texttt{note},
+	ce qui déclenche le traitement du les notes et la mémoire persistante~:
 	
 	\vspace{0.4em}
 	\begin{center}
 		\includegraphics[width=0.92\textwidth]{public/block6-note-exemple-input.png}
-		\captionof{figure}{Block 6 — Entrée JSON~: \texttt{question}, \texttt{output}, \texttt{persone} et \texttt{questiontype = note}}
+		\captionof{figure}{Notes et mémoire persistante — Entrée JSON~: \texttt{question}, \texttt{output}, \texttt{persone} et \texttt{questiontype = note}}
 		\label{fig:block6-note-input}
 	\end{center}
 	
 	\noindent\textbf{Exemple de sortie (structuration LLM).}\\
 	La \textit{Basic LLM Chain~2} renvoie un objet texte contenant la date-heure normalisée
-	et l'événement reformulé, prêt pour insertion dans \texttt{notes} (partie~2 du Block~6)~:
+	et l'événement reformulé, prêt pour insertion dans \texttt{notes} (partie~2 du les notes et la mémoire persistante)~:
 	
 	\vspace{0.4em}
 	\begin{center}
 		\includegraphics[width=0.88\textwidth]{public/block6-note-exemple-output.png}
-		\captionof{figure}{Block 6 — Sortie JSON~: \texttt{date\_evenement} et \texttt{evenement} extraits du message naturel}
+		\captionof{figure}{Notes et mémoire persistante — Sortie JSON~: \texttt{date\_evenement} et \texttt{evenement} extraits du message naturel}
 		\label{fig:block6-note-output}
 	\end{center}
 	
 	\vspace{0.3em}
 	\noindent
-	La première partie du Block~6 fait le lien entre la \textbf{classification sémantique}
-	(Block~3, type \texttt{note}) et les champs structurés exploitables en base~:
+	La première partie du les notes et la mémoire persistante fait le lien entre la \textbf{classification sémantique}
+	(la classification sémantique, type \texttt{note}) et les champs structurés exploitables en base~:
 	détection automatique, extraction LLM, puis passage à la persistance.
 	
 	\subparagraph{Partie 2 — Mise à jour de la mémoire et clôture du webhook.}
 	
-	La \textbf{deuxième partie} du Block~6 intervient après la génération de la réponse par le
-	Block~5 (et, le cas échéant, après la structuration des champs \texttt{note} en
+	La \textbf{deuxième partie} du les notes et la mémoire persistante intervient après la génération de la réponse par le
+	la réponse contextualisée (et, le cas échéant, après la structuration des champs \texttt{note} en
 	partie~1). Elle assure la \textbf{persistance complète de l'interaction} dans la base de
 	données et l'\textbf{enregistrement systématique} des nouvelles données produites ou
-	identifiées lors du traitement. Chaque branche du Block~5 (mémorielle ou générale)
+	identifiées lors du traitement. Chaque branche du la réponse contextualisée (mémorielle ou générale)
 	transite par cette étape avant la clôture du pipeline.
 	
 	\vspace{0.5em}
@@ -2233,85 +2017,45 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\begin{enumerate}
 		\item \textbf{Enregistrement de la nouvelle conversation :}
-		Chaque échange (question de l'utilisateur + réponse générée par KODA) est inséré dans le tableau \texttt{conversations}. Ce tableau constitue le journal complet de toutes les interactions, permettant au Webhook 2 d'effectuer ses synthèses journalières et au Block 5 de construire le contexte conversationnel.
+		Chaque échange (question de l'utilisateur + réponse générée par KODA) est inséré dans le tableau \texttt{conversations}. Ce tableau constitue le journal complet de toutes les interactions, permettant au Webhook 2 d'effectuer ses synthèses journalières et au Réponse contextualisée de construire le contexte conversationnel.
 		
 		\item \textbf{Insertion conditionnelle dans le tableau des informations personnelles :}
-		Si le Block 3 a classifié la question comme étant de type \texttt{about\_me} ou \texttt{information\_personnelle}, le système extrait les données pertinentes (préférences, centres d'intérêt, faits personnels) et les enregistre dans le tableau \texttt{personal\_info}. Ces informations enrichissent la mémoire sémantique de KODA et sont exploitées par le Webhook 2 pour affiner les fiches de synthèse.
+		Si le Classification sémantique a classifié la question comme étant de type \texttt{about\_me} ou \texttt{information\_personnelle}, le système extrait les données pertinentes (préférences, centres d'intérêt, faits personnels) et les enregistre dans le tableau \texttt{personal\_info}. Ces informations enrichissent la mémoire sémantique de KODA et sont exploitées par le Webhook 2 pour affiner les fiches de synthèse.
 		
 		\item \textbf{Insertion conditionnelle dans le tableau des notes :}
-		Si le type de question retourné par le Block~3 est \texttt{note}, le système identifie qu'il s'agit d'une action que l'utilisateur souhaite planifier ou mémoriser (alarme, rendez-vous, rappel, tâche à effectuer). Les champs structurés produits en \textbf{partie~1} du Block~6 (\texttt{date\_evenement}, \texttt{evenement}, \texttt{format\_valide}, etc.) sont alors enregistrés dans le tableau \texttt{notes}, dédié au stockage des éléments actionnables liés à l'utilisateur.
+		Si le type de question retourné par le la classification sémantique est \texttt{note}, le système identifie qu'il s'agit d'une action que l'utilisateur souhaite planifier ou mémoriser (alarme, rendez-vous, rappel, tâche à effectuer). Les champs structurés produits en \textbf{partie~1} du les notes et la mémoire persistante (\texttt{date\_evenement}, \texttt{evenement}, \texttt{format\_valide}, etc.) sont alors enregistrés dans le tableau \texttt{notes}, dédié au stockage des éléments actionnables liés à l'utilisateur.
 		
 		\item \textbf{Mise à jour de l'historique des messages récents :}
-		Le système insère la nouvelle discussion (question + réponse) dans le tableau \texttt{historique} et supprime simultanément la plus ancienne entrée si le nombre de messages dépasse 5. Cette rotation garantit que l'historique ne contient que les \textbf{5 derniers messages}, conformément à la logique de vérification du Block 2 qui s'appuie sur cet historique pour détecter les questions répétées.
+		Le système insère la nouvelle discussion (question + réponse) dans le tableau \texttt{historique} et supprime simultanément la plus ancienne entrée si le nombre de messages dépasse 5. Cette rotation garantit que l'historique ne contient que les \textbf{5 derniers messages}, conformément à la logique de vérification du Confrontation à l'historique qui s'appuie sur cet historique pour détecter les questions répétées.
 		
 		\item \textbf{Envoi de la réponse finale :}
-		Une fois toutes les opérations de persistance terminées, le nœud \texttt{Respond to Webhook} renvoie la réponse générée par le Block 5 à l'utilisateur via le webhook HTTP, clôturant ainsi le cycle complet de traitement.
+		Une fois toutes les opérations de persistance terminées, le nœud \texttt{Respond to Webhook} renvoie la réponse générée par le Réponse contextualisée à l'utilisateur via le webhook HTTP, clôturant ainsi le cycle complet de traitement.
 	\end{enumerate}
 	
 	\vspace{0.5em}
 	
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{public/dcb6.png}
-		\captionof{figure}{Block 6 (partie~2) — Diagramme de classes (persistance mémoire)}
+		\captionof{figure}{Notes et mémoire persistante (partie~2) — Diagramme de classes (persistance mémoire)}
 		\label{fig:block6-dcb6}
 	\end{center}
 	\vspace{1em}
 	
-	%----------------------------------------------------------------
-	\subsubsection{Synthèse visuelle du pipeline}
-	
-	La figure~\ref{fig:webhook1-sequence-blocs} (déjà présentée en début de section)
-	résume l'enchaînement macroscopique des six blocs. Pour une vue \textbf{complète}
-	du Webhook~1 (toutes les branches conditionnelles sur une seule figure), il est
-	recommandé d'exporter le diagramme PlantUML
-	\texttt{plantuml/koda-webhook1-blocks1-6-sequence.puml} vers
-	\texttt{public/sequence-webhook1-complet.png} si une version plus détaillée que
-	\texttt{dsg.png} est souhaitée en fin de chapitre.
-	
-	\IfFileExists{public/sequence-webhook1-complet.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=0.98\textwidth]{public/sequence-webhook1-complet.png}
-			\caption{Webhook~1 --- diagramme de séquence détaillé (pipeline complet, blocs~1 à~6)}
-			\label{fig:webhook1-sequence-complet}
-		\end{figure}
-	}{%
-		\IfFileExists{public/captureworkflowinput.png}{%
-			\begin{figure}[htbp]
-				\centering
-				\includegraphics[width=0.95\textwidth]{public/captureworkflowinput.png}
-				\caption{Webhook~1 --- vue d'ensemble du workflow n8n (entrée et enchaînement des blocs)}
-				\label{fig:webhook1-vue-ensemble}
-			\end{figure}
-		}{}}
-	
-	%----------------------------------------------------------------
 	\subsubsection{Conclusion du Webhook 1}
 	
 	Le \textbf{Webhook~1} constitue le cœur opérationnel de KODA en interaction
 	quotidienne~: à chaque message reçu (\texttt{user\_name}, question), il enchaîne
 	analyse, décision, génération et mémorisation dans un pipeline unique orchestré par
-	n8n. Conçu en \textbf{six blocs} successifs, ce flux traduit dans l'ingénierie la
-	théorie du double traitement évoquée en début de chapitre~: un traitement
-	\textbf{rapide} lorsque l'historique récent suffit (Block~2), puis un traitement
-	\textbf{plus approfondi} lorsque la question exige classification, contexte et
-	formulation personnalisée (blocs~3 à~5).
+	n8n. Organisé en \textbf{six parties} (figure~\ref{fig:webhook1-sequence-blocs}), ce flux
+	traduit la théorie du double traitement~: traitement rapide via l'historique, puis
+	traitement approfondi (classification, identité, réponse, persistance).
 	
-	Le \textbf{Block~1} assure la \textbf{sécurité et l'action immédiate} du compagnon
-	(fermeture, mot de passe, musique, déplacement) avant tout appel coûteux au modèle
-	de langage. Le \textbf{Block~2} limite la redondance en confrontant la demande aux
-	\textbf{cinq derniers échanges}, ce qui améliore la réactivité perçue et réduit la
-	consommation de ressources. Le \textbf{Block~3} structure ensuite le sens du message
-	(\texttt{USE\_MEMORY} / \texttt{NO\_MEMORY}, six catégories) et prépare un routage
-	fiable vers les branches adaptées. Le \textbf{Block~4} matérialise la dimension
-	\og humaine \fg{} du projet~: enregistrement d'une nouvelle personne, accueil d'un
-	interlocuteur \texttt{unkonu}, ou poursuite directe pour un profil déjà connu. Le
-	\textbf{Block~5} concentre la \textbf{valeur conversationnelle}~: réponse enrichie
-	ou générale selon la mémoire requise, dans le ton et l'identité de KODA. Enfin, le
-	\textbf{Block~6} clôt le cycle en deux temps~: structuration conditionnelle des
-	\textit{notes} (rappels, rendez-vous), puis \textbf{persistance} (conversations,
-	informations personnelles, historique glissant, réponse HTTP) conforme au schéma de
-	données du chapitre.
+	L'\textbf{entrée fonctionnelle} assure sécurité et actions immédiates. La
+	\textbf{confrontation à l'historique} limite la redondance. La \textbf{classification
+	sémantique} structure le message. La \textbf{gestion utilisateur connu ou inconnu}
+	matérialise l'accueil humain. La \textbf{réponse contextualisée} produit la valeur
+	conversationnelle. Les \textbf{notes et la mémoire persistante} clôturent le cycle
+	en base de données.
 	
 	Sur le plan fonctionnel, ce premier webhook répond ainsi aux objectifs du
 	chapitre~I~: dialoguer de façon naturelle, personnaliser l'échange, reconnaître ou
@@ -2319,7 +2063,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	suivantes. Il ne constitue pas une fin en soi~: les journaux alimentés ici
 	(conversations, \texttt{historique}, \texttt{notes}, profils) sont la matière du
 	\textbf{Webhook~2} (consolidation nocturne) et, indirectement, du \textbf{Webhook~3}
-	(proactivité). L'architecture modulaire par blocs a facilité l'itération sur les
+	(proactivité). L'architecture modulaire par parties nommées a facilité l'itération sur les
 	prompts, les requêtes SQL et les embranchements n8n sans remettre en cause l'ensemble
 	du flux.
 	
@@ -2351,6 +2095,15 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\noindent\underline{\textbf{Référence :} Walker, M. \& Stickgold, R. (2006). Sleep, Memory, and Plasticity. \textit{Annual Review of Psychology}, 57, 139–166.}
 	
+	\subsubsection{Diagrammes du Webhook~2}
+	\IfFileExists{public/webhook2.png}{%
+		\kodafigureL[0.98\textwidth]{public/webhook2.png}{Webhook~2 --- workflow n8n}{fig:webhook2-workflow-n8n}
+	}{}
+	\IfFileExists{public/koda_webhook2_synthese_sequence.png}{%
+		\kodafigureL[0.98\textwidth]{public/koda_webhook2_synthese_sequence.png}{Webhook~2 --- diagramme de séquence}{fig:webhook2-sequence}
+	}{}
+	\FloatBarrier
+	
 	\subsubsection{Fonctionnement du Webhook 2}
 	
 	Le processus se déroule en \textbf{trois temps}, matérialisés dans le workflow n8n
@@ -2371,42 +2124,6 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		terme.
 	\end{enumerate}
 	
-	\IfFileExists{public/webhook2.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=0.98\textwidth]{public/webhook2.png}
-			\caption{Webhook~2 --- vue d'ensemble du workflow n8n (collecte PostgreSQL, structuration, AI Agent, insertion \texttt{accompagnement})}
-			\label{fig:webhook2-workflow-n8n}
-		\end{figure}
-	}{%
-		\begin{center}
-			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1em}
-				\textit{Ajouter \texttt{public/webhook2.png} --- capture du workflow n8n Webhook~2.}
-				\vspace{1em}\end{minipage}}
-		\end{center}
-	}
-	
-	\subsubsection{Diagramme de séquence du Webhook 2}
-	
-	La figure~\ref{fig:webhook2-sequence} résume les interactions entre le
-	\textbf{backend} (trigger), le workflow n8n, PostgreSQL, les nœuds de structuration et l'agent IA.
-	La source PlantUML est \texttt{plantuml/koda-webhook2-synthese-sequence.puml}.
-	
-	\IfFileExists{public/koda_webhook2_synthese_sequence.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=0.98\textwidth]{public/koda_webhook2_synthese_sequence.png}
-			\caption{Webhook~2 --- diagramme de séquence (synthèse journalière et persistance)}
-			\label{fig:webhook2-sequence}
-		\end{figure}
-	}{%
-		\begin{center}
-			\fbox{\begin{minipage}{0.88\textwidth}\centering\vspace{1em}
-				\textit{Exporter \texttt{plantuml/koda-webhook2-synthese-sequence.puml} vers \texttt{public/koda\_webhook2\_synthese\_sequence.png}.}
-				\vspace{1em}\end{minipage}}
-		\end{center}
-	}
-	
 	\subsubsection{Structure des Fiches de Synthèse Générées}
 	
 	À l'issue de son traitement, le Webhook 2 génère pour chaque utilisateur une fiche de synthèse couvrant \textbf{quatre dimensions complémentaires} :
@@ -2418,12 +2135,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		\item \textbf{Conseils personnalisés :} Génération de recommandations adaptées au profil et au contexte de l'utilisateur, permettant à KODA d'offrir une valeur proactive lors des interactions suivantes.
 	\end{itemize}
 	\IfFileExists{public/4conseil.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=0.95\textwidth]{public/4conseil.png}
-			\caption{Webhook~2 --- exemple de sortie structurée (quatre dimensions de la fiche journalière)}
-			\label{fig:webhook2-output-4dimensions}
-		\end{figure}
+		\kodafigureL[0.95\textwidth]{public/4conseil.png}{Webhook~2 --- exemple de sortie structurée (quatre dimensions de la fiche journalière)}{fig:webhook2-output-4dimensions}
 	}{%
 		\noindent\textit{(Figure optionnelle~: ajouter \texttt{public/4conseil.png} --- capture des champs \texttt{interets}, \texttt{synthese}, \texttt{point\_cles}, \texttt{conseils} en sortie du nœud \textit{Response}.)}
 	}
@@ -2436,12 +2148,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	liaison (un utilisateur, zéro ou plusieurs fiches de synthèse journalière).
 	
 	\IfFileExists{public/webhook2-schema-accompagnement.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=0.72\textwidth]{public/webhook2-schema-accompagnement.png}
-			\caption{Webhook~2 --- schéma de persistance (\texttt{utilisateur} $\rightarrow$ \texttt{accompagnement}~: \texttt{interets}, \texttt{synthese}, \texttt{point\_cles}, \texttt{conseils})}
-			\label{fig:webhook2-schema-accompagnement}
-		\end{figure}
+		\kodafigureL[0.72\textwidth]{public/webhook2-schema-accompagnement.png}{Webhook~2 --- schéma de persistance (\texttt{utilisateur} $\rightarrow$ \texttt{accompagnement}~: \texttt{interets}, \texttt{synthese}, \texttt{point\_cles}, \texttt{conseils})}{fig:webhook2-schema-accompagnement}
 	}{}
 	
 	\noindent\underline{\textbf{Référence :} Miller, G.A. (1956). The magical number seven, plus or minus two. \textit{Psychological Review}, 63(2), 81–97.}
@@ -2452,7 +2159,7 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	stockées dans \texttt{accompagnement} (figures~\ref{fig:webhook2-schema-accompagnement}
 	et~\ref{fig:koda-chapitre-classes-schema}).
 	Elles sont consultées par le \textbf{Webhook~1} pour enrichir le contexte des réponses
-	(branche mémorielle du Block~5) et exploitées par le \textbf{Webhook~3} pour générer
+	(branche mémorielle du la réponse contextualisée) et exploitées par le \textbf{Webhook~3} pour générer
 	des interactions spontanées pertinentes (\texttt{interests}, \texttt{daily\_summary},
 	\texttt{key\_points}, \texttt{personalized\_advice}).
 	
@@ -2496,88 +2203,40 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\noindent\underline{\textbf{Référence :} Dautenhahn, K. \& Billard, A. (1999). Bringing up robots or the psychology of socially intelligent robots. \textit{Proceedings of the 3rd annual conference on Autonomous Agents}, 366–367.}
 	
+	\subsubsection{Diagrammes du Webhook~3}
+	\IfFileExists{public/webhook3.png}{%
+		\kodafigureL[0.98\textwidth]{public/webhook3.png}{Webhook~3 --- workflow n8n}{fig:webhook3-workflow-n8n}
+	}{}
+	\IfFileExists{public/koda_webhook3_spontaneite_sequence.png}{%
+		\kodafigureL[0.98\textwidth]{public/koda_webhook3_spontaneite_sequence.png}{Webhook~3 --- diagramme de séquence}{fig:webhook3-sequence}
+	}{}
+	\FloatBarrier
+	
 	\subsubsection{Déclenchement et entrées}
 	
-	Le Webhook~3 est activé lorsque le \textbf{backend} ou le module de vision du robot
-	détecte une présence et transmet un identifiant (\texttt{username}, \texttt{acteur}).
-	Le workflow n8n (figure~\ref{fig:webhook3-workflow-n8n}) enchaîne~:
-	\textit{Identité7} (PostgreSQL) $\rightarrow$ nœud \textit{Code} $\rightarrow$
-	\textit{If7}, qui oriente soit vers \textbf{AI Agent3} (personne connue), soit vers
-	\textbf{Postgres15} + \textbf{Code11} + \textbf{AI Agent2} (cas nécessitant une
-	introduction enrichie à partir des listes issues du Flux~2).
-	
-	\IfFileExists{public/webhook3.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=0.98\textwidth]{public/webhook3.png}
-			\caption{Webhook~3 --- workflow n8n (\textit{If7}, branches AI Agent2 / AI Agent3, réponses webhook)}
-			\label{fig:webhook3-workflow-n8n}
-		\end{figure}
-	}{}
+	Le Webhook~3 est activé lorsque le \textbf{backend} ou le module de vision détecte
+	une présence et transmet un identifiant (\texttt{username}, \texttt{acteur}).
+	Le workflow (figure~\ref{fig:webhook3-workflow-n8n}) enchaîne \textit{Identité7},
+	\textit{Code}, puis \textit{If7} vers \textbf{AI Agent3} ou \textbf{Code11} +
+	\textbf{AI Agent2}.
 	
 	\subsubsection{Préparation des données (nœud Code11)}
 	
-	Le nœud \textbf{Code11} consolide, pour chaque exécution, les listes produites à
-	partir des fiches \texttt{accompagnement} (Webhook~2)~:
-	\begin{itemize}
-		\item \texttt{ma\_liste\_des\_centre\_d\_interet} $\leftarrow$ centres d'intérêt ;
-		\item \texttt{ma\_liste\_des\_profils} $\leftarrow$ profils comportementaux ;
-		\item \texttt{ma\_liste\_des\_points\_de\_vue} $\leftarrow$ points de vue ;
-		\item \texttt{ma\_liste\_des\_conseils} $\leftarrow$ conseils personnalisés ;
-		\item \texttt{username} --- identifiant transmis par le backend ;
-		\item \texttt{utilisateur} --- \texttt{acteur} si connu, sinon \textbf{\texttt{Inconnu}}.
-	\end{itemize}
-	
-	La figure~\ref{fig:webhook3-code11-input} illustre cette étape dans l'interface n8n.
-	
 	\IfFileExists{public/webhook3-code11-input.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=0.98\textwidth]{public/webhook3-code11-input.png}
-			\caption{Webhook~3 --- entrée du nœud \textit{Code11} (listes issues du Webhook~2, \texttt{username}, \texttt{utilisateur} ou \texttt{Inconnu})}
-			\label{fig:webhook3-code11-input}
-		\end{figure}
+		\kodafigureL[0.98\textwidth]{public/webhook3-code11-input.png}{Webhook~3 --- entrée du nœud \textit{Code11}}{fig:webhook3-code11-input}
 	}{}
+	
+	Le nœud \textbf{Code11} consolide les listes issues de \texttt{accompagnement}
+	(centres d'intérêt, profils, points de vue, conseils) et l'identifiant utilisateur.
 	
 	\subsubsection{Génération de l'introduction et sortie JSON}
 	
-	L'\textbf{AI Agent} (modèle Google Gemini via n8n) produit une réponse structurée
-	exploitée par le robot et l'interface~:
-	\begin{itemize}
-		\item \texttt{parole\_du\_robot} --- texte d'introduction à prononcer (ton amical,
-		référence au prénom si connu, reprise des thèmes mémorisés) ;
-		\item \texttt{emotion\_visuelle} --- indication d'affichage (ex. \emph{Clin d'œil}).
-	\end{itemize}
-	
-	Exemple pour un utilisateur reconnu (\texttt{Oussema})~: \emph{«\,Salut Oussema !
-	T'inquiète, je t'ai pas zappé, même si tu testes ma mémoire H24. Alors, on se fait
-	un petit défi pour voir qui a la meilleure aujourd'hui ?\,»} avec
-	\texttt{emotion\_visuelle = Clin d'œil} (figure~\ref{fig:webhook3-output-parole}).
-	
 	\IfFileExists{public/webhook3-output-parole.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=0.92\textwidth]{public/webhook3-output-parole.png}
-			\caption{Webhook~3 --- sortie JSON (\texttt{parole\_du\_robot}, \texttt{emotion\_visuelle})}
-			\label{fig:webhook3-output-parole}
-		\end{figure}
+		\kodafigureL[0.92\textwidth]{public/webhook3-output-parole.png}{Webhook~3 --- sortie JSON (\texttt{parole\_du\_robot}, \texttt{emotion\_visuelle})}{fig:webhook3-output-parole}
 	}{}
 	
-	\subsubsection{Diagramme de séquence du Webhook 3}
-	
-	La figure~\ref{fig:webhook3-sequence} synthétise le flux~: détection backend,
-	lecture mémoire long terme (Webhook~2), structuration \textit{Code11}, génération
-	par l'\textbf{AI Agent} et réponse au robot.
-	Source PlantUML~: \texttt{plantuml/koda-webhook3-spontaneite-sequence.puml}.
-	
-	\IfFileExists{public/koda_webhook3_spontaneite_sequence.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=0.98\textwidth]{public/koda_webhook3_spontaneite_sequence.png}
-			\caption{Webhook~3 --- diagramme de séquence (introduction de parole et mémoire Flux~2)}
-			\label{fig:webhook3-sequence}
-		\end{figure}
-	}{}
+	L'\textbf{AI Agent} produit \texttt{parole\_du\_robot} et \texttt{emotion\_visuelle}
+	pour le robot (exemple utilisateur \texttt{Oussema}, figure~\ref{fig:webhook3-output-parole}).
 	
 	\subsubsection{Conclusion du Webhook 3}
 	
@@ -2591,11 +2250,11 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\noindent\underline{\textbf{Référence :} Reeves, B. \& Nass, C. (1996). \textit{The Media Equation}. Cambridge University Press.}
 	
 	%----------------------------------------------------------------
-	\section{Vue Générale du Cycle 1}
+	\section{Synthèse cognitive du Cycle~1}
 	
-	%----------------------------------------------------------------
-	
-	Les trois webhooks forment ensemble un \textbf{système cognitif cohérent}, dont chaque composant reproduit un mécanisme humain identifié et documenté. Le tableau suivant résume ces correspondances :
+	Les trois webhooks forment un \textbf{système cognitif cohérent} (voir modélisation
+	globale en début de chapitre). Le tableau suivant résume les correspondances humaines /
+	implémentations :
 	
 	\begin{table}[ht]
 		\centering
@@ -2604,9 +2263,9 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 			\hline
 			\textbf{Mécanisme Humain} & \textbf{Référence Scientifique} & \textbf{Implémentation KODA} \\
 			\hline
-			Double traitement (S1/S2) & Kahneman, 2011 & Block 3 — Classification et routage \\
+			Double traitement (S1/S2) & Kahneman, 2011 & Classification sémantique \\
 			\hline
-			Optimisation cognitive & Principe DRY & Block 2 — Vérification historique \\
+			Optimisation cognitive & Principe DRY & Confrontation à l'historique \\
 			\hline
 			Consolidation nocturne & Stickgold, 2005 & Webhook 2 — Synthèse journalière \\
 			\hline
@@ -2617,15 +2276,6 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 		\end{tabularx}
 		\label{tab:correspondance_cognitive}
 	\end{table}
-	\vspace{0.5em}
-	\IfFileExists{public/ducc1.png}{%
-		\begin{figure}[htbp]
-			\centering
-			\includegraphics[width=0.95\textwidth]{public/ducc1.png}
-			\caption{Cycle~1 --- diagramme de cas d'utilisation (trois webhooks et blocs associés)}
-			\label{fig:ducc1-cycle1}
-		\end{figure}
-	}{}
 	
 	% ----------------------------------------------------------------
 	% IMAGE À INSÉRER : Architecture cognitive globale de KODA
@@ -2642,12 +2292,12 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	Ce chapitre a présenté l'architecture cognitive de KODA, structurée autour de trois
 	webhooks complémentaires orchestrés par la plateforme n8n, en s'appuyant sur la
-	théorie du double traitement, OpenRouter (Block~3), SerpAPI (Block~1, branche musique)
+	théorie du double traitement, OpenRouter (la classification sémantique), SerpAPI (l'entrée fonctionnelle, branche musique)
 	et PostgreSQL pour la persistance.
 	
-	Le \textbf{Webhook~1} (six blocs) assure le traitement en temps réel~: garde-fous et
-	routage (Block~1), cache historique (Block~2), classification (Block~3), identité
-	(Block~4), réponse contextualisée (Block~5), puis notes et mémoire (Block~6).
+	Le \textbf{Webhook~1} (six parties nommées) assure le traitement en temps réel~:
+	entrée fonctionnelle, confrontation à l'historique, classification sémantique,
+	gestion \texttt{unkonu}, réponse contextualisée, notes et mémoire persistante.
 	Le \textbf{Webhook~2}, déclenché par le \textbf{backend}, consolide la journée en
 	fiches \texttt{accompagnement}. Le \textbf{Webhook~3} produit l'introduction de parole
 	(\texttt{parole\_du\_robot}, \texttt{emotion\_visuelle}) à partir de ces synthèses.
@@ -2664,44 +2314,95 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	\section{Introduction}
 	%------------------------------------------------------------------
 	
-	Dans tout écosystème logiciel distribué, il existe un composant
-	central dont dépend la cohérence et la fluidité de l'ensemble.
-	Dans notre projet de robot intelligent, ce rôle est assuré par
-	le \textbf{Distributeur de Services} : l'application backend.
-	Ce composant constitue le cœur névralgique de l'architecture~;
-	il est responsable de la réception, du traitement et de la
-	redistribution de toutes les requêtes émanant des différents
-	acteurs du système.
+	Le \textbf{chapitre~IV} correspond au \textbf{Cycle~2} du projet KODA. Il documente le
+	\textbf{Distributeur de Services}~: l'application \textbf{backend} (Python / FastAPI)
+	qui relie entre eux le robot, les workflows n8n, l'application mobile et la base de
+	données, tout en appelant les services cloud nécessaires (Azure, Gemini, etc.).
 	
-	Conformément au \textbf{modèle en spirale} adopté dans ce rapport,
-	ce \textbf{deuxième} cycle se concentre exclusivement sur ce composant.
-	Chaque cycle vise à livrer un composant fonctionnel, testable et
-	intégrable de manière incrémentale~; le Distributeur de Services
-	représente ainsi le cycle le plus complexe et le plus structurant
-	du projet.
+	\paragraph{Rôle du composant.}
+	Sans ce maillon, chaque partie du système devrait connaître les adresses, les clés
+	et les formats de tous les autres modules~: le Raspberry Pi parlerait directement à
+	n8n, l'application mobile à Supabase, etc. Le Distributeur évite cette dispersion~:
+	il \textbf{centralise} les échanges, applique la \textbf{sécurité} (authentification,
+	validation), et garantit une \textbf{logique d'acheminement} unique. C'est le
+	\textbf{pivot} de l'architecture présentée au chapitre~II (partie~1 du rapport).
 	
-	Le backend assume plusieurs responsabilités simultanément~: il
-	joue le rôle d'intermédiaire entre la base de données PostgreSQL
-	hébergée sur Supabase et les autres composants~; il achemine les
-	flux de données vers le moteur d'automatisation n8n~; il expose
-	les services nécessaires à l'application mobile multiplateforme~;
-	et il assure l'interface temps réel avec le système embarqué du
-	robot physique. Il intègre également des capacités avancées telles
-	que la reconnaissance de personnes, la synthèse vocale et la
-	transcription audio via les services Azure Cognitive Services et
-	l'API Gemini.
+	\paragraph{Rôle du chapitre.}
+	Ce chapitre vise d'abord à situer le Distributeur dans l'ensemble (diagrammes
+	généraux), puis à détailler sa \textbf{composition} selon quatre axes de
+	communication~: système embarqué, application mobile, base de données et workflow
+	n8n. L'architecture interne du code (Clean Architecture, arborescence) est traitée
+	ensuite, avant les difficultés rencontrées et la conclusion.
 	
 	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black,
 		title=\textbf{Rôle principal du Distributeur de Services}]
-		Centraliser et redistribuer l'ensemble des communications entre
-		tous les composants de l'écosystème (robot physique, workflow n8n,
-		application mobile, base de données, services cloud), tout en
-		garantissant la sécurité, la fiabilité et la scalabilité du
-		système.
+		Centraliser et redistribuer les communications entre le robot physique, le
+		moteur n8n, l'application mobile, PostgreSQL (Supabase) et les services cloud,
+		sans exposer les secrets ni multiplier les couplages entre composants.
 	\end{tcolorbox}
 	
 	%------------------------------------------------------------------
-	\section{Architecture Utilisée}
+	\section{Modélisation et place dans l'architecture}
+	\label{sec:ch4-modelisation}
+	%------------------------------------------------------------------
+	
+	Cette section fixe le \textbf{cadre fonctionnel} du Cycle~2 avant l'implémentation
+	détaillée. Elle répond à trois questions~: \emph{que fait} le Distributeur (cas
+	d'utilisation), \emph{avec quelles entités} il travaille (schéma de classes /
+	données), et \emph{pourquoi} il est indispensable dans l'architecture globale.
+	
+	\subsection{Diagramme de cas d'utilisation général}
+	
+	\IfFileExists{public/ducgc4.png}{%
+		\kodafigureL[\textwidth]{public/ducgc4.png}{Cycle~2 --- diagramme de cas d'utilisation général du Distributeur de services}{fig:ducgc4-cycle2}
+	}{%
+		\IfFileExists{public/ducg.png}{%
+			\kodafigureL[\textwidth]{public/ducg.png}{Cycle~2 --- diagramme de cas d'utilisation général du Distributeur de services}{fig:ducgc4-cycle2}
+		}{%
+			\noindent\textit{(Figure à ajouter~: \texttt{public/ducgc4.png}.)}
+		}%
+	}
+	\FloatBarrier
+	
+	Le diagramme regroupe les interactions typiques~: réception des requêtes du robot ou
+	de l'application, lecture/écriture en base, déclenchement ou consultation des
+	workflows n8n, appels aux services cognitifs. Il sert de \textbf{carte de lecture}
+	pour les quatre communications détaillées au §~\ref{sec:ch4-composition}.
+	
+	\subsection{Schéma de classes général}
+	
+	\IfFileExists{public/ch4-schema-classes.png}{%
+		\kodafigureL[0.95\textwidth]{public/ch4-schema-classes.png}{Cycle~2 --- schéma de classes général du backend}{fig:ch4-classes-schema}
+	}{%
+		\kodafigureL[0.95\textwidth]{public/koda_schema.png}{Cycle~2 --- schéma de classes et modèle de persistance (PostgreSQL)}{fig:ch4-classes-schema}
+	}
+	\FloatBarrier
+	
+	Ce schéma matérialise les entités manipulées par le Distributeur (sessions,
+	conversations, profils, commandes, etc.) et leurs relations. Il complète le cas
+	d'utilisation en montrant \textbf{quoi} est stocké ou transité, indépendamment des
+	protocoles HTTP ou WebSocket.
+	
+	\subsection{Architecture globale et nécessité du Distributeur}
+	
+	La figure~\ref{fig:ch2-architecture-systeme} (déjà introduite au chapitre~II) rappelle
+	la décomposition multicouche de KODA~: n8n pour la \textbf{réflexion}, le
+	\textbf{backend} pour la \textbf{distribution des services}, le \textbf{Raspberry Pi}
+	pour l'\textbf{action} physique, l'\textbf{application mobile} pour la
+	\textbf{configuration}, PostgreSQL pour la \textbf{mémoire} durable.
+	
+	\kodafigureL[0.95\textwidth]{public/ch2-architecture-systeme.png}{Architecture multicouche de KODA --- place du Distributeur de services (Cycle~2)}{fig:ch4-architecture-rappel}
+	
+	Le Distributeur est \textbf{nécessaire} car il constitue le seul point d'entrée
+	\textbf{homogène} vers les ressources partagées~: une modification de la base, d'un
+	webhook n8n ou d'une clé Azure se fait au même endroit, ce qui respecte le modèle en
+	spirale (cycle~2 livrable et testable sans réécrire le robot ni les workflows). Les
+	cycles~1 et~3 restent focalisés sur leur périmètre tout en s'appuyant sur des
+	\textbf{interfaces stables} exposées par ce backend.
+	
+	%------------------------------------------------------------------
+	\section{Architecture interne du backend}
+	\label{sec:ch4-architecture-interne}
 	%------------------------------------------------------------------
 	
 	\subsection{Choix du langage : Python}
@@ -2790,79 +2491,125 @@ Le chapitre suivant, \textbf{«\,Préparation du Projet\,»}, formalise les beso
 	
 	\subsection{Structure des répertoires du projet}
 	
-	\begin{center}
-		\includegraphics[width=0.55\textwidth]{public/archipy.png}
-		
-		\small\textbf{Figure :} Arborescence du projet backend (Distributeur)
-	\end{center}
-	
-	\begin{center}
-		\includegraphics[width=0.55\textwidth]{public/archiipy.png}
-		
-		\small\textbf{Figure :} Exucution de Programe (Distributeur)
-	\end{center}
+	\kodafigureL[0.55\textwidth]{public/archipy.png}{Arborescence du projet backend (Distributeur)}{fig:ch4-archipy}
+	\kodafigureL[0.55\textwidth]{public/archiipy.png}{Exécution du programme backend (Distributeur)}{fig:ch4-archiipy}
 	
 	
 	
 	%------------------------------------------------------------------
-	\section{Fonctionnalités Techniques}
+	\section{Composition du Distributeur : communications}
+	\label{sec:ch4-composition}
 	%------------------------------------------------------------------
 	
-	\subsection{Communication avec la base de données (Supabase / PostgreSQL)}
+	Le Distributeur se comprend le mieux comme un \textbf{nœud de communication} entre
+	quatre partenaires du système. Chaque sous-section décrit un flux, ses protocoles et
+	son rôle dans l'expérience KODA.
 	
-La couche de persistance du projet repose sur
-\textbf{PostgreSQL}, déployé sur \textbf{Supabase}. Dans un cadre
-académique de type PFE, ce choix est pertinent car il associe la
-fiabilité d'un SGBD relationnel mature à un environnement cloud
-structuré, facilitant l'administration, la supervision et la
-maintenance des données.
-
-\textbf{Supabase} est une plateforme Backend-as-a-Service (BaaS)
-open source construite autour de PostgreSQL. Elle fournit des services
-intégrés tels qu'une interface d'administration, un éditeur SQL, des
-API automatiques et des mécanismes de gestion des accès.
-
-Le backend Python communique avec la base via \texttt{SQLAlchemy}
-(modélisation ORM) et \texttt{asyncpg} (accès asynchrone), afin
-d'assurer une exécution efficace des opérations de lecture et
-d'écriture, y compris en situation de charge concurrente.
-
-\begin{figure}[htbp]
-	\centering
-	\fbox{\parbox{0.78\textwidth}{
+	\subsection{Communication avec le système embarqué}
+	
+	L'interface avec le \textbf{robot physique} (Raspberry Pi et microcontrôleurs) est
+	l'une des plus sensibles~: latence faible, commandes critiques, retours d'état en
+	temps réel. Le backend maintient une connexion \textbf{WebSocket} persistante pour
+	échanger des messages JSON (commandes moteur, émotions, acquittements).
+	
+	Chaque commande est journalisée (statut \og en attente \fg{}, puis confirmée par
+	ACK), avec \textit{retry} en cas de timeout. La figure~\ref{fig:dscse-robot} illustre
+	le scénario type robot $\leftrightarrow$ Distributeur.
+	
+	\IfFileExists{public/dscse.png}{%
+		\kodafigureL[0.95\textwidth]{public/dscse.png}{Communication avec le système embarqué --- diagramme de séquence}{fig:dscse-robot}
+	}{}
+	
+	\subsubsection{Voix et parole (Azure STT / TTS)}
+	
+	Le robot capture l'audio~; le \textbf{Distributeur} transmet ce flux vers
+	\textbf{Azure Speech-to-Text}, récupère le texte, déclenche le traitement
+	conversationnel (souvent via n8n), puis renvoie la réponse synthétisée par
+	\textbf{Text-to-Speech}. Centraliser Azure côté backend évite d'exposer les clés sur
+	l'embarqué et uniformise la journalisation.
+	
+	\begin{enumerate}[leftmargin=*, itemsep=0.2em]
+		\item capture audio sur le robot $\rightarrow$ envoi au Distributeur~;
+		\item transcription STT (Azure)~;
+		\item traitement du texte (workflow / services)~;
+		\item synthèse TTS (Azure)~;
+		\item retour audio vers le robot.
+	\end{enumerate}
+	
+	\IfFileExists{public/azur.png}{%
+		\kodafigure[0.95\textwidth]{public/azur.png}{Configuration Azure Speech (STT/TTS)}
+	}{}
+	\IfFileExists{public/tts.png}{%
+		\kodafigure[0.95\textwidth]{public/tts.png}{Test Text-to-Speech}
+	}{}
+	\IfFileExists{public/stt.png}{%
+		\kodafigure[0.95\textwidth]{public/stt.png}{Test Speech-to-Text}
+	}{}
+	
+	\subsubsection{Reconnaissance des personnes}
+	
+	La \textbf{reconnaissance faciale} (\texttt{face\_recognition} / dlib) permet
+	d'identifier un visiteur connu~: encodages 128D enregistrés à l'inscription, comparaison
+	à la volée sur image caméra. Le robot envoie la capture~; le Distributeur calcule et
+	renvoie l'identité et un score de confiance.
+	
+	\IfFileExists{public/dataset.png}{%
+		\kodafigure[0.95\textwidth]{public/dataset.png}{Exemple d'images de référence en mémoire (profils utilisateurs)}
+	}{}
+	
+	\begin{tcolorbox}[colback=green!5!white, colframe=green!50!black,
+		title=\textbf{Précision du système de reconnaissance}]
+		Tests en conditions réelles~: taux de reconnaissance supérieur à
+		\textbf{94\,\%} (seuil de distance 0{,}5), temps moyen \textbf{180\,ms} par image
+		sur le serveur de déploiement.
+	\end{tcolorbox}
+	
+	\subsection{Communication avec l'application mobile}
+	
+	L'application \textbf{Flutter} consomme des \textbf{API REST} exposées par le
+	Distributeur~: authentification, profils, agenda, activités, journaux d'échange,
+	paramètres du robot. Chaque requête est sécurisée par \textbf{JWT} (Supabase Auth),
+	validé par un middleware FastAPI transversal.
+	
+	\IfFileExists{public/listeendpoint.png}{%
+		\kodafigureL[0.90\textwidth]{public/listeendpoint.png}{Endpoints REST exposés à l'application mobile}{fig:ch4-endpoints-mobile}
+	}{}
+	\IfFileExists{public/exucution.png}{%
+		\kodafigure[0.90\textwidth]{public/exucution.png}{Exécution de quelques endpoints (tests)}
+	}{}
+	
+	\begin{table}[htbp]
 		\centering
-		\vspace{1cm}
-		\textbf{Emplacement de la capture Supabase}\\[0.2cm]
-		(Vue du projet, tables PostgreSQL et interface SQL)
-		\vspace{1cm}
-	}}
-	\caption{Interface Supabase utilisée pour l'administration de la base PostgreSQL}
-	\label{fig:supabase_interface}
-\end{figure}
-
-Du point de vue applicatif, la communication suit une chaîne claire~:
-\textit{API REST $\rightarrow$ couche service $\rightarrow$ repository
-$\rightarrow$ PostgreSQL}. Cette séparation réduit le couplage entre
-la logique métier et la persistance, facilite les tests unitaires et
-améliore la maintenabilité globale de l'architecture.
-
-Pour renforcer la qualité de service, plusieurs mécanismes sont
-appliqués~: validation des entrées, gestion des exceptions SQL,
-journalisation des erreurs critiques et contrôle de latence sur les
-opérations sensibles. Cette approche permet d'assurer l'intégrité des
-données et la continuité de fonctionnement du robot, y compris lors de
-charges variables.
-	\begin{center}
-	\includegraphics[width=0.95\textwidth]{public/supabase.jpg}
-	\captionof{figure}{ Logo SupaBase}
-\end{center}
-
-\subsubsection{Modèle relationnel et rôle des tables}
-
-Le modèle de données est conçu pour couvrir les dimensions
-conversationnelles, contextuelles et organisationnelles du système.
-Les principales tables et leurs rôles sont les suivants~:
-\begin{itemize}
+		\caption{Endpoints exposés à l'application mobile (à compléter)}
+		\label{tab:endpoints_mobile}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|l|c|l|}
+			\hline
+			\textbf{Endpoint} & \textbf{Méthode} & \textbf{Description} \\
+			\hline
+			&  &  \\
+			&  &  \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Communication avec la base de données}
+	
+	La couche de persistance repose sur \textbf{PostgreSQL} hébergé sur
+	\textbf{Supabase} (interface d'administration, SQL, gestion des accès).
+	Le Distributeur y accède via \texttt{SQLAlchemy} (ORM) et \texttt{asyncpg}
+	(asynchrone), selon la chaîne~:
+	\textit{API REST $\rightarrow$ service $\rightarrow$ repository $\rightarrow$ PostgreSQL}.
+	
+	\IfFileExists{public/supabase.jpg}{%
+		\kodafigureL[0.95\textwidth]{public/supabase.jpg}{Interface Supabase --- administration PostgreSQL}{fig:supabase_interface}
+	}{}
+	
+	\subsubsection{Modèle relationnel et rôle des tables}
+	
+	Le modèle couvre les dimensions conversationnelles, contextuelles et
+	organisationnelles. Principales tables~:
+	\begin{itemize}
 	\item \textbf{\texttt{conversation} \;(id, question, reponce, date, type\_de\_question, personne)}~: archive l'ensemble des conversations entre le robot et l'humain.
 	\item \textbf{\texttt{historique} \;(id, date, question, reponce, type\_de\_question)}~: conserve les 5 derniers messages pour la mémoire contextuelle immédiate.
 	\item \textbf{\texttt{information\_personnel} \;(id, question, reponce, date, acteur, type\_de\_question)}~: stocke les informations personnelles liées à l'humain ou au robot.
@@ -2872,124 +2619,12 @@ Les principales tables et leurs rôles sont les suivants~:
 	\item \textbf{\texttt{agenda} \;(id, titre, note, etat, contenu, date\_modification)}~: enregistre les éléments d'agenda saisis depuis l'application mobile.
 	\item \textbf{\texttt{activity} \;(id, titre, description, etat, date, createdat)}~: stocke les activités de l'utilisateur provenant de l'application mobile.
 	\item \textbf{\texttt{accompagnement} \;(id, interets, synthese, point\_cles, conseils, acteur)}~: conserve l'analyse quotidienne consolidée pour chaque personne connue.
-		\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/koda_schema.png}
-		\captionof{figure}{ Koda Schema Base De Donneé}
-	\end{center}
 \end{itemize}
-	
 
-
-
-
+\noindent Le détail des relations entre tables est donné par la
+figure~\ref{fig:ch4-classes-schema} (§~\ref{sec:ch4-modelisation}).
 	
-	\subsection{Services Azure : Speech-to-Text et Text-to-Speech}
-	
-	L'intégration des services cognitifs Azure permet au robot de
-	comprendre la parole humaine et de restituer une réponse vocale
-	naturelle. Deux services sont exploités~: \textbf{Azure
-	Speech-to-Text (STT)} pour la transcription de la voix vers le
-	texte, et \textbf{Azure Text-to-Speech (TTS)} pour la synthèse
-	vocale de la réponse générée par le système.
-
-	\subsubsection*{Principe de communication technique}
-	La communication avec Azure est initiée par le backend Python, qui
-	joue le rôle de passerelle unique entre le robot et les services
-	cloud. Le flux est le suivant~:
-	\begin{enumerate}
-		\item capture du flux audio côté robot et envoi au backend~;
-		\item transmission de l'audio vers Azure STT pour transcription~;
-		\item réception du texte reconnu et traitement conversationnel~;
-		\item envoi du texte de réponse vers Azure TTS~;
-		\item récupération de l'audio de synthèse et retour vers le robot.
-	\end{enumerate}
-
-	Cette architecture centralisée simplifie la sécurité (aucune clé
-	Azure exposée sur le robot) et garantit une meilleure traçabilité
-	des appels.
-
-	\subsubsection*{Configuration Azure (STT/TTS)}
-	La configuration opérationnelle est réalisée dans le portail Azure
-	selon les étapes suivantes~:
-	\begin{itemize}
-		\item création d'une ressource \textbf{Speech} dans
-		\textit{Azure AI Services}~;
-		\item récupération de la \textbf{clé d'accès} et de la
-		\textbf{région} de déploiement~;
-		\item injection de ces paramètres dans le backend via des
-		variables d'environnement (ex.~: \texttt{AZURE\_SPEECH\_KEY},
-		\texttt{AZURE\_SPEECH\_REGION})~;
-		\item sélection des paramètres vocaux~: langue, voix neurale,
-		débit et tonalité de parole.
-	\end{itemize}
-
-	Le backend charge ces paramètres au démarrage, initialise les clients
-	STT/TTS, puis réutilise la configuration pour l'ensemble des requêtes.
-	Cette approche évite la duplication de code et stabilise les temps de
-	réponse.
-
-	\subsubsection*{Aspects d'exploitation}
-	Pour obtenir un comportement robuste en production, plusieurs
-	mécanismes sont appliqués~: appels asynchrones, contrôle de timeout,
-	gestion des exceptions réseau et journalisation des échecs. Les voix
-	\textit{Neural TTS} sont utilisées pour améliorer la qualité
-	perceptive, tandis que le mode STT en flux continu (\textit{streaming})
-	réduit la latence de reconnaissance.
-
-	L'\textbf{API Gemini} de Google intervient après la transcription STT
-	pour produire une réponse contextuelle. Le texte généré est ensuite
-	transmis à Azure TTS, puis restitué au robot sous forme de message
-	audio.
-	
-		\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/azur.png}
-		\captionof{figure}{ Capture Azur Configuration}
-	\end{center}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/tts.png}
-		\captionof{figure}{ Capture Test Text To Speeach}
-	\end{center}
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/stt.png}
-		\captionof{figure}{ Capture Test Speeach To Text }
-	\end{center}
-	
-	
-	
-	\subsection{Service de reconnaissance des personnes}
-	
-	Le moteur de \textbf{reconnaissance faciale} est l'un des services
-	les plus innovants du backend. Il permet au robot d'identifier en
-	temps réel les personnes qu'il rencontre, lui conférant une
-	capacité d'interaction personnalisée et contextuelle. Il s'appuie
-	sur la bibliothèque Python \texttt{face\_recognition}, qui utilise
-	en interne des réseaux de neurones profonds (dlib) pour générer
-	des encodages faciaux — vecteurs de 128 dimensions — à partir
-	d'images.
-	
-	Le processus se déroule en deux phases. Lors de
-	\textbf{l'enregistrement}, un profil est créé pour chaque personne
-	autorisée~: plusieurs photos sont traitées, les encodages sont
-	calculés et persistés en base de données. Lors de la
-	\textbf{reconnaissance}, l'image capturée par la caméra du robot
-	est transmise au backend~; son encodage est calculé, puis comparé
-	aux encodages stockés par distance euclidienne (seuil
-	configurable). La décision d'identification est renvoyée au robot
-	accompagnée du niveau de confiance.
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/dataset.png}
-		\captionof{figure}{ Exemple de image dans la memoire}
-	\end{center}
-	\begin{tcolorbox}[colback=green!5!white, colframe=green!50!black,
-		title=\textbf{Précision du système de reconnaissance}]
-		Lors des tests en conditions réelles (variété d'éclairage, angles
-		de vue différents), le service a atteint un taux de reconnaissance
-		supérieur à \textbf{94\,\%} avec un seuil de distance fixé à 0,5.
-		Le temps de traitement moyen par image est de \textbf{180\,ms}
-		sur le serveur de déploiement.
-	\end{tcolorbox}
-	
-	\subsection{Interface avec le workflow n8n}
+	\subsection{Communication avec le workflow n8n}
 	
 	Le moteur de workflow \textbf{n8n} joue le rôle d'orchestrateur
 	cognitif du système~: il reçoit les requêtes, applique la logique de
@@ -3018,88 +2653,9 @@ Les principales tables et leurs rôles sont les suivants~:
 	Sur le plan qualité, cette interface inclut la gestion des
 	\textit{timeouts}, le contrôle des erreurs de webhook et la validation
 	du schéma de réponse pour garantir la robustesse en exploitation.
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/captureworkflowinput.png}
-		\captionof{figure}{ Capture Input  WorkFlow (N8N)}
-	\end{center}
-
-	\paragraph{Images recommandées pour cette section}
-	\begin{itemize}
-		\item \textbf{Schéma de séquence Python $\leftrightarrow$ n8n}~: nom + question $\rightarrow$ webhook $\rightarrow$ réponse.
-		\item \textbf{Capture du webhook n8n}~: nœud d'entrée avec exemple de payload JSON.
-		\item \textbf{Capture du workflow n8n complet}~: principales étapes (contexte, traitement, réponse).
-		\item \textbf{Capture de la sortie JSON}~: réponse retournée par n8n et exploitée par le backend.
-	\end{itemize}
-	
-	\subsection{Services pour l'application mobile multiplateforme}
-	
-	L'application mobile développée avec \textbf{Flutter} consomme
-	un ensemble de services REST exposés par le backend, couvrant
-	la totalité des fonctionnalités accessibles depuis l'interface
-	utilisateur~: authentification et gestion des profils,
-	visualisation des journaux d'interaction, contrôle du robot en
-	temps réel, gestion des personnes enregistrées et consultation
-	des rapports d'événements.
-	
-	La sécurisation de ces endpoints repose sur des \textbf{JWT}
-	(\textit{JSON Web Tokens}) émis par Supabase Auth. Chaque requête
-	mobile inclut un Bearer Token validé côté backend avant tout
-	traitement. Un middleware FastAPI dédié gère l'authentification
-	de manière transversale, sans dupliquer la logique dans chaque
-	route.
-
-	\begin{center}
-		\includegraphics[width=0.90\textwidth]{public/listeendpoint.png}
-		
-		\small\textbf{Figure :} Liste des endpoints de communication avec l'application mobile cross-plateforme
-	\end{center}
-	\begin{center}
-		\includegraphics[width=0.90\textwidth]{public/exucution.png}
-		
-		\small\textbf{Figure :} Exucution Quelques EndPoints
-	\end{center}
-	
-	% ----- tableau des endpoints à compléter -----
-	\begin{table}[htbp]
-		\centering
-		\caption{Endpoints exposés à l'application mobile}
-		\label{tab:endpoints_mobile}
-		\renewcommand{\arraystretch}{1.3}
-		\begin{tabular}{|l|c|l|}
-			\hline
-			\textbf{Endpoint} & \textbf{Méthode} & \textbf{Description} \\
-			\hline
-			&  &  \\
-			&  &  \\
-			&  &  \\
-			\hline
-		\end{tabular}
-	\end{table}
-	% ----- fin tableau à compléter -----
-	
-	\subsection{Communication avec le système embarqué (robot réel)}
-	
-	L'interface avec le robot physique constitue l'une des parties
-	les plus sensibles du backend. Le robot embarque un
-	microcontrôleur connecté en permanence via \textbf{WebSocket},
-	permettant une communication bidirectionnelle, asynchrone et à
-	faible latence. Le backend maintient une connexion persistante
-	avec le robot et achemine les commandes en temps réel.
-	
-	Chaque commande est préalablement sérialisée au format JSON,
-	journalisée dans la table \texttt{commands} avec le statut
-	\og en attente \fg{}, puis transmise via WebSocket. Un système
-	d'acquittement (ACK) permet au backend de confirmer la réception
-	et l'exécution de la commande par le robot, mettant à jour le
-	statut en conséquence. En l'absence de réponse dans un délai
-	configurable, un mécanisme de \textit{retry} est déclenché
-	automatiquement.
-
-	\begin{center}
-		\includegraphics[width=0.95\textwidth]{public/dscse.png}
-		
-		\small\textbf{Figure :} Diagramme de séquence de la communication avec le système embarqué
-	\end{center}
+	\IfFileExists{public/captureworkflowinput.png}{%
+		\kodafigureL[0.95\textwidth]{public/captureworkflowinput.png}{Communication avec n8n --- exemple de payload en entrée de webhook}{fig:ch4-n8n-input}
+	}{}
 	
 	%------------------------------------------------------------------
 	\section{Problèmes Rencontrés et Solutions Apportées}
@@ -3180,9 +2736,9 @@ Les principales tables et leurs rôles sont les suivants~:
 	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black,
 		title=\textbf{Points clés du Cycle 2}]
 		\begin{itemize}[noitemsep]
-			\item Backend FastAPI + Python structuré en Clean Architecture
-			\item Communication avec 5 composants extérieurs
-			(robot, n8n, application mobile, Supabase, Azure/Gemini)
+			\item Modélisation (cas d'utilisation, classes, place dans l'architecture globale)
+			\item Quatre communications~: embarqué, mobile, base de données, workflow n8n
+			\item Backend FastAPI + Clean Architecture ; services Azure, reconnaissance faciale
 			\item Service de reconnaissance faciale avec 94{,}3\,\% de précision
 			\item Intégration professionnelle des services Azure STT/TTS
 			et de l'API Gemini
@@ -3647,7 +3203,7 @@ Les principales tables et leurs rôles sont les suivants~:
 	Le tableau~\ref{tab:tests_unitaires_cycle3} ci-dessous synthétise cette
 	démarche.
 	
-	\begin{table}[H]
+	\begin{table}[htbp]
 		\centering
 		\caption{Tests unitaires par composant (Cycle~3)}
 		\label{tab:tests_unitaires_cycle3}

@@ -7,15 +7,15 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {II.1}{\ignorespaces Vue synthétique des cycles et livrables attendus}}{18}{table.caption.9}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {III.1}{\ignorespaces Correspondance entre mécanismes cognitifs humains et implémentations de KODA}}{66}{table.caption.28}%
+\contentsline {table}{\numberline {III.1}{\ignorespaces Correspondance entre mécanismes cognitifs humains et implémentations de KODA}}{63}{table.caption.13}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {IV.1}{\ignorespaces Comparaison des technologies backend envisagées}}{70}{table.caption.30}%
-\contentsline {table}{\numberline {IV.2}{\ignorespaces Endpoints exposés à l'application mobile}}{80}{table.caption.32}%
-\contentsline {table}{\numberline {IV.3}{\ignorespaces Problèmes techniques rencontrés et solutions apportées}}{82}{table.caption.33}%
+\contentsline {table}{\numberline {IV.1}{\ignorespaces Comparaison des technologies backend envisagées}}{70}{table.caption.14}%
+\contentsline {table}{\numberline {IV.2}{\ignorespaces Endpoints exposés à l'application mobile (à compléter)}}{77}{table.caption.15}%
+\contentsline {table}{\numberline {IV.3}{\ignorespaces Problèmes techniques rencontrés et solutions apportées}}{79}{table.caption.16}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {V.1}{\ignorespaces Inventaire des composants matériels de KODA}}{86}{table.caption.34}%
-\contentsline {table}{\numberline {V.2}{\ignorespaces Spécifications techniques du Raspberry Pi 4 Model B}}{89}{table.caption.37}%
-\contentsline {table}{\numberline {V.3}{\ignorespaces Architecture d'alimentation de KODA}}{92}{table.caption.40}%
-\contentsline {table}{\numberline {V.4}{\ignorespaces Récapitulatif des connexions entre composants}}{93}{table.caption.42}%
+\contentsline {table}{\numberline {V.1}{\ignorespaces Inventaire des composants matériels de KODA}}{83}{table.caption.17}%
+\contentsline {table}{\numberline {V.2}{\ignorespaces Spécifications techniques du Raspberry Pi 4 Model B}}{86}{table.caption.20}%
+\contentsline {table}{\numberline {V.3}{\ignorespaces Architecture d'alimentation de KODA}}{89}{table.caption.23}%
+\contentsline {table}{\numberline {V.4}{\ignorespaces Récapitulatif des connexions entre composants}}{90}{table.caption.25}%
+\contentsline {table}{\numberline {V.5}{\ignorespaces Tests unitaires par composant (Cycle~3)}}{91}{table.caption.26}%
 \contentsfinish 
-\contentsline {table}{\numberline {V.5}{\ignorespaces Tests unitaires par composant (Cycle~3)}}{95}{table.caption.43}%

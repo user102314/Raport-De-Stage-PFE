@@ -77,202 +77,231 @@
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {III.1}Introduction}{24}{section.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {III.2}Définitions Fondamentales}{24}{section.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {III.2.1}n8n}{24}{subsection.3.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {III.2.2}Webhook}{25}{subsection.3.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {III.2.3}Grand modèle de langage (LLM)}{25}{subsection.3.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {III.2.4}OpenRouter}{26}{subsection.3.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {III.2.5}Schéma de classes — persistance KODA}{26}{subsection.3.2.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.1}{\ignorespaces Schéma des classes métier --- persistance KODA (Webhook~1 et mémorisation ; relations \texttt  {utilisateur} / \texttt  {seeting}, conversations, historique, notes).}}{27}{figure.caption.13}\protected@file@percent }
-\newlabel{fig:koda-chapitre-classes-schema}{{III.1}{27}{Schéma des classes métier --- persistance KODA (Webhook~1 et mémorisation ; relations \texttt {utilisateur} / \texttt {seeting}, conversations, historique, notes)}{figure.caption.13}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {III.3}Fondements Théoriques}{27}{section.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {III.3.1}La Théorie du Double Traitement}{27}{subsection.3.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.2}{\ignorespaces Architecture cognitive de KODA inspirée de la théorie du double traitement}}{28}{figure.caption.14}\protected@file@percent }
-\newlabel{fig:archic}{{III.2}{28}{Architecture cognitive de KODA inspirée de la théorie du double traitement}{figure.caption.14}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {III.4}Fonctionnalités Techniques}{28}{section.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {III.4.1}Premier Flux — Webhook 1 : Analyse et Réponse}{28}{subsection.3.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.1.1}Principe Général}{28}{subsubsection.3.4.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.1.2}Format de la Requête Entrante}{29}{subsubsection.3.4.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.1.3}Description détaillée des blocs de traitement}{29}{subsubsection.3.4.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {III.4.1.3.1}Découpe du travail et rôle des blocs (1 à 6).}{29}{paragraph.3.4.1.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.3}{\ignorespaces Webhook~1 --- diagramme de séquence général entre les six blocs (vue macro ; notes et persistance~: Block~6).}}{30}{figure.3.3}\protected@file@percent }
-\newlabel{fig:webhook1-sequence-blocs}{{III.3}{30}{Webhook~1 --- diagramme de séquence général entre les six blocs (vue macro ; notes et persistance~: Block~6)}{figure.3.3}{}}
-\@writefile{toc}{\contentsline {paragraph}{\numberline {III.4.1.3.2}Block 1 : Analyse du message utilisateur et classification d'intention}{30}{paragraph.3.4.1.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.3.2.1}Branche musique — SerpAPI comme outil de recherche Google.}{31}{subparagraph.3.4.1.3.2.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.4}{\ignorespaces Block~1 — intégration SerpAPI dans le workflow n8n (branche musique du \textit  {Switch})}}{32}{figure.caption.15}\protected@file@percent }
-\newlabel{fig:block1-serpapi}{{III.4}{32}{Block~1 — intégration SerpAPI dans le workflow n8n (branche musique du \textit {Switch})}{figure.caption.15}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {III.5}{\ignorespaces Block~1 — nœud \textit  {Search Music} (SerpAPI, moteur YouTube) et exemple de sortie (\texttt  {search\_query}, \texttt  {youtube\_url})}}{32}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:block1-serpapi-result}{{III.5}{32}{Block~1 — nœud \textit {Search Music} (SerpAPI, moteur YouTube) et exemple de sortie (\texttt {search\_query}, \texttt {youtube\_url})}{figure.caption.16}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {III.6}{\ignorespaces Block 1 — Workflow n8n : nœud Code \textit  {Test}, \textit  {Switch} à six sorties (musique SerpAPI, identité ON/OFF, direction, historique, branche dédiée)}}{33}{figure.3.6}\protected@file@percent }
-\newlabel{fig:block1-workflow-n8n}{{III.6}{33}{Block 1 — Workflow n8n : nœud Code \textit {Test}, \textit {Switch} à six sorties (musique SerpAPI, identité ON/OFF, direction, historique, branche dédiée)}{figure.3.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {III.7}{\ignorespaces Block 1 — Diagramme de séquence du premier bloc}}{34}{figure.3.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.8}{\ignorespaces Block 1 — Diagramme de cas d'utilisation associé au premier bloc}}{35}{figure.3.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {III.4.1.3.3}Block 2 : Vérification de la Question dans l'Historique}{36}{paragraph.3.4.1.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.9}{\ignorespaces Block 2 — Vérification et comparaison avec les 5 derniers messages}}{36}{figure.3.9}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.10}{\ignorespaces Block 2 — Diagramme de séquence du deuxième bloc}}{37}{figure.3.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {III.4.1.3.4}Block 3 : Classification Sémantique de la Question}{38}{paragraph.3.4.1.3.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.11}{\ignorespaces Block 3 — Chaîne n8n : Code5, Identité1 (PostgreSQL), Basic LLM Chain avec modèle OpenRouter, puis Code2 pour le format de sortie}}{38}{figure.3.11}\protected@file@percent }
-\newlabel{fig:block3workflow}{{III.11}{38}{Block 3 — Chaîne n8n : Code5, Identité1 (PostgreSQL), Basic LLM Chain avec modèle OpenRouter, puis Code2 pour le format de sortie}{figure.3.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {III.12}{\ignorespaces Block 3 — Diagramme de séquence du troisième bloc}}{39}{figure.3.12}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.13}{\ignorespaces Block 3 — Diagramme de cas d'utilisation associé au troisième bloc}}{39}{figure.3.13}\protected@file@percent }
-\newlabel{fig:block3usecases}{{III.13}{39}{Block 3 — Diagramme de cas d'utilisation associé au troisième bloc}{figure.3.13}{}}
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.3.4.1}Basic LLM Chain en lieu et place de l'AI Agent}{40}{subparagraph.3.4.1.3.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.3.4.2}Configuration OpenRouter (modèle Gemini)}{40}{subparagraph.3.4.1.3.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.14}{\ignorespaces Block 3 — Paramètres du nœud OpenRouter Chat Model (credential, modèle Gemini via OpenRouter)}}{40}{figure.3.14}\protected@file@percent }
-\newlabel{fig:block3openrouter}{{III.14}{40}{Block 3 — Paramètres du nœud OpenRouter Chat Model (credential, modèle Gemini via OpenRouter)}{figure.3.14}{}}
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.3.4.3}OpenRouter dans le Block~3 — agrégation et suivi d'usage}{41}{subparagraph.3.4.1.3.4.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.15}{\ignorespaces Block~3 — tableau de bord OpenRouter (clé API workflow n8n, suivi des dépenses par modèle)}}{41}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:openrouter-dashboard}{{III.15}{41}{Block~3 — tableau de bord OpenRouter (clé API workflow n8n, suivi des dépenses par modèle)}{figure.caption.17}{}}
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.3.4.4}Prompt Engineering — Analyseur de Dépendance Mémoire}{41}{subparagraph.3.4.1.3.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.3.4.5}Détail des Types de Questions Classifiés}{43}{subparagraph.3.4.1.3.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {III.4.1.3.5}Block 4 : Reconnaissance et enregistrement de l'utilisateur}{43}{paragraph.3.4.1.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.3.5.1}Routage par \textit  {Switch1} (résultat du Block~3).}{43}{subparagraph.3.4.1.3.5.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.16}{\ignorespaces Block 4 — \textit  {Switch1}, branche enregistrement (\texttt  {presentation}), branche LLM (\texttt  {unkonu}) et poursuite vers le Block~5}}{44}{figure.3.16}\protected@file@percent }
-\newlabel{fig:block4-workflow}{{III.16}{44}{Block 4 — \textit {Switch1}, branche enregistrement (\texttt {presentation}), branche LLM (\texttt {unkonu}) et poursuite vers le Block~5}{figure.3.16}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {III.17}{\ignorespaces Block 4 — Entrée JSON du \textit  {Switch1} (\texttt  {persone = unkonu}, sortie Block~3)}}{45}{figure.3.17}\protected@file@percent }
-\newlabel{fig:block4-input-unkonu}{{III.17}{45}{Block 4 — Entrée JSON du \textit {Switch1} (\texttt {persone = unkonu}, sortie Block~3)}{figure.3.17}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {III.18}{\ignorespaces Block 4 — Sortie texte~: invitation à la première rencontre et demande du prénom}}{45}{figure.3.18}\protected@file@percent }
-\newlabel{fig:block4-output-unkonu}{{III.18}{45}{Block 4 — Sortie texte~: invitation à la première rencontre et demande du prénom}{figure.3.18}{}}
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.3.5.2}Diagramme de séquence du block 4.}{45}{subparagraph.3.4.1.3.5.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.19}{\ignorespaces Block 4 — Diagramme de séquence du quatrième bloc}}{46}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:block4-workflow-sequence}{{III.19}{46}{Block 4 — Diagramme de séquence du quatrième bloc}{figure.caption.18}{}}
-\@writefile{toc}{\contentsline {paragraph}{\numberline {III.4.1.3.6}Block 5 : Récupération Contextuelle et Génération de la Réponse}{47}{paragraph.3.4.1.3.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.3.6.1}Branche Mémorielle (\texttt  {use\_memory = true})}{47}{subparagraph.3.4.1.3.6.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.20}{\ignorespaces Block 5.1 — Branche mémorielle : récupération et génération contextuelle}}{48}{figure.3.20}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.3.6.2}Branche Générale (\texttt  {use\_memory = false})}{49}{subparagraph.3.4.1.3.6.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.21}{\ignorespaces Block 5.2 — Branche générale : contexte conversationnel et génération de réponse}}{50}{figure.3.21}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.1.4}Vue Complète du Block 5 — Les Deux Branches}{50}{subsubsection.3.4.1.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.22}{\ignorespaces Block 5 — Vue complète des deux branches de traitement contextuel}}{51}{figure.3.22}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.23}{\ignorespaces Block 5 — Diagramme de séquence du cinquième bloc}}{51}{figure.3.23}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {III.4.1.4.1}Block 6 : Notes, structuration et mise à jour de la mémoire}{51}{paragraph.3.4.1.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.4.1.1}Partie 1 — Extraction structurée des \textit  {notes} (conditionnel).}{51}{subparagraph.3.4.1.4.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.4.1.2}Détection (\textit  {If}) et \textit  {Basic LLM Chain~2}.}{52}{subparagraph.3.4.1.4.1.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.24}{\ignorespaces Block 6 (partie~1) — Sous-workflow n8n~: test \texttt  {questiontype = note}, \textit  {Basic LLM Chain~2} et structuration}}{52}{figure.3.24}\protected@file@percent }
-\newlabel{fig:block6-note-workflow}{{III.24}{52}{Block 6 (partie~1) — Sous-workflow n8n~: test \texttt {questiontype = note}, \textit {Basic LLM Chain~2} et structuration}{figure.3.24}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {III.25}{\ignorespaces Block 6 — Entrée JSON~: \texttt  {question}, \texttt  {output}, \texttt  {persone} et \texttt  {questiontype = note}}}{53}{figure.3.25}\protected@file@percent }
-\newlabel{fig:block6-note-input}{{III.25}{53}{Block 6 — Entrée JSON~: \texttt {question}, \texttt {output}, \texttt {persone} et \texttt {questiontype = note}}{figure.3.25}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {III.26}{\ignorespaces Block 6 — Sortie JSON~: \texttt  {date\_evenement} et \texttt  {evenement} extraits du message naturel}}{53}{figure.3.26}\protected@file@percent }
-\newlabel{fig:block6-note-output}{{III.26}{53}{Block 6 — Sortie JSON~: \texttt {date\_evenement} et \texttt {evenement} extraits du message naturel}{figure.3.26}{}}
-\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.4.1.4.1.3}Partie 2 — Mise à jour de la mémoire et clôture du webhook.}{54}{subparagraph.3.4.1.4.1.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.27}{\ignorespaces Block 6 (partie~2) — Diagramme de classes (persistance mémoire)}}{55}{figure.3.27}\protected@file@percent }
-\newlabel{fig:block6-dcb6}{{III.27}{55}{Block 6 (partie~2) — Diagramme de classes (persistance mémoire)}{figure.3.27}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.1.5}Synthèse visuelle du pipeline}{55}{subsubsection.3.4.1.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.1.6}Conclusion du Webhook 1}{55}{subsubsection.3.4.1.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.28}{\ignorespaces Webhook~1 --- vue d'ensemble du workflow n8n (entrée et enchaînement des blocs)}}{56}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:webhook1-vue-ensemble}{{III.28}{56}{Webhook~1 --- vue d'ensemble du workflow n8n (entrée et enchaînement des blocs)}{figure.caption.19}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III.4.2}Deuxième Flux — Webhook 2 : Filtre et Synthèse Journalière}{57}{subsection.3.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.2.1}Principe et Inspiration}{57}{subsubsection.3.4.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.2.2}Fonctionnement du Webhook 2}{57}{subsubsection.3.4.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.2.3}Diagramme de séquence du Webhook 2}{57}{subsubsection.3.4.2.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.29}{\ignorespaces Webhook~2 --- vue d'ensemble du workflow n8n (collecte PostgreSQL, structuration, AI Agent, insertion \texttt  {accompagnement})}}{58}{figure.caption.20}\protected@file@percent }
-\newlabel{fig:webhook2-workflow-n8n}{{III.29}{58}{Webhook~2 --- vue d'ensemble du workflow n8n (collecte PostgreSQL, structuration, AI Agent, insertion \texttt {accompagnement})}{figure.caption.20}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {III.30}{\ignorespaces Webhook~2 --- diagramme de séquence (synthèse journalière et persistance)}}{58}{figure.caption.21}\protected@file@percent }
-\newlabel{fig:webhook2-sequence}{{III.30}{58}{Webhook~2 --- diagramme de séquence (synthèse journalière et persistance)}{figure.caption.21}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.2.4}Structure des Fiches de Synthèse Générées}{59}{subsubsection.3.4.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.2.5}Persistance : relation \texttt  {utilisateur} / \texttt  {accompagnement}}{59}{subsubsection.3.4.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.2.6}Impact sur le Système Global}{59}{subsubsection.3.4.2.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.2.7}Conclusion du Webhook 2}{59}{subsubsection.3.4.2.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.31}{\ignorespaces Webhook~2 --- exemple de sortie structurée (quatre dimensions de la fiche journalière)}}{60}{figure.caption.22}\protected@file@percent }
-\newlabel{fig:webhook2-output-4dimensions}{{III.31}{60}{Webhook~2 --- exemple de sortie structurée (quatre dimensions de la fiche journalière)}{figure.caption.22}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {III.32}{\ignorespaces Webhook~2 --- schéma de persistance (\texttt  {utilisateur} $\rightarrow $ \texttt  {accompagnement}~: \texttt  {interets}, \texttt  {synthese}, \texttt  {point\_cles}, \texttt  {conseils})}}{61}{figure.caption.23}\protected@file@percent }
-\newlabel{fig:webhook2-schema-accompagnement}{{III.32}{61}{Webhook~2 --- schéma de persistance (\texttt {utilisateur} $\rightarrow $ \texttt {accompagnement}~: \texttt {interets}, \texttt {synthese}, \texttt {point\_cles}, \texttt {conseils})}{figure.caption.23}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {III.4.3}Troisième Flux — Webhook 3 : Spontanéité et Interaction Proactive}{62}{subsection.3.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.3.1}Principe : la spontanéité comme dimension humaine}{62}{subsubsection.3.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.3.2}Déclenchement et entrées}{62}{subsubsection.3.4.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.33}{\ignorespaces Webhook~3 --- workflow n8n (\textit  {If7}, branches AI Agent2 / AI Agent3, réponses webhook)}}{62}{figure.caption.24}\protected@file@percent }
-\newlabel{fig:webhook3-workflow-n8n}{{III.33}{62}{Webhook~3 --- workflow n8n (\textit {If7}, branches AI Agent2 / AI Agent3, réponses webhook)}{figure.caption.24}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.3.3}Préparation des données (nœud Code11)}{63}{subsubsection.3.4.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.34}{\ignorespaces Webhook~3 --- entrée du nœud \textit  {Code11} (listes issues du Webhook~2, \texttt  {username}, \texttt  {utilisateur} ou \texttt  {Inconnu})}}{63}{figure.caption.25}\protected@file@percent }
-\newlabel{fig:webhook3-code11-input}{{III.34}{63}{Webhook~3 --- entrée du nœud \textit {Code11} (listes issues du Webhook~2, \texttt {username}, \texttt {utilisateur} ou \texttt {Inconnu})}{figure.caption.25}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.3.4}Génération de l'introduction et sortie JSON}{63}{subsubsection.3.4.3.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.35}{\ignorespaces Webhook~3 --- sortie JSON (\texttt  {parole\_du\_robot}, \texttt  {emotion\_visuelle})}}{64}{figure.caption.26}\protected@file@percent }
-\newlabel{fig:webhook3-output-parole}{{III.35}{64}{Webhook~3 --- sortie JSON (\texttt {parole\_du\_robot}, \texttt {emotion\_visuelle})}{figure.caption.26}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.3.5}Diagramme de séquence du Webhook 3}{64}{subsubsection.3.4.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.4.3.6}Conclusion du Webhook 3}{64}{subsubsection.3.4.3.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {III.5}Vue Générale du Cycle 1}{64}{section.3.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {III.36}{\ignorespaces Webhook~3 --- diagramme de séquence (introduction de parole et mémoire Flux~2)}}{65}{figure.caption.27}\protected@file@percent }
-\newlabel{fig:webhook3-sequence}{{III.36}{65}{Webhook~3 --- diagramme de séquence (introduction de parole et mémoire Flux~2)}{figure.caption.27}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {III.1}{\ignorespaces Correspondance entre mécanismes cognitifs humains et implémentations de KODA}}{66}{table.caption.28}\protected@file@percent }
-\newlabel{tab:correspondance_cognitive}{{III.1}{66}{Correspondance entre mécanismes cognitifs humains et implémentations de KODA}{table.caption.28}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {III.37}{\ignorespaces Cycle~1 --- diagramme de cas d'utilisation (trois webhooks et blocs associés)}}{66}{figure.caption.29}\protected@file@percent }
-\newlabel{fig:ducc1-cycle1}{{III.37}{66}{Cycle~1 --- diagramme de cas d'utilisation (trois webhooks et blocs associés)}{figure.caption.29}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {III.6}Conclusion}{66}{section.3.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {IV}Cycle 2 : Distributeur de Services}{68}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {III.2}Fondements Théoriques}{24}{section.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.2.1}Que signifie «~théorie du double traitement~»~?}{24}{subsection.3.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.2.2}Réflexion rapide et réflexion lente}{25}{subsection.3.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.2.2.1}Réflexion rapide~: réutiliser la mémoire déjà présente}{25}{subsubsection.3.2.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.2.2.2}Réflexion lente~: analyser la mémoire pour fabriquer une réponse}{25}{subsubsection.3.2.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.2.3}Comment une question est comprise avant la réponse}{25}{subsection.3.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.1}{\ignorespaces De la question à la réponse~: réflexion rapide (mémoire déjà présente) ou réflexion lente (analyse puis construction)}}{26}{figure.3.1}\protected@file@percent }
+\newlabel{fig:ch3-double-traitement-humain}{{III.2.3}{26}{Comment une question est comprise avant la réponse}{figure.3.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.2.4}Intérêt pour un compagnon conversationnel comme KODA}{26}{subsection.3.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {III.3}Définitions Fondamentales}{26}{section.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.3.1}Grand modèle de langage (LLM)}{27}{subsection.3.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {III.4}Modélisation globale du Cycle~1}{27}{section.3.4}\protected@file@percent }
+\newlabel{sec:modelisation-cycle1}{{III.4}{27}{Modélisation globale du Cycle~1}{section.3.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {III.2}{\ignorespaces Architecture cognitive de KODA inspirée de la théorie du double traitement}}{27}{figure.3.2}\protected@file@percent }
+\newlabel{fig:archic}{{III.4}{27}{Modélisation globale du Cycle~1}{figure.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.4.1}Vue d'ensemble des trois flux n8n}{28}{subsection.3.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.3}{\ignorespaces Cycle~1 --- vue d'ensemble des trois workflows n8n}}{28}{figure.3.3}\protected@file@percent }
+\newlabel{fig:cycle1-vue-trois-flux}{{III.4.1}{28}{Vue d'ensemble des trois flux n8n}{figure.3.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.4.2}Diagramme de cas d'utilisation général}{29}{subsection.3.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.4}{\ignorespaces Cycle~1 --- diagramme de cas d'utilisation général}}{29}{figure.3.4}\protected@file@percent }
+\newlabel{fig:ducc1-cycle1}{{III.4.2}{29}{Diagramme de cas d'utilisation général}{figure.3.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.4.3}Schéma de classes général}{30}{subsection.3.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.5}{\ignorespaces Cycle~1 --- schéma de classes général (persistance)}}{30}{figure.3.5}\protected@file@percent }
+\newlabel{fig:koda-chapitre-classes-schema}{{III.4.3}{30}{Schéma de classes général}{figure.3.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {III.5}Fonctionnalités Techniques --- les trois flux}{30}{section.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.5.1}Premier Flux — Webhook 1 : Analyse et Réponse}{30}{subsection.3.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.1.1}Principe général et découpage en six parties}{30}{subsubsection.3.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.1.2}Diagramme de séquence du Webhook~1}{31}{subsubsection.3.5.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.6}{\ignorespaces Webhook~1 --- diagramme de séquence (six parties du pipeline)}}{31}{figure.3.6}\protected@file@percent }
+\newlabel{fig:webhook1-sequence-blocs}{{III.5.1.2}{31}{Diagramme de séquence du Webhook~1}{figure.3.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.1.3}Format de la Requête Entrante}{31}{subsubsection.3.5.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.1.4}Les six parties du Webhook~1}{32}{subsubsection.3.5.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {III.5.1.4.1}Entrée fonctionnelle --- analyse du message et classification d'intention}{32}{paragraph.3.5.1.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.7}{\ignorespaces Webhook~1 --- entrée fonctionnelle (nœud \textit  {Test}, \textit  {Switch})}}{32}{figure.3.7}\protected@file@percent }
+\newlabel{fig:block1-workflow-n8n}{{III.5.1.4.1}{32}{Entrée fonctionnelle --- analyse du message et classification d'intention}{figure.3.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {III.8}{\ignorespaces Webhook~1 --- séquence de l'entrée fonctionnelle}}{33}{figure.3.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.9}{\ignorespaces Webhook~1 --- cas d'utilisation de l'entrée fonctionnelle}}{33}{figure.3.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.4.1.1}Branche musique — SerpAPI comme outil de recherche Google.}{34}{subparagraph.3.5.1.4.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.10}{\ignorespaces Entrée fonctionnelle --- intégration SerpAPI dans le workflow n8n (branche musique du \textit  {Switch})}}{35}{figure.3.10}\protected@file@percent }
+\newlabel{fig:block1-serpapi}{{III.5.1.4.1.1}{35}{Branche musique — SerpAPI comme outil de recherche Google}{figure.3.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {III.11}{\ignorespaces Entrée fonctionnelle --- nœud \textit  {Search Music} (SerpAPI, moteur YouTube) et exemple de sortie (\texttt  {search\_query}, \texttt  {youtube\_url})}}{35}{figure.3.11}\protected@file@percent }
+\newlabel{fig:block1-serpapi-result}{{III.5.1.4.1.1}{35}{Branche musique — SerpAPI comme outil de recherche Google}{figure.3.11}{}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {III.5.1.4.2}Confrontation à l'historique --- vérification des cinq derniers messages}{35}{paragraph.3.5.1.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.12}{\ignorespaces Confrontation à l'historique --- workflow n8n}}{35}{figure.3.12}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.13}{\ignorespaces Confrontation à l'historique --- diagramme de séquence}}{36}{figure.3.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {III.5.1.4.3}Classification sémantique --- analyse de dépendance mémoire}{36}{paragraph.3.5.1.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.14}{\ignorespaces Classification sémantique --- chaîne n8n (Code5, Identité1, Basic LLM Chain, Code2)}}{36}{figure.3.14}\protected@file@percent }
+\newlabel{fig:block3workflow}{{III.5.1.4.3}{36}{Classification sémantique --- analyse de dépendance mémoire}{figure.3.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {III.15}{\ignorespaces Classification sémantique --- diagramme de séquence}}{37}{figure.3.15}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.16}{\ignorespaces Classification sémantique --- cas d'utilisation}}{37}{figure.3.16}\protected@file@percent }
+\newlabel{fig:block3usecases}{{III.5.1.4.3}{37}{Classification sémantique --- analyse de dépendance mémoire}{figure.3.16}{}}
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.4.3.1}Basic LLM Chain en lieu et place de l'AI Agent}{38}{subparagraph.3.5.1.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.4.3.2}Configuration OpenRouter (modèle Gemini)}{38}{subparagraph.3.5.1.4.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.17}{\ignorespaces Classification sémantique — Paramètres du nœud OpenRouter Chat Model (credential, modèle Gemini via OpenRouter)}}{38}{figure.3.17}\protected@file@percent }
+\newlabel{fig:block3openrouter}{{III.17}{38}{Classification sémantique — Paramètres du nœud OpenRouter Chat Model (credential, modèle Gemini via OpenRouter)}{figure.3.17}{}}
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.4.3.3}OpenRouter --- agrégation et suivi d'usage}{38}{subparagraph.3.5.1.4.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.18}{\ignorespaces Classification sémantique --- tableau de bord OpenRouter (clé API workflow n8n, suivi des dépenses par modèle)}}{39}{figure.3.18}\protected@file@percent }
+\newlabel{fig:openrouter-dashboard}{{III.5.1.4.3.3}{39}{OpenRouter --- agrégation et suivi d'usage}{figure.3.18}{}}
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.4.3.4}Prompt Engineering — Analyseur de Dépendance Mémoire}{39}{subparagraph.3.5.1.4.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.4.3.5}Détail des Types de Questions Classifiés}{41}{subparagraph.3.5.1.4.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {III.5.1.4.4}Gestion utilisateur (unkonu) : Reconnaissance et enregistrement de l'utilisateur}{42}{paragraph.3.5.1.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.19}{\ignorespaces Gestion utilisateur (unkonu) --- \textit  {Switch1}, branche enregistrement (\texttt  {presentation}), branche LLM (\texttt  {unkonu}) et poursuite vers la réponse contextualisée}}{42}{figure.3.19}\protected@file@percent }
+\newlabel{fig:block4-workflow}{{III.5.1.4.4}{42}{Gestion utilisateur (unkonu) : Reconnaissance et enregistrement de l'utilisateur}{figure.3.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {III.20}{\ignorespaces Gestion utilisateur (unkonu) --- Entrée JSON du \textit  {Switch1} (\texttt  {persone = unkonu}, sortie classification sémantique)}}{42}{figure.3.20}\protected@file@percent }
+\newlabel{fig:block4-input-unkonu}{{III.5.1.4.4}{43}{Gestion utilisateur (unkonu) : Reconnaissance et enregistrement de l'utilisateur}{figure.3.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {III.21}{\ignorespaces Gestion utilisateur (unkonu) --- Sortie texte~: invitation à la première rencontre et demande du prénom}}{43}{figure.3.21}\protected@file@percent }
+\newlabel{fig:block4-output-unkonu}{{III.5.1.4.4}{43}{Gestion utilisateur (unkonu) : Reconnaissance et enregistrement de l'utilisateur}{figure.3.21}{}}
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.4.4.1}Routage par \textit  {Switch1} (résultat du la classification sémantique).}{43}{subparagraph.3.5.1.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.4.4.2}Diagramme de séquence --- gestion utilisateur (unkonu)}{44}{subparagraph.3.5.1.4.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.22}{\ignorespaces Gestion utilisateur (unkonu) --- diagramme de séquence}}{45}{figure.3.22}\protected@file@percent }
+\newlabel{fig:block4-workflow-sequence}{{III.22}{45}{Gestion utilisateur (unkonu) --- diagramme de séquence}{figure.3.22}{}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {III.5.1.4.5}Réponse contextualisée : Récupération Contextuelle et Génération de la Réponse}{46}{paragraph.3.5.1.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.4.5.1}Branche Mémorielle (\texttt  {use\_memory = true})}{46}{subparagraph.3.5.1.4.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.23}{\ignorespaces Réponse contextualisée.1 — Branche mémorielle : récupération et génération contextuelle}}{47}{figure.3.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.4.5.2}Branche Générale (\texttt  {use\_memory = false})}{48}{subparagraph.3.5.1.4.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.24}{\ignorespaces Réponse contextualisée.2 — Branche générale : contexte conversationnel et génération de réponse}}{49}{figure.3.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.1.5}Vue Complète du Réponse contextualisée — Les Deux Branches}{49}{subsubsection.3.5.1.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.25}{\ignorespaces Réponse contextualisée — Vue complète des deux branches de traitement contextuel}}{50}{figure.3.25}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.26}{\ignorespaces Réponse contextualisée — Diagramme de séquence du cinquième bloc}}{50}{figure.3.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {III.5.1.5.1}Notes et mémoire persistante : Notes, structuration et mise à jour de la mémoire}{50}{paragraph.3.5.1.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.5.1.1}Partie 1 — Extraction structurée des \textit  {notes} (conditionnel).}{50}{subparagraph.3.5.1.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.5.1.2}Détection (\textit  {If}) et \textit  {Basic LLM Chain~2}.}{51}{subparagraph.3.5.1.5.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.27}{\ignorespaces Notes et mémoire persistante (partie~1) — Sous-workflow n8n~: test \texttt  {questiontype = note}, \textit  {Basic LLM Chain~2} et structuration}}{51}{figure.3.27}\protected@file@percent }
+\newlabel{fig:block6-note-workflow}{{III.27}{52}{Notes et mémoire persistante (partie~1) — Sous-workflow n8n~: test \texttt {questiontype = note}, \textit {Basic LLM Chain~2} et structuration}{figure.3.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {III.28}{\ignorespaces Notes et mémoire persistante — Entrée JSON~: \texttt  {question}, \texttt  {output}, \texttt  {persone} et \texttt  {questiontype = note}}}{52}{figure.3.28}\protected@file@percent }
+\newlabel{fig:block6-note-input}{{III.28}{52}{Notes et mémoire persistante — Entrée JSON~: \texttt {question}, \texttt {output}, \texttt {persone} et \texttt {questiontype = note}}{figure.3.28}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {III.29}{\ignorespaces Notes et mémoire persistante — Sortie JSON~: \texttt  {date\_evenement} et \texttt  {evenement} extraits du message naturel}}{52}{figure.3.29}\protected@file@percent }
+\newlabel{fig:block6-note-output}{{III.29}{52}{Notes et mémoire persistante — Sortie JSON~: \texttt {date\_evenement} et \texttt {evenement} extraits du message naturel}{figure.3.29}{}}
+\@writefile{toc}{\contentsline {subparagraph}{\numberline {III.5.1.5.1.3}Partie 2 — Mise à jour de la mémoire et clôture du webhook.}{53}{subparagraph.3.5.1.5.1.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.30}{\ignorespaces Notes et mémoire persistante (partie~2) — Diagramme de classes (persistance mémoire)}}{54}{figure.3.30}\protected@file@percent }
+\newlabel{fig:block6-dcb6}{{III.30}{54}{Notes et mémoire persistante (partie~2) — Diagramme de classes (persistance mémoire)}{figure.3.30}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.1.6}Conclusion du Webhook 1}{54}{subsubsection.3.5.1.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.5.2}Deuxième Flux — Webhook 2 : Filtre et Synthèse Journalière}{55}{subsection.3.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.2.1}Principe et Inspiration}{55}{subsubsection.3.5.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.2.2}Diagrammes du Webhook~2}{55}{subsubsection.3.5.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.31}{\ignorespaces Webhook~2 --- workflow n8n}}{55}{figure.3.31}\protected@file@percent }
+\newlabel{fig:webhook2-workflow-n8n}{{III.5.2.2}{56}{Diagrammes du Webhook~2}{figure.3.31}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {III.32}{\ignorespaces Webhook~2 --- diagramme de séquence}}{56}{figure.3.32}\protected@file@percent }
+\newlabel{fig:webhook2-sequence}{{III.5.2.2}{56}{Diagrammes du Webhook~2}{figure.3.32}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.2.3}Fonctionnement du Webhook 2}{56}{subsubsection.3.5.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.2.4}Structure des Fiches de Synthèse Générées}{57}{subsubsection.3.5.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.33}{\ignorespaces Webhook~2 --- exemple de sortie structurée (quatre dimensions de la fiche journalière)}}{58}{figure.3.33}\protected@file@percent }
+\newlabel{fig:webhook2-output-4dimensions}{{III.5.2.4}{58}{Structure des Fiches de Synthèse Générées}{figure.3.33}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.2.5}Persistance : relation \texttt  {utilisateur} / \texttt  {accompagnement}}{58}{subsubsection.3.5.2.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.34}{\ignorespaces Webhook~2 --- schéma de persistance (\texttt  {utilisateur} $\rightarrow $ \texttt  {accompagnement}~: \texttt  {interets}, \texttt  {synthese}, \texttt  {point\_cles}, \texttt  {conseils})}}{59}{figure.3.34}\protected@file@percent }
+\newlabel{fig:webhook2-schema-accompagnement}{{III.5.2.5}{59}{Persistance : relation \texttt {utilisateur} / \texttt {accompagnement}}{figure.3.34}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.2.6}Impact sur le Système Global}{59}{subsubsection.3.5.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.2.7}Conclusion du Webhook 2}{59}{subsubsection.3.5.2.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.5.3}Troisième Flux — Webhook 3 : Spontanéité et Interaction Proactive}{60}{subsection.3.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.3.1}Principe : la spontanéité comme dimension humaine}{60}{subsubsection.3.5.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.3.2}Diagrammes du Webhook~3}{60}{subsubsection.3.5.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.35}{\ignorespaces Webhook~3 --- workflow n8n}}{60}{figure.3.35}\protected@file@percent }
+\newlabel{fig:webhook3-workflow-n8n}{{III.5.3.2}{60}{Diagrammes du Webhook~3}{figure.3.35}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {III.36}{\ignorespaces Webhook~3 --- diagramme de séquence}}{61}{figure.3.36}\protected@file@percent }
+\newlabel{fig:webhook3-sequence}{{III.5.3.2}{61}{Diagrammes du Webhook~3}{figure.3.36}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.3.3}Déclenchement et entrées}{61}{subsubsection.3.5.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.3.4}Préparation des données (nœud Code11)}{62}{subsubsection.3.5.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.37}{\ignorespaces Webhook~3 --- entrée du nœud \textit  {Code11}}}{62}{figure.3.37}\protected@file@percent }
+\newlabel{fig:webhook3-code11-input}{{III.5.3.4}{62}{Préparation des données (nœud Code11)}{figure.3.37}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.3.5}Génération de l'introduction et sortie JSON}{62}{subsubsection.3.5.3.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {III.38}{\ignorespaces Webhook~3 --- sortie JSON (\texttt  {parole\_du\_robot}, \texttt  {emotion\_visuelle})}}{62}{figure.3.38}\protected@file@percent }
+\newlabel{fig:webhook3-output-parole}{{III.5.3.5}{62}{Génération de l'introduction et sortie JSON}{figure.3.38}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {III.5.3.6}Conclusion du Webhook 3}{63}{subsubsection.3.5.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {III.6}Synthèse cognitive du Cycle~1}{63}{section.3.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {III.1}{\ignorespaces Correspondance entre mécanismes cognitifs humains et implémentations de KODA}}{63}{table.caption.13}\protected@file@percent }
+\newlabel{tab:correspondance_cognitive}{{III.1}{63}{Correspondance entre mécanismes cognitifs humains et implémentations de KODA}{table.caption.13}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {III.7}Conclusion}{63}{section.3.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {IV}Cycle 2 : Distributeur de Services}{65}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {IV.1}Introduction}{69}{section.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {IV.2}Architecture Utilisée}{69}{section.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.2.1}Choix du langage : Python}{69}{subsection.4.2.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {IV.1}{\ignorespaces Comparaison des technologies backend envisagées}}{70}{table.caption.30}\protected@file@percent }
-\newlabel{tab:backend_comparison}{{IV.1}{70}{Comparaison des technologies backend envisagées}{table.caption.30}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.2.2}Clean Architecture : principes et application}{70}{subsection.4.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.2.3}Structure des répertoires du projet}{71}{subsection.4.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {IV.3}Fonctionnalités Techniques}{72}{section.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.3.1}Communication avec la base de données (Supabase / PostgreSQL)}{72}{subsection.4.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.1}{\ignorespaces Interface Supabase utilisée pour l'administration de la base PostgreSQL}}{73}{figure.caption.31}\protected@file@percent }
-\newlabel{fig:supabase_interface}{{IV.1}{73}{Interface Supabase utilisée pour l'administration de la base PostgreSQL}{figure.caption.31}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.2}{\ignorespaces  Logo SupaBase}}{73}{figure.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.3.1.1}Modèle relationnel et rôle des tables}{73}{subsubsection.4.3.1.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.3}{\ignorespaces  Koda Schema Base De Donneé}}{74}{figure.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.3.2}Services Azure : Speech-to-Text et Text-to-Speech}{74}{subsection.4.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.4}{\ignorespaces  Capture Azur Configuration}}{76}{figure.4.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.5}{\ignorespaces  Capture Test Text To Speeach}}{76}{figure.4.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.6}{\ignorespaces  Capture Test Speeach To Text }}{76}{figure.4.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.3.3}Service de reconnaissance des personnes}{76}{subsection.4.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.7}{\ignorespaces  Exemple de image dans la memoire}}{77}{figure.4.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.3.4}Interface avec le workflow n8n}{78}{subsection.4.3.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {IV.8}{\ignorespaces  Capture Input WorkFlow (N8N)}}{79}{figure.4.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {IV.3.4.0.1}Images recommandées pour cette section}{79}{paragraph.4.3.4.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.3.5}Services pour l'application mobile multiplateforme}{79}{subsection.4.3.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {IV.2}{\ignorespaces Endpoints exposés à l'application mobile}}{80}{table.caption.32}\protected@file@percent }
-\newlabel{tab:endpoints_mobile}{{IV.2}{80}{Endpoints exposés à l'application mobile}{table.caption.32}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV.3.6}Communication avec le système embarqué (robot réel)}{81}{subsection.4.3.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {IV.4}Problèmes Rencontrés et Solutions Apportées}{81}{section.4.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {IV.3}{\ignorespaces Problèmes techniques rencontrés et solutions apportées}}{82}{table.caption.33}\protected@file@percent }
-\newlabel{tab:problemes}{{IV.3}{82}{Problèmes techniques rencontrés et solutions apportées}{table.caption.33}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV.5}Conclusion}{82}{section.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {V}Cycle 3 : Système Embarqué --- Partie Matérielle}{84}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV.1}Introduction}{66}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {IV.1.0.0.1}Rôle du composant.}{66}{paragraph.4.1.0.0.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {IV.1.0.0.2}Rôle du chapitre.}{66}{paragraph.4.1.0.0.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV.2}Modélisation et place dans l'architecture}{66}{section.4.2}\protected@file@percent }
+\newlabel{sec:ch4-modelisation}{{IV.2}{66}{Modélisation et place dans l'architecture}{section.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.2.1}Diagramme de cas d'utilisation général}{67}{subsection.4.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.1}{\ignorespaces Cycle~2 --- diagramme de cas d'utilisation général du Distributeur de services}}{67}{figure.4.1}\protected@file@percent }
+\newlabel{fig:ducgc4-cycle2}{{IV.2.1}{67}{Diagramme de cas d'utilisation général}{figure.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.2.2}Schéma de classes général}{68}{subsection.4.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.2}{\ignorespaces Cycle~2 --- schéma de classes et modèle de persistance (PostgreSQL)}}{68}{figure.4.2}\protected@file@percent }
+\newlabel{fig:ch4-classes-schema}{{IV.2.2}{68}{Schéma de classes général}{figure.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.2.3}Architecture globale et nécessité du Distributeur}{68}{subsection.4.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.3}{\ignorespaces Architecture multicouche de KODA --- place du Distributeur de services (Cycle~2)}}{69}{figure.4.3}\protected@file@percent }
+\newlabel{fig:ch4-architecture-rappel}{{IV.2.3}{69}{Architecture globale et nécessité du Distributeur}{figure.4.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV.3}Architecture interne du backend}{69}{section.4.3}\protected@file@percent }
+\newlabel{sec:ch4-architecture-interne}{{IV.3}{69}{Architecture interne du backend}{section.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.3.1}Choix du langage : Python}{69}{subsection.4.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IV.1}{\ignorespaces Comparaison des technologies backend envisagées}}{70}{table.caption.14}\protected@file@percent }
+\newlabel{tab:backend_comparison}{{IV.1}{70}{Comparaison des technologies backend envisagées}{table.caption.14}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.3.2}Clean Architecture : principes et application}{70}{subsection.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.3.3}Structure des répertoires du projet}{71}{subsection.4.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.4}{\ignorespaces Arborescence du projet backend (Distributeur)}}{71}{figure.4.4}\protected@file@percent }
+\newlabel{fig:ch4-archipy}{{IV.3.3}{71}{Structure des répertoires du projet}{figure.4.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.5}{\ignorespaces Exécution du programme backend (Distributeur)}}{72}{figure.4.5}\protected@file@percent }
+\newlabel{fig:ch4-archiipy}{{IV.3.3}{72}{Structure des répertoires du projet}{figure.4.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV.4}Composition du Distributeur : communications}{72}{section.4.4}\protected@file@percent }
+\newlabel{sec:ch4-composition}{{IV.4}{72}{Composition du Distributeur : communications}{section.4.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.4.1}Communication avec le système embarqué}{72}{subsection.4.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.6}{\ignorespaces Communication avec le système embarqué --- diagramme de séquence}}{73}{figure.4.6}\protected@file@percent }
+\newlabel{fig:dscse-robot}{{IV.4.1}{73}{Communication avec le système embarqué}{figure.4.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.1.1}Voix et parole (Azure STT / TTS)}{73}{subsubsection.4.4.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.7}{\ignorespaces Configuration Azure Speech (STT/TTS)}}{74}{figure.4.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.8}{\ignorespaces Test Text-to-Speech}}{74}{figure.4.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.9}{\ignorespaces Test Speech-to-Text}}{74}{figure.4.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.1.2}Reconnaissance des personnes}{75}{subsubsection.4.4.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.10}{\ignorespaces Exemple d'images de référence en mémoire (profils utilisateurs)}}{75}{figure.4.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.4.2}Communication avec l'application mobile}{76}{subsection.4.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.11}{\ignorespaces Endpoints REST exposés à l'application mobile}}{76}{figure.4.11}\protected@file@percent }
+\newlabel{fig:ch4-endpoints-mobile}{{IV.4.2}{76}{Communication avec l'application mobile}{figure.4.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.12}{\ignorespaces Exécution de quelques endpoints (tests)}}{76}{figure.4.12}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IV.2}{\ignorespaces Endpoints exposés à l'application mobile (à compléter)}}{77}{table.caption.15}\protected@file@percent }
+\newlabel{tab:endpoints_mobile}{{IV.2}{77}{Endpoints exposés à l'application mobile (à compléter)}{table.caption.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.4.3}Communication avec la base de données}{77}{subsection.4.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.13}{\ignorespaces Interface Supabase --- administration PostgreSQL}}{77}{figure.4.13}\protected@file@percent }
+\newlabel{fig:supabase_interface}{{IV.4.3}{77}{Communication avec la base de données}{figure.4.13}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {IV.4.3.1}Modèle relationnel et rôle des tables}{77}{subsubsection.4.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV.4.4}Communication avec le workflow n8n}{78}{subsection.4.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {IV.14}{\ignorespaces Communication avec n8n --- exemple de payload en entrée de webhook}}{79}{figure.4.14}\protected@file@percent }
+\newlabel{fig:ch4-n8n-input}{{IV.4.4}{79}{}{figure.4.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV.5}Problèmes Rencontrés et Solutions Apportées}{79}{section.4.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IV.3}{\ignorespaces Problèmes techniques rencontrés et solutions apportées}}{79}{table.caption.16}\protected@file@percent }
+\newlabel{tab:problemes}{{IV.3}{79}{Problèmes techniques rencontrés et solutions apportées}{table.caption.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV.6}Conclusion}{80}{section.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {V}Cycle 3 : Système Embarqué --- Partie Matérielle}{81}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {V.1}Introduction}{85}{section.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{85}{section.5.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {V.1}{\ignorespaces Inventaire des composants matériels de KODA}}{86}{table.caption.34}\protected@file@percent }
-\newlabel{tab:composants_cycle3}{{V.1}{86}{Inventaire des composants matériels de KODA}{table.caption.34}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{86}{section.5.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {V.1}{\ignorespaces Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}}{87}{figure.caption.35}\protected@file@percent }
-\newlabel{fig:ch3-conception3d}{{V.1}{87}{Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}{figure.caption.35}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{87}{section.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{87}{subsection.5.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{87}{subsection.5.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {V.2}{\ignorespaces Prototype physique KODA après impression 3D et montage}}{88}{figure.caption.36}\protected@file@percent }
-\newlabel{fig:ch3-robot-reel}{{V.2}{88}{Prototype physique KODA après impression 3D et montage}{figure.caption.36}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {V.2}{\ignorespaces Spécifications techniques du Raspberry Pi 4 Model B}}{89}{table.caption.37}\protected@file@percent }
-\newlabel{tab:rpi4_specs}{{V.2}{89}{Spécifications techniques du Raspberry Pi 4 Model B}{table.caption.37}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{89}{subsection.5.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{89}{subsubsection.5.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{89}{subsubsection.5.4.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {V.3}{\ignorespaces Principe de traction différentielle — moteurs M1 et M3}}{90}{figure.caption.38}\protected@file@percent }
-\newlabel{fig:ch3-traction-diff}{{V.3}{90}{Principe de traction différentielle — moteurs M1 et M3}{figure.caption.38}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.4}Système Audio}{90}{subsection.5.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{90}{subsubsection.5.4.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{90}{subsubsection.5.4.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {V.4}{\ignorespaces Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}}{91}{figure.caption.39}\protected@file@percent }
-\newlabel{fig:ch3-schema-doa}{{V.4}{91}{Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}{figure.caption.39}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{91}{subsection.5.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{91}{subsection.5.4.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{92}{subsection.5.4.7}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {V.3}{\ignorespaces Architecture d'alimentation de KODA}}{92}{table.caption.40}\protected@file@percent }
-\newlabel{tab:alimentation}{{V.3}{92}{Architecture d'alimentation de KODA}{table.caption.40}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{92}{section.5.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {V.5}{\ignorespaces Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}}{92}{figure.caption.41}\protected@file@percent }
-\newlabel{fig:ch3-architecture-materielle}{{V.5}{92}{Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}{figure.caption.41}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {V.4}{\ignorespaces Récapitulatif des connexions entre composants}}{93}{table.caption.42}\protected@file@percent }
-\newlabel{tab:cablage}{{V.4}{93}{Récapitulatif des connexions entre composants}{table.caption.42}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{93}{section.5.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{93}{section.5.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {V.7.1}Test d'intégration matérielle}{94}{subsection.5.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V.8}Conclusion}{94}{section.5.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V.1}Introduction}{82}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{82}{section.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {V.1}{\ignorespaces Inventaire des composants matériels de KODA}}{83}{table.caption.17}\protected@file@percent }
+\newlabel{tab:composants_cycle3}{{V.1}{83}{Inventaire des composants matériels de KODA}{table.caption.17}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{83}{section.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {V.1}{\ignorespaces Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}}{84}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:ch3-conception3d}{{V.1}{84}{Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}{figure.caption.18}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{84}{section.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{84}{subsection.5.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{84}{subsection.5.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {V.2}{\ignorespaces Prototype physique KODA après impression 3D et montage}}{85}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:ch3-robot-reel}{{V.2}{85}{Prototype physique KODA après impression 3D et montage}{figure.caption.19}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {V.2}{\ignorespaces Spécifications techniques du Raspberry Pi 4 Model B}}{86}{table.caption.20}\protected@file@percent }
+\newlabel{tab:rpi4_specs}{{V.2}{86}{Spécifications techniques du Raspberry Pi 4 Model B}{table.caption.20}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{86}{subsection.5.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{86}{subsubsection.5.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{86}{subsubsection.5.4.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {V.3}{\ignorespaces Principe de traction différentielle — moteurs M1 et M3}}{87}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:ch3-traction-diff}{{V.3}{87}{Principe de traction différentielle — moteurs M1 et M3}{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.4}Système Audio}{87}{subsection.5.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{87}{subsubsection.5.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{87}{subsubsection.5.4.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {V.4}{\ignorespaces Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}}{88}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:ch3-schema-doa}{{V.4}{88}{Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}{figure.caption.22}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{88}{subsection.5.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{88}{subsection.5.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{89}{subsection.5.4.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {V.3}{\ignorespaces Architecture d'alimentation de KODA}}{89}{table.caption.23}\protected@file@percent }
+\newlabel{tab:alimentation}{{V.3}{89}{Architecture d'alimentation de KODA}{table.caption.23}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{89}{section.5.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {V.5}{\ignorespaces Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}}{89}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:ch3-architecture-materielle}{{V.5}{89}{Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}{figure.caption.24}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {V.4}{\ignorespaces Récapitulatif des connexions entre composants}}{90}{table.caption.25}\protected@file@percent }
+\newlabel{tab:cablage}{{V.4}{90}{Récapitulatif des connexions entre composants}{table.caption.25}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{90}{section.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{90}{section.5.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {V.5}{\ignorespaces Tests unitaires par composant (Cycle~3)}}{91}{table.caption.26}\protected@file@percent }
+\newlabel{tab:tests_unitaires_cycle3}{{V.5}{91}{Tests unitaires par composant (Cycle~3)}{table.caption.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {V.7.1}Test d'intégration matérielle}{91}{subsection.5.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V.8}Conclusion}{91}{section.5.8}\protected@file@percent }
 \ttl@finishall
-\@writefile{lot}{\contentsline {table}{\numberline {V.5}{\ignorespaces Tests unitaires par composant (Cycle~3)}}{95}{table.caption.43}\protected@file@percent }
-\newlabel{tab:tests_unitaires_cycle3}{{V.5}{95}{Tests unitaires par composant (Cycle~3)}{table.caption.43}{}}
-\gdef \@abspage@last{110}
+\gdef \@abspage@last{107}
