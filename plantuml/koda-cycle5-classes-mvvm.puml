@@ -1,0 +1,129 @@
+@startuml
+title Cycle 5 - Classes principales MVVM et services
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Arial
+skinparam class {
+  BorderColor #246B80
+  BackgroundColor #F7FCFF
+}
+skinparam interface {
+  BorderColor #6A4C93
+  BackgroundColor #F4EEFF
+}
+
+package "Bootstrap / Navigation" {
+  class App {
+    +BootstrapAsync()
+    +RelaunchFromSession()
+  }
+  class AppShell {
+    +EnsureInitialTabLoaded()
+  }
+  class MauiProgram {
+    +CreateMauiApp()
+  }
+}
+
+package "ViewModels" {
+  abstract class BaseViewModel {
+    +Title
+    +IsBusy
+    +OnAppearingAsync()
+  }
+  class LoginViewModel
+  class RobotSetupViewModel
+  class HomeViewModel
+  class ChatViewModel
+  class HistoryViewModel
+  class SettingsViewModel
+  class WifiNetworksViewModel
+  class NotificationsViewModel
+}
+
+package "Services" {
+  interface IDistributeurService
+  class DistributeurApiService {
+    +LoginAsync()
+    +GetFullSettingsAsync()
+    +UpdateSettingsAsync()
+    +SendToN8nAsync()
+    +PowerOnAsync()
+    +PowerOffAsync()
+  }
+  interface ISessionService
+  class SessionService
+  class SessionBootstrap
+  interface IWeatherService
+  class WeatherService
+  interface IWifiNetworkService
+  class WifiNetworkService
+  interface IWifiModalService
+  class WifiModalService
+  interface INavigationService
+  class NavigationService
+  class BackendReachability
+  class AppConfig
+  class ApiBaseUrlNormalizer
+}
+
+package "Modeles" {
+  class AuthLoginResponse
+  class ChatMessage
+  class ConversationBackend
+  class ConversationHistoryEntry
+  class WeatherInfo
+  class NoteBackend
+  class RobotStatus
+  class Notification
+}
+
+MauiProgram --> App
+MauiProgram --> LoginViewModel : DI
+MauiProgram --> HomeViewModel : DI
+MauiProgram --> ChatViewModel : DI
+App --> SessionBootstrap
+App --> AppShell
+AppShell --> BaseViewModel : OnAppearing
+
+BaseViewModel <|-- LoginViewModel
+BaseViewModel <|-- RobotSetupViewModel
+BaseViewModel <|-- HomeViewModel
+BaseViewModel <|-- ChatViewModel
+BaseViewModel <|-- HistoryViewModel
+BaseViewModel <|-- SettingsViewModel
+BaseViewModel <|-- WifiNetworksViewModel
+BaseViewModel <|-- NotificationsViewModel
+
+IDistributeurService <|.. DistributeurApiService
+ISessionService <|.. SessionService
+IWeatherService <|.. WeatherService
+IWifiNetworkService <|.. WifiNetworkService
+IWifiModalService <|.. WifiModalService
+INavigationService <|.. NavigationService
+
+LoginViewModel --> IDistributeurService
+LoginViewModel --> ISessionService
+RobotSetupViewModel --> IDistributeurService
+RobotSetupViewModel --> ISessionService
+HomeViewModel --> IDistributeurService
+HomeViewModel --> IWeatherService
+HomeViewModel --> IWifiModalService
+ChatViewModel --> IDistributeurService
+ChatViewModel --> IWifiModalService
+HistoryViewModel --> IDistributeurService
+SettingsViewModel --> IDistributeurService
+SettingsViewModel --> ISessionService
+WifiNetworksViewModel --> IWifiNetworkService
+
+DistributeurApiService --> AppConfig
+DistributeurApiService --> ApiBaseUrlNormalizer
+SessionBootstrap --> BackendReachability
+SessionService --> AppConfig : Preferences
+ChatViewModel --> ChatMessage
+HistoryViewModel --> ConversationBackend
+HomeViewModel --> WeatherInfo
+
+@enduml

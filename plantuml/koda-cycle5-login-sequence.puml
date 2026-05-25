@@ -1,0 +1,46 @@
+@startuml
+title Cycle 5 - Sequence connexion et session
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #1F5E7A
+  LifeLineBorderColor #246B80
+  ParticipantBorderColor #246B80
+  ParticipantBackgroundColor #F7FCFF
+}
+
+actor Utilisateur as U
+participant "LoginPage\nXAML" as Page
+participant "LoginViewModel" as VM
+participant "AppConfig" as Config
+participant "BackendReachability" as Ping
+participant "DistributeurApiService" as API
+participant "Backend FastAPI" as Backend
+participant "SessionService" as Session
+participant "App" as App
+
+U -> Page : saisir email,\nmot de passe, URL
+Page -> VM : LoginCommand
+VM -> Config : SaveBaseUrl(ServerUrl)
+VM -> Ping : PingAsync(BaseUrl)
+Ping -> Backend : GET /
+Backend --> Ping : 200 OK
+Ping --> VM : joignable
+VM -> API : LoginAsync(email, password)
+API -> Backend : POST /api/auth/login
+Backend --> API : AuthLoginResponse\nidProduit, idKoda, email
+API --> VM : data
+VM -> Session : SetSession()
+Session -> Session : Preferences.Set(...)
+VM -> App : RelaunchFromSession()
+App -> App : ResolveMainPage()
+
+alt robot configure
+  App --> U : AppShell\nHome, Chat, History, Settings
+else premiere configuration
+  App --> U : RobotSetupPage
+end
+
+@enduml

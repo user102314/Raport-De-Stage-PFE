@@ -1,0 +1,61 @@
+@startuml
+title Cycle 5 - Architecture globale de KodaMate
+
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontName Arial
+skinparam ArrowColor #1F5E7A
+skinparam rectangle {
+  BorderColor #246B80
+  BackgroundColor #F7FCFF
+}
+skinparam component {
+  BorderColor #246B80
+  BackgroundColor #EAF8FC
+}
+skinparam database {
+  BorderColor #6A4C93
+  BackgroundColor #F4EEFF
+}
+skinparam cloud {
+  BorderColor #2F6F4E
+  BackgroundColor #F0FFF7
+}
+
+actor "Utilisateur" as User
+
+node "Smartphone / desktop\nAndroid, iOS, Windows, macOS" as Device {
+  rectangle "KodaMate\n.NET MAUI 8" as App {
+    component "Views XAML\nLogin, Setup, Home,\nChat, History, Settings" as Views
+    component "ViewModels MVVM\nCommands + binding" as VMs
+    component "Services applicatifs\nSession, API, Meteo,\nWi-Fi, Navigation" as Services
+    database "Preferences locales\nsession, base URL,\nSSID simule" as Prefs
+    component "APIs plateforme\nCamera, Haptic,\nAndroid Wi-Fi" as Platform
+  }
+}
+
+cloud "Backend Distributeur\nFastAPI REST /api" as Backend
+database "Base de donnees\nclients, settings,\nconversations, notes" as DB
+cloud "Workflow IA\nn8n" as N8N
+cloud "Open-Meteo\nmeteo Alger" as Meteo
+node "Robot KODA\nRaspberry Pi + Arduino" as Robot
+
+User --> Views : navigation et saisie
+Views --> VMs : data binding\ncommands
+VMs --> Services : appels metier
+Services --> Prefs : lire / ecrire\nsession et config
+Services --> Platform : camera, vibration,\nscan Wi-Fi Android
+Services --> Backend : HTTP REST\n/auth, /settings,\n/trigger-n8n...
+Services --> Meteo : HTTPS forecast
+Backend --> DB : SQL
+Backend --> N8N : orchestration IA
+Backend --> Robot : etat, actions,\nhistorique partage
+
+note right of Backend
+Le mobile ne communique pas
+directement avec le Raspberry.
+Il passe par le backend REST.
+end note
+
+@enduml

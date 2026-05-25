@@ -95,4 +95,13 @@
 \contentsline {figure}{\numberline {VI.8}{\ignorespaces Cycle~4 --- pipeline audio logiciel du Raspberry Pi}}{108}{figure.caption.46}%
 \contentsline {figure}{\numberline {VI.9}{\ignorespaces Cycle~4 --- séquence mot de réveil, écoute et réponse}}{108}{figure.caption.47}%
 \contentsline {figure}{\numberline {VI.10}{\ignorespaces Cycle~4 --- dispatch des actions retournées par le backend}}{109}{figure.caption.48}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {VII.1}{\ignorespaces Cycle~5 --- architecture globale de KodaMate}}{117}{figure.caption.52}%
+\contentsline {figure}{\numberline {VII.2}{\ignorespaces Cycle~5 --- classes principales MVVM et services}}{118}{figure.caption.54}%
+\contentsline {figure}{\numberline {VII.3}{\ignorespaces Cycle~5 --- navigation et bootstrap de KodaMate}}{119}{figure.caption.55}%
+\contentsline {figure}{\numberline {VII.4}{\ignorespaces Cycle~5 --- diagramme de cas d'utilisation KodaMate}}{121}{figure.caption.56}%
+\contentsline {figure}{\numberline {VII.5}{\ignorespaces Cycle~5 --- séquence de connexion et création de session}}{122}{figure.caption.57}%
+\contentsline {figure}{\numberline {VII.6}{\ignorespaces Cycle~5 --- séquence de configuration et paramètres robot}}{122}{figure.caption.58}%
+\contentsline {figure}{\numberline {VII.7}{\ignorespaces Cycle~5 --- séquence chat KodaMate vers n8n}}{123}{figure.caption.59}%
+\contentsline {figure}{\numberline {VII.8}{\ignorespaces Cycle~5 --- machine d'états applicative KodaMate}}{125}{figure.caption.60}%
 \contentsfinish 

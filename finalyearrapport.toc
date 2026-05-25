@@ -170,4 +170,19 @@
 \contentsline {section}{\numberline {VI.12}Tests et validation logicielle}{111}{section.6.12}%
 \contentsline {section}{\numberline {VI.13}Limites et perspectives}{113}{section.6.13}%
 \contentsline {section}{\numberline {VI.14}Conclusion}{113}{section.6.14}%
+\contentsline {chapter}{\numberline {VII}Cycle 5 : Application Mobile Cross-Plateforme KodaMate}{114}{chapter.7}%
+\contentsline {section}{\numberline {VII.1}Introduction et objectif du cycle}{115}{section.7.1}%
+\contentsline {section}{\numberline {VII.2}Choix technologique et périmètre}{115}{section.7.2}%
+\contentsline {section}{\numberline {VII.3}Architecture logicielle globale}{116}{section.7.3}%
+\contentsline {section}{\numberline {VII.4}Architecture du code et modèle MVVM}{116}{section.7.4}%
+\contentsline {section}{\numberline {VII.5}Configuration, lancement et session}{119}{section.7.5}%
+\contentsline {section}{\numberline {VII.6}Cas d'utilisation et parcours utilisateur}{120}{section.7.6}%
+\contentsline {section}{\numberline {VII.7}Connexion et première configuration du robot}{120}{section.7.7}%
+\contentsline {section}{\numberline {VII.8}Tableau de bord Home}{120}{section.7.8}%
+\contentsline {section}{\numberline {VII.9}Chat KODA et historique des conversations}{123}{section.7.9}%
+\contentsline {section}{\numberline {VII.10}Paramètres, Wi-Fi et notifications}{124}{section.7.10}%
+\contentsline {section}{\numberline {VII.11}États applicatifs et robustesse}{124}{section.7.11}%
+\contentsline {section}{\numberline {VII.12}Tests et validation}{124}{section.7.12}%
+\contentsline {section}{\numberline {VII.13}Limites et perspectives}{127}{section.7.13}%
+\contentsline {section}{\numberline {VII.14}Conclusion}{127}{section.7.14}%
 \contentsfinish 
