@@ -1,0 +1,16 @@
+@startuml
+title KodaMate - Sequence ecran accueil
+
+actor Utilisateur
+participant "App MAUI\n(HomePage)" as App
+participant "Distributeur API\nFastAPI" as API
+participant "Open-Meteo API" as Meteo
+
+Utilisateur -> App: Ouvrir Accueil
+App -> API: GET /api/settings
+API --> App: etat, name, langue, caractere...
+App -> Meteo: GET /v1/forecast
+Meteo --> App: temperature, humidite, vent
+App --> Utilisateur: Afficher etat reseau + meteo + localisation
+@enduml
+

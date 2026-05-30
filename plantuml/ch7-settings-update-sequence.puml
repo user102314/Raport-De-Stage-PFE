@@ -1,0 +1,19 @@
+@startuml
+title KodaMate - Sequence mise a jour des parametres
+
+actor Utilisateur
+participant "App MAUI\n(SettingsPage)" as App
+participant "Distributeur API\nFastAPI" as API
+database "Supabase\nPostgreSQL" as DB
+
+Utilisateur -> App: Modifier nom/langue/caractere/etat
+App -> App: Validation formulaire
+App -> API: PUT /api/settings\n{champs modifies}
+API -> DB: update table setting
+DB --> API: ligne mise a jour
+API --> App: 200 OK
+App -> API: GET /api/settings
+API --> App: etat final
+App --> Utilisateur: Confirmation + UI synchronisee
+@enduml
+

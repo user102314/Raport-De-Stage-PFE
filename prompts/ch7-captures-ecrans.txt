@@ -1,0 +1,51 @@
+# Captures d'écran — Chapitre VII (KodaMate / .NET MAUI)
+# Copier chaque capture sous le nom exact dans public/
+# Recompiler : pdflatex finalyearrapport.tex (×2)
+
+================================================================================
+LISTE OBLIGATOIRE (une capture par écran)
+================================================================================
+
+1. public/ch7-ecran-connexion.png
+   Écran : Sign-in (email + mot de passe)
+   Légende rapport : « KodaMate — écran de connexion (Sign-in) »
+
+2. public/ch7-ecran-config-koda.png
+   Écran : Configuration initiale KODA (première ouverture après login)
+   Champs visibles : nom, sexe, date de naissance, langue, caractère
+   Légende : « Configuration initiale de KODA »
+
+3. public/ch7-ecran-accueil.png
+   Écran : Accueil
+   Contenu : état réseau KODA (connecté / non), météo, localisation du jour
+   Légende : « Accueil (état réseau, météo, localisation) »
+
+4. public/ch7-ecran-chat.png
+   Écran : Chat (question + réponse KODA)
+   Légende : « Écran de chat avec KODA »
+
+5. public/ch7-ecran-historique.png
+   Écran : Historique avec filtre par date (date_from / date_to)
+   Légende : « Historique avec filtrage par date »
+
+6. public/ch7-ecran-parametres.png
+   Écran : Paramètres / modification configuration KODA
+   Légende : « Paramètres et mise à jour de la configuration »
+
+================================================================================
+OPTIONNEL (schémas)
+================================================================================
+
+7. public/ch7-parcours-navigation.png
+   Infographie : Sign-in → Config KODA → Accueil → (Chat | Historique | Paramètres)
+   Prompt IA ou draw.io, style PFE bleu #185FA5
+
+8. public/ch7-architecture-clean.png
+   Schéma couches : Présentation (MAUI) → Application → Domaine ← Infrastructure (API)
+
+================================================================================
+CONSEILS CAPTURE
+================================================================================
+- Format portrait (ratio téléphone), PNG net, sans barre de statut personnelle si possible
+- Même thème clair/sombre sur toutes les captures pour cohérence du rapport
+- Résolution suffisante pour impression A4 (largeur ~1200 px min)
