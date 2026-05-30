@@ -1,0 +1,91 @@
+# Images recommandées — Chapitre IV, § Communication avec la base de données
+# Cocher au fur et à mesure : [x] = déjà dans le rapport
+
+================================================================================
+DÉJÀ INTÉGRÉ
+================================================================================
+[x] Capture terminal GET /api/db-test → 200 OK
+    Fichier : public/ch4-db-test-execution.png
+    Rôle : preuve d'exécution, validation connexion Supabase
+
+[x] Logo / interface Supabase (optionnel)
+    Fichier : public/supabase.jpg
+
+[x] Schéma relationnel tables
+    Fichier : public/koda_schema.png (§ modélisation, fig:ch4-classes-schema)
+
+================================================================================
+PRIORITÉ 1 — Fortement recommandé (1 figure synthèse)
+================================================================================
+[ ] FIGURE A — Chaîne d'accès aux données (infographie)
+    Fichier suggéré : public/ch4-chaine-supabase.png
+    Contenu : KodaMate → FastAPI /api → ApiServiceImpl → supabase-py → PostgREST → PostgreSQL
+    Message clé : « L'app mobile ne touche jamais la base directement »
+    → Voir PROMPT FIGURE A ci-dessous
+
+================================================================================
+PRIORITÉ 2 — Utile pour le jury (séquence ou flux)
+================================================================================
+[ ] FIGURE B — Diagramme de séquence (lecture conversation)
+    Fichier : public/ch4-sequence-lecture-conversation.png
+    Scénario : GET /api/conversations → ApiServiceImpl → table conversation → JSON → mobile
+    Outil : PlantUML ou prompt IA
+
+[ ] FIGURE C — Capture Supabase Studio (tables)
+    Fichier : public/ch4-supabase-tables.png
+    Contenu : liste des tables (conversation, setting, historique…) dans l'UI Supabase
+    Remplace ou complète le placeholder logo seul
+
+================================================================================
+PRIORITÉ 3 — Optionnel (détail technique)
+================================================================================
+[ ] FIGURE D — Extrait code database.py (capture IDE)
+    Fichier : public/ch4-database-py-client.png
+    Montrer get_supabase_client() et create_client(...)
+
+[ ] FIGURE E — Exemple JSON retour API
+    Fichier : public/ch4-json-conversations-response.png
+    Réponse GET /api/conversations (tableau question/reponce/date)
+
+================================================================================
+PAS NÉCESSAIRE pour cette section
+================================================================================
+- Diagramme ER complet si déjà en koda_schema.png (éviter doublon)
+- Captures n8n, robot, reconnaissance faciale (autres § du chapitre)
+- Swagger complet de toutes les routes (trop large ; mobile a sa propre figure)
+
+================================================================================
+PROMPT — FIGURE A (chaîne Supabase, style PFE)
+================================================================================
+
+Professional academic diagram, French labels, flat vector, white background, blue #185FA5.
+Title: « Communication avec la base de données — chaîne d'accès »
+
+Horizontal flow, 5 boxes left to right with arrows:
+1 « Application KodaMate » (smartphone) — note: « HTTP uniquement, pas de SQL »
+2 « Distributeur FastAPI » subtitle « /api/... »
+3 « ApiServiceImpl » (couche métier)
+4 « Client supabase-py » subtitle « PostgREST »
+5 « PostgreSQL » inside cloud « Supabase »
+
+Dashed red X on direct arrow from phone to box 5 (interdit).
+
+Footer: « Credentials : SUPABASE_URL, SUPABASE_KEY (.env) »
+
+Negative: n8n, robot, Flutter logo, dark theme, watermark.
+
+Save: public/ch4-chaine-supabase.png
+
+================================================================================
+PROMPT — FIGURE B (séquence lecture, simplifié)
+================================================================================
+
+UML sequence diagram style, French, white background:
+Acteurs: Utilisateur, KodaMate, FastAPI, ApiServiceImpl, Supabase/PostgreSQL
+Messages:
+  GET /api/conversations?date_from&date_to
+  table("conversation").select(...).execute()
+  return JSON array
+  200 OK to app
+
+Save: public/ch4-sequence-lecture-conversation.png

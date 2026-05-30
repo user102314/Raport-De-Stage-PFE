@@ -1,0 +1,16 @@
+@startuml
+title KodaMate - Sequence chat (question/reponse)
+
+actor Utilisateur
+participant "App MAUI\n(ChatPage)" as App
+participant "Distributeur API\nFastAPI" as API
+participant "Webhook 1\nn8n" as N8N
+
+Utilisateur -> App: Ecrire question
+App -> API: POST /api/trigger-n8n\n{question}
+API -> N8N: POST webhook flux 1\n{user_name, question}
+N8N --> API: JSON reponse
+API --> App: response/answer/output...
+App --> Utilisateur: Afficher bulle KODA
+@enduml
+

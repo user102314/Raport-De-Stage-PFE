@@ -1,0 +1,18 @@
+@startuml
+title KodaMate - Sequence de connexion
+
+actor Utilisateur
+participant "App MAUI\n(LoginPage)" as App
+participant "Distributeur API\nFastAPI" as API
+database "Supabase\nPostgreSQL" as DB
+
+Utilisateur -> App: Saisir email/mot de passe + URL serveur
+App -> API: GET /
+API --> App: 200 OK (message, routes_prefix)
+App -> API: POST /api/auth/login\n{emailclient, motdepasse}
+API -> DB: Verifier credentials
+DB --> API: utilisateur trouve/non trouve
+API --> App: 200 OK ou 401
+App --> Utilisateur: Ouvrir Config KODA\nou afficher erreur
+@enduml
+

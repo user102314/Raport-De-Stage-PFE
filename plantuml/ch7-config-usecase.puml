@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+title KodaMate - Cas d'utilisation configuration robot
+
+actor "Utilisateur mobile" as User
+rectangle "KodaMate (.NET MAUI)" {
+  usecase "Saisir profil KODA\n(nom, sexe, date,\nlangue, caractere)" as UC1
+  usecase "Valider les champs" as UC2
+  usecase "Enregistrer\nconfiguration" as UC3
+  usecase "Recharger\nconfiguration" as UC4
+}
+
+rectangle "Distributeur API" {
+  usecase "PUT /api/settings" as API1
+  usecase "GET /api/settings" as API2
+}
+
+User --> UC1
+User --> UC3
+UC3 .> UC2 : <<include>>
+UC3 --> API1
+UC4 --> API2
+User --> UC4
+@enduml
+

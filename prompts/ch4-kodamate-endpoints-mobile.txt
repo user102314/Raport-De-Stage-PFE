@@ -1,0 +1,103 @@
+# Prompt — Figure « UNIQUEMENT les endpoints utilisés par KodaMate » (Chapitre IV)
+# Périmètre STRICT : routes appelées par l'application mobile à l'écran — rien d'autre.
+# Enregistrer sous : public/ch4-kodamate-endpoints-mobile.png
+# Recompiler : pdflatex finalyearrapport.tex (×2)
+
+================================================================================
+FIGURE — Endpoints de communication application mobile KodaMate (liste fermée)
+================================================================================
+
+Professional academic technical diagram, French PFE report style.
+Flat vector, white background, blue #185FA5, GET=green, POST=orange, PUT=purple.
+Landscape 16:9, high resolution, readable print.
+
+MAIN TITLE:
+« KodaMate — Endpoints de communication avec le backend »
+
+SUBTITLE (gray):
+« Uniquement les routes consommées par l'application mobile (10 appels) »
+
+CRITICAL SCOPE — SHOW ONLY THESE 10 ITEMS (numbered ①–⑩):
+
+① GET  /
+   (hors /api — test serveur au démarrage)
+
+② POST /api/auth/login
+   Écran : Connexion
+
+③ GET  /api/settings
+   Écrans : Accueil, Paramètres, Config robot
+
+④ PUT  /api/settings
+   Écrans : Paramètres, Config robot
+
+⑤ POST /api/power-on
+   Écran : Accueil
+
+⑥ POST /api/power-off
+   Écran : Accueil
+
+⑦ POST /api/trigger-n8n
+   Écran : Chat  (body: { question })
+
+⑧ GET  /api/conversations
+   Écran : Historique  (filtres date_from, date_to)
+
+⑨ GET  /api/conversations/last100
+   Écran : Historique (repli)
+
+⑩ GET  https://api.open-meteo.com/v1/forecast
+   Écran : Accueil (météo) — SEULE API externe, appel direct depuis le téléphone
+
+LAYOUT (simple, 2 colonnes + 1 externe):
+
+LEFT — Smartphone icon + label « Application KodaMate (cross-plateforme) »
+
+CENTER — One box only: « Distributeur de services » / « FastAPI :8000/api »
+Inside this box: list ONLY routes ① to ⑨ (exact paths, method badges).
+Arrows: bidirectional between phone and this box (one arrow per group or one main arrow
+labeled « REST JSON »).
+
+RIGHT or bottom-right — Small separate cloud box for ⑩ only:
+« Open-Meteo » with dashed arrow FROM smartphone (NOT through Distributeur).
+Label: « API externe — météo »
+
+OPTIONAL thin footer under Distributeur box (one line, gray):
+« Base : http://<IP-PC>:8000/api »
+
+━━━ EXPLICITLY FORBIDDEN ON THE IMAGE ━━━
+Do NOT draw, list, or hint at any other route, including:
+- /api/users, /api/notes, /api/personal-info, /api/accompagnements
+- /api/identify-face, /api/audio/*, /api/history, /api/activities
+- WebSocket robot, Raspberry Pi, n8n logo, Supabase, PostgreSQL
+- « Routes non utilisées », « autres endpoints », Swagger full list
+- Flutter / Dart branding
+
+The diagram must look COMPLETE with only 10 items — no empty placeholders for "more APIs".
+
+LEGEND (compact):
+GET | POST | PUT | API externe (pointillé)
+
+FOOTER:
+« Cycle 2 — Distributeur de services — périmètre application mobile uniquement »
+
+NEGATIVE PROMPT:
+robot, n8n workflow editor, database cylinder, Supabase, extra endpoints,
+dark UI screenshot, watermark, cluttered API documentation page, English-only labels.
+
+================================================================================
+VARIANTE COURTE
+================================================================================
+
+French academic diagram: phone KodaMate ↔ box FastAPI listing exactly 9 REST routes
+(GET /, POST login, GET/PUT settings, POST power-on/off, POST trigger-n8n,
+GET conversations, GET last100) + dashed arrow phone → Open-Meteo.
+Nothing else on canvas. White background, blue #185FA5, 16:9.
+
+================================================================================
+INTÉGRATION LaTeX
+================================================================================
+
+Fichier : public/ch4-kodamate-endpoints-mobile.png
+Légende suggérée :
+« KodaMate — endpoints de communication avec le Distributeur (périmètre mobile uniquement) »

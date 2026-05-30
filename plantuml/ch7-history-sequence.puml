@@ -1,0 +1,20 @@
+@startuml
+title KodaMate - Sequence historique avec filtre date
+
+actor Utilisateur
+participant "App MAUI\n(HistoriquePage)" as App
+participant "Distributeur API\nFastAPI" as API
+database "Supabase\nPostgreSQL" as DB
+
+Utilisateur -> App: Choisir date_from/date_to
+App -> API: GET /api/conversations?date_from&date_to
+API -> DB: select conversations filtrees
+DB --> API: liste conversations
+API --> App: JSON[]
+alt erreur route principale
+  App -> API: GET /api/conversations/last100
+  API --> App: JSON[] (100 derniers)
+end
+App --> Utilisateur: Afficher liste + recherche locale
+@enduml
+
