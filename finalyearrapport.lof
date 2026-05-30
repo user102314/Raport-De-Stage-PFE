@@ -67,41 +67,9 @@
 \contentsline {figure}{\numberline {IV.13}{\ignorespaces Interface Supabase --- administration PostgreSQL}}{77}{figure.4.13}%
 \contentsline {figure}{\numberline {IV.14}{\ignorespaces Communication avec n8n --- exemple de payload en entrée de webhook}}{79}{figure.4.14}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {V.1}{\ignorespaces Prototype physique KODA après impression 3D et montage}}{83}{figure.caption.17}%
-\contentsline {figure}{\numberline {V.2}{\ignorespaces Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}}{85}{figure.caption.19}%
-\contentsline {figure}{\numberline {V.3}{\ignorespaces Raspberry Pi 4 Model B utilisé comme unité centrale de KODA}}{86}{figure.caption.20}%
-\contentsline {figure}{\numberline {V.4}{\ignorespaces Carte Arduino Uno (microcontrôleur ATmega328P à 16~MHz)}}{87}{figure.caption.22}%
-\contentsline {figure}{\numberline {V.5}{\ignorespaces Shield L293D empilé sur l'Arduino Uno (commande des moteurs DC et servomoteurs)}}{87}{figure.caption.23}%
-\contentsline {figure}{\numberline {V.6}{\ignorespaces Moteur DC utilisé pour la mobilité du robot (bornes M1 et M3 du shield)}}{88}{figure.caption.24}%
-\contentsline {figure}{\numberline {V.7}{\ignorespaces Principe de traction différentielle — moteurs M1 et M3}}{88}{figure.caption.25}%
-\contentsline {figure}{\numberline {V.8}{\ignorespaces Servomoteur utilisé pour les articulations (bras S1/S2 et rotation Nextion S3)}}{89}{figure.caption.26}%
-\contentsline {figure}{\numberline {V.9}{\ignorespaces ReSpeaker 4-Mic Array USB : quatre microphones MEMS pour capture omnidirectionnelle et détection de direction (DOA)}}{90}{figure.caption.27}%
-\contentsline {figure}{\numberline {V.10}{\ignorespaces Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}}{90}{figure.caption.28}%
-\contentsline {figure}{\numberline {V.11}{\ignorespaces Amplificateur audio PAM8403 (chaîne filaire entre la sortie jack du Pi et les haut-parleurs)}}{91}{figure.caption.29}%
-\contentsline {figure}{\numberline {V.12}{\ignorespaces Paire de haut-parleurs gauche/droite alimentés par le PAM8403}}{91}{figure.caption.30}%
-\contentsline {figure}{\numberline {V.13}{\ignorespaces Caméra Raspberry Pi connectée au port CSI (acquisition d'images pour l'identification visuelle)}}{92}{figure.caption.31}%
-\contentsline {figure}{\numberline {V.14}{\ignorespaces Écran Nextion NX4832T035\_011 (3{,}5\textquotedbl ) affichant le visage animé de KODA}}{92}{figure.caption.32}%
-\contentsline {figure}{\numberline {V.15}{\ignorespaces Power Bank 5\,V / 3\,A alimentant le Raspberry Pi (chaîne logique)}}{93}{figure.caption.34}%
-\contentsline {figure}{\numberline {V.16}{\ignorespaces 3 piles lithium 3{,}7\,V en série (11{,}1\,V total) alimentant le Shield L293D et les moteurs}}{94}{figure.caption.35}%
-\contentsline {figure}{\numberline {V.17}{\ignorespaces Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}}{94}{figure.caption.36}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {VI.1}{\ignorespaces Cycle~4 --- architecture logique du logiciel Raspberry Pi}}{103}{figure.caption.39}%
-\contentsline {figure}{\numberline {VI.2}{\ignorespaces Cycle~4 --- cartographie fonctionnelle du logiciel Raspberry}}{103}{figure.caption.40}%
-\contentsline {figure}{\numberline {VI.3}{\ignorespaces Cycle~4 --- architecture du code \texttt {codeRaspberry}}}{104}{figure.caption.41}%
-\contentsline {figure}{\numberline {VI.4}{\ignorespaces Cycle~4 --- classes principales, services et adaptateurs}}{104}{figure.caption.42}%
-\contentsline {figure}{\numberline {VI.5}{\ignorespaces Cycle~4 --- cas d'utilisation du logiciel embarqué Raspberry Pi}}{105}{figure.caption.43}%
-\contentsline {figure}{\numberline {VI.6}{\ignorespaces Cycle~4 --- séquence de démarrage et diagnostic matériel}}{106}{figure.caption.44}%
-\contentsline {figure}{\numberline {VI.7}{\ignorespaces Cycle~4 --- machine d'états logicielle du robot}}{107}{figure.caption.45}%
-\contentsline {figure}{\numberline {VI.8}{\ignorespaces Cycle~4 --- pipeline audio logiciel du Raspberry Pi}}{108}{figure.caption.46}%
-\contentsline {figure}{\numberline {VI.9}{\ignorespaces Cycle~4 --- séquence mot de réveil, écoute et réponse}}{108}{figure.caption.47}%
-\contentsline {figure}{\numberline {VI.10}{\ignorespaces Cycle~4 --- dispatch des actions retournées par le backend}}{109}{figure.caption.48}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {VII.1}{\ignorespaces Cycle~5 --- architecture globale de KodaMate}}{117}{figure.caption.52}%
-\contentsline {figure}{\numberline {VII.2}{\ignorespaces Cycle~5 --- classes principales MVVM et services}}{118}{figure.caption.54}%
-\contentsline {figure}{\numberline {VII.3}{\ignorespaces Cycle~5 --- navigation et bootstrap de KodaMate}}{119}{figure.caption.55}%
-\contentsline {figure}{\numberline {VII.4}{\ignorespaces Cycle~5 --- diagramme de cas d'utilisation KodaMate}}{121}{figure.caption.56}%
-\contentsline {figure}{\numberline {VII.5}{\ignorespaces Cycle~5 --- séquence de connexion et création de session}}{122}{figure.caption.57}%
-\contentsline {figure}{\numberline {VII.6}{\ignorespaces Cycle~5 --- séquence de configuration et paramètres robot}}{122}{figure.caption.58}%
-\contentsline {figure}{\numberline {VII.7}{\ignorespaces Cycle~5 --- séquence chat KodaMate vers n8n}}{123}{figure.caption.59}%
-\contentsline {figure}{\numberline {VII.8}{\ignorespaces Cycle~5 --- machine d'états applicative KodaMate}}{125}{figure.caption.60}%
+\contentsline {figure}{\numberline {V.1}{\ignorespaces Conception 3D du châssis KODA sous Blender (vue éclatée des pièces)}}{84}{figure.caption.18}%
+\contentsline {figure}{\numberline {V.2}{\ignorespaces Prototype physique KODA après impression 3D et montage}}{85}{figure.caption.19}%
+\contentsline {figure}{\numberline {V.3}{\ignorespaces Principe de traction différentielle — moteurs M1 et M3}}{87}{figure.caption.21}%
+\contentsline {figure}{\numberline {V.4}{\ignorespaces Enchaînement conceptuel~: DOA (micro) $\rightarrow $ rotation du robot (M1, M3) $\rightarrow $ caméra (torse)}}{88}{figure.caption.22}%
+\contentsline {figure}{\numberline {V.5}{\ignorespaces Schéma de montage matériel de KODA — style Fritzing (Cycle~3)}}{89}{figure.caption.24}%
 \contentsfinish 

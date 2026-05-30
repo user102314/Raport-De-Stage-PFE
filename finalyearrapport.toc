@@ -125,64 +125,23 @@
 \contentsline {section}{\numberline {IV.6}Conclusion}{80}{section.4.6}%
 \contentsline {chapter}{\numberline {V}Cycle 3 : Système Embarqué --- Partie Matérielle}{81}{chapter.5}%
 \contentsline {section}{\numberline {V.1}Introduction}{82}{section.5.1}%
-\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{83}{section.5.2}%
-\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{84}{section.5.3}%
-\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{85}{section.5.4}%
-\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{85}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{86}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{88}{subsection.5.4.3}%
-\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{88}{subsubsection.5.4.3.1}%
-\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{88}{subsubsection.5.4.3.2}%
-\contentsline {subsection}{\numberline {V.4.4}Système Audio}{89}{subsection.5.4.4}%
-\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{89}{subsubsection.5.4.4.1}%
-\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{90}{subsubsection.5.4.4.2}%
-\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{91}{subsection.5.4.5}%
-\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{92}{subsection.5.4.6}%
-\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{93}{subsection.5.4.7}%
-\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{94}{section.5.5}%
-\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{95}{section.5.6}%
-\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{95}{section.5.7}%
-\contentsline {subsection}{\numberline {V.7.1}Commandes de test par composant}{96}{subsection.5.7.1}%
-\contentsline {paragraph}{\numberline {V.7.1.0.1}Power Bank + Raspberry Pi.}{96}{paragraph.5.7.1.0.1}%
-\contentsline {paragraph}{\numberline {V.7.1.0.2}ReSpeaker 4-Mic Array USB.}{96}{paragraph.5.7.1.0.2}%
-\contentsline {paragraph}{\numberline {V.7.1.0.3}Sortie jack + amplificateur PAM8403.}{97}{paragraph.5.7.1.0.3}%
-\contentsline {paragraph}{\numberline {V.7.1.0.4}Sortie Bluetooth.}{97}{paragraph.5.7.1.0.4}%
-\contentsline {paragraph}{\numberline {V.7.1.0.5}Caméra Raspberry Pi (CSI).}{98}{paragraph.5.7.1.0.5}%
-\contentsline {paragraph}{\numberline {V.7.1.0.6}Écran Nextion (UART).}{98}{paragraph.5.7.1.0.6}%
-\contentsline {paragraph}{\numberline {V.7.1.0.7}Arduino + Shield L293D (commande série USB).}{98}{paragraph.5.7.1.0.7}%
-\contentsline {paragraph}{\numberline {V.7.1.0.8}Moteurs DC (M1, M3).}{99}{paragraph.5.7.1.0.8}%
-\contentsline {paragraph}{\numberline {V.7.1.0.9}Servomoteurs (S1, S2, S3).}{99}{paragraph.5.7.1.0.9}%
-\contentsline {paragraph}{\numberline {V.7.1.0.10}Alimentation 3~piles 3{,}7\,V (Vin shield).}{99}{paragraph.5.7.1.0.10}%
-\contentsline {subsection}{\numberline {V.7.2}Test d'intégration matérielle}{100}{subsection.5.7.2}%
-\contentsline {section}{\numberline {V.8}Conclusion}{100}{section.5.8}%
-\contentsline {chapter}{\numberline {VI}Cycle 4 : Système Embarqué --- Partie Logicielle Raspberry Pi}{101}{chapter.6}%
-\contentsline {section}{\numberline {VI.1}Introduction}{102}{section.6.1}%
-\contentsline {section}{\numberline {VI.2}Architecture logicielle globale}{102}{section.6.2}%
-\contentsline {section}{\numberline {VI.3}Architecture du code}{103}{section.6.3}%
-\contentsline {section}{\numberline {VI.4}Configuration et lancement}{105}{section.6.4}%
-\contentsline {section}{\numberline {VI.5}Démarrage et diagnostic matériel}{106}{section.6.5}%
-\contentsline {section}{\numberline {VI.6}Boucle principale et machine d'états}{107}{section.6.6}%
-\contentsline {section}{\numberline {VI.7}Pipeline vocal : mot de réveil, écoute et réponse}{108}{section.6.7}%
-\contentsline {section}{\numberline {VI.8}Gestion des actions retournées par le backend}{109}{section.6.8}%
-\contentsline {section}{\numberline {VI.9}Affichage Nextion et expressions}{109}{section.6.9}%
-\contentsline {section}{\numberline {VI.10}Mouvement, Arduino USB et orientation DOA}{110}{section.6.10}%
-\contentsline {section}{\numberline {VI.11}Robustesse et arrêt propre}{110}{section.6.11}%
-\contentsline {section}{\numberline {VI.12}Tests et validation logicielle}{111}{section.6.12}%
-\contentsline {section}{\numberline {VI.13}Limites et perspectives}{113}{section.6.13}%
-\contentsline {section}{\numberline {VI.14}Conclusion}{113}{section.6.14}%
-\contentsline {chapter}{\numberline {VII}Cycle 5 : Application Mobile Cross-Plateforme KodaMate}{114}{chapter.7}%
-\contentsline {section}{\numberline {VII.1}Introduction et objectif du cycle}{115}{section.7.1}%
-\contentsline {section}{\numberline {VII.2}Choix technologique et périmètre}{115}{section.7.2}%
-\contentsline {section}{\numberline {VII.3}Architecture logicielle globale}{116}{section.7.3}%
-\contentsline {section}{\numberline {VII.4}Architecture du code et modèle MVVM}{116}{section.7.4}%
-\contentsline {section}{\numberline {VII.5}Configuration, lancement et session}{119}{section.7.5}%
-\contentsline {section}{\numberline {VII.6}Cas d'utilisation et parcours utilisateur}{120}{section.7.6}%
-\contentsline {section}{\numberline {VII.7}Connexion et première configuration du robot}{120}{section.7.7}%
-\contentsline {section}{\numberline {VII.8}Tableau de bord Home}{120}{section.7.8}%
-\contentsline {section}{\numberline {VII.9}Chat KODA et historique des conversations}{123}{section.7.9}%
-\contentsline {section}{\numberline {VII.10}Paramètres, Wi-Fi et notifications}{124}{section.7.10}%
-\contentsline {section}{\numberline {VII.11}États applicatifs et robustesse}{124}{section.7.11}%
-\contentsline {section}{\numberline {VII.12}Tests et validation}{124}{section.7.12}%
-\contentsline {section}{\numberline {VII.13}Limites et perspectives}{127}{section.7.13}%
-\contentsline {section}{\numberline {VII.14}Conclusion}{127}{section.7.14}%
+\contentsline {section}{\numberline {V.2}Architecture Matérielle Globale}{82}{section.5.2}%
+\contentsline {section}{\numberline {V.3}Conception mécanique et châssis 3D (Blender)}{83}{section.5.3}%
+\contentsline {section}{\numberline {V.4}Description Détaillée des Composants}{84}{section.5.4}%
+\contentsline {subsection}{\numberline {V.4.1}Unité Centrale~: Raspberry Pi 4 Model B}{84}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {V.4.2}Unité de Commande Moteur~: Arduino Uno + Shield L293D}{84}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {V.4.3}Système d'Actionneurs}{86}{subsection.5.4.3}%
+\contentsline {subsubsection}{\numberline {V.4.3.1}Moteurs DC --- Mobilité}{86}{subsubsection.5.4.3.1}%
+\contentsline {subsubsection}{\numberline {V.4.3.2}Servomoteurs --- Articulations}{86}{subsubsection.5.4.3.2}%
+\contentsline {subsection}{\numberline {V.4.4}Système Audio}{87}{subsection.5.4.4}%
+\contentsline {subsubsection}{\numberline {V.4.4.1}Entrée Audio~: ReSpeaker 4-Mic Array USB}{87}{subsubsection.5.4.4.1}%
+\contentsline {subsubsection}{\numberline {V.4.4.2}Sortie Audio~: double chaîne (jack filaire et Bluetooth)}{87}{subsubsection.5.4.4.2}%
+\contentsline {subsection}{\numberline {V.4.5}Système de Vision~: Caméra Raspberry Pi}{88}{subsection.5.4.5}%
+\contentsline {subsection}{\numberline {V.4.6}Interface d'Expression Faciale~: Nextion NX4832T035\_011}{88}{subsection.5.4.6}%
+\contentsline {subsection}{\numberline {V.4.7}Système d'Alimentation}{89}{subsection.5.4.7}%
+\contentsline {section}{\numberline {V.5}Schéma de Câblage Global}{89}{section.5.5}%
+\contentsline {section}{\numberline {V.6}Assemblage et points d'attention}{90}{section.5.6}%
+\contentsline {section}{\numberline {V.7}Validation matérielle — tests par composant}{90}{section.5.7}%
+\contentsline {subsection}{\numberline {V.7.1}Test d'intégration matérielle}{91}{subsection.5.7.1}%
+\contentsline {section}{\numberline {V.8}Conclusion}{91}{section.5.8}%
 \contentsfinish 
